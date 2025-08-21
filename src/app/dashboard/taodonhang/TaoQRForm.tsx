@@ -1,0 +1,56 @@
+"use client";
+
+import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
+
+export default function TaoQRForm() {
+    const router = useRouter();
+    const [n, setN] = useState<number>(1);
+    const [loading, setLoading] = useState(false);
+    const [isPending, startTransition] = useTransition();
+    const [err, setErr] = useState<string | null>(null);
+
+    async function handleSubmit(e: React.FormEvent) {
+        e.preventDefault();
+        setErr(null);
+        setLoading(true);
+        try {
+            // Gọi API tạo n đơn "trạng thái TAO_MOI", POST /api/v1/donhang
+
+            const r = await fetch("/api/v1/donhang", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ count: n }),            // nếu API của bạn nhận thêm tham số thì truyền ở đây
+            });
+            const j = await r.json().catch(() => ({}));
+            if (!r.ok || !j.ok) throw new Error(j.error || "Tạo đơn thất bại");
+
+            // refresh lại danh sách
+            startTransition(() => router.refresh());
+        } catch (e: any) {
+            setErr(e.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    return (
+        <form onSubmit={handleSubmit} className="mt-4 flex items-center gap-2">
+            <input
+                type="number"
+                min={1}
+                value={n}
+                onChange={(e) => setN(parseInt(e.target.value || "1", 10))}
+                className="border rounded px-3 py-2 w-40"
+                placeholder="Số lượng QR cần tạo"
+            />
+            <button
+                className="px-4 py-2 bg-gray-800 text-white rounded disabled:opacity-60"
+                disabled={loading || isPending}
+            >
+                {loading || isPending ? "Đang tạo…" : "Tạo"}
+            </button>
+            {err && <span className="text-red-600 text-sm ml-2">{err}</span>}
+        </form>
+    );
+}
