@@ -37,18 +37,26 @@ export default function StatusWidget({
   const isDone = value === "HOAN_THANH";
 
   async function save(newStatus: string) {
-    const r = await fetch("/api/v1/capnhat", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ID: id, TrangThai: newStatus }),
-    });
-    const j = await r.json().catch(() => ({}));
-    if (!r.ok || !j?.ok) {
-      alert(j?.error || `Cập nhật thất bại (${r.status})`);
-      return;
+
+    if (newStatus === "BAO_KHACH") {
+      router.replace(`/dashboard/donhang/edit/${id}`);
+
     }
-    // Làm tươi dữ liệu chi tiết
-    startTransition(() => router.refresh());
+    else {
+      const r = await fetch("/api/v1/capnhat", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ID: id, TrangThai: newStatus }),
+      });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok || !j?.ok) {
+        alert(j?.error || `Cập nhật thất bại (${r.status})`);
+        return;
+      }
+      // Làm tươi dữ liệu chi tiết
+      startTransition(() => router.refresh());
+    }
+
   }
 
   return (

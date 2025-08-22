@@ -29,12 +29,13 @@ export default function EditForm({
     anhList?: string[];
     aCcess?: string;
 }) {
+    
     const [ID, setID] = useState(id);
     const [DienThoai, setDienThoai] = useState(dienThoai || "");
     const [TenKhachHang, setTenKhachHang] = useState(tenKhachHang || "");
     const [DiaChi, setDiaChi] = useState(diaChi || "");
     const [GhiChu, setGhiChu] = useState(ghiChu||"");
-
+    const [TrangThai, setTrangThai] = useState(trangThai);
     const [ID_KhachHang, setID_KhachHang] = useState<number | null>(null); // nếu tìm thấy
     //const [AnhFile, setAnhFile] = useState<string | null>(anhFile || null);
     //const [AnhList, setAnhList] = useState<string[]>(anhList || []);
@@ -151,7 +152,7 @@ export default function EditForm({
             }
             body.AnhList = anhIds;
             body.AnhList_After = anhIds_after;
-            body.TrangThai = "Hoan_Thanh";
+            body.TrangThai = TrangThai;
             const r = await fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
             const data = await r.json();
             if (!r.ok || !data.ok) return alert(data?.error || "Không tạo được đơn");
