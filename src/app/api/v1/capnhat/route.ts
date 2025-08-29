@@ -26,7 +26,7 @@ export async function PATCH(req: NextRequest) {
   };
 
 
-  const update = await fetch(`${process.env.DIRECTUS_URL}/items/DonHang/${donHangId}`, {
+  const update = await fetch(`${process.env.DIRECTUS_URL}/items/donhang/${donHangId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

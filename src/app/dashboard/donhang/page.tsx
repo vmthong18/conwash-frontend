@@ -3,7 +3,7 @@ import Link from "next/link";
 
 type Search = { [k: string]: string | string[] | undefined };
 
-export default async function DonHangPage({ searchParams }: { searchParams: Search }) {
+export default async function donhangPage({ searchParams }: { searchParams: Search }) {
   const jar = await cookies();
   const access = jar.get(process.env.COOKIE_ACCESS || "be_giay_access")?.value;
   if (!access) return <div className="p-8">Chưa đăng nhập.</div>;
@@ -14,15 +14,15 @@ export default async function DonHangPage({ searchParams }: { searchParams: Sear
   const q = (searchParams.q as string) || "";              // từ khóa: tên hoặc SĐT
   const sort = (searchParams.sort as string) || "-ID";     // mặc định ID giảm dần
 
-  const url = new URL(`${process.env.DIRECTUS_URL}/items/DonHang`);
+  const url = new URL(`${process.env.DIRECTUS_URL}/items/donhang`);
   const ASSETS = process.env.NEXT_PUBLIC_DIRECTUS_ASSETS ?? process.env.DIRECTUS_URL ?? "";
 
   const assetUrl = (id: string, size = 96) =>
     `${ASSETS}/assets/${id}?width=${size}&height=${size}&fit=cover`;
-  const updateTrangThai = async (donHangId: string, trangThai: string) => {
+  const updateTrangThai = async (donhangId: string, trangThai: string) => {
     const res = await fetch("/api/v1/donhang", {
       method: "PATCH",
-      body: JSON.stringify({ donHangId, trangThai }),
+      body: JSON.stringify({ donhangId, trangThai }),
     });
 
     const data = await res.json();

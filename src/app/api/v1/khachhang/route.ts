@@ -5,38 +5,49 @@ import { getAccess } from "@/lib/cookies";
 export async function GET(req: NextRequest) {
   const token = await getAccess();
   if (!token) return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
-
   const phone = req.nextUrl.searchParams.get("phone")?.trim();
   if (!phone) return NextResponse.json({ ok: false, error: "Thiếu phone" }, { status: 400 });
 
-  const url = new URL(`${process.env.DIRECTUS_URL}/items/KhachHang`);
-  url.searchParams.set("filter[DienThoai][_eq]", phone);
-  url.searchParams.set("limit", "1");
+  const url = new URL(`${process.env.DIRECTUS_URL}/items/khachhang`);
+  url.searchParams.set("filter[DienThoai][_contains]", phone);  // Tìm kiếm theo số điện thoại chứa chuỗi nhập vào
+  url.searchParams.set("limit", "10"); // Giới hạn 10 kết quả
 
-  const r = await fetch(url.toString(), { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" });
+  const r = await fetch(url.toString(), {
+    headers: { Authorization: `Bearer ${token}` },
+    cache: "no-store"
+  });
+
   if (!r.ok) {
     const err = await r.text().catch(() => "");
     return NextResponse.json({ ok: false, error: err || "Lookup failed" }, { status: 400 });
   }
+
   const data = await r.json();
-  const kh = (data?.data || [])[0] || null;
-  return NextResponse.json({ ok: true, found: !!kh, kh });
+  const kh = (data?.data || [])|| null;
+
+  return NextResponse.json({
+    ok: true,
+    found: !!kh,
+    kh,
+    customers: data?.data?.map((item: any) => item.DienThoai) || []  // Trả về danh sách số điện thoại
+  });
 }
 
-// POST /api/v1/khachhang  { TenKhachHang, DiaChi, DienThoai }
+
+// POST /api/v1/khachhang  { Tenkhachhang, DiaChi, DienThoai }
 export async function POST(req: NextRequest) {
   const token = await getAccess();
   if (!token) return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
 
   const body = await req.json();
-  const { TenKhachHang, DiaChi, DienThoai } = body || {};
-  if (!TenKhachHang || !DienThoai) {
-    return NextResponse.json({ ok: false, error: "Thiếu TenKhachHang/DienThoai" }, { status: 400 });
+  const { Tenkhachhang, DiaChi, DienThoai } = body || {};
+  if (!Tenkhachhang || !DienThoai) {
+    return NextResponse.json({ ok: false, error: "Thiếu Tenkhachhang/DienThoai" }, { status: 400 });
     }
 
   // Nếu đã tồn tại theo SĐT thì trả luôn
   const check = await fetch(
-    `${process.env.DIRECTUS_URL}/items/KhachHang?filter[DienThoai][_eq]=${encodeURIComponent(DienThoai)}&limit=1`,
+    `${process.env.DIRECTUS_URL}/items/khachhang?filter[DienThoai][_eq]=${encodeURIComponent(DienThoai)}&limit=1`,
     { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" }
   ).then(r => r.json()).catch(()=>({}));
 
@@ -44,10 +55,10 @@ export async function POST(req: NextRequest) {
   if (existed) return NextResponse.json({ ok: true, created: false, kh: existed });
 
   // Tạo KH mới
-  const r = await fetch(`${process.env.DIRECTUS_URL}/items/KhachHang`, {
+  const r = await fetch(`${process.env.DIRECTUS_URL}/items/khachhang`, {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-    body: JSON.stringify({ TenKhachHang, DiaChi, DienThoai }),
+    body: JSON.stringify({ Tenkhachhang, DiaChi, DienThoai }),
   });
   if (!r.ok) {
     const err = await r.text().catch(() => "");

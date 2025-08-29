@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 const STATUS_ORDER = [
   "TAO_MOI",
+  "GHEP_DON",
   "CHO_LAY",
   "DANG_GIAT",
   "BAO_KHACH",
@@ -13,6 +14,7 @@ const STATUS_ORDER = [
 
 const STATUS_LABEL: Record<string, string> = {
   TAO_MOI: "Tạo mới",
+   GHEP_DON: "Chờ ghép đơn ",
   CHO_LAY: "Chờ lấy hàng",
   DANG_GIAT: "Đang giặt",
   BAO_KHACH: "Chờ khách lấy",

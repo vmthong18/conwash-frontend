@@ -9,13 +9,14 @@ const ASSETS =
 
 const STATUS_LABEL: Record<string, string> = {
   TAO_MOI: "Tạo mới",
+   GHEP_DON: "Chờ ghép đơn ",
   CHO_LAY: "Chờ lấy hàng",
   DANG_GIAT: "Đang giặt",
   BAO_KHACH: "Chờ khách lấy",
   HOAN_THANH: "Đã hoàn thành",
 };
 
-export default async function DonHangDetail({
+export default async function donhangDetail({
   params,
 }: {
   params: { id: string };
@@ -39,10 +40,10 @@ export default async function DonHangDetail({
     "ID_KhachHang.DienThoai",
     "ID_KhachHang.DiaChi",
     "AnhFile.id",
-    "AnhList.file.id",
+   
   ].join(",");
 
-  const url = `${process.env.DIRECTUS_URL}/items/DonHang/${id}?fields=${encodeURIComponent(
+  const url = `${process.env.DIRECTUS_URL}/items/donhang/${id}?fields=${encodeURIComponent(
     fields
   )}`;
 
@@ -77,7 +78,7 @@ export default async function DonHangDetail({
   }
 
 
-const q_after = new URL(`${process.env.DIRECTUS_URL}/items/DonHang_Anh_After`);
+const q_after = new URL(`${process.env.DIRECTUS_URL}/items/donhang_anh_after`);
   q_after.searchParams.set("fields", "file");
   q_after.searchParams.set("limit", "100");
   q_after.searchParams.set("filter[don_hang][_eq]", String(r.ID));
@@ -85,6 +86,13 @@ const q_after = new URL(`${process.env.DIRECTUS_URL}/items/DonHang_Anh_After`);
   const listRes_after = await fetch(q_after, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
   const ids_after= (await listRes_after.json())?.data?.map((x: any) => x.file) ?? [];
 
+const q = new URL(`${process.env.DIRECTUS_URL}/items/donhang_anh`);
+  q.searchParams.set("fields", "file");
+  q.searchParams.set("limit", "100");
+  q.searchParams.set("filter[don_hang][_eq]", String(r.ID));
+
+  const listRes = await fetch(q, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
+  const ids= (await listRes.json())?.data?.map((x: any) => x.file) ?? [];
 
 
   return (
@@ -114,15 +122,15 @@ const q_after = new URL(`${process.env.DIRECTUS_URL}/items/DonHang_Anh_After`);
           <div className="rounded border p-4">
             <div className="font-semibold mb-2">Ảnh trước</div>
             <div className="flex gap-2 flex-wrap">
-              {(Array.isArray(r.AnhList) ? r.AnhList : []).map(
+              {(Array.isArray(ids) ? ids : []).map(
                 (it: any, i: number) => (
                   <a
                     key={i}
-                    href={`${ASSETS}/assets/${it.file.id}`}
+                    href={`${ASSETS}/assets/${it}`}
                     target="_blank"
                   >
                     <img
-                      src={`${ASSETS}/assets/${it.file.id}?width=160&height=160&fit=cover`}
+                      src={`${ASSETS}/assets/${it}?width=160&height=160&fit=cover`}
                       className="h-32 w-32 object-cover rounded border"
                     />
                   </a>

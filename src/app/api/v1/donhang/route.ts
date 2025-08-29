@@ -6,9 +6,9 @@ export const runtime = "nodejs";
 
 /**
  * Body:
- *  - Cách A: { ID_KhachHang, GhiChu, TrangThai?, AnhFiles?: string[] }
- *  - Cách B: { TenKhachHang, DiaChi, DienThoai, GhiChu, TrangThai?, AnhFiles?: string[] }
- *  - Lưu ý: QR sẽ được sinh sau khi tạo đơn và upload vào Directus, rồi PATCH DonHang.AnhFile = id file QR.
+ *  - Cách A: { ID_khachhang, GhiChu, TrangThai?, AnhFiles?: string[] }
+ *  - Cách B: { Tenkhachhang, DiaChi, DienThoai, GhiChu, TrangThai?, AnhFiles?: string[] }
+ *  - Lưu ý: QR sẽ được sinh sau khi tạo đơn và upload vào Directus, rồi PATCH donhang.AnhFile = id file QR.
  */
 export async function POST(req: NextRequest) {
   const token = await getAccess();
@@ -30,22 +30,22 @@ export async function POST(req: NextRequest) {
     // NguoiNhap: preset trong Policy (NhapDon) sẽ tự gán $CURRENT_USER
   };
   for (let i = 0; i < Math.max(1, count); i++) {
-    const orderRes = await fetch(`${process.env.DIRECTUS_URL}/items/DonHang?fields=ID`, {
+    const orderRes = await fetch(`${process.env.DIRECTUS_URL}/items/donhang?fields=ID`, {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
       body: JSON.stringify(payloadOrder),
     });
     if (!orderRes.ok) return NextResponse.json({ ok: false, error: await orderRes.text() }, { status: 400 });
     const orderJson = await orderRes.json();
-    const donHangId: number | undefined = orderJson?.data?.ID;
-    if (!donHangId) return NextResponse.json({ ok: false, error: "Không lấy được ID đơn hàng vừa tạo" }, { status: 500 });
+    const donhangId: number | undefined = orderJson?.data?.ID;
+    if (!donhangId) return NextResponse.json({ ok: false, error: "Không lấy được ID đơn hàng vừa tạo" }, { status: 500 });
 
 
 
     // ===== 4) Sinh mã QR cho link chi tiết đơn & upload vào Directus =====
     // URL hiển thị đơn (C có thể đổi sang route public nếu muốn): 
 
-    const orderUrl = `${appBase}/dashboard/donhang/${donHangId}`;
+    const orderUrl = `${appBase}/dashboard/donhang/${donhangId}`;
 
     // Tạo PNG QR (512px, viền mỏng)
     const png = await QRCode.toBuffer(orderUrl, { type: "png", width: 512, margin: 1 });
@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
     // Upload PNG vào Directus (multipart/form-data)
     const fd = new FormData();
     // Node 20 có Blob/File sẵn; dùng Blob để tương thích
-    fd.append("file", new Blob([png], { type: "image/png" }), `qr-donhang-${donHangId}.png`);
+    fd.append("file", new Blob([new Uint8Array(png)], { type: "image/png" }), `qr-donhang-${donhangId}.png`);
 
     const uploadRes = await fetch(`${process.env.DIRECTUS_URL}/files`, {
       method: "POST",
@@ -63,16 +63,16 @@ export async function POST(req: NextRequest) {
     if (!uploadRes.ok) {
       // Đơn đã tạo, ảnh thường đã chèn; chỉ cảnh báo QR
       return NextResponse.json(
-        { ok: true, data: { ID: donHangId }, warning: `Upload QR thất bại: ${await uploadRes.text()}` },
+        { ok: true, data: { ID: donhangId }, warning: `Upload QR thất bại: ${await uploadRes.text()}` },
         { status: 200 }
       );
     }
     const uploadJson = await uploadRes.json();
     const qrFileId = uploadJson?.data?.id;
 
-    // Ghi id file QR vào cột AnhFile của DonHang
+    // Ghi id file QR vào cột AnhFile của donhang
     if (qrFileId) {
-      await fetch(`${process.env.DIRECTUS_URL}/items/DonHang/${donHangId}`, {
+      await fetch(`${process.env.DIRECTUS_URL}/items/donhang/${donhangId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ AnhFile: qrFileId }),
@@ -87,6 +87,7 @@ export async function PATCH(req: NextRequest) {
   if (!token) return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
   const STATUS_ORDER = [
     "TAO_MOI",
+    "GHEP_DON",
     "CHO_LAY",
     "DANG_GIAT",
     "BAO_KHACH",
@@ -102,7 +103,8 @@ export async function PATCH(req: NextRequest) {
   const imgs_after: string[] = Array.isArray(b?.AnhList_After)
     ? b.AnhList_After.filter((x: any) => typeof x === "string" && x.length > 0)
     : [];
-  const donHangId = b?.ID;
+  const donhangId = b?.ID;
+  //const GoiHangIDs= b?.GoiHangIDs;
   const trangThai: string =
     typeof b?.TrangThai === "string" && b.TrangThai.length
       ? b.TrangThai
@@ -110,48 +112,50 @@ export async function PATCH(req: NextRequest) {
   const idx = Math.max(0, STATUS_ORDER.indexOf(trangThai));
   const next = STATUS_ORDER[Math.min(idx + 1, STATUS_ORDER.length - 1)];
   // ===== 1) Xác định khách hàng (tìm theo SĐT, nếu chưa có thì tạo) =====
-  let ID_KhachHang = b?.ID_KhachHang;
-  if (!ID_KhachHang) {
-    const { TenKhachHang, DiaChi, DienThoai } = b || {};
+  let ID_khachhang = b?.ID_khachhang;
+  if (!ID_khachhang) {
+    const { Tenkhachhang, DiaChi, DienThoai } = b || {};
     if (!DienThoai) {
-      return NextResponse.json({ ok: false, error: "Thiếu ID_KhachHang hoặc DienThoai" }, { status: 400 });
+      return NextResponse.json({ ok: false, error: "Thiếu ID_khachhang hoặc DienThoai" }, { status: 400 });
     }
 
     const findRes = await fetch(
-      `${process.env.DIRECTUS_URL}/items/KhachHang?filter[DienThoai][_eq]=${encodeURIComponent(DienThoai)}&limit=1`,
+      `${process.env.DIRECTUS_URL}/items/khachhang?filter[DienThoai][_eq]=${encodeURIComponent(DienThoai)}&limit=1`,
       { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" }
     );
     if (!findRes.ok) return NextResponse.json({ ok: false, error: "line 115" + await findRes.text() }, { status: 400 });
     const found = await findRes.json().catch(() => ({}));
     let kh = found?.data?.[0];
-
+   
     if (!kh) {
-      const createRes = await fetch(`${process.env.DIRECTUS_URL}/items/KhachHang`, {
+      const createRes = await fetch(`${process.env.DIRECTUS_URL}/items/khachhang`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ TenKhachHang, DiaChi, DienThoai }),
+        body: JSON.stringify({ Tenkhachhang, DiaChi, DienThoai }),
       });
       if (!createRes.ok) return NextResponse.json({ ok: false, error: "line 125" + await createRes.text() }, { status: 400 });
       const created = await createRes.json();
       kh = created?.data;
     }
-    ID_KhachHang = kh?.ID;
+    ID_khachhang = kh?.ID;
+    
   }
 
   // ===== 2) Tạo DON HANG (chưa có ảnh, chưa có QR) =====
   const payloadOrder: any = {
-    ID_KhachHang: ID_KhachHang,
+    ID_KhachHang: ID_khachhang,
     GhiChu: b?.GhiChu ?? null,
+    GoiHangs: b?.GoiHangIDs ?? null,
     TrangThai: next,     // <— trạng thái
 
     // NguoiNhap: preset trong Policy (NhapDon) sẽ tự gán $CURRENT_USER
   };
 
 
-  const q = new URL(`${process.env.DIRECTUS_URL}/items/DonHang_Anh`);
+  const q = new URL(`${process.env.DIRECTUS_URL}/items/donhang_anh`);
   q.searchParams.set("fields", "id");
   q.searchParams.set("limit", "500");
-  q.searchParams.set("filter[don_hang][_eq]", String(donHangId));
+  q.searchParams.set("filter[don_hang][_eq]", String(donhangId));
 
   const listRes = await fetch(q, { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" });
   const ids = (await listRes.json())?.data?.map((x: any) => x.id) ?? [];
@@ -160,7 +164,7 @@ export async function PATCH(req: NextRequest) {
   if (ids.length) {
     for (let i = 0; i < ids.length; i++) {
       const item_anh = ids[i];
-      const kq = await fetch(`${process.env.DIRECTUS_URL}/items/DonHang_Anh/${item_anh}`, {
+      const kq = await fetch(`${process.env.DIRECTUS_URL}/items/donhang_anh/${item_anh}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -169,25 +173,28 @@ export async function PATCH(req: NextRequest) {
   }
 
   if (imgs.length) {
+
     for (let i = 0; i < imgs.length; i++) {
       const fid = imgs[i];
-      const r = await fetch(`${process.env.DIRECTUS_URL}/items/DonHang_Anh`, {
+      const r = await fetch(`${process.env.DIRECTUS_URL}/items/donhang_anh`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ don_hang: donHangId, file: fid, sort: i }),
+        body: JSON.stringify({ don_hang: donhangId, file: fid, sort: i }),
       });
       if (!r.ok) {
         return NextResponse.json(
-          { ok: false, error: `Tạo ảnh thứ ${i + 1} thất bại: ${await r.text()}`, order_id: donHangId },
+          { ok: false, error: `Tạo ảnh thứ ${i + 1} thất bại: ${await r.text()}`, order_id: donhangId },
           { status: 400 }
         );
       }
+
     }
   }
-  const q_after = new URL(`${process.env.DIRECTUS_URL}/items/DonHang_Anh_After`);
+
+  const q_after = new URL(`${process.env.DIRECTUS_URL}/items/donhang_anh_after`);
   q_after.searchParams.set("fields", "id");
   q_after.searchParams.set("limit", "100");
-  q_after.searchParams.set("filter[don_hang][_eq]", String(donHangId));
+  q_after.searchParams.set("filter[don_hang][_eq]", String(donhangId));
 
   const listRes_after = await fetch(q_after, { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" });
   const ids_after = (await listRes_after.json())?.data?.map((x: any) => x.id) ?? [];
@@ -196,7 +203,7 @@ export async function PATCH(req: NextRequest) {
   if (ids_after.length) {
     for (let i = 0; i < ids_after.length; i++) {
       const item_anh = ids_after[i];
-      const kq = await fetch(`${process.env.DIRECTUS_URL}/items/DonHang_Anh_After/${item_anh}`, {
+      const kq = await fetch(`${process.env.DIRECTUS_URL}/items/donhang_anh_after/${item_anh}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -206,14 +213,14 @@ export async function PATCH(req: NextRequest) {
   if (imgs_after.length) {
     for (let i = 0; i < imgs_after.length; i++) {
       const fid = imgs_after[i];
-      const r = await fetch(`${process.env.DIRECTUS_URL}/items/DonHang_Anh_After`, {
+      const r = await fetch(`${process.env.DIRECTUS_URL}/items/donhang_anh_after`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ don_hang: donHangId, file: fid, sort: i }),
+        body: JSON.stringify({ don_hang: donhangId, file: fid, sort: i }),
       });
       if (!r.ok) {
         return NextResponse.json(
-          { ok: false, error: `Tạo ảnh thứ ${i + 1} thất bại: ${await r.text()}`, order_id: donHangId },
+          { ok: false, error: `Tạo ảnh thứ ${i + 1} thất bại: ${await r.text()}`, order_id: donhangId },
           { status: 400 }
         );
       }
@@ -221,7 +228,7 @@ export async function PATCH(req: NextRequest) {
   }
 
 
-  const update = await fetch(`${process.env.DIRECTUS_URL}/items/DonHang/${donHangId}`, {
+  const update = await fetch(`${process.env.DIRECTUS_URL}/items/donhang/${donhangId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

@@ -1,6 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { da } from "zod/locales";
+
 
 export default function EditForm({
     id,
@@ -14,6 +16,7 @@ export default function EditForm({
     diaChi,
     anhList_after,
     anhList,
+    goiHangIDs,
     aCcess,
 }: {
     id: number | string;
@@ -27,14 +30,15 @@ export default function EditForm({
     diaChi?: string;
     anhList_after?: string[];
     anhList?: string[];
+    goiHangIDs?: string[];
     aCcess?: string;
 }) {
-    
+
     const [ID, setID] = useState(id);
     const [DienThoai, setDienThoai] = useState(dienThoai || "");
     const [TenKhachHang, setTenKhachHang] = useState(tenKhachHang || "");
     const [DiaChi, setDiaChi] = useState(diaChi || "");
-    const [GhiChu, setGhiChu] = useState(ghiChu||"");
+    const [GhiChu, setGhiChu] = useState(ghiChu || "");
     const [TrangThai, setTrangThai] = useState(trangThai);
     const [ID_KhachHang, setID_KhachHang] = useState<number | null>(null); // nếu tìm thấy
     //const [AnhFile, setAnhFile] = useState<string | null>(anhFile || null);
@@ -44,6 +48,7 @@ export default function EditForm({
     const [uploading, setUploading] = useState(false);
     const [finding, setFinding] = useState(false);
     const [saving, setSaving] = useState(false);
+    const [suggestions, setSuggestions] = useState<{ ID: number, DienThoai: string, TenKhachHang: string, DiaChi: string }[]>([]);
     const [msg, setMsg] = useState<string | null>(null);
 
     const base = process.env.NEXT_PUBLIC_DIRECTUS_ASSETS
@@ -57,9 +62,51 @@ export default function EditForm({
     const [previews_after, setPreviews_after] = useState<string[]>(
         (anhList_after || []).map(id => `${base}/assets/${id}`)
     );
+    type GoiHang = { ID: string | number; TenGoi: string; GiaTien: number };
+    const [goiHang, setGoiHang] = useState<GoiHang[]>([]);
+    const [selectedGoiHangs, setSelectedGoiHangs] = useState<string[]>([]);
     // const [previews, setPreviews] = useState<string[]>(anhList || []);
 
     const router = useRouter();
+    useEffect(() => {
+        // Lấy dữ liệu các gói hàng từ API
+        async function fetchGoiHang() {
+            const response = await fetch('/api/v1/goihang', { method: "GET", headers: { "Content-Type": "application/json" } }); // Chỉnh lại endpoint API của bạn nếu cần
+            const data = await response.json();
+            setGoiHang(data?.gh || []);
+        }
+
+        fetchGoiHang();
+
+        // Cập nhật lại danh sách các gói hàng đã chọn từ goiHangIDs
+        setSelectedGoiHangs((goiHangIDs || []).map(String)); // Lưu ID gói hàng đã chọn vào selectedGoiHangs
+    }, [goiHangIDs]);
+    const fetchSuggestions = async (query: string) => {
+        if (query.trim() === "") return setSuggestions([]); // Không có gì để tìm
+
+        const res = await fetch(`/api/v1/khachhang?phone=${encodeURIComponent(query)}`);
+        const data = await res.json();
+
+        if (data?.ok && data?.kh) {
+            setSuggestions(data.kh); // Giả sử API trả về danh sách khách hàng có số điện thoại phù hợp
+        } else {
+            setSuggestions([]);
+        }
+        //alert(JSON.stringify(suggestions));
+    };
+    
+    const handlePhoneInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        
+        setDienThoai(value);
+        fetchSuggestions(value); // Gọi API khi người dùng gõ vào số điện thoại
+    };
+    const handleSuggestionSelect = (customer: any) => {
+        setDienThoai(customer.DienThoai);
+        setTenKhachHang(customer.TenKhachHang);
+        setDiaChi(customer.DiaChi);
+        setSuggestions([]); // Đóng gợi ý khi chọn
+    };
     async function onUploadMulti(e: React.ChangeEvent<HTMLInputElement>) {
         const files = Array.from(e.target.files || []);
         if (!files.length) return;
@@ -82,7 +129,14 @@ export default function EditForm({
         } catch (e: any) { alert(e.message); }
         finally { setUploading(false); }
     }
-
+    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>, id: string | number) => {
+        // Thêm hoặc bỏ gói hàng khỏi danh sách đã chọn
+        if (e.target.checked) {
+            setSelectedGoiHangs(prev => [...prev, String(id)]);
+        } else {
+            setSelectedGoiHangs(prev => prev.filter(item => item !== String(id)));
+        }
+    };
     function removeImg(i: number) {
         setAnhIds((arr) => arr.filter((_, idx) => idx !== i));
         setPreviews((arr) => arr.filter((_, idx) => idx !== i));
@@ -138,6 +192,25 @@ export default function EditForm({
             setFinding(false);
         }
     }
+    async function sendZaloMessage() {
+        const [userId, setUserId] = useState<string>('');
+        const [message, setMessage] = useState<string>('');
+        const [status, setStatus] = useState<string>('');
+        const response = await fetch('/api/send-message', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userId, message }),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            setStatus('Message sent successfully!');
+        } else {
+            setStatus(`Error: ${data.message}`);
+        }
+    }
 
     async function onSubmit(e: React.FormEvent) {
         e.preventDefault(); setSaving(true); setMsg(null);
@@ -153,12 +226,15 @@ export default function EditForm({
             body.AnhList = anhIds;
             body.AnhList_After = anhIds_after;
             body.TrangThai = TrangThai;
+
+            body.GoiHangIDs = selectedGoiHangs; // Gửi mảng ID các gói hàng đã chọn
+
             const r = await fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
             const data = await r.json();
-            if (!r.ok || !data.ok) return alert(data?.error || "Không tạo được đơn");
+            if (!r.ok || !data.ok) return alert("data " + data?.error || "Không tạo được đơn");
             router.replace("/dashboard/donhang");
         } catch (e: any) {
-            setMsg(e.message);
+            setMsg("catch " + e.message);
         } finally {
             setSaving(false);
         }
@@ -169,23 +245,30 @@ export default function EditForm({
             <h1 className="text-2xl font-bold">Nhập đơn hàng</h1>
 
             <form onSubmit={onSubmit} className="mt-6 space-y-4 max-w-xl">
-                <div className="flex items-end gap-2">
-                    <div className="flex-1">
-                        <label className="block text-sm">Số điện thoại</label>
-                        <input
-                            className="mt-1 w-full border rounded px-3 py-2"
-                            value={DienThoai}
-                            onChange={(e) => setDienThoai(e.target.value)}
-                            placeholder="VD: 0987xxxxxx"
-                            required
-                        />
-                    </div>
-                    <button type="button" onClick={onFind}
-                        className="h-10 px-4 bg-gray-800 text-white rounded disabled:opacity-60"
-                        disabled={finding}
-                    >
-                        {finding ? "Đang tìm..." : "Tìm"}
-                    </button>
+                <div className="flex flex-col gap-2">
+                    <label className="block text-sm">Số điện thoại</label>
+                    <input
+                        className="mt-1 w-full border rounded px-3 py-2"
+                        value={DienThoai}
+                        onChange={handlePhoneInputChange} // Gọi hàm khi người dùng gõ
+                        placeholder="VD: 0987xxxxxx"
+                        required
+                    />
+
+                    {/* Hiển thị các gợi ý nếu có */}
+                    {suggestions.length > 0 && (
+                        <ul className="mt-2 max-h-40 overflow-auto border rounded-lg shadow-lg">
+                            {suggestions.map((customer, index) => (
+                                <li
+                                    key={index}
+                                    className="p-2 cursor-pointer hover:bg-gray-100"
+                                    onClick={() => handleSuggestionSelect(customer)}
+                                >
+                                    {customer.DienThoai}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
                 </div>
 
                 <div>
@@ -209,7 +292,7 @@ export default function EditForm({
                     />
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="block text-sm">
                     <div>
                         <label className="block text-sm">Ghi chú</label>
                         <input className="mt-1 w-full border rounded px-3 py-2" value={GhiChu} onChange={(e) => setGhiChu(e.target.value)} />
@@ -252,6 +335,25 @@ export default function EditForm({
                         </div>
                     )}
                 </div>
+                <div>
+                    <label className="block text-sm">Chọn Gói Hàng</label>
+                    <div className="space-y-2">
+                        {goiHang.map((goi) => (
+                            <div key={goi.ID} className="flex items-center">
+                                <input
+                                    type="checkbox"
+                                    id={`goi_${goi.ID}`}
+                                    value={goi.ID}
+                                    onChange={(e) => handleCheckboxChange(e, goi.ID)}
+                                    checked={selectedGoiHangs.includes(String(goi.ID))}
+                                    className="mr-2"
+                                />
+                                <label htmlFor={`goi_${goi.ID}`} className="text-sm">{goi.TenGoi} - {goi.GiaTien} VND</label>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
                 {msg && <p className={`text-sm mt-1 ${msg.startsWith("Đã tìm") ? "text-green-700" : "text-red-600"}`}>{msg}</p>}
 
                 <div className="flex gap-2">

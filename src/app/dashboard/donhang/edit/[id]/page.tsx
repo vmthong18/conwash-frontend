@@ -8,11 +8,12 @@ const ASSETS =
   process.env.NEXT_PUBLIC_DIRECTUS_ASSETS ?? process.env.DIRECTUS_URL ?? "";
 
 const STATUS_LABEL: Record<string, string> = {
-  TaoMoi: "Tạo mới",
-  ChoLayHang: "Chờ lấy hàng",
-  DangGiat: "Đang giặt",
-  ThongBaoKhachHang: "Thông báo với khách hàng",
-  DaHoanThanh: "Đã hoàn thành",
+  TAO_MOI: "Tạo mới",
+   GHEP_DON: "Chờ ghép đơn ",
+  CHO_LAY: "Chờ lấy hàng",
+  DANG_GIAT: "Đang giặt",
+  BAO_KHACH: "Thông báo với khách hàng",
+  HOAN_THANH: "Đã hoàn thành",
 };
 
 export default async function EditDetail({
@@ -32,6 +33,7 @@ export default async function EditDetail({
     "ID",
     "TrangThai",
     "GhiChu",
+    "GoiHangs",
     "NguoiNhap.first_name",
     "NguoiNhap.email",
     "ID_KhachHang.ID",
@@ -39,11 +41,10 @@ export default async function EditDetail({
     "ID_KhachHang.DienThoai",
     "ID_KhachHang.DiaChi",
     "AnhFile.id",
-    "AnhList.file.id",
-    "AnhList_After.file.id",
+    
   ].join(",");
 
-  const url = `${process.env.DIRECTUS_URL}/items/DonHang/${id}?fields=${encodeURIComponent(
+  const url = `${process.env.DIRECTUS_URL}/items/donhang/${id}?fields=${encodeURIComponent(
     fields
   )}`;
 
@@ -71,13 +72,48 @@ export default async function EditDetail({
   }
 
   const { data: r } = await res.json();
-  const q_after = new URL(`${process.env.DIRECTUS_URL}/items/DonHang_Anh_After`);
+  const q_after = new URL(`${process.env.DIRECTUS_URL}/items/donhang_anh_after`);
   q_after.searchParams.set("fields", "file");
   q_after.searchParams.set("limit", "100");
   q_after.searchParams.set("filter[don_hang][_eq]", String(r.ID));
 
   const listRes_after = await fetch(q_after, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
   const ids_after= (await listRes_after.json())?.data?.map((x: any) => x.file) ?? [];
+
+  const q = new URL(`${process.env.DIRECTUS_URL}/items/donhang_anh`);
+  q.searchParams.set("fields", "file");
+  q.searchParams.set("limit", "100");
+  q.searchParams.set("filter[don_hang][_eq]", String(r.ID));
+
+  const listRes = await fetch(q, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
+  const ids= (await listRes.json())?.data?.map((x: any) => x.file) ?? [];
+  
+
+  const q_checkghepdon = new URL(`${process.env.DIRECTUS_URL}/items/donhang`);
+  q_checkghepdon.searchParams.set("filter[TrangThai][_eq]", "GHEP_DON");
+  q_checkghepdon.searchParams.set("fields", "ID_KhachHang.ID,ID_KhachHang.TenKhachHang,ID_KhachHang.DienThoai,ID_KhachHang.DiaChi");
+
+  const listRes_checkghepdon = await fetch(q_checkghepdon, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
+  let idkh=r.ID_KhachHang?.ID;
+  let tkh=r.ID_KhachHang?.TenKhachHang || "";
+  let dtkh=r.ID_KhachHang?.DienThoai || "";
+  let sckh=r.ID_KhachHang?.DiaChi || "";
+  if(listRes_checkghepdon.ok)
+  {
+      const found = await listRes_checkghepdon.json();
+      
+      const dg=(found?.data||[])||null;
+      if(dg)
+      {
+
+        idkh=dg[0].ID_KhachHang?.ID;
+        tkh=dg[0].ID_KhachHang?.TenKhachHang || "";
+        dtkh=dg[0].ID_KhachHang?.DienThoai || "";
+        sckh=dg[0].ID_KhachHang?.DiaChi||"";
+      }
+
+  }
+
   return (
     <EditForm 
     id={r.ID} 
@@ -85,12 +121,13 @@ export default async function EditDetail({
       ghiChu={r.GhiChu} 
       firstName={r.NguoiNhap?.first_name||""} 
    
-      idKhachHang={r.ID_KhachHang?.ID}
-    tenKhachHang={r.ID_KhachHang?.TenKhachHang || ""}
-    dienThoai={r.ID_KhachHang?.DienThoai || ""} 
-    diaChi={r.ID_KhachHang?.DiaChi || ""}
+      idKhachHang={idkh}
+    tenKhachHang={tkh}
+    dienThoai={dtkh} 
+    diaChi={sckh}
+    goiHangIDs={r.GoiHangs|| []}
     anhList_after={ids_after}
-    anhList={r.AnhList?.map((a: any) => a.file.id) || []}
+    anhList={ids}
     aCcess={access}/>
   );
 }
