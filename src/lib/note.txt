@@ -6,3 +6,10 @@ git push -u origin main
 
 # pull git trên window
 git pull origin main
+
+#SQL
+CREATE TABLE GoiHang (
+    ID INT AUTO_INCREMENT PRIMARY KEY,   -- Cột ID làm khóa chính và tự động tăng
+    TenGoi VARCHAR(255) NOT NULL,        -- Cột tên gói, kiểu chuỗi với độ dài tối đa 255 ký tự
+    GiaTien DECIMAL(10, 2) NOT NULL      -- Cột giá tiền, kiểu số với 2 chữ số thập phân
+);

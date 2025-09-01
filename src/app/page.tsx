@@ -1,6 +1,8 @@
 import Image from "next/image";
+import { redirect, notFound } from "next/navigation";
 
 export default function Home() {
+   redirect(`/login`); 
   return (
     <main className="p-8">
       <h1 className="text-2xl font-bold">Front Giày</h1>
