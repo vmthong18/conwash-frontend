@@ -1,0 +1,8 @@
+# đẩy git trên macbook
+git status
+git add .
+git commit -m "Mô tả ngắn gọn nội dung thay đổi"
+git push -u origin main
+
+# pull git trên window
+git pull origin main
