@@ -50,7 +50,12 @@ export default async function Dashboard() {
       <section>
         <h2 className="text-lg font-semibold">Menu</h2>
         <ul className="mt-3 space-y-2">
-        
+         <li className="bg-white p-3 rounded shadow">
+              <div className="font-medium"></div>
+              <div className="text-sm text-gray-600">
+                <a href="/dashboard/phieuhang/">Danh sách phiếu hàng</a>
+              </div>
+            </li>
             <li className="bg-white p-3 rounded shadow">
               <div className="font-medium"></div>
               <div className="text-sm text-gray-600">

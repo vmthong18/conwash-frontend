@@ -114,7 +114,7 @@ export default async function donhangPage({ searchParams }: { searchParams: Sear
               <th className="text-left p-2 border-b">Tên khách hàng</th>
               <th className="text-left p-2 border-b">Số điện thoại</th>
 
-              <th className="text-left p-2 border-b">Ảnh</th>
+              <th className="text-left p-2 border-b">Trạng thái</th>
               <th className="text-left p-2 border-b">QR</th>
               <th className="text-left p-2 border-b">Người nhập</th>
               
@@ -128,13 +128,7 @@ export default async function donhangPage({ searchParams }: { searchParams: Sear
                 <td className="p-2">{r?.ID_KhachHang?.DienThoai ?? "-"}</td>
 
                 <td className="p-2">
-                  {Array.isArray(r?.AnhList) && r.AnhList.length
-                    ? r.AnhList.slice(0, 3).map((it: any, i: number) => (
-                      <a key={i} href={`${process.env.DIRECTUS_URL}/assets/${it.file.id}`} target="_blank" className="mr-1 underline">
-                        ảnh{i + 1}
-                      </a>
-                    ))
-                    : "-"}
+                  {r.TrangThai}
                 </td>
                 <td className="p-2">
                   {r?.AnhFile?.id ? (

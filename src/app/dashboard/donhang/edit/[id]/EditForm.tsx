@@ -14,10 +14,11 @@ export default function EditForm({
     idKhachHang,
     dienThoai,
     diaChi,
+    anhNhan,
     anhList_after,
     anhList,
     goiHangIDs,
-    aCcess,
+    me,
 }: {
     id: number | string;
     trangThai: string;
@@ -28,23 +29,34 @@ export default function EditForm({
     idKhachHang?: number | null;
     dienThoai?: string;
     diaChi?: string;
+    anhNhan?: string;
     anhList_after?: string[];
     anhList?: string[];
     goiHangIDs?: string[];
-    aCcess?: string;
+    me?: string;
 }) {
+    const REQUIRED_ANH_NHAN = 1;
+    const REQUIRED_ANH_TRUOC = 6;
 
+    const [errors, setErrors] = useState<{ anhNhan?: string; anhTruoc?: string }>({});
     const [ID, setID] = useState(id);
     const [DienThoai, setDienThoai] = useState(dienThoai || "");
     const [TenKhachHang, setTenKhachHang] = useState(tenKhachHang || "");
     const [DiaChi, setDiaChi] = useState(diaChi || "");
     const [GhiChu, setGhiChu] = useState(ghiChu || "");
     const [TrangThai, setTrangThai] = useState(trangThai);
+    const [Me, setMe] = useState(me);
     const [ID_KhachHang, setID_KhachHang] = useState<number | null>(null); // nếu tìm thấy
-    //const [AnhFile, setAnhFile] = useState<string | null>(anhFile || null);
-    //const [AnhList, setAnhList] = useState<string[]>(anhList || []);
-    //const [AnhFiles, setAnhFiles] = useState<string[]>([]); // dùng
-    const [AnhPreview, setAnhPreview] = useState<string | null>(null);
+    const STATUS_ORDER = [
+        "TAO_MOI",
+        "GHEP_DON",
+        "CHO_LAY",
+        "DANG_GIAT",
+        "BAO_KHACH",
+        "HOAN_THANH",
+    ];
+
+
     const [uploading, setUploading] = useState(false);
     const [finding, setFinding] = useState(false);
     const [saving, setSaving] = useState(false);
@@ -54,6 +66,10 @@ export default function EditForm({
     const base = process.env.NEXT_PUBLIC_DIRECTUS_ASSETS
         ?? process.env.NEXT_PUBLIC_DIRECTUS_URL
         ?? process.env.DIRECTUS_URL!;
+    const [AnhId, setAnhId] = useState<string | null>(anhNhan || null);
+    //const [AnhPreview, setAnhPreview] = useState<string | null>(`${base}/assets/${anhNhan}`);
+    const [AnhPreview, setAnhPreview] = useState<string | null>(null);
+    if (anhNhan && !AnhPreview) { setAnhPreview(`${base}/assets/${anhNhan}`); }
     const [anhIds, setAnhIds] = useState<string[]>(anhList || []);
     const [previews, setPreviews] = useState<string[]>(
         (anhList || []).map(id => `${base}/assets/${id}`)
@@ -66,7 +82,7 @@ export default function EditForm({
     const [goiHang, setGoiHang] = useState<GoiHang[]>([]);
     const [selectedGoiHangs, setSelectedGoiHangs] = useState<string[]>([]);
     // const [previews, setPreviews] = useState<string[]>(anhList || []);
-
+    const idx = Math.max(0, STATUS_ORDER.indexOf(trangThai));
     const router = useRouter();
     useEffect(() => {
         // Lấy dữ liệu các gói hàng từ API
@@ -94,10 +110,10 @@ export default function EditForm({
         }
         //alert(JSON.stringify(suggestions));
     };
-    
+
     const handlePhoneInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
-        
+
         setDienThoai(value);
         fetchSuggestions(value); // Gọi API khi người dùng gõ vào số điện thoại
     };
@@ -163,7 +179,24 @@ export default function EditForm({
         } catch (e: any) { alert(e.message); }
         finally { setUploading(false); }
     }
-
+    async function onUploadChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const f = e.target.files?.[0];
+        if (!f) return;
+        setUploading(true);
+        try {
+            const fd = new FormData();
+            fd.append("file", f);
+            const r = await fetch("/api/upload", { method: "POST", body: fd });
+            const data = await r.json();
+            if (!r.ok || !data.ok) throw new Error(data?.error || "Upload thất bại");
+            setAnhId(data.id);
+            setAnhPreview(`${process.env.NEXT_PUBLIC_DIRECTUS_ASSETS ?? process.env.DIRECTUS_URL}/assets/${data.id}`);
+        } catch (err: any) {
+            alert(err.message);
+        } finally {
+            setUploading(false);
+        }
+    }
     function removeImg_after(i: number) {
         setAnhIds_after((arr) => arr.filter((_, idx) => idx !== i));
         setPreviews_after((arr) => arr.filter((_, idx) => idx !== i));
@@ -214,9 +247,24 @@ export default function EditForm({
 
     async function onSubmit(e: React.FormEvent) {
         e.preventDefault(); setSaving(true); setMsg(null);
+        const nextErrors: typeof errors = {};
+
+        // bắt buộc đúng 1 ảnh khi nhận
+        if (!AnhId) nextErrors.anhNhan = `Cần tải đủ ${REQUIRED_ANH_NHAN} ảnh khi nhận.`;
+
+        // chỉ kiểm tra "Ảnh trước giặt" khi phần này đang hiển thị (idx > 1)
+        if (idx > 1 && anhIds.length !== REQUIRED_ANH_TRUOC) {
+            nextErrors.anhTruoc = `Cần đủ ${REQUIRED_ANH_TRUOC} ảnh trước giặt (hiện có ${anhIds.length}).`;
+        }
+
+        if (Object.keys(nextErrors).length) {
+            setErrors(nextErrors);
+            setSaving(false);
+            return; // dừng lưu
+        }
         try {
             const body: any = { ID, GhiChu, AnhFiles: anhIds };
-
+            if (AnhId) body.Anh = AnhId;
             if (ID_KhachHang) body.ID_KhachHang = ID_KhachHang;
             else {
                 body.TenKhachHang = TenKhachHang.trim();
@@ -226,7 +274,9 @@ export default function EditForm({
             body.AnhList = anhIds;
             body.AnhList_After = anhIds_after;
             body.TrangThai = TrangThai;
-
+            if (idx == 0) {
+                body.NguoiNhap = Me;
+            }
             body.GoiHangIDs = selectedGoiHangs; // Gửi mảng ID các gói hàng đã chọn
 
             const r = await fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
@@ -299,42 +349,62 @@ export default function EditForm({
                     </div>
 
                 </div>
-
-
                 <div>
                     <label className="block text-sm">Ảnh khi nhận</label>
-                    <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti} />
+                    <input type="file" accept="image/*" className="mt-1" onChange={onUploadChange} />
+                    {errors.anhNhan && <p className="text-sm text-red-600 mt-1">{errors.anhNhan}</p>}
                     {uploading && <p className="text-sm text-gray-600">Đang tải ảnh…</p>}
-                    {!!previews.length && (
-                        <div className="mt-2 flex flex-wrap gap-2">
-                            {previews.map((src, i) => (
-                                <div key={i} className="relative">
-                                    <img src={src} className="h-20 w-20 object-cover rounded border" />
-                                    <button type="button"
-                                        onClick={() => removeImg(i)}
-                                        className="absolute -top-2 -right-2 bg-black/70 text-white text-xs rounded-full px-1">x</button>
-                                </div>
-                            ))}
+                    {AnhPreview && (
+                        <div className="mt-2">
+                            <img src={AnhPreview} alt="preview" className="h-24 rounded border" />
+
                         </div>
                     )}
                 </div>
-                <div>
-                    <label className="block text-sm">Ảnh sau khi giặt</label>
-                    <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti_after} />
-                    {uploading && <p className="text-sm text-gray-600">Đang tải ảnh…</p>}
-                    {!!previews_after.length && (
-                        <div className="mt-2 flex flex-wrap gap-2">
-                            {previews_after.map((src, i) => (
-                                <div key={i} className="relative">
-                                    <img src={src} className="h-20 w-20 object-cover rounded border" />
-                                    <button type="button"
-                                        onClick={() => removeImg_after(i)}
-                                        className="absolute -top-2 -right-2 bg-black/70 text-white text-xs rounded-full px-1">x</button>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </div>
+                {idx > 1 && (
+                    <div>
+                        <label className="block text-sm">Ảnh trước giặt</label>
+                        <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti} />
+                        {errors.anhTruoc && <p className="text-sm text-red-600 mt-1">{errors.anhTruoc}</p>}
+                        {uploading && <p className="text-sm text-gray-600">Đang tải ảnh…</p>}
+                        {!!previews.length && (
+                            <div className="mt-2 flex flex-wrap gap-2">
+                                {previews.map((src, i) => (
+                                    <div key={i} className="relative">
+                                        <img src={src} className="h-20 w-20 object-cover rounded border" />
+                                        <button type="button"
+                                            onClick={() => removeImg(i)}
+                                            className="absolute -top-2 -right-2 bg-black/70 text-white text-xs rounded-full px-1">x</button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
+                )}
+
+
+
+                {idx > 3 && (
+                    <div>
+                        <label className="block text-sm">Ảnh sau khi giặt</label>
+                        <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti_after} />
+                        {uploading && <p className="text-sm text-gray-600">Đang tải ảnh…</p>}
+                        {!!previews_after.length && (
+                            <div className="mt-2 flex flex-wrap gap-2">
+                                {previews_after.map((src, i) => (
+                                    <div key={i} className="relative">
+                                        <img src={src} className="h-20 w-20 object-cover rounded border" />
+                                        <button type="button"
+                                            onClick={() => removeImg_after(i)}
+                                            className="absolute -top-2 -right-2 bg-black/70 text-white text-xs rounded-full px-1">x</button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
+                )}
                 <div>
                     <label className="block text-sm">Chọn Gói Hàng</label>
                     <div className="space-y-2">

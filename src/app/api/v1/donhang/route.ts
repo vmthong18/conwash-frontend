@@ -104,6 +104,7 @@ export async function PATCH(req: NextRequest) {
     ? b.AnhList_After.filter((x: any) => typeof x === "string" && x.length > 0)
     : [];
   const donhangId = b?.ID;
+  
   //const GoiHangIDs= b?.GoiHangIDs;
   const trangThai: string =
     typeof b?.TrangThai === "string" && b.TrangThai.length
@@ -145,7 +146,9 @@ export async function PATCH(req: NextRequest) {
   const payloadOrder: any = {
     ID_KhachHang: ID_khachhang,
     GhiChu: b?.GhiChu ?? null,
+    AnhNhan: b?.Anh ?? null,
     GoiHangs: b?.GoiHangIDs ?? null,
+    NguoiNhap: b?.NguoiNhap ?? null,
     TrangThai: next,     // <— trạng thái
 
     // NguoiNhap: preset trong Policy (NhapDon) sẽ tự gán $CURRENT_USER
