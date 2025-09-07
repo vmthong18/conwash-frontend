@@ -1,9 +1,19 @@
 // src/app/dashboard/phieuhang/page.tsx
 import Link from "next/link";
 import { cookies } from "next/headers";
+import ActionButton from "./ActionButton";
 
 type Search = { [k: string]: string | string[] | undefined };
-
+const STATUS_LABEL: Record<string, string> = {
+  DANG_XU_LY: "Đang xử lý",
+  SAN_SANG: "Sẵn sàng",
+  HOAN_THANH: "Đã hoàn thành",
+};
+const STATUS_ORDER = [
+  "DANG_XU_LY",
+  "SAN_SANG",
+  "HOAN_THANH",
+];
 function parseDonhangs(raw: any): number[] {
   if (Array.isArray(raw)) return raw.map(Number).filter(Boolean);
   if (typeof raw === "string") {
@@ -12,7 +22,7 @@ function parseDonhangs(raw: any): number[] {
     try {
       const j = JSON.parse(s);
       if (Array.isArray(j)) return j.map(Number).filter(Boolean);
-    } catch {}
+    } catch { }
     // CSV "47,48"
     return s.split(",").map(x => parseInt(x.trim(), 10)).filter(Boolean);
   }
@@ -20,15 +30,16 @@ function parseDonhangs(raw: any): number[] {
 }
 
 export default async function PhieuHangList({ searchParams }: { searchParams: Search }) {
+   const params = await searchParams;  
   const jar = await cookies();
   const token = jar.get(process.env.COOKIE_ACCESS || "be_giay_access")?.value;
   if (!token) return <div className="p-8">Chưa đăng nhập.</div>;
 
-  const page  = Math.max(1, Number(searchParams.page ?? 1));
-  const limit = Number(searchParams.limit ?? 10);
+  const page = Math.max(1, Number(params.page ?? 1));
+  const limit = Number(params.limit ?? 10);
   const offset = (page - 1) * limit;
 
-  const API    = process.env.DIRECTUS_URL!;
+  const API = process.env.DIRECTUS_URL!;
   const ASSETS = process.env.NEXT_PUBLIC_DIRECTUS_ASSETS ?? process.env.DIRECTUS_URL ?? "";
 
   // Lấy danh sách phiếu
@@ -36,7 +47,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
   q.searchParams.set("limit", String(limit));
   q.searchParams.set("offset", String(offset));
   q.searchParams.set("sort", "-id");
-  q.searchParams.set("fields", "id,ID_KhachHang,Donhangs,TongTien"); // lấy đủ trường cần
+  q.searchParams.set("fields", "id,ID_KhachHang,Donhangs,TongTien,TrangThai,ID_DiaDiem"); // lấy đủ trường cần
 
   const res = await fetch(q.toString(), {
     headers: { Authorization: `Bearer ${token}` },
@@ -62,6 +73,15 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
       if (khRes.ok) kh = await khRes.json().then(j => j.data || kh);
     }
 
+    let dd = { TenDiaDiem: "Không xác định"};
+    if (p.ID_DiaDiem) {
+      const ddRes = await fetch(
+        `${API}/items/diadiem/${p.ID_DiaDiem}?fields=TenDiaDiem`,
+        { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" }
+      );
+      if (ddRes.ok) dd = await ddRes.json().then(k => k.data || dd);
+    }
+
     // Đơn trong phiếu → lấy ảnh AnhNhan
     const ids = parseDonhangs(p.Donhangs);
     let imgs: string[] = [];
@@ -83,17 +103,29 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
     return {
       id: p.id,
       kh,
+      dd,
       imgs,                            // danh sách id ảnh
       tong: Number(p.TongTien ?? 0),
+      tt: String(p.TrangThai),
     };
   }));
 
+  function getNextStatus(current: string | undefined, id: string | undefined) {
+    if (!current) return current;
+    const idx = STATUS_ORDER.indexOf(current.trim());
+    //if (idx === -1 || idx === STATUS_ORDER.length - 1) return current+"___"+idx+"___"+STATUS_ORDER.length ;
+
+    if (idx == 1) return (
+      <ActionButton id={String(id)} token={token} label={STATUS_LABEL[STATUS_ORDER[idx]]} />
+    );
+    return STATUS_LABEL[STATUS_ORDER[idx]];
+  }
   const hasNext = phieuRows.length === limit;
 
   return (
     <main className="p-6">
-     
-  <div className="flex items-center justify-between">
+
+      <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Phiếu hàng</h1>
         <div className="flex items-center gap-3">
           <Link href="/dashboard" className="text-blue-600 hover:underline">← Về Dashboard</Link>
@@ -112,6 +144,8 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
               <th className="p-2 border-b text-left">Số điện thoại</th>
               <th className="p-2 border-b text-left">Ảnh khi nhận (mỗi đơn 1 ảnh)</th>
               <th className="p-2 border-b text-right">Tổng tiền</th>
+              <th className="p-2 border-b text-right">Địa điểm</th>
+              <th className="p-2 border-b text-right">Trạng thái</th>
             </tr>
           </thead>
           <tbody>
@@ -129,7 +163,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
                             src={`${ASSETS}/assets/${id}?width=64&height=64&fit=cover`}
                             className="h-12 w-12 rounded border object-cover"
                             alt="Ảnh nhận"
-                        
+
                           />
                         </a>
                       ))}
@@ -138,6 +172,13 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
                 </td>
                 <td className="p-2 text-right">
                   {r.tong.toLocaleString("vi-VN")} đ
+                </td>
+                <td className="p-2 text-right">
+                  {r.dd.TenDiaDiem}
+                </td>
+                <td className="p-2 text-right">
+                  {getNextStatus(String(r.tt), String(r.id))}
+
                 </td>
               </tr>
             ))}
@@ -154,7 +195,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
           ← Trước
         </Link>
         <Link href={`?page=${hasNext ? page + 1 : page}&limit=${limit}`}
-              className={`px-3 py-1 border rounded ${hasNext ? "" : "opacity-50 pointer-events-none"}`}>
+          className={`px-3 py-1 border rounded ${hasNext ? "" : "opacity-50 pointer-events-none"}`}>
           Sau →
         </Link>
       </div>

@@ -88,11 +88,17 @@ export async function PATCH(req: NextRequest) {
   const STATUS_ORDER = [
     "TAO_MOI",
     "GHEP_DON",
+    "LEN_DON",
     "CHO_LAY",
+    "VAN_CHUYEN",
     "DANG_GIAT",
-    "BAO_KHACH",
+    "GIAT_XONG",
+    "CHO_VAN_CHUYEN_LAI",
+    "VAN_CHUYEN_LAI",
+    "QUAY_NHAN_GIAY",
+    "SAN_SANG",
     "HOAN_THANH",
-  ];
+];
 
   const b = await req.json();
 
@@ -150,7 +156,7 @@ export async function PATCH(req: NextRequest) {
     GoiHangs: b?.GoiHangIDs ?? null,
     NguoiNhap: b?.NguoiNhap ?? null,
     TrangThai: next,     // <— trạng thái
-
+    ID_DiaDiem: b?.ID_DiaDiem || null, 
     // NguoiNhap: preset trong Policy (NhapDon) sẽ tự gán $CURRENT_USER
   };
 

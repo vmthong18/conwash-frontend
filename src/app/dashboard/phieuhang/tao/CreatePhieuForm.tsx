@@ -11,6 +11,7 @@ type Order = {
     GhiChu?: string | null;
     GoiHangs?: unknown; // JSON: [1,4] hoặc string "[1,4]"
     ID_KhachHang?: Khach | null;
+    ID_DiaDiem?:string|null;
 };
 
 function vnd(n: number) {
@@ -113,7 +114,9 @@ export default function CreatePhieuForm({
                     ID_KhachHang: firstCustomer.ID, // khách theo đơn đầu tiên
                     Donhangs: picked,               // danh sách ID đơn
                     // Có thể thêm trường TongTien nếu bạn đã tạo trong DB:
-                    TongTien: total
+                    TongTien: total,
+                    TrangThai:"DANG_XU_LY",
+                    ID_DiaDiem:orders[0]?.ID_DiaDiem||null,
                 }),
             });
 
@@ -125,7 +128,7 @@ export default function CreatePhieuForm({
                     "Không tạo được phiếu";
                 throw new Error(msg);
             }
-            const updates = picked.map((id) => ({ ID: id, TrangThai: "CHO_LAY" })); // chú ý primary key là "ID"
+            const updates = picked.map((id) => ({ ID: id, TrangThai: "LEN_DON" })); // chú ý primary key là "ID"
             const res_donhang = await fetch(`${api}/items/donhang`, {
                 method: "PATCH",
                 headers: {

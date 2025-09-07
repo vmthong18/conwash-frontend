@@ -9,10 +9,16 @@ const ASSETS =
 
 const STATUS_LABEL: Record<string, string> = {
   TAO_MOI: "Tạo mới",
-   GHEP_DON: "Chờ ghép đơn ",
-  CHO_LAY: "Chờ lấy hàng",
+  GHEP_DON: "Chờ ghép đơn ",
+  LEN_DON: "Đơn hàng mới tạo",
+  CHO_LAY: "Chờ vận chuyển đi giặt",
+  VAN_CHUYEN: "Vận chuyển đi giặt",
   DANG_GIAT: "Đang giặt",
-  BAO_KHACH: "Chờ khách lấy",
+  GIAT_XONG: "Giặt xong",
+  CHO_VAN_CHUYEN_LAI: "Chờ vận chuyển trả giày",
+  VAN_CHUYEN_LAI: "Vận chuyển trả giày",
+  QUAY_NHAN_GIAY: "Quầy nhận giày sạch",
+  SAN_SANG: "Sẵn sàng giao",
   HOAN_THANH: "Đã hoàn thành",
 };
 
@@ -40,7 +46,7 @@ export default async function donhangDetail({
     "ID_KhachHang.DienThoai",
     "ID_KhachHang.DiaChi",
     "AnhFile.id",
-   
+    "ID_DiaDiem",
   ].join(",");
 
   const url = `${process.env.DIRECTUS_URL}/items/donhang/${id}?fields=${encodeURIComponent(
@@ -54,7 +60,7 @@ export default async function donhangDetail({
 
   if (!res.ok) {
     const t = await res.text().catch(() => "");
-    
+
     return (
       <main className="p-8">
         <div className="mb-4">
@@ -71,34 +77,45 @@ export default async function donhangDetail({
   }
 
   const { data: r } = await res.json();
- const st = String(r?.TrangThai ?? "");
+  const st = String(r?.TrangThai ?? "");
   const isTaoMoi = ["TAO_MOI", "tao_moi", "TaoMoi", "taomoi"].includes(st);
   if (isTaoMoi) {
     redirect(`/dashboard/donhang/edit/${id}`); // <-- chuyển về danh sách
   }
 
 
-const q_after = new URL(`${process.env.DIRECTUS_URL}/items/donhang_anh_after`);
+  const q_after = new URL(`${process.env.DIRECTUS_URL}/items/donhang_anh_after`);
   q_after.searchParams.set("fields", "file");
   q_after.searchParams.set("limit", "100");
   q_after.searchParams.set("filter[don_hang][_eq]", String(r.ID));
 
   const listRes_after = await fetch(q_after, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
-  const ids_after= (await listRes_after.json())?.data?.map((x: any) => x.file) ?? [];
+  const ids_after = (await listRes_after.json())?.data?.map((x: any) => x.file) ?? [];
 
-const q = new URL(`${process.env.DIRECTUS_URL}/items/donhang_anh`);
+  const q = new URL(`${process.env.DIRECTUS_URL}/items/donhang_anh`);
   q.searchParams.set("fields", "file");
   q.searchParams.set("limit", "100");
   q.searchParams.set("filter[don_hang][_eq]", String(r.ID));
 
   const listRes = await fetch(q, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
-  const ids= (await listRes.json())?.data?.map((x: any) => x.file) ?? [];
+  const ids = (await listRes.json())?.data?.map((x: any) => x.file) ?? [];
+  let dc = r.ID_DiaDiem;
 
+  let locationName = "";
+  if (dc) {
+    const q_location_name = new URL(`${process.env.DIRECTUS_URL}/items/diadiem/${dc}`);
+    const listRes_location_name = await fetch(q_location_name, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
+    if (listRes_location_name.ok) {
+      const found = await listRes_location_name.json();
+      const dg = (found?.data || {}) || null;
+      locationName = dg.TenDiaDiem || "";
+    }
+  }
 
   return (
     <main className="p-8 space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Đơn hàng #{r.ID}</h1>
+        <h1 className="text-2xl font-bold">Đơn hàng #{r.ID} - {locationName} </h1>
         <Link href="/dashboard/donhang" className="text-blue-600 hover:underline">
           ← Danh sách
         </Link>
@@ -169,7 +186,7 @@ const q = new URL(`${process.env.DIRECTUS_URL}/items/donhang_anh`);
               {STATUS_LABEL[r.TrangThai] ?? r.TrangThai}
             </div>
             {/* Nút submit / tiến bước */}
-            <StatusWidget id={r.ID} trangThai={r.TrangThai} idKhachHang={r.ID_KhachHang}/>
+            <StatusWidget id={r.ID} trangThai={r.TrangThai} idKhachHang={r.ID_KhachHang} />
           </div>
 
           <div className="rounded border p-4">

@@ -7,18 +7,19 @@ export default async function Dashboard() {
 
   let orders: any[] = [];
   let me: any = null;
+  let roleName: string = "";
 
   if (access) {
     // Lấy thông tin user
-    const meRes = await fetch(`${process.env.DIRECTUS_URL}/users/me`, {
+    const meRes = await fetch(`${process.env.DIRECTUS_URL}/users/me?fields=role.name,first_name,email`, {
       headers: { Authorization: `Bearer ${access}` },
       cache: "no-store"
     });
     if (meRes.ok) {
       const meData = await meRes.json();
       me = meData?.data;
+      roleName = me?.role?.name ?? "";
     }
-
     // Lấy đơn hàng (ví dụ chỉ lấy 10 đơn mới nhất; chỉnh filter theo nhu cầu)
     const res = await fetch(`${process.env.DIRECTUS_URL}/items/orders?limit=10&sort=-date_created`, {
       headers: { Authorization: `Bearer ${access}` },
@@ -40,7 +41,7 @@ export default async function Dashboard() {
     <main className="p-8 space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Dashboard</h1>
-         <LogoutBtn />
+        <LogoutBtn />
       </div>
 
       <section>
@@ -50,26 +51,33 @@ export default async function Dashboard() {
       <section>
         <h2 className="text-lg font-semibold">Menu</h2>
         <ul className="mt-3 space-y-2">
-         <li className="bg-white p-3 rounded shadow">
+          {["Administrator", "NhanVienQuay"].includes(roleName) && (
+            <li className="bg-white p-3 rounded shadow">
               <div className="font-medium"></div>
               <div className="text-sm text-gray-600">
                 <a href="/dashboard/phieuhang/">Danh sách phiếu hàng</a>
               </div>
             </li>
+          )}
+          {["Administrator", "Giat", "NhanVienQuay"].includes(roleName) && (
             <li className="bg-white p-3 rounded shadow">
               <div className="font-medium"></div>
               <div className="text-sm text-gray-600">
                 <a href="/dashboard/donhang/">Danh sách đơn hàng</a>
               </div>
             </li>
+          )}
+
+          {["Administrator", "Admin"].includes(roleName) && (
             <li className="bg-white p-3 rounded shadow">
               <div className="font-medium"></div>
               <div className="text-sm text-gray-600">
                 <a href="/dashboard/taodonhang/">Tạo QR</a>
               </div>
             </li>
-        
-       
+          )}
+
+
         </ul>
       </section>
     </main>

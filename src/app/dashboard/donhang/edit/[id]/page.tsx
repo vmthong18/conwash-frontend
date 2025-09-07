@@ -10,9 +10,15 @@ const ASSETS =
 const STATUS_LABEL: Record<string, string> = {
   TAO_MOI: "Tạo mới",
   GHEP_DON: "Chờ ghép đơn ",
-  CHO_LAY: "Chờ lấy hàng",
+  LEN_DON: "Đơn hàng mới tạo",
+  CHO_LAY: "Chờ vận chuyển đi giặt",
+  VAN_CHUYEN: "Vận chuyển đi giặt",
   DANG_GIAT: "Đang giặt",
-  BAO_KHACH: "Thông báo với khách hàng",
+  GIAT_XONG: "Giặt xong",
+  CHO_VAN_CHUYEN_LAI: "Chờ vận chuyển trả giày",
+  VAN_CHUYEN_LAI: "Vận chuyển trả giày",
+  QUAY_NHAN_GIAY: "Quầy nhận giày sạch",
+  SAN_SANG: "Sẵn sàng giao",
   HOAN_THANH: "Đã hoàn thành",
 };
 
@@ -88,7 +94,7 @@ export default async function EditDetail({
   const listRes = await fetch(q, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
   const ids = (await listRes.json())?.data?.map((x: any) => x.file) ?? [];
   let me: any = null;
-  const meRes = await fetch(`${process.env.DIRECTUS_URL}/users/me`, {
+  const meRes = await fetch(`${process.env.DIRECTUS_URL}/users/me?fields=id,role.name,location`, {
     headers: { Authorization: `Bearer ${access}` },
     cache: "no-store"
   });
@@ -99,7 +105,7 @@ export default async function EditDetail({
 
   const q_checkghepdon = new URL(`${process.env.DIRECTUS_URL}/items/donhang`);
   q_checkghepdon.searchParams.set("filter[TrangThai][_eq]", "GHEP_DON");
-   q_checkghepdon.searchParams.set("filter[NguoiNhap][_eq]", me.id);
+  q_checkghepdon.searchParams.set("filter[NguoiNhap][_eq]", me.id);
   q_checkghepdon.searchParams.set("fields", "ID_KhachHang.ID,ID_KhachHang.TenKhachHang,ID_KhachHang.DienThoai,ID_KhachHang.DiaChi");
 
   const listRes_checkghepdon = await fetch(q_checkghepdon, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
@@ -107,6 +113,23 @@ export default async function EditDetail({
   let tkh = r.ID_KhachHang?.TenKhachHang || "";
   let dtkh = r.ID_KhachHang?.DienThoai || "";
   let sckh = r.ID_KhachHang?.DiaChi || "";
+  let dc = r.ID_DiaDiem;
+  if (dc === undefined) {
+    dc = me?.location;
+  }
+  let locationName = "";
+  if (dc) {
+    const q_location_name = new URL(`${process.env.DIRECTUS_URL}/items/diadiem/${dc}`);
+    const listRes_location_name = await fetch(q_location_name, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
+    if (listRes_location_name.ok) {
+      const found = await listRes_location_name.json();
+      const dg = (found?.data || {}) || null;
+      locationName = dg.TenDiaDiem || "";
+    }
+  }
+  
+
+
   if (listRes_checkghepdon.ok) {
     const found = await listRes_checkghepdon.json();
 
@@ -120,7 +143,7 @@ export default async function EditDetail({
     }
 
   }
-
+ 
   return (
     <EditForm
       id={r.ID}
@@ -136,6 +159,10 @@ export default async function EditDetail({
       anhNhan={r.AnhNhan}
       anhList_after={ids_after}
       anhList={ids}
-      me={me?.id} />
+      me={me?.id}
+      roleName={me?.role?.name || ""}
+      locationId={dc}
+      locationName={locationName}
+    />
   );
 }

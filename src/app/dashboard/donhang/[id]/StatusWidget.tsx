@@ -6,18 +6,30 @@ import { useRouter } from "next/navigation";
 const STATUS_ORDER = [
   "TAO_MOI",
   "GHEP_DON",
+  "LEN_DON",
   "CHO_LAY",
+  "VAN_CHUYEN", 
   "DANG_GIAT",
-  "BAO_KHACH",
+  "GIAT_XONG",
+  "CHO_VAN_CHUYEN_LAI",
+  "VAN_CHUYEN_LAI",
+  "QUAY_NHAN_GIAY",
+  "SAN_SANG",
   "HOAN_THANH",
 ];
 
 const STATUS_LABEL: Record<string, string> = {
   TAO_MOI: "Tạo mới",
-   GHEP_DON: "Chờ ghép đơn ",
-  CHO_LAY: "Chờ lấy hàng",
+  GHEP_DON: "Chờ ghép đơn ",
+  LEN_DON: "Đơn hàng mới tạo",
+  CHO_LAY: "Chờ vận chuyển đi giặt",
+  VAN_CHUYEN:"Vận chuyển đi giặt",
   DANG_GIAT: "Đang giặt",
-  BAO_KHACH: "Chờ khách lấy",
+  GIAT_XONG: "Giặt xong",
+  CHO_VAN_CHUYEN_LAI: "Chờ vận chuyển trả giày",
+  VAN_CHUYEN_LAI: "Vận chuyển trả giày",
+  QUAY_NHAN_GIAY: "Quầy nhận giày sạch",
+  SAN_SANG: "Sẵn sàng giao",
   HOAN_THANH: "Đã hoàn thành",
 };
 
@@ -40,7 +52,7 @@ export default function StatusWidget({
 
   async function save(newStatus: string) {
 
-    if (newStatus === "BAO_KHACH") {
+    if (newStatus === "GIAT_XONG") {
       router.replace(`/dashboard/donhang/edit/${id}`);
 
     }

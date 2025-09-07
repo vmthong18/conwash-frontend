@@ -8,7 +8,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const router = useRouter();
-  const from = useSearchParams().get("from") || "/dashboard";
+  const from = useSearchParams().get("from") || "/dashboard/default";
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();

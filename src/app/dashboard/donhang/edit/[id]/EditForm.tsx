@@ -19,6 +19,9 @@ export default function EditForm({
     anhList,
     goiHangIDs,
     me,
+    roleName,
+    locationId,
+    locationName,
 }: {
     id: number | string;
     trangThai: string;
@@ -34,6 +37,9 @@ export default function EditForm({
     anhList?: string[];
     goiHangIDs?: string[];
     me?: string;
+    roleName: string;
+    locationId?: string;
+    locationName?: string;
 }) {
     const REQUIRED_ANH_NHAN = 1;
     const REQUIRED_ANH_TRUOC = 6;
@@ -48,13 +54,19 @@ export default function EditForm({
     const [Me, setMe] = useState(me);
     const [ID_KhachHang, setID_KhachHang] = useState<number | null>(null); // nếu tìm thấy
     const STATUS_ORDER = [
-        "TAO_MOI",
-        "GHEP_DON",
-        "CHO_LAY",
-        "DANG_GIAT",
-        "BAO_KHACH",
-        "HOAN_THANH",
-    ];
+  "TAO_MOI",
+  "GHEP_DON",
+  "LEN_DON",
+  "CHO_LAY",
+  "VAN_CHUYEN", 
+  "DANG_GIAT",
+  "GIAT_XONG",
+  "CHO_VAN_CHUYEN_LAI",
+  "VAN_CHUYEN_LAI",
+  "QUAY_NHAN_GIAY",
+  "SAN_SANG",
+  "HOAN_THANH",
+];
 
 
     const [uploading, setUploading] = useState(false);
@@ -278,6 +290,7 @@ export default function EditForm({
                 body.NguoiNhap = Me;
             }
             body.GoiHangIDs = selectedGoiHangs; // Gửi mảng ID các gói hàng đã chọn
+            body.ID_DiaDiem = locationId; // Gửi location hiện tại
 
             const r = await fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
             const data = await r.json();
@@ -292,9 +305,10 @@ export default function EditForm({
 
     return (
         <main className="min-h-screen p-8">
-            <h1 className="text-2xl font-bold">Nhập đơn hàng</h1>
+            <h1 className="text-2xl font-bold">Nhập đơn hàng - {locationName}</h1>
 
             <form onSubmit={onSubmit} className="mt-6 space-y-4 max-w-xl">
+                
                 <div className="flex flex-col gap-2">
                     <label className="block text-sm">Số điện thoại</label>
                     <input

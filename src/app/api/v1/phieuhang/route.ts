@@ -49,7 +49,7 @@ export async function POST(req: Request) {
   if (!ID_KhachHang || !Array.isArray(DonHangIDs) || DonHangIDs.length === 0) {
     return NextResponse.json({ ok: false, error: "Thiếu ID_KhachHang hoặc DonHangIDs" }, { status: 400 });
   }
-return NextResponse.json({ ok: false, error: DonHangIDs }, { status: 400 });
+
   // Lưu vào bảng PhieuHang
   const r = await fetch(`${process.env.DIRECTUS_URL}/items/phieuhang`, {
     method: "POST",
