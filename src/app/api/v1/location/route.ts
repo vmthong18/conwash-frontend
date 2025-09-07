@@ -2,6 +2,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
+
 /**
  * PATCH Location cho user hiện tại ở bảng directus_users
  * Yêu cầu: token trong cookie, và role có quyền update trường Location của users.me
@@ -52,9 +53,10 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
-
+   const fe = process.env.NEXT_PUBLIC_APP_URL!;
     // Thành công: quay lại danh sách (hoặc trả JSON nếu bạn muốn gọi fetch client)
-    return NextResponse.redirect(new URL("/dashboard", req.url));
+    return NextResponse.redirect(`${fe}/dashboard`);
+    //return NextResponse.redirect(new URL("/dashboard", req.url));
   } catch (e: any) {
     return NextResponse.json(
       { ok: false, error: e?.message || "Server error" },
