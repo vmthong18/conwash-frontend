@@ -3,18 +3,18 @@ import { redirect, useRouter } from "next/navigation";
 
 export default function ChonDiaDiemButton({ id }: { id: string }) {
     const router = useRouter();
-    function onSubmit(id: string | undefined) {
-
+    async function onSubmit(id: string | undefined) {
+        
         try {
             const body: any = { id };
-            fetch('/api/v1/location', { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }); // Chỉnh lại endpoint API của bạn nếu cần
-            router.replace("/dashboard");
-
+            const response = await fetch('/api/v1/location', { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }); // Chỉnh lại endpoint API của bạn nếu cần
+ 
+           
         }
         catch (e: any) {
             alert(`Lỗi: ${e.message || e.toString()}`);
         }
-
+         router.replace("/dashboard");
     }
     return (
         <button
