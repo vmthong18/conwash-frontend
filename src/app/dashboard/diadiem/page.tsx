@@ -1,6 +1,7 @@
 // src/app/dashboard/diadiem/page.tsx
 import { cookies } from "next/headers";
 import Link from "next/link";
+import ChonDiaDiemButton from "./ChonDiaDiemButton";
 
 type DiaDiem = { ID: number; TenDiaDiem: string };
 
@@ -65,16 +66,7 @@ export default async function DiaDiemPage() {
                 <td className="p-2">#{r.ID}</td>
                 <td className="p-2">{r.TenDiaDiem}</td>
                 <td className="p-2">
-                  <form action="/api/v1/location" method="post">
-                    <input type="hidden" name="locationId" value={r.ID} />
-                    <button
-                      className="px-3 py-1 bg-gray-800 text-white rounded hover:bg-black"
-                      type="submit"
-                      title="Gán địa điểm này cho tôi"
-                    >
-                      Chọn
-                    </button>
-                  </form>
+                 <ChonDiaDiemButton id={r.ID.toString()} />
                 </td>
               </tr>
             ))}

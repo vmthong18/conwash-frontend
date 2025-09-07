@@ -20,10 +20,11 @@ export async function POST(req: Request) {
       );
     }
 
-    const form = await req.formData();
-    const locationIdRaw = form.get("locationId");
-    const locationId = Number(locationIdRaw);
-
+    // const form = await req.formData();
+    //const locationIdRaw = form.get("locationId");
+    //const locationId = Number(locationIdRaw);
+    const b = await req.json();
+    const locationId = b?.id;
     if (!locationId || Number.isNaN(locationId)) {
       return NextResponse.json(
         { ok: false, error: "Thiếu hoặc sai locationId" },
@@ -53,9 +54,9 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
-   const fe = process.env.NEXT_PUBLIC_APP_URL!;
+    const fe = process.env.NEXT_PUBLIC_APP_URL!;
     // Thành công: quay lại danh sách (hoặc trả JSON nếu bạn muốn gọi fetch client)
-    return NextResponse.redirect(`${fe}/dashboard`);
+   
     //return NextResponse.redirect(new URL("/dashboard", req.url));
   } catch (e: any) {
     return NextResponse.json(
