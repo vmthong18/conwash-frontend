@@ -67,7 +67,8 @@ export default function StatusWidget({
         alert(j?.error || `Cập nhật thất bại (${r.status})`);
         return;
       }
-       router.replace(`/dashboard/donhang/${id}`);
+       router.replace(`/dashboard/donhang/${id}?r=${Date.now()}`);
+       
       // Làm tươi dữ liệu chi tiết
      // startTransition(() => router.refresh());
     }
