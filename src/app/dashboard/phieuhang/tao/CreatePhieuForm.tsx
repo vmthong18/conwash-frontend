@@ -59,7 +59,7 @@ export default function CreatePhieuForm({
         }
         return { priceById: p, labelById: l };
     }, [goiHang]);
-
+//alert(JSON.stringify(orders));
 
     // Mặc định tick tất cả các đơn đang có
     const [picked, setPicked] = useState<number[]>(orders.map((o) => o.ID));

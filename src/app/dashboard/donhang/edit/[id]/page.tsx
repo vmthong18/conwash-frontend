@@ -115,7 +115,7 @@ export default async function EditDetail({
   let dtkh = r.ID_KhachHang?.DienThoai || "";
   let sckh = r.ID_KhachHang?.DiaChi || "";
   let dc = r.ID_DiaDiem;
-  if (dc === undefined) {
+  if (dc === undefined||dc===null ) {
     dc = me?.location;
   }
   let locationName = "";
