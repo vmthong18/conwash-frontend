@@ -141,7 +141,8 @@ export default function CreatePhieuForm({
                 console.error('Bulk PATCH failed', res_donhang.status, await res_donhang.text());
             }
             alert(`Tạo phiếu #${data?.data?.ID ?? ""} thành công!`);
-            router.replace(redirectTo);
+            //router.replace(redirectTo);
+            router.replace(`${redirectTo}?r=${Date.now()}`);
         } catch (e: any) {
             setErr(e.message || "Có lỗi xảy ra.");
         } finally {
