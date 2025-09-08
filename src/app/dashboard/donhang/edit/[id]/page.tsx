@@ -48,6 +48,7 @@ export default async function EditDetail({
     "ID_KhachHang.DiaChi",
     "AnhFile.id",
     "AnhNhan",
+    "ID_DiaDiem",
   ].join(",");
 
   const url = `${process.env.DIRECTUS_URL}/items/donhang/${id}?fields=${encodeURIComponent(

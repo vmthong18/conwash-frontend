@@ -47,6 +47,11 @@ export default async function PageDiaDiem() {
     const ddJson = await ddRes.json();
     const diaDiems: DiaDiem[] = ddJson?.data ?? [];
 
+    const aggUrl_gx = new URL(`${API}/items/donhang`);
+    aggUrl_gx.searchParams.set("aggregate[count]", "*");
+    aggUrl_gx.searchParams.set("groupBy", "ID_DiaDiem");
+    aggUrl_gx.searchParams.set("filter[TrangThai][_eq]", "CHO_VAN_CHUYEN_LAI");
+
     // 2) Dùng aggregate + groupBy để đếm số đơn "CHO_LAY" theo ID_DiaDiem
     //    (Directus v11 hỗ trợ /items/<collection>?aggregate[count]=*&groupBy=<field>)
     const aggUrl = new URL(`${API}/items/donhang`);
@@ -56,13 +61,29 @@ export default async function PageDiaDiem() {
     // Nếu muốn chỉ đếm các đơn thuộc các địa điểm hiện có:
     // aggUrl.searchParams.set("filter[ID_DiaDiem][_in]", diaDiems.map(d=>d.ID).join(","));
 
+
+
     const aggRes = await fetch(aggUrl.toString(), {
         headers: { Authorization: `Bearer ${access}` },
         cache: "no-store",
     });
-
+    const aggRes_gx = await fetch(aggUrl_gx.toString(), {
+        headers: { Authorization: `Bearer ${access}` },
+        cache: "no-store",
+    });
     let countsByLocation = new Map<number, number>();
     let countsByLocation_gx = new Map<number, number>();
+    if (aggRes_gx.ok) {
+        const aggJson_gx = await aggRes_gx.json();
+        const rows: CountRow[] = aggJson_gx?.data ?? [];
+        for (const r of rows) {
+            if (r.ID_DiaDiem == null) continue;
+            const value_gx =
+                typeof r.count === "number" ? r.count : (r.count?.["*"] ?? 0);
+           
+            countsByLocation_gx.set(Number(r.ID_DiaDiem), Number(value_gx));
+        }
+    }
     if (aggRes.ok) {
         const aggJson = await aggRes.json();
         const rows: CountRow[] = aggJson?.data ?? [];
@@ -71,7 +92,7 @@ export default async function PageDiaDiem() {
             const value =
                 typeof r.count === "number" ? r.count : (r.count?.["*"] ?? 0);
             countsByLocation.set(Number(r.ID_DiaDiem), Number(value));
-            countsByLocation_gx.set(Number(r.ID_DiaDiem), Number(value));
+          
         }
     } else {
         // Fallback: nếu aggregate không dùng được, đếm từng địa điểm (ít địa điểm thì vẫn ổn)
@@ -146,7 +167,7 @@ export default async function PageDiaDiem() {
                     <tbody>
                         {diaDiems.map((d) => {
                             const c = countsByLocation.get(d.ID) ?? 0;
-                              const c_gx = countsByLocation_gx.get(d.ID) ?? 0;
+                            const c_gx = countsByLocation_gx.get(d.ID) ?? 0;
                             return (
                                 <tr key={d.ID} className="border-b">
                                     <td className="p-2">{d.ID}</td>
