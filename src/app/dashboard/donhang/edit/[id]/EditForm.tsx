@@ -43,8 +43,9 @@ export default function EditForm({
 }) {
     const REQUIRED_ANH_NHAN = 1;
     const REQUIRED_ANH_TRUOC = 6;
+    const REQUIRED_ANH_SAU = 6;
 
-    const [errors, setErrors] = useState<{ anhNhan?: string; anhTruoc?: string }>({});
+    const [errors, setErrors] = useState<{ anhNhan?: string; anhTruoc?: string; anhSau?: string; }>({});
     const [ID, setID] = useState(id);
     const [DienThoai, setDienThoai] = useState(dienThoai || "");
     const [TenKhachHang, setTenKhachHang] = useState(tenKhachHang || "");
@@ -54,19 +55,19 @@ export default function EditForm({
     const [Me, setMe] = useState(me);
     const [ID_KhachHang, setID_KhachHang] = useState<number | null>(null); // nếu tìm thấy
     const STATUS_ORDER = [
-  "TAO_MOI",
-  "GHEP_DON",
-  "LEN_DON",
-  "CHO_LAY",
-  "VAN_CHUYEN", 
-  "DANG_GIAT",
-  "GIAT_XONG",
-  "CHO_VAN_CHUYEN_LAI",
-  "VAN_CHUYEN_LAI",
-  "QUAY_NHAN_GIAY",
-  "SAN_SANG",
-  "HOAN_THANH",
-];
+        "TAO_MOI",
+        "GHEP_DON",
+        "LEN_DON",
+        "CHO_LAY",
+        "VAN_CHUYEN",
+        "DANG_GIAT",
+        "GIAT_XONG",
+        "CHO_VAN_CHUYEN_LAI",
+        "VAN_CHUYEN_LAI",
+        "QUAY_NHAN_GIAY",
+        "SAN_SANG",
+        "HOAN_THANH",
+    ];
 
 
     const [uploading, setUploading] = useState(false);
@@ -265,10 +266,12 @@ export default function EditForm({
         if (!AnhId) nextErrors.anhNhan = `Cần tải đủ ${REQUIRED_ANH_NHAN} ảnh khi nhận.`;
 
         // chỉ kiểm tra "Ảnh trước giặt" khi phần này đang hiển thị (idx > 1)
-        if (idx > 1 && anhIds.length !== REQUIRED_ANH_TRUOC) {
+        if (idx > 1 && anhIds.length < REQUIRED_ANH_TRUOC) {
             nextErrors.anhTruoc = `Cần đủ ${REQUIRED_ANH_TRUOC} ảnh trước giặt (hiện có ${anhIds.length}).`;
         }
-
+        if (idx > 5 && anhIds_after.length < REQUIRED_ANH_SAU) {
+            nextErrors.anhSau = `Cần đủ ${REQUIRED_ANH_SAU} ảnh sau giặt (hiện có ${anhIds_after.length}).`;
+        }
         if (Object.keys(nextErrors).length) {
             setErrors(nextErrors);
             setSaving(false);
@@ -308,7 +311,7 @@ export default function EditForm({
             <h1 className="text-2xl font-bold">Nhập đơn hàng - {locationName}</h1>
 
             <form onSubmit={onSubmit} className="mt-6 space-y-4 max-w-xl">
-                
+
                 <div className="flex flex-col gap-2">
                     <label className="block text-sm">Số điện thoại</label>
                     <input
@@ -399,10 +402,11 @@ export default function EditForm({
 
 
 
-                {idx > 3 && (
+                {idx > 5 && (
                     <div>
                         <label className="block text-sm">Ảnh sau khi giặt</label>
                         <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti_after} />
+                         {errors.anhSau && <p className="text-sm text-red-600 mt-1">{errors.anhSau}</p>}
                         {uploading && <p className="text-sm text-gray-600">Đang tải ảnh…</p>}
                         {!!previews_after.length && (
                             <div className="mt-2 flex flex-wrap gap-2">
