@@ -99,7 +99,7 @@ export default function CreatePhieuForm({
 
         setSaving(true);
         try {
-            const api = process.env.NEXT_PUBLIC_DIRECTUS_ASSETS;
+            const api = `/api/directus`;
 
             if (!api) throw new Error("Thiếu cấu hình DIRECTUS_URL / NEXT_PUBLIC_DIRECTUS_URL.");
 
