@@ -78,7 +78,7 @@ export default async function donhangDetail({
 
   const { data: r } = await res.json();
   const st = String(r?.TrangThai ?? "");
-  const isTaoMoi = ["TAO_MOI", "tao_moi", "TaoMoi", "taomoi"].includes(st);
+  const isTaoMoi = ["TAO_MOI", "GIAT_XONG", "TaoMoi", "taomoi"].includes(st);
   if (isTaoMoi) {
     redirect(`/dashboard/donhang/edit/${id}`); // <-- chuyển về danh sách
   }
