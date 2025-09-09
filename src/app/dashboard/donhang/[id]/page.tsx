@@ -78,12 +78,28 @@ export default async function donhangDetail({
 
   const { data: r } = await res.json();
   const st = String(r?.TrangThai ?? "");
-  const isTaoMoi = ["TAO_MOI", "GIAT_XONG", "TaoMoi", "taomoi"].includes(st);
+  const isTaoMoi = ["TAO_MOI", "GIAT_XONG", "LEN_DON"].includes(st);
   if (isTaoMoi) {
     redirect(`/dashboard/donhang/edit/${id}`); // <-- chuyển về danh sách
   }
-
-
+  let me: any = null;
+  let roleName = "";
+  let checkVisible = false;
+  const meRes = await fetch(`${process.env.DIRECTUS_URL}/users/me?fields=role.name`, {
+    headers: { Authorization: `Bearer ${access}` },
+    cache: "no-store"
+  });
+  if (meRes.ok) {
+    const meData = await meRes.json();
+    me = meData?.data;
+    roleName = me?.data?.role?.name ?? "";
+  }
+  if (["Administrator", "NhanVienQuay"].includes(roleName) && ["CHO_LAY", "LEN_DON", "QUAY_NHAN_GIAY", "SAN_SANG"].includes(st)) {
+    checkVisible = true;
+  }
+  if (["Administrator", "Giat"].includes(roleName) && ["DANG_GIAT", "VAN_CHUYEN", "CHO_VAN_CHUYEN_LAI", "VAN_CHUYEN_LAI"].includes(st)) {
+    checkVisible = true;
+  }
   const q_after = new URL(`${process.env.DIRECTUS_URL}/items/donhang_anh_after`);
   q_after.searchParams.set("fields", "file");
   q_after.searchParams.set("limit", "100");
@@ -186,7 +202,11 @@ export default async function donhangDetail({
               {STATUS_LABEL[r.TrangThai] ?? r.TrangThai}
             </div>
             {/* Nút submit / tiến bước */}
-            <StatusWidget id={r.ID} trangThai={r.TrangThai} idKhachHang={r.ID_KhachHang} />
+{checkVisible&&(
+<StatusWidget id={r.ID} trangThai={r.TrangThai} idKhachHang={r.ID_KhachHang} />
+
+)}
+            
           </div>
 
           <div className="rounded border p-4">
