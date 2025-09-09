@@ -10,14 +10,17 @@ export default async function donhangPage({ searchParams }: { searchParams: Sear
   const access = jar.get(process.env.COOKIE_ACCESS || "be_giay_access")?.value;
   if (!access) return <div className="p-8">Chưa đăng nhập.</div>;
   const meRes = await fetch(
-    `${process.env.DIRECTUS_URL}/users/me?fields=role.name`,
+    `${process.env.DIRECTUS_URL}/users/me?fields=role.name,location`,
     { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" }
   );
 
   let roleName = "";
+  let locationid = "";
   if (meRes.ok) {
     const me = await meRes.json();
     roleName = me?.data?.role?.name ?? "";
+   locationid = me?.data?.location?? ""
+
   }
   const limit = Number(params.limit ?? 10);
   const page = Math.max(1, Number(params.page ?? 1));
@@ -58,6 +61,10 @@ export default async function donhangPage({ searchParams }: { searchParams: Sear
   if (["Giat", "Shipper"].includes(roleName)) {
     // Chỉ thấy CHO_LAY và DANG_GIAT
     url.searchParams.set("filter[TrangThai][_in]", "CHO_LAY,DANG_GIAT");
+  }
+   if (["Giat", "Shipper","NhanVienQuay"].includes(roleName)) {
+    // Chỉ thấy CHO_LAY và DANG_GIAT
+    url.searchParams.set("filter[ID_DiaDiem][_eq]",locationid);
   }
   // Tìm theo tên KH hoặc số điện thoại (deep filter qua quan hệ)
   if (q) {
