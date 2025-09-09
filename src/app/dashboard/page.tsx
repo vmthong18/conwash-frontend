@@ -81,7 +81,7 @@ export default async function Dashboard() {
             <li className="bg-white p-3 rounded shadow">
               <div className="font-medium"></div>
               <div className="text-sm text-gray-600">
-                <a href="/dashboard/shipper/">Tạo QR</a>
+                <a href="/dashboard/shipper/">Shipper</a>
               </div>
 
             </li>
