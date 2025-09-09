@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
   }
 
   const { data } = await r.json(); // { access_token, refresh_token, expires }
-  let accessMaxAge = 60 * 60;
+  let accessMaxAge = 60 * 60 * 24;
   if (data?.expires) {
     const diff = Math.floor((new Date(data.expires).getTime() - Date.now()) / 1000);
     if (diff > 0) accessMaxAge = diff;
