@@ -74,9 +74,18 @@ export default async function Dashboard() {
               <div className="text-sm text-gray-600">
                 <a href="/dashboard/taodonhang/">Tạo QR</a>
               </div>
+
             </li>
           )}
+          {["Administrator", "Admin"].includes(roleName) && (
+            <li className="bg-white p-3 rounded shadow">
+              <div className="font-medium"></div>
+              <div className="text-sm text-gray-600">
+                <a href="/dashboard/shipper/">Tạo QR</a>
+              </div>
 
+            </li>
+          )}
 
         </ul>
       </section>
