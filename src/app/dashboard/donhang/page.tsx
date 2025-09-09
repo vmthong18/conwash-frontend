@@ -62,7 +62,7 @@ export default async function donhangPage({ searchParams }: { searchParams: Sear
     // Chỉ thấy CHO_LAY và DANG_GIAT
     url.searchParams.set("filter[TrangThai][_in]", "CHO_LAY,DANG_GIAT");
   }
-   if (["Giat", "Shipper","NhanVienQuay"].includes(roleName)) {
+   if (["Shipper","NhanVienQuay"].includes(roleName)) {
     // Chỉ thấy CHO_LAY và DANG_GIAT
     url.searchParams.set("filter[ID_DiaDiem][_eq]",locationid);
   }
