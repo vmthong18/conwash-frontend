@@ -60,7 +60,7 @@ export default async function donhangPage({ searchParams }: { searchParams: Sear
   url.searchParams.set("filter[TrangThai][_neq]", "TAO_MOI");
   if (["Giat", "Shipper"].includes(roleName)) {
     // Chỉ thấy CHO_LAY và DANG_GIAT
-    url.searchParams.set("filter[TrangThai][_in]", "CHO_LAY,DANG_GIAT");
+    url.searchParams.set("filter[TrangThai][_in]", "CHO_LAY,DANG_GIAT,VAN_CHUYEN,GIAT_XONG");
   }
    if (["Shipper","NhanVienQuay"].includes(roleName)) {
     // Chỉ thấy CHO_LAY và DANG_GIAT
@@ -75,12 +75,7 @@ export default async function donhangPage({ searchParams }: { searchParams: Sear
     url.searchParams.set("filter[TrangThai][_eq]", g);
 
   }
-  if (roleName === "Giat") {
-    url.searchParams.set("filter[_or][2][TrangThai][_eq]", "CHO_LAY");
-    url.searchParams.set("filter[_or][3][TrangThai][_eq]", "VAN_CHUYEN");
-    url.searchParams.set("filter[_or][4][TrangThai][_eq]", "DANG_GIAT");
-    url.searchParams.set("filter[_or][5][TrangThai][_eq]", "GIAT_XONG");
-  }
+
   const res = await fetch(url.toString(), {
     headers: { Authorization: `Bearer ${access}` },
     cache: "no-store",
