@@ -188,6 +188,24 @@ export default function ListDonHang({
         }
     };
 
+    async function getPhieuHang(current: number) {
+        const q = new URL(`${process.env.DIRECTUS_URL}/items/phieuhang`);
+        q.searchParams.set("fields", "id,Donhangs");
+        q.searchParams.set("limit", "100");
+        q.searchParams.set("filter[_or][0][Donhangs][_eq]", `[${current}]`);
+        q.searchParams.set("filter[_or][1][Donhangs][_starts_with]", `[${current},`);
+        q.searchParams.set("filter[_or][2][Donhangs][_ends_with]", `,${current}]`);
+        q.searchParams.set("filter[_or][3][Donhangs][_contains]", `,${current},`);
+        const listRes = await fetch(q, { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" });
+        if (listRes.ok) {
+            const found = await listRes.json();
+            const dg = (found?.data || {}) || null;
+            return (
+                <a href="#">{dg[0].id}</a>
+            )
+        }
+        return "";
+    }
 
 
 
@@ -286,10 +304,10 @@ export default function ListDonHang({
                             <Th label="ID" sort="ID" current={sort} />
                             <th className="text-left p-2 border-b">Tên khách hàng</th>
                             <th className="text-left p-2 border-b">Số điện thoại</th>
-
+                            <th className="text-left p-2 border-b">Đơn hàng</th>
                             <th className="text-left p-2 border-b">Trạng thái</th>
                             <th className="text-left p-2 border-b">QR</th>
-                         
+
 
                         </tr>
                     </thead>
@@ -307,7 +325,7 @@ export default function ListDonHang({
                                     <td className="p-2">{r.ID}</td>
                                     <td className="p-2">{r?.ID_KhachHang?.TenKhachHang ?? "-"}</td>
                                     <td className="p-2">{r?.ID_KhachHang?.DienThoai ?? "-"}</td>
-
+                                    <td className="p-2">{getPhieuHang(r?.ID)}</td>
                                     <td className="p-2">
                                         {STATUS_LABEL[r?.TrangThai ?? ""]}
                                     </td>
@@ -330,7 +348,7 @@ export default function ListDonHang({
                                         )}
                                     </td>
 
-                                
+
 
                                 </tr>
                             )
