@@ -55,7 +55,7 @@ export default async function Dashboard() {
             <li className="bg-white p-3 rounded shadow">
               <div className="font-medium"></div>
               <div className="text-sm text-gray-600">
-                <a href="/dashboard/phieuhang/">Danh sách phiếu hàng</a>
+                <a href="/dashboard/phieuhang/">Danh sách đơn hàng</a>
               </div>
             </li>
           )}
@@ -63,7 +63,7 @@ export default async function Dashboard() {
             <li className="bg-white p-3 rounded shadow">
               <div className="font-medium"></div>
               <div className="text-sm text-gray-600">
-                <a href="/dashboard/donhang/">Danh sách đơn hàng</a>
+                <a href="/dashboard/donhang/">Danh sách mặt hàng</a>
               </div>
             </li>
           )}
