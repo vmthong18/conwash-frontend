@@ -209,7 +209,7 @@ export default function CreatePhieuForm({
                     <thead className="bg-gray-100">
                         <tr>
                             <th className="p-2 border text-left">Chọn</th>
-                            <th className="p-2 border text-left">ID đơn</th>
+                            <th className="p-2 border text-left">ID mặt hàng</th>
                             <th className="p-2 border text-left">Khách</th>
                             <th className="p-2 border text-left">Ghi chú</th>
                             <th className="p-2 border text-left">Gói hàng</th>

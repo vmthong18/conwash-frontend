@@ -83,7 +83,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
     }
 
     // Đơn trong phiếu → lấy ảnh AnhNhan
-    const ids = parseDonhangs(p.Donhangs);
+    let ids = parseDonhangs(p.Donhangs);
     let imgs: string[] = [];
     if (ids.length) {
       const dhURL = new URL(`${API}/items/donhang`);
@@ -104,7 +104,8 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
       id: p.id,
       kh,
       dd,
-      imgs,                            // danh sách id ảnh
+      imgs,     
+      ids,                       // danh sách id ảnh
       tong: Number(p.TongTien ?? 0),
       tt: String(p.TrangThai),
     };
@@ -142,7 +143,8 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
               <th className="p-2 border-b w-16">#</th>
               <th className="p-2 border-b text-left">Tên khách hàng</th>
               <th className="p-2 border-b text-left">Số điện thoại</th>
-              <th className="p-2 border-b text-left">Ảnh khi nhận (mỗi đơn 1 ảnh)</th>
+              <th className="p-2 border-b text-left">Ảnh khi nhận (mỗi mặt hàng 1 ảnh)</th>
+              <th className="p-2 border-b text-left">Mặt hàng</th>
               <th className="p-2 border-b text-right">Tổng tiền</th>
               <th className="p-2 border-b text-right">Địa điểm</th>
               <th className="p-2 border-b text-right">Trạng thái</th>
@@ -165,6 +167,18 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
                             alt="Ảnh nhận"
 
                           />
+                        </a>
+                      ))}
+                    </div>
+                  ) : "–"}
+                </td>
+                 <td className="p-2">
+                  {r.ids.length ? (
+                    <div className="flex gap-2">
+                      {r.ids.map((id, idx) => (
+
+                        <a key={idx} href={`/dashboard/donhang/${id}`} target="_blank" rel="noreferrer">
+                         {id} 
                         </a>
                       ))}
                     </div>
