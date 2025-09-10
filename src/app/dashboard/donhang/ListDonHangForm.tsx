@@ -189,7 +189,7 @@ export default function ListDonHang({
     };
 
     async function getPhieuHang(current: number) {
-        const q = new URL(`${process.env.DIRECTUS_URL}/items/phieuhang`);
+        const q = new URL(`${ASSETS}/items/phieuhang`);
         q.searchParams.set("fields", "id,Donhangs");
         q.searchParams.set("limit", "100");
         q.searchParams.set("filter[_or][0][Donhangs][_eq]", `[${current}]`);
