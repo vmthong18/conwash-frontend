@@ -85,7 +85,7 @@ export default async function donhangPage({ searchParams }: { searchParams: Sear
     const text = await res.text().catch(() => "");
     return (
       <main className="p-8">
-        <h1 className="text-2xl font-bold">Đơn hàng</h1>
+        <h1 className="text-2xl font-bold">Mặt hàng</h1>
         <p className="text-red-600 mt-4">Lỗi tải dữ liệu: {res.status} {text}</p>
       </main>
     );

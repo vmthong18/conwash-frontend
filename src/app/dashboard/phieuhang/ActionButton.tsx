@@ -21,7 +21,7 @@ export default function ActionButton({ id,token,label}: { id: string,token:strin
                 const msg =
                     data?.errors?.[0]?.message ||
                     data?.error ||
-                    "Không tạo được phiếu";
+                    "Không tạo được đơn";
                 throw new Error(msg);
             }
     }

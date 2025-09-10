@@ -131,7 +131,7 @@ export default async function donhangDetail({
   return (
     <main className="p-8 space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Đơn hàng #{r.ID} - {locationName} </h1>
+        <h1 className="text-2xl font-bold">Mặt hàng #{r.ID} - {locationName} </h1>
         <Link href="/dashboard/donhang" className="text-blue-600 hover:underline">
           ← Danh sách
         </Link>
@@ -210,7 +210,7 @@ export default async function donhangDetail({
           </div>
 
           <div className="rounded border p-4">
-            <div className="font-semibold mb-2">QR đơn hàng</div>
+            <div className="font-semibold mb-2">QR mặt hàng</div>
             {r?.AnhFile?.id ? (
               <a href={`${ASSETS}/assets/${r.AnhFile.id}`} target="_blank">
                 <img

@@ -138,7 +138,7 @@ export default function ListDonHang({
             }
             const unique = new Set(selectedItems.map(x => x.trangThai || ''));
             if (unique.size !== 1) {
-                return alert('Các đơn hàng được chọn phải cùng một trạng thái hiện tại.');
+                return alert('Các mặt hàng được chọn phải cùng một trạng thái hiện tại.');
             }
             const currentStatus = [...unique][0];
             const next = getNextStatus(currentStatus);
@@ -235,7 +235,7 @@ export default function ListDonHang({
     return (
         <main className="p-8">
             <div className="flex items-center justify-between">
-                <h1 className="text-2xl font-bold">Đơn hàng </h1>
+                <h1 className="text-2xl font-bold">Mặt hàng </h1>
                 <div className="flex items-center gap-3">
                     <Link href="/dashboard" className="text-blue-600 hover:underline">← Về Dashboard</Link>
 
@@ -289,7 +289,7 @@ export default function ListDonHang({
 
                             <th className="text-left p-2 border-b">Trạng thái</th>
                             <th className="text-left p-2 border-b">QR</th>
-                            <th className="text-left p-2 border-b">Người nhập</th>
+                         
 
                         </tr>
                     </thead>
@@ -330,9 +330,7 @@ export default function ListDonHang({
                                         )}
                                     </td>
 
-                                    <td className="p-2">
-                                        {r?.NguoiNhap ? (r.NguoiNhap.first_name || r.NguoiNhap.email || r.NguoiNhap.id) : "-"}
-                                    </td>
+                                
 
                                 </tr>
                             )

@@ -126,7 +126,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
     <main className="p-6">
 
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Phiếu hàng</h1>
+        <h1 className="text-2xl font-bold">Đơn hàng</h1>
         <div className="flex items-center gap-3">
           <Link href="/dashboard" className="text-blue-600 hover:underline">← Về Dashboard</Link>
           {/* Nút nhập đơn hàng */}

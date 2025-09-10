@@ -89,11 +89,11 @@ export default function CreatePhieuForm({
     async function onSubmit() {
         setErr(null);
         if (!picked.length) {
-            setErr("Hãy chọn ít nhất một đơn để tạo phiếu.");
+            setErr("Hãy chọn ít nhất một đơn để tạo đơn.");
             return;
         }
         if (!firstCustomer?.ID) {
-            setErr("Không xác định được khách hàng từ đơn đầu tiên.");
+            setErr("Không xác định được khách hàng từ mặt hàng đầu tiên.");
             return;
         }
 
@@ -125,7 +125,7 @@ export default function CreatePhieuForm({
                 const msg =
                     data?.errors?.[0]?.message ||
                     data?.error ||
-                    "Không tạo được phiếu";
+                    "Không tạo được đơn";
                 throw new Error(msg);
             }
             const updates = picked.map((id) => ({ ID: id, TrangThai: "LEN_DON" })); // chú ý primary key là "ID"
@@ -140,7 +140,7 @@ export default function CreatePhieuForm({
             if (!res_donhang.ok) {
                 console.error('Bulk PATCH failed', res_donhang.status, await res_donhang.text());
             }
-            alert(`Tạo phiếu #${data?.data?.ID ?? ""} thành công!`);
+            alert(`Tạo đơn #${data?.data?.ID ?? ""} thành công!`);
             //router.replace(redirectTo);
             router.replace(`${redirectTo}?r=${Date.now()}`);
         } catch (e: any) {
@@ -153,7 +153,7 @@ export default function CreatePhieuForm({
     if (!orders.length) {
         return (
             <main className="p-6">
-                <h1 className="text-2xl font-bold mb-4">Tạo phiếu</h1>
+                <h1 className="text-2xl font-bold mb-4">Tạo đơn</h1>
                 <p>Không có đơn hàng trạng thái <code>GHEP_DON</code>.</p>
             </main>
         );
@@ -161,13 +161,13 @@ export default function CreatePhieuForm({
 
     return (
         <main className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Tạo phiếu</h1>
+            <h1 className="text-2xl font-bold mb-4">Tạo đơn</h1>
 
             {/* Box khách hàng theo đơn đầu tiên */}
             {firstCustomer && (
                 <section className="mb-6">
                     <div className="text-sm font-medium mb-2">
-                        Khách hàng (theo đơn đầu tiên)
+                        Khách hàng (theo mặt hàng đầu tiên)
                     </div>
                     <div className="rounded border bg-gray-50 p-4">
                         <div className="text-base font-semibold">
@@ -182,7 +182,7 @@ export default function CreatePhieuForm({
 
             <div className="flex items-center justify-between mb-2">
                 <div className="text-sm font-medium">
-                    Tất cả đơn hàng trạng thái <span className="font-mono">GHEP_DON</span>
+                    Tất cả mặt hàng trạng thái <span className="font-mono">GHEP_DON</span>
                 </div>
                 <div className="text-sm">
                     <button
@@ -282,7 +282,7 @@ export default function CreatePhieuForm({
                     disabled={saving}
                     className="px-4 py-2 rounded bg-blue-600 text-white disabled:opacity-60"
                 >
-                    {saving ? "Đang tạo..." : "Tạo phiếu"}
+                    {saving ? "Đang tạo..." : "Tạo đơn"}
                 </button>
             </div>
         </main>
