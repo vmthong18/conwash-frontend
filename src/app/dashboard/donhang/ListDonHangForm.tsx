@@ -79,7 +79,7 @@ export default function ListDonHang({
         `${ASSETS}/assets/${id}?width=${size}&height=${size}&fit=cover`;
     const fetchDonHang = async () => {
         setLoading(true);
-        const url = new URL(`${ASSETS}/items/donhang`);
+        const url = new URL(`${process.env.DIRECTUS_URL}/items/donhang`);
         url.searchParams.set("fields",
             "ID,TrangThai,GhiChu,ID_KhachHang.ID,ID_KhachHang.TenKhachHang,ID_KhachHang.DienThoai,NguoiNhap.first_name,NguoiNhap.email,AnhList.file.id,AnhFile.id"
         );
@@ -156,8 +156,8 @@ export default function ListDonHang({
                 console.error('Bulk PATCH failed', res_donhang.status, await res_donhang.text());
             }
             alert('Cập nhật trạng thái thành công!');
-            //fetchDonHang(); // Refresh data
-            router.replace(`/dashboard/donhang?r=${Date.now()}`);
+            fetchDonHang(); // Refresh data
+            //router.replace(`/dashboard/donhang?r=${Date.now()}`);
 
         } catch (error) {
             //console.error('Error updating status:', error);
