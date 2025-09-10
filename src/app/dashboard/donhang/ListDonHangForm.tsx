@@ -56,11 +56,17 @@ export default function ListDonHang({
     token,
     sort,
     rolename,
+    q,
+    g,
+    locationid,
 }: {
     orders: DonHang[];
     token: string;
     sort: string;
     rolename: string;
+    q:string;
+    g:string;
+    locationid:string;
 }) {
     const router = useRouter();
     const [donHangList, setDonHangList] = useState(orders);
@@ -89,7 +95,20 @@ export default function ListDonHang({
         url.searchParams.set("filter[TrangThai][_neq]", "TAO_MOI");
         if (["Giat", "Shipper"].includes(rolename)) {
             // Chỉ thấy CHO_LAY và DANG_GIAT
-            url.searchParams.set("filter[TrangThai][_in]", "VAN_CHUYEN,DANG_GIAT,GIAT_XONG,CHO_VAN_CHUYEN_LAI,VAN_CHUYEN_LAI");
+            url.searchParams.set("filter[TrangThai][_in]", "CHO_LAY,DANG_GIAT,VAN_CHUYEN,GIAT_XONG");
+        }
+        if (["Shipper", "NhanVienQuay"].includes(rolename)) {
+            // Chỉ thấy CHO_LAY và DANG_GIAT
+            url.searchParams.set("filter[ID_DiaDiem][_eq]", locationid);
+        }
+        // Tìm theo tên KH hoặc số điện thoại (deep filter qua quan hệ)
+        if (q) {
+            url.searchParams.set("filter[_or][0][ID_KhachHang][TenKhachHang][_contains]", q);
+            url.searchParams.set("filter[_or][1][ID_KhachHang][DienThoai][_contains]", q);
+        }
+        if (g && g !== "ALL") {
+            url.searchParams.set("filter[TrangThai][_eq]", g);
+
         }
 
         const res = await fetch(url.toString(), {
