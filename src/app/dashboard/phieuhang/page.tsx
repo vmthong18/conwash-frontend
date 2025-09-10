@@ -178,7 +178,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
                       {r.ids.map((id, idx) => (
 
                         <a key={idx} href={`/dashboard/donhang/${id}`} target="_blank" rel="noreferrer">
-                         {id} 
+                         #{id} 
                         </a>
                       ))}
                     </div>

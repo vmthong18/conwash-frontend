@@ -119,11 +119,11 @@ export async function PATCH(req: NextRequest) {
   const idx = Math.max(0, STATUS_ORDER.indexOf(trangThai));
   const next = STATUS_ORDER[Math.min(idx + 1, STATUS_ORDER.length - 1)];
   // ===== 1) Xác định khách hàng (tìm theo SĐT, nếu chưa có thì tạo) =====
-  let ID_khachhang = b?.ID_khachhang;
+  let ID_khachhang = b?.ID_KhachHang;
   if (!ID_khachhang) {
-    const { Tenkhachhang, DiaChi, DienThoai } = b || {};
+    const { TenKhachHang, DiaChi, DienThoai } = b || {};
     if (!DienThoai) {
-      return NextResponse.json({ ok: false, error: "Thiếu ID_khachhang hoặc DienThoai" }, { status: 400 });
+      return NextResponse.json({ ok: false, error: "Thiếu ID_KhachHang hoặc DienThoai" }, { status: 400 });
     }
 
     const findRes = await fetch(
@@ -138,7 +138,7 @@ export async function PATCH(req: NextRequest) {
       const createRes = await fetch(`${process.env.DIRECTUS_URL}/items/khachhang`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ Tenkhachhang, DiaChi, DienThoai }),
+        body: JSON.stringify({ TenKhachHang, DiaChi, DienThoai }),
       });
       if (!createRes.ok) return NextResponse.json({ ok: false, error: "line 125" + await createRes.text() }, { status: 400 });
       const created = await createRes.json();
