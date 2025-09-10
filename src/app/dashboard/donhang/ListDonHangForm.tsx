@@ -64,9 +64,9 @@ export default function ListDonHang({
     token: string;
     sort: string;
     rolename: string;
-    q:string;
-    g:string;
-    locationid:string;
+    q: string;
+    g: string;
+    locationid: string;
 }) {
     const router = useRouter();
     const [donHangList, setDonHangList] = useState(orders);
@@ -151,6 +151,10 @@ export default function ListDonHang({
             }
             if (["Administrator", "Giat"].includes(rolename) && ["DANG_GIAT", "VAN_CHUYEN", "CHO_VAN_CHUYEN_LAI", "VAN_CHUYEN_LAI"].includes(currentStatus)) {
                 checkVisible = true;
+            }
+            if (["GIAT_XONG", "LEN_DON"].includes(currentStatus)) {
+                return alert('Bạn phải quét QR để cập nhật ảnh ở trạng thái này');
+
             }
             if (!checkVisible) {
                 return alert('Bạn không có quyền cập nhật trạng thái này');
