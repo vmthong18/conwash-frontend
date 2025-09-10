@@ -201,7 +201,7 @@ export default function ListDonHang({
             const found = await listRes.json();
             const dg = (found?.data || {}) || null;
             return (
-                <a href="#">{dg[0].id}</a>
+                <a href="#">{dg[0]?.id||""}</a>
             )
         }
         return "";
