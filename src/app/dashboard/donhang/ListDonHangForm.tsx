@@ -132,6 +132,7 @@ export default function ListDonHang({
         return STATUS_ORDER[idx + 1];
     }
     async function handleUpdateStatus() {
+        alert('a');
         try {
             if (selectedItems.length === 0) {
                 return alert('Chưa chọn đơn hàng!');
