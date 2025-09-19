@@ -325,7 +325,7 @@ export default function ListDonHang({
                                     <td className="p-2">{r.ID}</td>
                                     <td className="p-2">{r?.ID_KhachHang?.TenKhachHang ?? "-"}</td>
                                     <td className="p-2">{r?.ID_KhachHang?.DienThoai ?? "-"}</td>
-                                    <td className="p-2">{getPhieuHang(r?.ID)}</td>
+                                    <td className="p-2"></td>
                                     <td className="p-2">
                                         {STATUS_LABEL[r?.TrangThai ?? ""]}
                                     </td>
