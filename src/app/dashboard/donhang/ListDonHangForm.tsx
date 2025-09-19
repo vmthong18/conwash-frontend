@@ -189,7 +189,7 @@ export default function ListDonHang({
     };
 
     async function getPhieuHang(current: number) {
-        /*const q = new URL(`${ASSETS}/items/phieuhang`);
+        const q = new URL(`${ASSETS}/items/phieuhang`);
         q.searchParams.set("fields", "id,Donhangs");
         q.searchParams.set("limit", "100");
         q.searchParams.set("filter[_or][0][Donhangs][_eq]", `[${current}]`);
@@ -197,7 +197,7 @@ export default function ListDonHang({
         q.searchParams.set("filter[_or][2][Donhangs][_ends_with]", `,${current}]`);
         q.searchParams.set("filter[_or][3][Donhangs][_contains]", `,${current},`);
         const listRes = await fetch(q, { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" });
-        if (listRes.ok) {
+        /*if (listRes.ok) {
             const found = await listRes.json();
             const dg = (found?.data || {}) || null;
             return (
