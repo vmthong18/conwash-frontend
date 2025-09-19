@@ -190,7 +190,7 @@ export default function ListDonHang({
     };
 
     async function getPhieuHang(current: number) {
-        const q = new URL(`${ASSETS}/items/phieuhang`);
+       /* const q = new URL(`${ASSETS}/items/phieuhang`);
         q.searchParams.set("fields", "id,Donhangs");
         q.searchParams.set("limit", "100");
         q.searchParams.set("filter[_or][0][Donhangs][_eq]", `[${current}]`);
@@ -204,7 +204,7 @@ export default function ListDonHang({
             return (
                 <a href="#">{dg[0]?.id||""}</a>
             )
-        }
+        }*/
         return "";
     }
 
@@ -258,7 +258,7 @@ export default function ListDonHang({
                 <div className="flex items-center gap-3">
                     <Link href="/dashboard" className="text-blue-600 hover:underline">← Về Dashboard</Link>
 
-                    <button name='33' onClick={handleUpdateStatus} className="px-3 py-2 rounded bg-green-600 text-white hover:bg-green-700" >
+                    <button onClick={handleUpdateStatus} className="px-3 py-2 rounded bg-green-600 text-white hover:bg-green-700" >
                         Cập nhật trạng thái
                     </button>
                 </div>
