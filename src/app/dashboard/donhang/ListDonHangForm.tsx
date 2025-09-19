@@ -197,13 +197,13 @@ export default function ListDonHang({
         q.searchParams.set("filter[_or][2][Donhangs][_ends_with]", `,${current}]`);
         q.searchParams.set("filter[_or][3][Donhangs][_contains]", `,${current},`);
         const listRes = await fetch(q, { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" });
-        /*if (listRes.ok) {
+        if (listRes.ok) {
             const found = await listRes.json();
             const dg = (found?.data || {}) || null;
             return (
                 <a href="#">{dg[0]?.id||""}</a>
             )
-        }*/
+        }
         return "";
     }
 
