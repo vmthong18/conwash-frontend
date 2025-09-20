@@ -131,7 +131,7 @@ export default function ListDonHang({
         if (idx === -1 || idx === STATUS_ORDER.length - 1) return null;
         return STATUS_ORDER[idx + 1];
     }
-    async function handleUpdateStatus() {
+    function handleUpdateStatus() {
         alert('a');
         try {
             if (selectedItems.length === 0) {
@@ -167,7 +167,7 @@ export default function ListDonHang({
                 TrangThai: next,
             }));
             //return alert(assetUrl);
-            const res_donhang = await fetch(`${ASSETS}/items/donhang`, {
+            const res_donhang =  fetch(`${ASSETS}/items/donhang`, {
                 method: "PATCH",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -176,9 +176,7 @@ export default function ListDonHang({
                 body: JSON.stringify(updates),
             });
 
-            if (!res_donhang.ok) {
-                console.error('Bulk PATCH failed', res_donhang.status, await res_donhang.text());
-            }
+            
             alert('Cập nhật trạng thái thành công!');
             fetchDonHang(); // Refresh data
             //router.replace(`/dashboard/donhang?r=${Date.now()}`);
@@ -189,22 +187,16 @@ export default function ListDonHang({
         }
     };
 
-    async function getPhieuHang(current: number) {
-       /* const q = new URL(`${ASSETS}/items/phieuhang`);
+    function getPhieuHang(current: number) {
+        const q = new URL(`${ASSETS}/items/phieuhang`);
         q.searchParams.set("fields", "id,Donhangs");
         q.searchParams.set("limit", "100");
         q.searchParams.set("filter[_or][0][Donhangs][_eq]", `[${current}]`);
         q.searchParams.set("filter[_or][1][Donhangs][_starts_with]", `[${current},`);
         q.searchParams.set("filter[_or][2][Donhangs][_ends_with]", `,${current}]`);
         q.searchParams.set("filter[_or][3][Donhangs][_contains]", `,${current},`);
-        const listRes = await fetch(q, { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" });
-        if (listRes.ok) {
-            const found = await listRes.json();
-            const dg = (found?.data || {}) || null;
-            return (
-                <a href="#">{dg[0]?.id||""}</a>
-            )
-        }*/
+        const listRes =  fetch(q, { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" });
+       
         return "";
     }
 
