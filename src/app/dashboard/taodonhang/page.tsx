@@ -8,12 +8,13 @@ export default async function TaodonhangPage({ searchParams }: { searchParams: S
   const jar = await cookies();
   const access = jar.get(process.env.COOKIE_ACCESS || "be_giay_access")?.value;
   if (!access) return <div className="p-8">Chưa đăng nhập.</div>;
+  const params = await searchParams;
 
-  const limit = Number(searchParams.limit ?? 10);
-  const page = Math.max(1, Number(searchParams.page ?? 1));
+  const limit = Number(params.limit ?? 10);
+  const page = Math.max(1, Number(params.page ?? 1));
   const offset = (page - 1) * limit;
   const q = "TAO_MOI";              // từ khóa: tên hoặc SĐT
-  const sort = (searchParams.sort as string) || "-ID";     // mặc định ID giảm dần
+  const sort = (params.sort as string) || "-ID";     // mặc định ID giảm dần
 
   const url = new URL(`${process.env.DIRECTUS_URL}/items/donhang`);
   const ASSETS = process.env.NEXT_PUBLIC_DIRECTUS_ASSETS ?? process.env.DIRECTUS_URL ?? "";

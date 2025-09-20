@@ -298,7 +298,14 @@ export default function EditForm({
             const r = await fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
             const data = await r.json();
             if (!r.ok || !data.ok) return alert("data " + data?.error || "Không tạo được đơn");
-            router.replace("/dashboard/donhang");
+            if (idx == 0) {
+                router.replace("/dashboard/phieuhang/tao");
+            }
+            else {
+
+                router.replace("/dashboard/donhang");
+            }
+
         } catch (e: any) {
             setMsg("catch " + e.message);
         } finally {
@@ -406,7 +413,7 @@ export default function EditForm({
                     <div>
                         <label className="block text-sm">Ảnh sau khi giặt</label>
                         <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti_after} />
-                         {errors.anhSau && <p className="text-sm text-red-600 mt-1">{errors.anhSau}</p>}
+                        {errors.anhSau && <p className="text-sm text-red-600 mt-1">{errors.anhSau}</p>}
                         {uploading && <p className="text-sm text-gray-600">Đang tải ảnh…</p>}
                         {!!previews_after.length && (
                             <div className="mt-2 flex flex-wrap gap-2">

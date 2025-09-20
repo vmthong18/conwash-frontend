@@ -32,8 +32,8 @@ export default async function donhangDetail({
   )?.value;
   if (!access) return <div className="p-8">Chưa đăng nhập.</div>;
 
-  const id = params.id;
-
+  //const id = await params.id;
+  const { id } = await params;
   // Các trường cần lấy
   const fields = [
     "ID",
