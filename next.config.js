@@ -2,6 +2,8 @@
 
 const nextConfig = {
 	reactStrictMode: true,
+
+  allowedDevOrigins: ["conwash.ecabinet.vn", "*.ecabinet.vn", "localhost"],
 	
   /* config options here */
 };
