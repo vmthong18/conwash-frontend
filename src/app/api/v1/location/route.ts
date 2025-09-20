@@ -56,7 +56,7 @@ export async function POST(req: Request) {
     }
     const fe = process.env.NEXT_PUBLIC_APP_URL!;
     // Thành công: quay lại danh sách (hoặc trả JSON nếu bạn muốn gọi fetch client)
-   
+   return NextResponse.json({ ok: true, created: true, kh: data?.data });
     //return NextResponse.redirect(new URL("/dashboard", req.url));
   } catch (e: any) {
     return NextResponse.json(

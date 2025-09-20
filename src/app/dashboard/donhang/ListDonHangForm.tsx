@@ -23,6 +23,10 @@ type DonHang = {
     };
     // Add other fields as needed
 };
+type PhieuHang = {
+    id: number;
+    Donhangs: string; // Assuming it's a string like "[1,2,3]"
+};
 const STATUS_LABEL: Record<string, string> = {
     TAO_MOI: "Tạo mới",
     GHEP_DON: "Chờ ghép đơn ",
@@ -53,6 +57,7 @@ const STATUS_ORDER = [
 ];
 export default function ListDonHang({
     orders,
+    phieuhangs,
     token,
     sort,
     rolename,
@@ -61,6 +66,7 @@ export default function ListDonHang({
     locationid,
 }: {
     orders: DonHang[];
+    phieuhangs: PhieuHang[];
     token: string;
     sort: string;
     rolename: string;
@@ -69,6 +75,7 @@ export default function ListDonHang({
     locationid: string;
 }) {
     const router = useRouter();
+    //alert(JSON.stringify(phieuhangs));
     const [donHangList, setDonHangList] = useState(orders);
     const [statusFilter, setStatusFilter] = useState<string>("ALL");
     type Picked = { id: number; trangThai?: string };
@@ -132,7 +139,7 @@ export default function ListDonHang({
         return STATUS_ORDER[idx + 1];
     }
     function handleUpdateStatus() {
-        alert('a');
+
         try {
             if (selectedItems.length === 0) {
                 return alert('Chưa chọn đơn hàng!');
@@ -167,7 +174,7 @@ export default function ListDonHang({
                 TrangThai: next,
             }));
             //return alert(assetUrl);
-            const res_donhang =  fetch(`${ASSETS}/items/donhang`, {
+            const res_donhang = fetch(`${ASSETS}/items/donhang`, {
                 method: "PATCH",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -176,7 +183,7 @@ export default function ListDonHang({
                 body: JSON.stringify(updates),
             });
 
-            
+
             alert('Cập nhật trạng thái thành công!');
             fetchDonHang(); // Refresh data
             //router.replace(`/dashboard/donhang?r=${Date.now()}`);
@@ -187,17 +194,24 @@ export default function ListDonHang({
         }
     };
 
-    function getPhieuHang(current: number) {
-        const q = new URL(`${ASSETS}/items/phieuhang`);
-        q.searchParams.set("fields", "id,Donhangs");
-        q.searchParams.set("limit", "100");
-        q.searchParams.set("filter[_or][0][Donhangs][_eq]", `[${current}]`);
-        q.searchParams.set("filter[_or][1][Donhangs][_starts_with]", `[${current},`);
-        q.searchParams.set("filter[_or][2][Donhangs][_ends_with]", `,${current}]`);
-        q.searchParams.set("filter[_or][3][Donhangs][_contains]", `,${current},`);
-        const listRes =  fetch(q, { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" });
-       
-        return "";
+    function getPhieuHang(current: number): React.ReactNode {
+        if (!phieuhangs?.length) return null; // tránh suy luận kiểu string
+
+        const currentStr = `,${current},`;
+
+        for (const p of phieuhangs) {
+            // chuẩn hóa chuỗi, bỏ dấu [ ], thêm dấu phẩy hai đầu để match chính xác
+            const dhs =
+                `,${String(p.Donhangs ?? "")
+                    .replace(/\s/g, "")
+                    .replace(/^\[|\]$/g, "")},`;
+
+            if (dhs.includes(currentStr)) {
+                return <a href={`#/phieuhang/${p.id}`}>#{p.id ?? ""}</a>;
+            }
+        }
+
+        return null; // không khớp thì không render gì
     }
 
 

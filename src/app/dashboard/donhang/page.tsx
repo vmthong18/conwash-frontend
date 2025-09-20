@@ -19,7 +19,7 @@ export default async function donhangPage({ searchParams }: { searchParams: Sear
   if (meRes.ok) {
     const me = await meRes.json();
     roleName = me?.data?.role?.name ?? "";
-   locationid = me?.data?.location?? ""
+    locationid = me?.data?.location ?? ""
 
   }
   const limit = Number(params.limit ?? 10);
@@ -62,9 +62,9 @@ export default async function donhangPage({ searchParams }: { searchParams: Sear
     // Chỉ thấy CHO_LAY và DANG_GIAT
     url.searchParams.set("filter[TrangThai][_in]", "CHO_LAY,DANG_GIAT,VAN_CHUYEN,GIAT_XONG");
   }
-   if (["Shipper","NhanVienQuay"].includes(roleName)) {
+  if (["Shipper", "NhanVienQuay"].includes(roleName)) {
     // Chỉ thấy CHO_LAY và DANG_GIAT
-    url.searchParams.set("filter[ID_DiaDiem][_eq]",locationid);
+    url.searchParams.set("filter[ID_DiaDiem][_eq]", locationid);
   }
   // Tìm theo tên KH hoặc số điện thoại (deep filter qua quan hệ)
   if (q) {
@@ -92,8 +92,28 @@ export default async function donhangPage({ searchParams }: { searchParams: Sear
   }
 
   const data = (await res.json()).data ?? [];
-
-  return <ListDonHang token={access} orders={data} sort={sort} rolename={roleName} q={q} g={g} locationid={locationid} />;
+  const url_phieuhang = new URL(`${process.env.DIRECTUS_URL}/items/phieuhang`);
+  // Expand các trường khách hàng để hiển thị
+  for (let i=0;i< data.length;i++) {
+    url_phieuhang.searchParams.set("filter[_or]["+i+"][Donhangs][_contains]", data[i].ID);
+   
+  }
+  const res_phieuhang = await fetch(url_phieuhang.toString(), {
+    headers: { Authorization: `Bearer ${access}` },
+    cache: "no-store",
+  });
+   if (!res_phieuhang.ok) {
+    const text = await res_phieuhang.text().catch(() => "");
+    return (
+      <main className="p-8">
+        <h1 className="text-2xl font-bold">Đơn hàng</h1>
+        <p className="text-red-600 mt-4">Lỗi tải dữ liệu: {res.status} {text}</p>
+      </main>
+    );
+  }
+   const data_phieuhang = (await res_phieuhang.json()).data?? [];
+  
+  return <ListDonHang token={access} orders={data} phieuhangs={data_phieuhang} sort={sort} rolename={roleName} q={q} g={g} locationid={locationid} />;
 
 }
 

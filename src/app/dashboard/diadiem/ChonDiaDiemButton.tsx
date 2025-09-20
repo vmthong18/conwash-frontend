@@ -7,7 +7,7 @@ export default function ChonDiaDiemButton({ id }: { id: string }) {
         
         try {
             const body: any = { id };
-            const response = await fetch('/api/v1/location', { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }); // Chỉnh lại endpoint API của bạn nếu cần
+            await fetch('/api/v1/location', { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }); // Chỉnh lại endpoint API của bạn nếu cần
  
            
         }
