@@ -104,18 +104,13 @@ export default async function EditDetail({
     me = meData?.data;
   }
 
-  const q_checkghepdon = new URL(`${process.env.DIRECTUS_URL}/items/donhang`);
-  q_checkghepdon.searchParams.set("filter[TrangThai][_eq]", "GHEP_DON");
-  q_checkghepdon.searchParams.set("filter[NguoiNhap][_eq]", me.id);
-  q_checkghepdon.searchParams.set("fields", "ID_KhachHang.ID,ID_KhachHang.TenKhachHang,ID_KhachHang.DienThoai,ID_KhachHang.DiaChi");
 
-  const listRes_checkghepdon = await fetch(q_checkghepdon, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
   let idkh = r.ID_KhachHang?.ID;
   let tkh = r.ID_KhachHang?.TenKhachHang || "";
   let dtkh = r.ID_KhachHang?.DienThoai || "";
   let sckh = r.ID_KhachHang?.DiaChi || "";
   let dc = r.ID_DiaDiem;
-  if (dc === undefined||dc===null ) {
+  if (dc === undefined || dc === null) {
     dc = me?.location;
   }
   let locationName = "";
@@ -128,7 +123,12 @@ export default async function EditDetail({
       locationName = dg.TenDiaDiem || "";
     }
   }
-  
+  const q_checkghepdon = new URL(`${process.env.DIRECTUS_URL}/items/donhang`);
+  q_checkghepdon.searchParams.set("filter[TrangThai][_eq]", "GHEP_DON");
+  q_checkghepdon.searchParams.set("filter[ID_DiaDiem][_eq]", me.location);
+  q_checkghepdon.searchParams.set("fields", "ID_KhachHang.ID,ID_KhachHang.TenKhachHang,ID_KhachHang.DienThoai,ID_KhachHang.DiaChi");
+
+  const listRes_checkghepdon = await fetch(q_checkghepdon, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
 
 
   if (listRes_checkghepdon.ok) {
@@ -144,7 +144,7 @@ export default async function EditDetail({
     }
 
   }
- 
+
   return (
     <EditForm
       id={r.ID}
