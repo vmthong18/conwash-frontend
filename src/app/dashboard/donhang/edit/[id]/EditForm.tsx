@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { da } from "zod/locales";
 
-type GoiHangList = {
+type GoiHang = {
     ID: number;
     TenGoi: string;
     GiaTien: number;
@@ -47,15 +47,15 @@ export default function EditForm({
     roleName: string;
     locationId?: string;
     locationName?: string;
-    listGoiHang: GoiHangList[];
+    listGoiHang: GoiHang[];
 }) {
     const REQUIRED_ANH_NHAN = 1;
     const REQUIRED_ANH_TRUOC = 6;
     const REQUIRED_ANH_SAU = 6;
-    const [goihangList, setgoihangList] = useState<GoiHangList[]>(
+    const [goihangList, setgoihangList] = useState<GoiHang[]>(
         Array.isArray(listGoiHang) ? listGoiHang : []
     );
-    alert(goihangList);
+   
     const [errors, setErrors] = useState<{ anhNhan?: string; anhTruoc?: string; anhSau?: string; goiHangerr?: string; }>({});
     const [ID, setID] = useState(id);
     const [DienThoai, setDienThoai] = useState(dienThoai || "");
