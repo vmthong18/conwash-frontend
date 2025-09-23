@@ -144,7 +144,7 @@ export default async function EditDetail({
     }
 
   }
-  const response_goihang = await fetch(`${process.env.DIRECTUS_URL}/items/goihang`, { method: "GET", headers: { "Content-Type": "application/json" } }); // Chỉnh lại endpoint API của bạn nếu cần
+  const response_goihang = await fetch(`${process.env.DIRECTUS_URL}/items/goihang`, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" }); // Chỉnh lại endpoint API của bạn nếu cần
    const { data: data_goihang } = await response_goihang.json();
   return (
     <EditForm
