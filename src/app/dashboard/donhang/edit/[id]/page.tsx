@@ -146,6 +146,8 @@ export default async function EditDetail({
   }
   const response_goihang = await fetch(`${process.env.DIRECTUS_URL}/items/goihang`, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" }); // Chỉnh lại endpoint API của bạn nếu cần
    const { data: data_goihang } = await response_goihang.json();
+   const response_box_nhagiat = await fetch(`${process.env.DIRECTUS_URL}/items/box_nhagiat`, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" }); // Chỉnh lại endpoint API của bạn nếu cần
+   const { data: data_box_nhagiat } = await response_box_nhagiat.json();
   return (
     <EditForm
       id={r.ID}
@@ -159,6 +161,7 @@ export default async function EditDetail({
       diaChi={sckh}
       goiHangIDs={r.GoiHangs || []}
       listGoiHang={data_goihang}
+      listNhaGiat={data_box_nhagiat}
       anhNhan={r.AnhNhan}
       anhList_after={ids_after}
       anhList={ids}

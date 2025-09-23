@@ -9,7 +9,12 @@ type GoiHang = {
     GiaTien: number;
     Type: number;
 };
-
+type Box_NhaGiat = {
+    ID: number;
+    NhaGiat: string;
+    ID_DiaDiem: number;
+    Type: number;
+};
 export default function EditForm({
     id,
     trangThai,
@@ -29,6 +34,7 @@ export default function EditForm({
     locationId,
     locationName,
     listGoiHang,
+    listNhaGiat,
 }: {
     id: number | string;
     trangThai: string;
@@ -48,6 +54,7 @@ export default function EditForm({
     locationId?: string;
     locationName?: string;
     listGoiHang: GoiHang[];
+    listNhaGiat: Box_NhaGiat[];
 }) {
     const REQUIRED_ANH_NHAN = 1;
     const REQUIRED_ANH_TRUOC = 6;
@@ -55,7 +62,7 @@ export default function EditForm({
     const [goihangList, setgoihangList] = useState<GoiHang[]>(
         Array.isArray(listGoiHang) ? listGoiHang : []
     );
-   
+
     const [errors, setErrors] = useState<{ anhNhan?: string; anhTruoc?: string; anhSau?: string; goiHangerr?: string; }>({});
     const [ID, setID] = useState(id);
     const [DienThoai, setDienThoai] = useState(dienThoai || "");
@@ -314,6 +321,7 @@ export default function EditForm({
             body.AnhList = anhIds;
             body.AnhList_After = anhIds_after;
             body.TrangThai = TrangThai;
+
             if (idx == 0) {
                 body.NguoiNhap = Me;
             }
@@ -322,7 +330,8 @@ export default function EditForm({
                 new Set(selectedGoiHangs.map(x => x?.id).filter((v): v is number => typeof v === "number"))
             ).join(",");
             body.ID_DiaDiem = locationId; // Gửi location hiện tại
-
+            let type_nhagiat = selectedGoiHangs[0].loai ? selectedGoiHangs[0].loai : 0;
+            body.NhaGiat = getNhaGiat(parseInt(body.ID_DiaDiem, 10), type_nhagiat)?.NhaGiat;
             //const r = await fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
             fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
             //const data = await r.json();
@@ -353,7 +362,9 @@ export default function EditForm({
             return [...prev, { id, loai: row?.Type }];
         });
     };
-
+    function getNhaGiat(id_diadiem: number, type: number) {
+        return listNhaGiat.find(b => b.ID_DiaDiem === id_diadiem && b.Type === type);
+    };
     return (
         <main className="min-h-screen p-8">
             <h1 className="text-2xl font-bold">Nhập đơn hàng - {locationName}</h1>
