@@ -52,7 +52,9 @@ export default function EditForm({
     const REQUIRED_ANH_NHAN = 1;
     const REQUIRED_ANH_TRUOC = 6;
     const REQUIRED_ANH_SAU = 6;
-    const [goihangList, setgoihangList] = useState(listGoiHang);
+    const [goihangList, setgoihangList] = useState<GoiHangList[]>(
+        Array.isArray(listGoiHang) ? listGoiHang : []
+    );
     const [errors, setErrors] = useState<{ anhNhan?: string; anhTruoc?: string; anhSau?: string; goiHangerr?: string; }>({});
     const [ID, setID] = useState(id);
     const [DienThoai, setDienThoai] = useState(dienThoai || "");
@@ -230,6 +232,7 @@ export default function EditForm({
         setAnhIds_after((arr) => arr.filter((_, idx) => idx !== i));
         setPreviews_after((arr) => arr.filter((_, idx) => idx !== i));
     }
+    /*
     async function onFind() {
         setMsg(null);
         const phone = DienThoai.trim();
@@ -273,7 +276,7 @@ export default function EditForm({
             setStatus(`Error: ${data.message}`);
         }
     }
-
+*/
     function onSubmit(e: React.FormEvent) {
         e.preventDefault(); setSaving(true); setMsg(null);
         const nextErrors: typeof errors = {};
@@ -471,7 +474,7 @@ export default function EditForm({
                     <label className="block text-sm">Chọn Gói Hàng</label>
                     <div className="space-y-2">
                         {errors.goiHangerr && <p className="text-sm text-red-600 mt-1">{errors.goiHangerr}</p>}
-                        {goihangList.map((goi) => {
+                        {Array.isArray(goihangList) && goihangList.map((goi) => {
                             return (
                                 <div key={goi.ID} className="flex items-center">
                                     <input
@@ -486,8 +489,8 @@ export default function EditForm({
                                 </div>
                             )
                         }
-                    )
-                    }
+                        )
+                        }
                     </div>
                 </div>
 
