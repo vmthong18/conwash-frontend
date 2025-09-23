@@ -471,19 +471,23 @@ export default function EditForm({
                     <label className="block text-sm">Chọn Gói Hàng</label>
                     <div className="space-y-2">
                         {errors.goiHangerr && <p className="text-sm text-red-600 mt-1">{errors.goiHangerr}</p>}
-                        {goihangList.map((goi) => (
-                            <div key={goi.ID} className="flex items-center">
-                                <input
-                                    type="checkbox"
-                                    id={`goi_${goi.ID}`}
-                                    value={goi.ID}
-                                    onChange={() => handleCheckboxChange(goi.ID)}
-                                    checked={isChecked(goi.ID)}
-                                    className="mr-2"
-                                />
-                                <label htmlFor={`goi_${goi.ID}`} className="text-sm">{goi.TenGoi} - {goi.GiaTien} VND</label>
-                            </div>
-                        ))}
+                        {goihangList.map((goi) => {
+                            return (
+                                <div key={goi.ID} className="flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        id={`goi_${goi.ID}`}
+                                        value={goi.ID}
+                                        onChange={() => handleCheckboxChange(goi.ID)}
+                                        checked={isChecked(goi.ID)}
+                                        className="mr-2"
+                                    />
+                                    <label htmlFor={`goi_${goi.ID}`} className="text-sm">{goi.TenGoi} - {goi.GiaTien} VND</label>
+                                </div>
+                            )
+                        }
+                    )
+                    }
                     </div>
                 </div>
 
