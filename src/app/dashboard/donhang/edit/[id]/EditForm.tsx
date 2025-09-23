@@ -471,7 +471,7 @@ export default function EditForm({
                     <label className="block text-sm">Chọn Gói Hàng</label>
                     <div className="space-y-2">
                         {errors.goiHangerr && <p className="text-sm text-red-600 mt-1">{errors.goiHangerr}</p>}
-                        {listGoiHang.map((goi) => (
+                        {goihangList.map((goi) => (
                             <div key={goi.ID} className="flex items-center">
                                 <input
                                     type="checkbox"
