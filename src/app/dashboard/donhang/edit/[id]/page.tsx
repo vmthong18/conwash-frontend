@@ -144,7 +144,8 @@ export default async function EditDetail({
     }
 
   }
-
+  const response_goihang = await fetch('/api/v1/goihang', { method: "GET", headers: { "Content-Type": "application/json" } }); // Chỉnh lại endpoint API của bạn nếu cần
+  const data_goihang = await response_goihang.json();
   return (
     <EditForm
       id={r.ID}
@@ -157,6 +158,7 @@ export default async function EditDetail({
       dienThoai={dtkh}
       diaChi={sckh}
       goiHangIDs={r.GoiHangs || []}
+      listGoiHang={data_goihang}
       anhNhan={r.AnhNhan}
       anhList_after={ids_after}
       anhList={ids}

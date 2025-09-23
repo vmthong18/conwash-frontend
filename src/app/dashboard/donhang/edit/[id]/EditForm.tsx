@@ -3,6 +3,12 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { da } from "zod/locales";
 
+type GoiHangList = {
+    ID: number;
+    TenGoi: string;
+    GiaTien: number;
+    Type: number;
+};
 
 export default function EditForm({
     id,
@@ -22,6 +28,7 @@ export default function EditForm({
     roleName,
     locationId,
     locationName,
+    listGoiHang,
 }: {
     id: number | string;
     trangThai: string;
@@ -40,12 +47,13 @@ export default function EditForm({
     roleName: string;
     locationId?: string;
     locationName?: string;
+    listGoiHang: GoiHangList[];
 }) {
     const REQUIRED_ANH_NHAN = 1;
     const REQUIRED_ANH_TRUOC = 6;
     const REQUIRED_ANH_SAU = 6;
-
-    const [errors, setErrors] = useState<{ anhNhan?: string; anhTruoc?: string; anhSau?: string; }>({});
+    const [goihangList, setgoihangList] = useState(listGoiHang);
+    const [errors, setErrors] = useState<{ anhNhan?: string; anhTruoc?: string; anhSau?: string; goiHangerr?: string; }>({});
     const [ID, setID] = useState(id);
     const [DienThoai, setDienThoai] = useState(dienThoai || "");
     const [TenKhachHang, setTenKhachHang] = useState(tenKhachHang || "");
@@ -75,6 +83,7 @@ export default function EditForm({
     const [saving, setSaving] = useState(false);
     const [suggestions, setSuggestions] = useState<{ ID: number, DienThoai: string, TenKhachHang: string, DiaChi: string }[]>([]);
     const [msg, setMsg] = useState<string | null>(null);
+    type Picked = { id: number; loai?: number };
 
     const base = process.env.NEXT_PUBLIC_DIRECTUS_ASSETS
         ?? process.env.NEXT_PUBLIC_DIRECTUS_URL
@@ -91,13 +100,15 @@ export default function EditForm({
     const [previews_after, setPreviews_after] = useState<string[]>(
         (anhList_after || []).map(id => `${base}/assets/${id}`)
     );
-    type GoiHang = { ID: string | number; TenGoi: string; GiaTien: number };
-    const [goiHang, setGoiHang] = useState<GoiHang[]>([]);
-    const [selectedGoiHangs, setSelectedGoiHangs] = useState<string[]>([]);
+    //type GoiHang = { ID: string | number; TenGoi: string; GiaTien: number };
+    //const [goiHang, setGoiHang] = useState<GoiHang[]>([]);
+    //const [selectedGoiHangs, setSelectedGoiHangs] = useState<string[]>([]);
+    const [selectedGoiHangs, setSelectedGoiHangs] = useState<Picked[]>([]);
+    const isChecked = (id: number) => selectedGoiHangs.some(x => x.id === id);
     // const [previews, setPreviews] = useState<string[]>(anhList || []);
     const idx = Math.max(0, STATUS_ORDER.indexOf(trangThai));
     const router = useRouter();
-    useEffect(() => {
+    /*useEffect(() => {
         // Lấy dữ liệu các gói hàng từ API
         async function fetchGoiHang() {
             const response = await fetch('/api/v1/goihang', { method: "GET", headers: { "Content-Type": "application/json" } }); // Chỉnh lại endpoint API của bạn nếu cần
@@ -109,7 +120,10 @@ export default function EditForm({
 
         // Cập nhật lại danh sách các gói hàng đã chọn từ goiHangIDs
         setSelectedGoiHangs((goiHangIDs || []).map(String)); // Lưu ID gói hàng đã chọn vào selectedGoiHangs
-    }, [goiHangIDs]);
+    }, [goiHangIDs]);*/
+    useEffect(() => {
+        setSelectedGoiHangs([]);
+    }, [goihangList]);
     const fetchSuggestions = async (query: string) => {
         if (query.trim() === "") return setSuggestions([]); // Không có gì để tìm
 
@@ -158,14 +172,16 @@ export default function EditForm({
         } catch (e: any) { alert(e.message); }
         finally { setUploading(false); }
     }
-    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>, id: string | number) => {
+    /*const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>, id: string | number) => {
         // Thêm hoặc bỏ gói hàng khỏi danh sách đã chọn
         if (e.target.checked) {
             setSelectedGoiHangs(prev => [...prev, String(id)]);
         } else {
             setSelectedGoiHangs(prev => prev.filter(item => item !== String(id)));
         }
-    };
+    };*/
+
+
     function removeImg(i: number) {
         setAnhIds((arr) => arr.filter((_, idx) => idx !== i));
         setPreviews((arr) => arr.filter((_, idx) => idx !== i));
@@ -258,9 +274,14 @@ export default function EditForm({
         }
     }
 
-    async function onSubmit(e: React.FormEvent) {
+    function onSubmit(e: React.FormEvent) {
         e.preventDefault(); setSaving(true); setMsg(null);
         const nextErrors: typeof errors = {};
+
+        const unique = new Set(selectedGoiHangs.map(x => x.loai || ''));
+        if (unique.size !== 1) {
+            nextErrors.goiHangerr = 'Các gói hàng được chọn phải cùng một loại.';
+        }
 
         // bắt buộc đúng 1 ảnh khi nhận
         if (!AnhId) nextErrors.anhNhan = `Cần tải đủ ${REQUIRED_ANH_NHAN} ảnh khi nhận.`;
@@ -292,12 +313,16 @@ export default function EditForm({
             if (idx == 0) {
                 body.NguoiNhap = Me;
             }
-            body.GoiHangIDs = selectedGoiHangs; // Gửi mảng ID các gói hàng đã chọn
+            //body.GoiHangIDs = selectedGoiHangs; // Gửi mảng ID các gói hàng đã chọn
+            body.GoiHangIDs = Array.from(
+                new Set(selectedGoiHangs.map(x => x?.id).filter((v): v is number => typeof v === "number"))
+            ).join(",");
             body.ID_DiaDiem = locationId; // Gửi location hiện tại
 
-            const r = await fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
-            const data = await r.json();
-            if (!r.ok || !data.ok) return alert("data " + data?.error || "Không tạo được đơn");
+            //const r = await fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+            fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+            //const data = await r.json();
+            //if (!r.ok || !data.ok) return alert("data " + data?.error || "Không tạo được đơn");
             if (idx == 0) {
                 router.replace("/dashboard/phieuhang/tao");
             }
@@ -312,6 +337,18 @@ export default function EditForm({
             setSaving(false);
         }
     }
+    const handleCheckboxChange = (id: number) => {
+        setSelectedGoiHangs(prev => {
+            const exists = prev.find(x => x.id === id);
+            if (exists) {
+                // bỏ chọn
+                return prev.filter(x => x.id !== id);
+            }
+            // thêm mới kèm trạng thái hiện tại lấy từ danh sách
+            const row = goihangList.find(r => r.ID === id);
+            return [...prev, { id, loai: row?.Type }];
+        });
+    };
 
     return (
         <main className="min-h-screen p-8">
@@ -433,14 +470,15 @@ export default function EditForm({
                 <div>
                     <label className="block text-sm">Chọn Gói Hàng</label>
                     <div className="space-y-2">
-                        {goiHang.map((goi) => (
+                        {errors.goiHangerr && <p className="text-sm text-red-600 mt-1">{errors.goiHangerr}</p>}
+                        {listGoiHang.map((goi) => (
                             <div key={goi.ID} className="flex items-center">
                                 <input
                                     type="checkbox"
                                     id={`goi_${goi.ID}`}
                                     value={goi.ID}
-                                    onChange={(e) => handleCheckboxChange(e, goi.ID)}
-                                    checked={selectedGoiHangs.includes(String(goi.ID))}
+                                    onChange={() => handleCheckboxChange(goi.ID)}
+                                    checked={isChecked(goi.ID)}
                                     className="mr-2"
                                 />
                                 <label htmlFor={`goi_${goi.ID}`} className="text-sm">{goi.TenGoi} - {goi.GiaTien} VND</label>
