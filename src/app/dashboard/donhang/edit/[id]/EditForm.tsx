@@ -55,7 +55,7 @@ export default function EditForm({
     const [goihangList, setgoihangList] = useState<GoiHang[]>(
         Array.isArray(listGoiHang) ? listGoiHang : []
     );
-   
+   alert(goihangList);
     const [errors, setErrors] = useState<{ anhNhan?: string; anhTruoc?: string; anhSau?: string; goiHangerr?: string; }>({});
     const [ID, setID] = useState(id);
     const [DienThoai, setDienThoai] = useState(dienThoai || "");
