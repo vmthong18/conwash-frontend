@@ -289,7 +289,7 @@ export default async function PageDiaDiem() {
                                         {getResult("VAN_CHUYEN",d.ID_DiaDiem,d.NhaGiat)}
                                     </td>
                                      <td className="p-2">
-                                        {getResult("DANG_GIATGIAT_XONG,",d.ID_DiaDiem,d.NhaGiat)}
+                                        {getResult("DANG_GIAT,GIAT_XONG,",d.ID_DiaDiem,d.NhaGiat)}
                                     </td>
                                 </tr>
                             );
