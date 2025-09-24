@@ -328,11 +328,12 @@ export default function EditForm({
             //body.GoiHangIDs = selectedGoiHangs; // Gửi mảng ID các gói hàng đã chọn
             let ghs=Array.from(
                 new Set(selectedGoiHangs.map(x => x?.id).filter((v): v is number => typeof v === "number"))
-            ).join(",");
-            alert(ghs);
+            );
+          
             body.GoiHangIDs = ghs;
             body.ID_DiaDiem = locationId; // Gửi location hiện tại
             let type_nhagiat = selectedGoiHangs[0].loai ? selectedGoiHangs[0].loai : 0;
+              alert(ghs+"---"+type_nhagiat);
             body.NhaGiat = getNhaGiat(parseInt(body.ID_DiaDiem, 10), type_nhagiat)?.NhaGiat;
             //const r = await fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
             fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
