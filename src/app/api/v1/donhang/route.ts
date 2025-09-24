@@ -157,6 +157,7 @@ export async function PATCH(req: NextRequest) {
     NguoiNhap: b?.NguoiNhap ?? null,
     TrangThai: next,     // <— trạng thái
     ID_DiaDiem: b?.ID_DiaDiem || null, 
+     NhaGiat: b?.NhaGiat || null, 
     // NguoiNhap: preset trong Policy (NhapDon) sẽ tự gán $CURRENT_USER
   };
 
