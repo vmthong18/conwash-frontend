@@ -76,7 +76,7 @@ export default async function PageDiaDiem() {
 
     // 3) Lấy danh sách nhà giặt
     const nglst = new URL(`${API}/users`);
-    
+    nglst.searchParams.set("filter[title][_null]", "false");
 
     const ngRes = await fetch(nglst.toString(), {
         headers: { Authorization: `Bearer ${access}` },
@@ -195,7 +195,7 @@ export default async function PageDiaDiem() {
     async function getResult(trangthai: string,diadiem:number,nhagiat:string) {
         const cUrl_gx = new URL(`${API}/items/donhang`);
         cUrl_gx.searchParams.set("aggregate[count]", "*");
-        cUrl_gx.searchParams.set("filter[TrangThai][_eq]", trangthai);
+        cUrl_gx.searchParams.set("filter[TrangThai][_in]", trangthai);
         cUrl_gx.searchParams.set("filter[ID_DiaDiem][_eq]", String(diadiem));
         cUrl_gx.searchParams.set("filter[NhaGiat][_eq]", nhagiat);
         const r_gx = await fetch(cUrl_gx.toString(), {
