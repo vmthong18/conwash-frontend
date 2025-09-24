@@ -4,6 +4,8 @@ import { cookies } from "next/headers";
 
 // Kiểu dữ liệu gọn gàng
 type DiaDiem = { ID: number; TenDiaDiem: string };
+type Mapping_NhaGiat = { ID: number; NhaGiat: string; ID_DiaDiem: number; Type: number;};
+type NhaGiat = { id: string;first_name: string;last_name: string; title: string };
 type CountRow = {
     ID_DiaDiem: number | null;
     count: { "*": number } | number; // tuỳ phiên bản Directus
@@ -47,6 +49,56 @@ export default async function PageDiaDiem() {
     const ddJson = await ddRes.json();
     const diaDiems: DiaDiem[] = ddJson?.data ?? [];
 
+    // 2) Lấy danh sách mapping địa điểm- nhà giặt
+    const ddng = new URL(`${API}/items/mapping_nhagiat`);
+    ddng.searchParams.set("sort", "ID_DiaDiem");
+    ddng.searchParams.set("limit", "-1");
+
+    const ddngRes = await fetch(ddng.toString(), {
+        headers: { Authorization: `Bearer ${access}` },
+        cache: "no-store",
+    });
+
+    if (!ddngRes.ok) {
+        const t = await ddngRes.text().catch(() => "");
+        return (
+            <main className="p-8">
+                <h1 className="text-2xl font-bold"></h1>
+                <p className="text-red-600 mt-4">
+                    Lỗi tải Mapping nhà giặt: {ddngRes.status} {t}
+                </p>
+            </main>
+        );
+    }
+
+    const ddngJson = await ddngRes.json();
+    const mng: Mapping_NhaGiat[] = ddngJson?.data ?? [];
+
+    // 3) Lấy danh sách nhà giặt
+    const nglst = new URL(`${API}/items/directus_users`);
+    nglst.searchParams.set("sort", "ID_DiaDiem");
+    nglst.searchParams.set("limit", "-1");
+
+    const ngRes = await fetch(nglst.toString(), {
+        headers: { Authorization: `Bearer ${access}` },
+        cache: "no-store",
+    });
+
+    if (!ngRes.ok) {
+        const t = await ngRes.text().catch(() => "");
+        return (
+            <main className="p-8">
+                <h1 className="text-2xl font-bold"></h1>
+                <p className="text-red-600 mt-4">
+                    Lỗi tải nhà giặt: {ngRes.status} {t}
+                </p>
+            </main>
+        );
+    }
+
+    const ngJson = await ngRes.json();
+    const ng: NhaGiat[] = ngJson?.data ?? [];
+/*
     const aggUrl_gx = new URL(`${API}/items/donhang`);
     aggUrl_gx.searchParams.set("aggregate[count]", "*");
     aggUrl_gx.searchParams.set("groupBy", "ID_DiaDiem");
@@ -80,7 +132,7 @@ export default async function PageDiaDiem() {
             if (r.ID_DiaDiem == null) continue;
             const value_gx =
                 typeof r.count === "number" ? r.count : (r.count?.["*"] ?? 0);
-           
+
             countsByLocation_gx.set(Number(r.ID_DiaDiem), Number(value_gx));
         }
     }
@@ -92,7 +144,7 @@ export default async function PageDiaDiem() {
             const value =
                 typeof r.count === "number" ? r.count : (r.count?.["*"] ?? 0);
             countsByLocation.set(Number(r.ID_DiaDiem), Number(value));
-          
+
         }
     } else {
         // Fallback: nếu aggregate không dùng được, đếm từng địa điểm (ít địa điểm thì vẫn ổn)
@@ -140,7 +192,36 @@ export default async function PageDiaDiem() {
             })
         );
     }
-
+        */
+    async function getResult(trangthai: string,diadiem:number,nhagiat:string) {
+        const cUrl_gx = new URL(`${API}/items/donhang`);
+        cUrl_gx.searchParams.set("aggregate[count]", "*");
+        cUrl_gx.searchParams.set("filter[TrangThai][_eq]", trangthai);
+        cUrl_gx.searchParams.set("filter[ID_DiaDiem][_eq]", String(diadiem));
+        cUrl_gx.searchParams.set("filter[NhaGiat][_eq]", nhagiat);
+        const r_gx = await fetch(cUrl_gx.toString(), {
+            headers: { Authorization: `Bearer ${access}` },
+            cache: "no-store",
+        });
+        if (r_gx.ok) {
+            const j_gx = await r_gx.json();
+            const row_gx = (j_gx?.data ?? [])[0];
+            const v_gx =
+                typeof row_gx?.count === "number"
+                    ? row_gx.count
+                    : row_gx?.count?.["*"] ?? 0;
+           
+            return Number(v_gx || 0);
+        } else {
+            return 0;
+        }
+    }
+    function getNhaGiat(id: string) {
+        return ng.find(b => b.id === id)?.first_name;
+    };
+    function getDiaDiem(id: number) {
+        return diaDiems.find(b => b.ID === id)?.TenDiaDiem;
+    };
     return (
         <main className="p-8">
             <div className="flex items-center justify-between">
@@ -156,6 +237,7 @@ export default async function PageDiaDiem() {
                         <tr>
                             <th className="text-left p-2 border-b w-24">ID</th>
                             <th className="text-left p-2 border-b">Tên địa điểm</th>
+                             <th className="text-left p-2 border-b">Tên nhà giặt</th>
                             <th className="text-left p-2 border-b w-48">
                                 Đơn hàng đang chờ lấy
                             </th>
@@ -165,21 +247,22 @@ export default async function PageDiaDiem() {
                         </tr>
                     </thead>
                     <tbody>
-                        {diaDiems.map((d) => {
-                            const c = countsByLocation.get(d.ID) ?? 0;
-                            const c_gx = countsByLocation_gx.get(d.ID) ?? 0;
+                        {mng.map((d) => {
+                            //const c = countsByLocation.get(d.ID) ?? 0;
+                            //const c_gx = countsByLocation_gx.get(d.ID) ?? 0;
                             return (
                                 <tr key={d.ID} className="border-b">
                                     <td className="p-2">{d.ID}</td>
-                                    <td className="p-2">{d.TenDiaDiem}</td>
-                                    <td className="p-2">{c}</td>
+                                    <td className="p-2">{getDiaDiem(d.ID_DiaDiem)}</td>
+                                    <td className="p-2">{getNhaGiat(d.NhaGiat)}</td>
+                                    <td className="p-2">{getResult("CHO_LAY",d.ID_DiaDiem,d.NhaGiat)}</td>
                                     <td className="p-2">
-                                        {c_gx}
+                                        {getResult("GIAT_XONG",d.ID_DiaDiem,d.NhaGiat)}
                                     </td>
                                 </tr>
                             );
                         })}
-                        {diaDiems.length === 0 && (
+                        {mng.length === 0 && (
                             <tr>
                                 <td colSpan={4} className="p-4 text-center text-gray-500">
                                     Không có địa điểm hoạt động
