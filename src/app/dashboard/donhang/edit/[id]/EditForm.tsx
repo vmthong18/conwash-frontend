@@ -132,8 +132,32 @@ export default function EditForm({
         setSelectedGoiHangs((goiHangIDs || []).map(String)); // Lưu ID gói hàng đã chọn vào selectedGoiHangs
     }, [goiHangIDs]);*/
     useEffect(() => {
-        setSelectedGoiHangs([]);
-    }, [goihangList]);
+  // Bảo vệ: nếu không có dữ liệu thì xóa chọn
+  if (!Array.isArray(goiHangIDs) || goiHangIDs.length === 0) {
+    setSelectedGoiHangs([]);
+    return;
+  }
+
+  // Chuẩn hóa ID về number, loại bỏ giá trị không hợp lệ
+  const ids = goiHangIDs
+    .map(v => (typeof v === "number" ? v : parseInt(String(v), 10)))
+    .filter(n => Number.isFinite(n));
+
+  // Map sang Picked { id, loai } dựa theo goihangList để lấy Type
+  const seen = new Set<number>();
+  const picked: { id: number; loai?: number }[] = [];
+
+  for (const id of ids) {
+    if (seen.has(id)) continue;
+    const row = goihangList.find(r => r.ID === id);
+    if (row) {
+      picked.push({ id, loai: row.Type });
+      seen.add(id);
+    }
+  }
+
+  setSelectedGoiHangs(picked);
+}, [goiHangIDs, goihangList]);
     const fetchSuggestions = async (query: string) => {
         if (query.trim() === "") return setSuggestions([]); // Không có gì để tìm
 
