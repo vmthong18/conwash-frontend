@@ -333,8 +333,10 @@ export default function EditForm({
             body.GoiHangIDs = ghs;
             body.ID_DiaDiem = locationId; // Gửi location hiện tại
             let type_nhagiat = selectedGoiHangs[0].loai ? selectedGoiHangs[0].loai : 0;
-              alert(ghs+"---"+type_nhagiat);
+             
             body.NhaGiat = getNhaGiat(parseInt(body.ID_DiaDiem, 10), type_nhagiat)?.NhaGiat;
+             alert(ghs+"---"+getNhaGiat(parseInt(body.ID_DiaDiem, 10), type_nhagiat)?.NhaGiat);
+             return;
             //const r = await fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
             fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
             //const data = await r.json();
