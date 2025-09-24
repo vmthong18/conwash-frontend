@@ -146,7 +146,7 @@ export default async function EditDetail({
   }
   const response_goihang = await fetch(`${process.env.DIRECTUS_URL}/items/goihang`, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" }); // Chỉnh lại endpoint API của bạn nếu cần
    const { data: data_goihang } = await response_goihang.json();
-   const response_box_nhagiat = await fetch(`${process.env.DIRECTUS_URL}/items/box_nhagiat`, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" }); // Chỉnh lại endpoint API của bạn nếu cần
+   const response_box_nhagiat = await fetch(`${process.env.NEXT_PUBLIC_DIRECTUS_ASSETS}/items/box_nhagiat`, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" }); // Chỉnh lại endpoint API của bạn nếu cần
    const { data: data_box_nhagiat } = await response_box_nhagiat.json();
   return (
     <EditForm
