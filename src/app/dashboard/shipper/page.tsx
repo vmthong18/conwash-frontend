@@ -97,6 +97,32 @@ export default async function PageDiaDiem() {
 
     const ngJson = await ngRes.json();
     const ng: NhaGiat[] = ngJson?.data ?? [];
+
+
+    // 4) Lấy danh sách mapping nhà giặt - địa điểm-
+    const ngdd = new URL(`${API}/items/mapping_nhagiat`);
+    ngdd.searchParams.set("sort", "NhaGiat");
+    ngdd.searchParams.set("limit", "-1");
+
+    const ngddRes = await fetch(ngdd.toString(), {
+        headers: { Authorization: `Bearer ${access}` },
+        cache: "no-store",
+    });
+
+    if (!ngddRes.ok) {
+        const t = await ngddRes.text().catch(() => "");
+        return (
+            <main className="p-8">
+                <h1 className="text-2xl font-bold"></h1>
+                <p className="text-red-600 mt-4">
+                    Lỗi tải Mapping nhà giặt: {ngddRes.status} {t}
+                </p>
+            </main>
+        );
+    }
+
+    const ngddJson = await ngddRes.json();
+    const mngdd: Mapping_NhaGiat[] = ngddJson?.data ?? [];
 /*
     const aggUrl_gx = new URL(`${API}/items/donhang`);
     aggUrl_gx.searchParams.set("aggregate[count]", "*");
@@ -225,7 +251,7 @@ export default async function PageDiaDiem() {
        
         <main className="p-8">
             <div className="flex items-center justify-between">
-                <h1 className="text-2xl font-bold">Địa điểm đang hoạt động</h1>
+                <h1 className="text-2xl font-bold">Vận chuyển đi</h1>
                 <Link href="/dashboard" className="text-blue-600 hover:underline">
                     ← Về Dashboard
                 </Link>
@@ -235,14 +261,17 @@ export default async function PageDiaDiem() {
                 <table className="min-w-full border border-gray-300 bg-white">
                     <thead className="bg-gray-100">
                         <tr>
-                            <th className="text-left p-2 border-b w-24">ID</th>
-                            <th className="text-left p-2 border-b">Tên địa điểm</th>
-                             <th className="text-left p-2 border-b">Tên nhà giặt</th>
+                         
+                             <th className="text-left p-2 border-b">Điểm đi</th>
+                             <th className="text-left p-2 border-b">Điểm đến</th>
                             <th className="text-left p-2 border-b w-48">
                                 Đơn hàng đang chờ lấy
                             </th>
                             <th className="text-left p-2 border-b w-48">
-                                Đơn hàng đã giặt xong
+                                Đơn hàng đang chuyển
+                            </th>
+                             <th className="text-left p-2 border-b w-48">
+                                Đơn hàng đã chuyển
                             </th>
                         </tr>
                     </thead>
@@ -252,27 +281,76 @@ export default async function PageDiaDiem() {
                             //const c_gx = countsByLocation_gx.get(d.ID) ?? 0;
                             return (
                                 <tr key={d.ID} className="border-b">
-                                    <td className="p-2">{d.ID}</td>
+                                    
                                     <td className="p-2">{getDiaDiem(d.ID_DiaDiem)}</td>
                                     <td className="p-2">{getNhaGiat(d.NhaGiat)}</td>
                                     <td className="p-2">{getResult("CHO_LAY",d.ID_DiaDiem,d.NhaGiat)}</td>
                                     <td className="p-2">
-                                        {getResult("GIAT_XONG",d.ID_DiaDiem,d.NhaGiat)}
+                                        {getResult("VAN_CHUYEN",d.ID_DiaDiem,d.NhaGiat)}
+                                    </td>
+                                     <td className="p-2">
+                                        {getResult("DANG_GIATGIAT_XONG,",d.ID_DiaDiem,d.NhaGiat)}
                                     </td>
                                 </tr>
                             );
                         })}
-                        {mng.length === 0 && (
-                            <tr>
-                                <td colSpan={4} className="p-4 text-center text-gray-500">
-                                    Không có địa điểm hoạt động
-                                </td>
-                            </tr>
-                        )}
+                   
+                     
+                    </tbody>
+                </table>
+                 
+            </div>
+             <div className="flex items-center justify-between">
+                <h1 className="text-2xl font-bold">Vận chuyển về</h1>
+                <Link href="/dashboard" className="text-blue-600 hover:underline">
+                    ← Về Dashboard
+                </Link>
+            </div>
+ 
+            <div className="mt-6 overflow-x-auto">
+              
+                  <table className="min-w-full border border-gray-300 bg-white">
+                    <thead className="bg-gray-100">
+                        <tr>
+                         
+                            <th className="text-left p-2 border-b">Điểm đi</th>
+                             <th className="text-left p-2 border-b">Điểm đến</th>
+                            <th className="text-left p-2 border-b w-48">
+                                Đơn hàng đang chờ lấy
+                            </th>
+                            <th className="text-left p-2 border-b w-48">
+                                Đơn hàng đang chuyển
+                            </th>
+                             <th className="text-left p-2 border-b w-48">
+                                Đơn hàng đã chuyển
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {mngdd.map((d) => {
+                            //const c = countsByLocation.get(d.ID) ?? 0;
+                            //const c_gx = countsByLocation_gx.get(d.ID) ?? 0;
+                            return (
+                                <tr key={d.ID} className="border-b">
+                                 
+                                    <td className="p-2">{getNhaGiat(d.NhaGiat)}</td>
+                                    <td className="p-2">{getDiaDiem(d.ID_DiaDiem)}</td>
+                                    
+                                    <td className="p-2">{getResult("CHO_VAN_CHUYEN_LAI",d.ID_DiaDiem,d.NhaGiat)}</td>
+                                    <td className="p-2">
+                                        {getResult("VAN_CHUYEN_LAI",d.ID_DiaDiem,d.NhaGiat)}
+                                    </td>
+                                     <td className="p-2">
+                                        {getResult("QUAY_NHAN_GIAY",d.ID_DiaDiem,d.NhaGiat)}
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                   
+                     
                     </tbody>
                 </table>
             </div>
-            
         </main>
       
     );
