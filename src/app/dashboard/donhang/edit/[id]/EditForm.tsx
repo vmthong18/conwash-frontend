@@ -326,9 +326,11 @@ export default function EditForm({
                 body.NguoiNhap = Me;
             }
             //body.GoiHangIDs = selectedGoiHangs; // Gửi mảng ID các gói hàng đã chọn
-            body.GoiHangIDs = Array.from(
+            let ghs=Array.from(
                 new Set(selectedGoiHangs.map(x => x?.id).filter((v): v is number => typeof v === "number"))
             ).join(",");
+            alert(ghs);
+            body.GoiHangIDs = ghs;
             body.ID_DiaDiem = locationId; // Gửi location hiện tại
             let type_nhagiat = selectedGoiHangs[0].loai ? selectedGoiHangs[0].loai : 0;
             body.NhaGiat = getNhaGiat(parseInt(body.ID_DiaDiem, 10), type_nhagiat)?.NhaGiat;
