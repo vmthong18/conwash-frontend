@@ -516,7 +516,7 @@ export default function EditForm({
                     <div className="space-y-2">
                         {errors.goiHangerr && <p className="text-sm text-red-600 mt-1">{errors.goiHangerr}</p>}
                         {Array.isArray(goihangList) && goihangList.map((goi) => {
-                            let cbc=idx>1?false:true;
+                            let cbc=idx>2?false:true;
                             return (
                                 <div key={goi.ID} className="flex items-center">
                                     <input
