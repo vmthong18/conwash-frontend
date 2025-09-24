@@ -75,7 +75,7 @@ export default async function PageDiaDiem() {
     const mng: Mapping_NhaGiat[] = ddngJson?.data ?? [];
 
     // 3) Lấy danh sách nhà giặt
-    const nglst = new URL(`${API}/items/directus_users`);
+    const nglst = new URL(`${API}/items/users`);
 
 
     const ngRes = await fetch(nglst.toString(), {
