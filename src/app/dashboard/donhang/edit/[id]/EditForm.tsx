@@ -132,32 +132,32 @@ export default function EditForm({
         setSelectedGoiHangs((goiHangIDs || []).map(String)); // Lưu ID gói hàng đã chọn vào selectedGoiHangs
     }, [goiHangIDs]);*/
     useEffect(() => {
-  // Bảo vệ: nếu không có dữ liệu thì xóa chọn
-  if (!Array.isArray(goiHangIDs) || goiHangIDs.length === 0) {
-    setSelectedGoiHangs([]);
-    return;
-  }
+        // Bảo vệ: nếu không có dữ liệu thì xóa chọn
+        if (!Array.isArray(goiHangIDs) || goiHangIDs.length === 0) {
+            setSelectedGoiHangs([]);
+            return;
+        }
 
-  // Chuẩn hóa ID về number, loại bỏ giá trị không hợp lệ
-  const ids = goiHangIDs
-    .map(v => (typeof v === "number" ? v : parseInt(String(v), 10)))
-    .filter(n => Number.isFinite(n));
+        // Chuẩn hóa ID về number, loại bỏ giá trị không hợp lệ
+        const ids = goiHangIDs
+            .map(v => (typeof v === "number" ? v : parseInt(String(v), 10)))
+            .filter(n => Number.isFinite(n));
 
-  // Map sang Picked { id, loai } dựa theo goihangList để lấy Type
-  const seen = new Set<number>();
-  const picked: { id: number; loai?: number }[] = [];
+        // Map sang Picked { id, loai } dựa theo goihangList để lấy Type
+        const seen = new Set<number>();
+        const picked: { id: number; loai?: number }[] = [];
 
-  for (const id of ids) {
-    if (seen.has(id)) continue;
-    const row = goihangList.find(r => r.ID === id);
-    if (row) {
-      picked.push({ id, loai: row.Type });
-      seen.add(id);
-    }
-  }
+        for (const id of ids) {
+            if (seen.has(id)) continue;
+            const row = goihangList.find(r => r.ID === id);
+            if (row) {
+                picked.push({ id, loai: row.Type });
+                seen.add(id);
+            }
+        }
 
-  setSelectedGoiHangs(picked);
-}, [goiHangIDs, goihangList]);
+        setSelectedGoiHangs(picked);
+    }, [goiHangIDs, goihangList]);
     const fetchSuggestions = async (query: string) => {
         if (query.trim() === "") return setSuggestions([]); // Không có gì để tìm
 
@@ -350,14 +350,14 @@ export default function EditForm({
                 body.NguoiNhap = Me;
             }
             //body.GoiHangIDs = selectedGoiHangs; // Gửi mảng ID các gói hàng đã chọn
-            let ghs=Array.from(
+            let ghs = Array.from(
                 new Set(selectedGoiHangs.map(x => x?.id).filter((v): v is number => typeof v === "number"))
             );
-          
+
             body.GoiHangIDs = ghs;
             body.ID_DiaDiem = locationId; // Gửi location hiện tại
             let type_nhagiat = selectedGoiHangs[0].loai ? selectedGoiHangs[0].loai : 0;
-             let ten_nhagiat=getNhaGiat(parseInt(body.ID_DiaDiem, 10), type_nhagiat)?.NhaGiat;
+            let ten_nhagiat = getNhaGiat(parseInt(body.ID_DiaDiem, 10), type_nhagiat)?.NhaGiat;
             body.NhaGiat = ten_nhagiat;
             // alert(ghs+"---"+getNhaGiat(parseInt(body.ID_DiaDiem, 10), type_nhagiat)?.NhaGiat);
             // return;
@@ -516,6 +516,7 @@ export default function EditForm({
                     <div className="space-y-2">
                         {errors.goiHangerr && <p className="text-sm text-red-600 mt-1">{errors.goiHangerr}</p>}
                         {Array.isArray(goihangList) && goihangList.map((goi) => {
+                            let cbc=idx>1?false:true;
                             return (
                                 <div key={goi.ID} className="flex items-center">
                                     <input
@@ -523,6 +524,7 @@ export default function EditForm({
                                         id={`goi_${goi.ID}`}
                                         value={goi.ID}
                                         onChange={() => handleCheckboxChange(goi.ID)}
+                                        disabled={cbc}
                                         checked={isChecked(goi.ID)}
                                         className="mr-2"
                                     />
