@@ -76,7 +76,7 @@ export default async function PageDiaDiem() {
 
     // 3) Lấy danh sách nhà giặt
     const nglst = new URL(`${API}/items/directus_users`);
-    nglst.searchParams.set("limit", "-1");
+
 
     const ngRes = await fetch(nglst.toString(), {
         headers: { Authorization: `Bearer ${access}` },
