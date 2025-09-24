@@ -76,7 +76,7 @@ export default async function PageDiaDiem() {
 
     // 3) Lấy danh sách nhà giặt
     const nglst = new URL(`${API}/users`);
-
+    
 
     const ngRes = await fetch(nglst.toString(), {
         headers: { Authorization: `Bearer ${access}` },
@@ -231,7 +231,47 @@ export default async function PageDiaDiem() {
                 </Link>
             </div>
  
-            
+            <div className="mt-6 overflow-x-auto">
+                <table className="min-w-full border border-gray-300 bg-white">
+                    <thead className="bg-gray-100">
+                        <tr>
+                            <th className="text-left p-2 border-b w-24">ID</th>
+                            <th className="text-left p-2 border-b">Tên địa điểm</th>
+                             <th className="text-left p-2 border-b">Tên nhà giặt</th>
+                            <th className="text-left p-2 border-b w-48">
+                                Đơn hàng đang chờ lấy
+                            </th>
+                            <th className="text-left p-2 border-b w-48">
+                                Đơn hàng đã giặt xong
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {mng.map((d) => {
+                            //const c = countsByLocation.get(d.ID) ?? 0;
+                            //const c_gx = countsByLocation_gx.get(d.ID) ?? 0;
+                            return (
+                                <tr key={d.ID} className="border-b">
+                                    <td className="p-2">{d.ID}</td>
+                                    <td className="p-2">{getDiaDiem(d.ID_DiaDiem)}</td>
+                                    <td className="p-2">{getNhaGiat(d.NhaGiat)}</td>
+                                    <td className="p-2">{getResult("CHO_LAY",d.ID_DiaDiem,d.NhaGiat)}</td>
+                                    <td className="p-2">
+                                        {getResult("GIAT_XONG",d.ID_DiaDiem,d.NhaGiat)}
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                        {mng.length === 0 && (
+                            <tr>
+                                <td colSpan={4} className="p-4 text-center text-gray-500">
+                                    Không có địa điểm hoạt động
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
             
         </main>
       
