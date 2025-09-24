@@ -516,7 +516,7 @@ export default function EditForm({
                     <div className="space-y-2">
                         {errors.goiHangerr && <p className="text-sm text-red-600 mt-1">{errors.goiHangerr}</p>}
                         {Array.isArray(goihangList) && goihangList.map((goi) => {
-                            let cbc=idx>2?false:true;
+                            const disabled = idx >= 2;
                             return (
                                 <div key={goi.ID} className="flex items-center">
                                     <input
@@ -524,9 +524,9 @@ export default function EditForm({
                                         id={`goi_${goi.ID}`}
                                         value={goi.ID}
                                         onChange={() => handleCheckboxChange(goi.ID)}
-                                        disabled={cbc}
+                                        disabled={disabled}
                                         checked={isChecked(goi.ID)}
-                                        className="mr-2"
+                                        className="mr-2 "
                                     />
                                     <label htmlFor={`goi_${goi.ID}`} className="text-sm">{goi.TenGoi} - {goi.GiaTien} VND</label>
                                 </div>
