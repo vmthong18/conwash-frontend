@@ -5,6 +5,7 @@ type Revisions = {
     id: number;
     action: string;
     collection: string;
+    first_name:string;
     data: JSON;
     delta: JSON;
     
@@ -46,7 +47,7 @@ export default async function logDetail({
     //const id = await params.id;
     const { id } = await params;
     const url_revisions = new URL(`${process.env.DIRECTUS_URL}/revisions`);
-    url_revisions.searchParams.set("fields", "activity.id,activity.action,activity.collection,activity.item,activity.timestamp,delta,data");
+    url_revisions.searchParams.set("fields", "activity.id,activity.user.first_name,activity.action,activity.collection,activity.item,activity.timestamp,delta,data");
     url_revisions.searchParams.set("filter[collection][_eq]", "donhang");
     url_revisions.searchParams.set("filter[item][_eq]", id);
    
@@ -70,7 +71,9 @@ export default async function logDetail({
                     <thead className="bg-gray-100">
                         <tr>
                          
-                             <th className="text-left p-2 border-b">ID</th>
+                             <th className="text-left p-2 border-b">Thời gian</th>
+                              <th className="text-left p-2 border-b">Người dùng</th>
+                               <th className="text-left p-2 border-b">Thao tác</th>
                              <th className="text-left p-2 border-b">Log xử lý</th>
                             
                         </tr>
@@ -82,7 +85,9 @@ export default async function logDetail({
                             return (
                                 <tr key={d.id} className="border-b">
                                     
-                                    <td className="p-2">{d.collection}</td>
+                                    <td className="p-2">{d.timestamp}</td>
+                                     <td className="p-2">{d.first_name}</td>
+                                      <td className="p-2">{d.action}</td>
                                     <td className="p-2">{JSON.stringify(d.delta)}</td>
                                     
                                 </tr>
