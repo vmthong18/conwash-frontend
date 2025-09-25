@@ -2,14 +2,15 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 
 type Revisions = {
-    activity: number;
+    id: number;
+    action: string;
     collection: string;
     data: JSON;
     delta: JSON;
-    id: number;
+    
     item: number;
-    parent: string;
-    version: string;
+    timestamp: string;
+
 
     // Add other fields as needed
 };
@@ -45,7 +46,7 @@ export default async function logDetail({
     //const id = await params.id;
     const { id } = await params;
     const url_revisions = new URL(`${process.env.DIRECTUS_URL}/revisions`);
-    //url_revisions.searchParams.set("fields", "ID");
+    url_revisions.searchParams.set("fields", "activity.id,activity.action,activity.collection,activity.item,activity.timestamp,delta,data");
     url_revisions.searchParams.set("filter[collection][_eq]", "donhang");
     url_revisions.searchParams.set("filter[item][_eq]", id);
    
@@ -81,7 +82,7 @@ export default async function logDetail({
                             return (
                                 <tr key={d.id} className="border-b">
                                     
-                                    <td className="p-2">{d.activity}</td>
+                                    <td className="p-2">{d.collection}</td>
                                     <td className="p-2">{JSON.stringify(d.delta)}</td>
                                     
                                 </tr>
