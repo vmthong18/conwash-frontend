@@ -2,20 +2,32 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 
 type Revisions = {
-    id: number;
-    action: string;
-    collection: string;
-    first_name:string;
+   id: number;
+   // action: string;
+    //collection: string;
+    activity:Activity;
     data: JSON;
     delta: JSON;
     
-    item: number;
-    timestamp: string;
+    //item: number;
+    //timestamp: string;
 
 
     // Add other fields as needed
 };
+type DirectusUser = {
+  id?: string;
+  first_name?: string;
+};
 
+type Activity = {
+  id: number;
+  action: string;
+  collection: string;
+  item: string;         // Directus trả dạng string
+  timestamp: string;
+  user: DirectusUser ;
+};
 const ASSETS =
     process.env.NEXT_PUBLIC_DIRECTUS_ASSETS ?? process.env.DIRECTUS_URL ?? "";
 
@@ -47,7 +59,7 @@ export default async function logDetail({
     //const id = await params.id;
     const { id } = await params;
     const url_revisions = new URL(`${process.env.DIRECTUS_URL}/revisions`);
-    url_revisions.searchParams.set("fields", "activity.id,activity.user.first_name,activity.action,activity.collection,activity.item,activity.timestamp,delta,data");
+    url_revisions.searchParams.set("fields", "id,activity.id,activity.user.first_name,activity.action,activity.collection,activity.item,activity.timestamp,delta,data");
     url_revisions.searchParams.set("filter[collection][_eq]", "donhang");
     url_revisions.searchParams.set("filter[item][_eq]", id);
    
@@ -85,9 +97,9 @@ export default async function logDetail({
                             return (
                                 <tr key={d.id} className="border-b">
                                     
-                                    <td className="p-2">{d.timestamp}</td>
-                                     <td className="p-2">{d.first_name}</td>
-                                      <td className="p-2">{d.action}</td>
+                                    <td className="p-2">{d.activity.timestamp}</td>
+                                     <td className="p-2">{d.activity.user.first_name}</td>
+                                      <td className="p-2">{d.activity.action}</td>
                                     <td className="p-2">{JSON.stringify(d.delta)}</td>
                                     
                                 </tr>
