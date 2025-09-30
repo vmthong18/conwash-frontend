@@ -76,7 +76,7 @@ export default function ListDonHang({
     g: string;
     locationid: string;
     pageid: number;
-    nameid:string;
+    nameid: string;
 }) {
     const router = useRouter();
     //alert(JSON.stringify(phieuhangs));
@@ -157,7 +157,7 @@ export default function ListDonHang({
         if (idx === -1 || idx === STATUS_ORDER.length - 1) return null;
         return STATUS_ORDER[idx + 1];
     }
-    function handleUpdateStatus() {
+    async function handleUpdateStatus() {
 
         try {
             if (selectedItems.length === 0) {
@@ -173,7 +173,7 @@ export default function ListDonHang({
                 return alert('Không thể cập nhật: đã ở trạng thái cuối hoặc trạng thái không hợp lệ.');
             }
             let checkVisible = false;
-            if (["Administrator", "NhanVienQuay"].includes(rolename) && ["CHO_LAY", "LEN_DON", "QUAY_NHAN_GIAY","VAN_CHUYEN_LAI"].includes(currentStatus)) {
+            if (["Administrator", "NhanVienQuay"].includes(rolename) && ["CHO_LAY", "LEN_DON", "QUAY_NHAN_GIAY", "VAN_CHUYEN_LAI"].includes(currentStatus)) {
                 checkVisible = true;
             }
             if (["Administrator", "Giat"].includes(rolename) && ["DANG_GIAT", "VAN_CHUYEN", "CHO_VAN_CHUYEN_LAI"].includes(currentStatus)) {
@@ -187,7 +187,7 @@ export default function ListDonHang({
                 return alert('Bạn không có quyền cập nhật trạng thái này');
             }
 
-
+            /*
             const updates = selectedItems.map((item) => ({
                 ID: item.id,
                 TrangThai: next,
@@ -201,7 +201,15 @@ export default function ListDonHang({
                 },
                 body: JSON.stringify(updates),
             });
+            */
+            selectedItems.map((r) => {
+                fetch("/api/v1/capnhat", {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ ID: r.id, TrangThai: r.trangThai }),
+                });
 
+            });
 
             alert('Cập nhật trạng thái thành công!');
             fetchDonHang(); // Refresh data
