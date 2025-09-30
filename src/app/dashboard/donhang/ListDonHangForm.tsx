@@ -90,6 +90,20 @@ export default function ListDonHang({
     useEffect(() => {
         setSelectedItems([]);
     }, [donHangList]);
+    // đồng bộ danh sách đơn theo props mới
+    useEffect(() => {
+        setDonHangList(orders);
+    }, [orders]);
+
+    // đồng bộ trang hiện hành theo props mới
+    useEffect(() => {
+        setPage(pageid);
+    }, [pageid]);
+
+    // đồng bộ bộ lọc trạng thái trong select theo query hiện tại
+    useEffect(() => {
+        setStatusFilter(g || "ALL");
+    }, [g]);
     const assetUrl = (id: string, size = 96) =>
         `${ASSETS}/assets/${id}?width=${size}&height=${size}&fit=cover`;
     const fetchDonHang = async () => {
@@ -232,7 +246,8 @@ export default function ListDonHang({
         sp.set("page", String(p));
         sp.set("limit", String(limit));
         sp.set("sort", sort);
-        //if (q) sp.set("q", q);
+        if (q) sp.set("q", q);      // ← bật lại
+        if (g) sp.set("g", g);      // ← thêm để giữ trạng thái lọc
         return `?${sp.toString()}`;
     };
 
