@@ -20,6 +20,9 @@ export default async function defaultPage() {
     else if (roleName === "Shipper") {
         redirect(`/dashboard/shipper`);
     }
+    else if (roleName === "Giat") {
+        redirect(`/dashboard/donhang`);
+    }
     else {
         redirect(`/dashboard`);
 
