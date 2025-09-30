@@ -13,8 +13,7 @@ export default function ActionButton({
   async function onClick() {
     try {
       setLoading(true);
-      const api =
-        process.env.NEXT_PUBLIC_DIRECTUS_URL || process.env.DIRECTUS_URL;
+       const api = process.env.NEXT_PUBLIC_DIRECTUS_ASSETS;
       if (!api) throw new Error("Thiếu cấu hình DIRECTUS_URL.");
 
       const res = await fetch(`${api}/items/phieuhang/${id}`, {
