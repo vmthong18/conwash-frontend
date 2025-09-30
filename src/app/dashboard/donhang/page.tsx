@@ -113,7 +113,7 @@ export default async function donhangPage({ searchParams }: { searchParams: Sear
   }
    const data_phieuhang = (await res_phieuhang.json()).data?? [];
   
-  return <ListDonHang token={access} orders={data} phieuhangs={data_phieuhang} sort={sort} rolename={roleName} q={q} g={g} locationid={locationid} />;
+  return <ListDonHang token={access} pageid={page} orders={data} phieuhangs={data_phieuhang} sort={sort} rolename={roleName} q={q} g={g} locationid={locationid} />;
 
 }
 

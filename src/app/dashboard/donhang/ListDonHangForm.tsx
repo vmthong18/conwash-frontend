@@ -64,6 +64,7 @@ export default function ListDonHang({
     q,
     g,
     locationid,
+    pageid,
 }: {
     orders: DonHang[];
     phieuhangs: PhieuHang[];
@@ -73,13 +74,14 @@ export default function ListDonHang({
     q: string;
     g: string;
     locationid: string;
+    pageid: number;
 }) {
     const router = useRouter();
     //alert(JSON.stringify(phieuhangs));
     const [donHangList, setDonHangList] = useState(orders);
     const [statusFilter, setStatusFilter] = useState<string>("ALL");
     type Picked = { id: number; trangThai?: string };
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(pageid);
     const [limit] = useState(10);
     const [loading, setLoading] = useState(false);
     const [selectedItems, setSelectedItems] = useState<Picked[]>([]);
