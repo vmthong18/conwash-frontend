@@ -173,10 +173,10 @@ export default function ListDonHang({
                 return alert('Không thể cập nhật: đã ở trạng thái cuối hoặc trạng thái không hợp lệ.');
             }
             let checkVisible = false;
-            if (["Administrator", "NhanVienQuay"].includes(rolename) && ["CHO_LAY", "LEN_DON", "QUAY_NHAN_GIAY", "SAN_SANG"].includes(currentStatus)) {
+            if (["Administrator", "NhanVienQuay"].includes(rolename) && ["CHO_LAY", "LEN_DON", "QUAY_NHAN_GIAY", "SAN_SANG","VAN_CHUYEN_LAI"].includes(currentStatus)) {
                 checkVisible = true;
             }
-            if (["Administrator", "Giat"].includes(rolename) && ["DANG_GIAT", "VAN_CHUYEN", "CHO_VAN_CHUYEN_LAI", "VAN_CHUYEN_LAI"].includes(currentStatus)) {
+            if (["Administrator", "Giat"].includes(rolename) && ["DANG_GIAT", "VAN_CHUYEN", "CHO_VAN_CHUYEN_LAI"].includes(currentStatus)) {
                 checkVisible = true;
             }
             if (["GIAT_XONG", "LEN_DON"].includes(currentStatus)) {
