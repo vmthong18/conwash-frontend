@@ -48,10 +48,12 @@ export async function PATCH(req: NextRequest) {
     q.searchParams.set("filter[_or][2][Donhangs][_ends_with]", `,${donHangId}]`);
     q.searchParams.set("filter[_or][3][Donhangs][_contains]", `,${donHangId},`);
     const listRes = await fetch(q, { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" });
+    
     if (listRes.ok) {
       const found = await listRes.json();
       const dg = (found?.data || {}) || null;
       const ids = parseDonhangs(dg[0].Donhangs);
+      console.log(`DANH SACH ID: ${JSON.stringify(ids)}`);
       if (ids.length) {
         const dhURL = new URL(`${process.env.DIRECTUS_URL}/items/donhang`);
         dhURL.searchParams.set("fields", "TrangThai");
