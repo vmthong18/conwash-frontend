@@ -309,7 +309,7 @@ export default function EditForm({
         }
     }
 */
-    function onSubmit(e: React.FormEvent) {
+    async function onSubmit(e: React.FormEvent) {
         e.preventDefault(); setSaving(true); setMsg(null);
         const nextErrors: typeof errors = {};
 
@@ -361,17 +361,23 @@ export default function EditForm({
             body.NhaGiat = ten_nhagiat;
             // alert(ghs+"---"+getNhaGiat(parseInt(body.ID_DiaDiem, 10), type_nhagiat)?.NhaGiat);
             // return;
-            //const r = await fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
-            fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
-            //const data = await r.json();
-            //if (!r.ok || !data.ok) return alert("data " + data?.error || "Không tạo được đơn");
-            if (idx == 0) {
-                router.replace("/dashboard/phieuhang/tao");
+            const r = await fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+            //fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+            const data = await r.json();
+            if (!r.ok || !data.ok) {
+                return alert("data " + data?.error || "Không tạo được đơn");
             }
             else {
+                if (idx == 0) {
+                    router.replace("/dashboard/phieuhang/tao");
+                }
+                else {
 
-                router.replace(`/dashboard/donhang?page=1&limit=10&sort=-ID&g=ALL`);
+                    router.replace(`/dashboard/donhang?page=1&limit=10&sort=-ID&g=ALL`);
+                }
+
             }
+
 
         } catch (e: any) {
             setMsg("catch " + e.message);
