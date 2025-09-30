@@ -53,7 +53,8 @@ export async function PATCH(req: NextRequest) {
       const found = await listRes.json();
       const dg = (found?.data || {}) || null;
       const ids = parseDonhangs(dg[0].Donhangs);
-      alert(`DANH SACH ID: ${JSON.stringify(ids)}`);
+      return NextResponse.json({ ok: false, error: `DANH SACH ID: ${JSON.stringify(ids)}` }, { status: 400 });
+     // alert(`DANH SACH ID: ${JSON.stringify(ids)}`);
       if (ids.length) {
         const dhURL = new URL(`${process.env.DIRECTUS_URL}/items/donhang`);
         dhURL.searchParams.set("fields", "TrangThai");
