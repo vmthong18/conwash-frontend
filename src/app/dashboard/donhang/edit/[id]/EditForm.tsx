@@ -370,7 +370,7 @@ export default function EditForm({
             }
             else {
 
-                router.replace(`/dashboard/donhang?r=${Date.now()}`);
+                router.replace(`/dashboard/donhang?page=1&limit=10&sort=-ID&g=ALL`);
             }
 
         } catch (e: any) {
