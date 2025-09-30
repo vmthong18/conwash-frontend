@@ -1,7 +1,9 @@
 "use client";
+import { useRouter } from "next/navigation";
 
 export default function ActionButton({ id,token,label}: { id: string,token:string|undefined, label: string }) {
     async function onSubmit(id: string | undefined) {
+        const router = useRouter();
     try{
         const api = process.env.NEXT_PUBLIC_DIRECTUS_ASSETS;
           if (!api) throw new Error("Thiếu cấu hình DIRECTUS_URL / NEXT_PUBLIC_DIRECTUS_URL.");
@@ -24,6 +26,7 @@ export default function ActionButton({ id,token,label}: { id: string,token:strin
                     "Không tạo được đơn";
                 throw new Error(msg);
             }
+            router.replace(`/dashboard/phieuhang?r=${Date.now()}`);
     }
     catch(e:any){
         alert(`Lỗi: ${e.message || e.toString()}`);
