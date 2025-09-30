@@ -1,43 +1,51 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-export default function ActionButton({ id,token,label}: { id: string,token:string|undefined, label: string }) {
-    async function onSubmit(id: string | undefined) {
-        const router = useRouter();
-    try{
-        const api = process.env.NEXT_PUBLIC_DIRECTUS_ASSETS;
-          if (!api) throw new Error("Thiếu cấu hình DIRECTUS_URL / NEXT_PUBLIC_DIRECTUS_URL.");
-        const res = await fetch(`${api}/items/phieuhang/${id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify({
-                    TrangThai:"HOAN_THANH",
-                }),
-            });
+export default function ActionButton({
+  id,
+  token,
+  label = "Đánh dấu hoàn thành",
+}: { id: string; token?: string; label?: string }) {
+  const router = useRouter();                    // ← đưa hook ra top-level
+  const [loading, setLoading] = useState(false);
 
-            const data = await res.json();
-            if (!res.ok) {
-                const msg =
-                    data?.errors?.[0]?.message ||
-                    data?.error ||
-                    "Không tạo được đơn";
-                throw new Error(msg);
-            }
-            router.replace(`/dashboard/phieuhang?r=${Date.now()}`);
+  async function onClick() {
+    try {
+      setLoading(true);
+      const api =
+        process.env.NEXT_PUBLIC_DIRECTUS_URL || process.env.DIRECTUS_URL;
+      if (!api) throw new Error("Thiếu cấu hình DIRECTUS_URL.");
+
+      const res = await fetch(`${api}/items/phieuhang/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({ TrangThai: "HOAN_THANH" }),
+      });
+
+      if (!res.ok) {
+        const t = await res.text().catch(() => "");
+        throw new Error(`HTTP ${res.status} ${t}`);
+      }
+
+      router.refresh();                           // làm mới trang
+    } catch (e: any) {
+      alert(`Lỗi: ${e?.message || String(e)}`);
+    } finally {
+      setLoading(false);
     }
-    catch(e:any){
-        alert(`Lỗi: ${e.message || e.toString()}`);
-    } 
   }
+
   return (
     <button
-      onClick={() => onSubmit(id)}
-      className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+      onClick={onClick}
+      disabled={loading}
+      className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
     >
-      {label}
+      {loading ? "Đang cập nhật..." : label}
     </button>
   );
 }

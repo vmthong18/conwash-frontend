@@ -117,7 +117,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
     //if (idx === -1 || idx === STATUS_ORDER.length - 1) return current+"___"+idx+"___"+STATUS_ORDER.length ;
 
     if (idx == 1) return (
-      <ActionButton id={String(id)} token={token} label={STATUS_LABEL[STATUS_ORDER[idx]]} />
+      <ActionButton id={String(id)} token={token} label={STATUS_LABEL[STATUS_ORDER[2]]} />
     );
     return STATUS_LABEL[STATUS_ORDER[idx]];
   }
