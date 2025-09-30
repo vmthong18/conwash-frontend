@@ -65,6 +65,7 @@ export default function ListDonHang({
     g,
     locationid,
     pageid,
+    nameid,
 }: {
     orders: DonHang[];
     phieuhangs: PhieuHang[];
@@ -75,6 +76,7 @@ export default function ListDonHang({
     g: string;
     locationid: string;
     pageid: number;
+    nameid:string;
 }) {
     const router = useRouter();
     //alert(JSON.stringify(phieuhangs));
@@ -119,6 +121,7 @@ export default function ListDonHang({
         if (["Giat", "Shipper"].includes(rolename)) {
             // Chỉ thấy CHO_LAY và DANG_GIAT
             url.searchParams.set("filter[TrangThai][_in]", "CHO_LAY,DANG_GIAT,VAN_CHUYEN,GIAT_XONG");
+            url.searchParams.set("filter[NhaGiat][_eq]", nameid);
         }
         if (["Shipper", "NhanVienQuay"].includes(rolename)) {
             // Chỉ thấy CHO_LAY và DANG_GIAT

@@ -10,16 +10,18 @@ export default async function donhangPage({ searchParams }: { searchParams: Sear
   const access = jar.get(process.env.COOKIE_ACCESS || "be_giay_access")?.value;
   if (!access) return <div className="p-8">Chưa đăng nhập.</div>;
   const meRes = await fetch(
-    `${process.env.DIRECTUS_URL}/users/me?fields=role.name,location`,
+    `${process.env.DIRECTUS_URL}/users/me?fields=role.name,location,id`,
     { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" }
   );
 
   let roleName = "";
   let locationid = "";
+  let nameid = "";
   if (meRes.ok) {
     const me = await meRes.json();
     roleName = me?.data?.role?.name ?? "";
     locationid = me?.data?.location ?? ""
+    nameid = me?.data?.id ?? ""
 
   }
   const limit = Number(params.limit ?? 10);
@@ -61,6 +63,7 @@ export default async function donhangPage({ searchParams }: { searchParams: Sear
   if (["Giat", "Shipper"].includes(roleName)) {
     // Chỉ thấy CHO_LAY và DANG_GIAT
     url.searchParams.set("filter[TrangThai][_in]", "CHO_LAY,DANG_GIAT,VAN_CHUYEN,GIAT_XONG");
+    url.searchParams.set("filter[NhaGiat][_eq]", nameid);
   }
   if (["Shipper", "NhanVienQuay"].includes(roleName)) {
     // Chỉ thấy CHO_LAY và DANG_GIAT
@@ -113,7 +116,7 @@ export default async function donhangPage({ searchParams }: { searchParams: Sear
   }
    const data_phieuhang = (await res_phieuhang.json()).data?? [];
   
-  return <ListDonHang token={access} pageid={page} orders={data} phieuhangs={data_phieuhang} sort={sort} rolename={roleName} q={q} g={g} locationid={locationid} />;
+  return <ListDonHang token={access} nameid={nameid} pageid={page} orders={data} phieuhangs={data_phieuhang} sort={sort} rolename={roleName} q={q} g={g} locationid={locationid} />;
 
 }
 
