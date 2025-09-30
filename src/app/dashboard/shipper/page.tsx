@@ -1,6 +1,7 @@
 // src/app/dashboard/diadiem/page.tsx
 import Link from "next/link";
 import { cookies } from "next/headers";
+import LogoutBtn from "../LogoutBtn";
 
 // Kiểu dữ liệu gọn gàng
 type DiaDiem = { ID: number; TenDiaDiem: string };
@@ -252,9 +253,7 @@ export default async function PageDiaDiem() {
         <main className="p-8">
             <div className="flex items-center justify-between">
                 <h1 className="text-2xl font-bold">Vận chuyển đi</h1>
-                <Link href="/dashboard" className="text-blue-600 hover:underline">
-                    ← Về Dashboard
-                </Link>
+                  <LogoutBtn />
             </div>
  
             <div className="mt-6 overflow-x-auto">
@@ -302,9 +301,7 @@ export default async function PageDiaDiem() {
             </div>
              <div className="flex items-center justify-between">
                 <h1 className="text-2xl font-bold">Vận chuyển về</h1>
-                <Link href="/dashboard" className="text-blue-600 hover:underline">
-                    ← Về Dashboard
-                </Link>
+              
             </div>
  
             <div className="mt-6 overflow-x-auto">
