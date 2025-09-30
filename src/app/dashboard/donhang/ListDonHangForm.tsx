@@ -202,17 +202,26 @@ export default function ListDonHang({
                 body: JSON.stringify(updates),
             });
             */
-            selectedItems.map((r) => {
-                fetch("/api/v1/capnhat", {
-                    method: "PATCH",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ ID: r.id, TrangThai: r.trangThai }),
-                });
-
-            });
-
+            const payloads = selectedItems.map(r => ({
+                ID: r.id,
+                TrangThai: next,              // <<<<<<<<< dùng trạng thái kế tiếp
+            }));
+            await Promise.all(
+                payloads.map(body =>
+                    fetch("/api/v1/capnhat", {
+                        method: "PATCH",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(body),
+                    }).then(async (res) => {
+                        if (!res.ok) {
+                            const t = await res.text().catch(() => "");
+                            throw new Error(`Cập nhật ID ${body.ID} lỗi: ${res.status} ${t}`);
+                        }
+                    })
+                )
+            );
             alert('Cập nhật trạng thái thành công!');
-            fetchDonHang(); // Refresh data
+            await fetchDonHang(); // Refresh data
             //router.replace(`/dashboard/donhang?r=${Date.now()}`);
 
         } catch (error) {
