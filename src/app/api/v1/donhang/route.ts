@@ -98,7 +98,7 @@ export async function PATCH(req: NextRequest) {
     "QUAY_NHAN_GIAY",
     "SAN_SANG",
     "HOAN_THANH",
-];
+  ];
 
   const b = await req.json();
 
@@ -110,7 +110,7 @@ export async function PATCH(req: NextRequest) {
     ? b.AnhList_After.filter((x: any) => typeof x === "string" && x.length > 0)
     : [];
   const donhangId = b?.ID;
-  
+
   //const GoiHangIDs= b?.GoiHangIDs;
   const trangThai: string =
     typeof b?.TrangThai === "string" && b.TrangThai.length
@@ -133,7 +133,7 @@ export async function PATCH(req: NextRequest) {
     if (!findRes.ok) return NextResponse.json({ ok: false, error: "line 115" + await findRes.text() }, { status: 400 });
     const found = await findRes.json().catch(() => ({}));
     let kh = found?.data?.[0];
-   
+
     if (!kh) {
       const createRes = await fetch(`${process.env.DIRECTUS_URL}/items/khachhang`, {
         method: "POST",
@@ -145,7 +145,7 @@ export async function PATCH(req: NextRequest) {
       kh = created?.data;
     }
     ID_khachhang = kh?.ID;
-    
+
   }
 
   // ===== 2) Tạo DON HANG (chưa có ảnh, chưa có QR) =====
@@ -156,8 +156,8 @@ export async function PATCH(req: NextRequest) {
     GoiHangs: b?.GoiHangIDs ?? null,
     NguoiNhap: b?.NguoiNhap ?? null,
     TrangThai: next,     // <— trạng thái
-    ID_DiaDiem: b?.ID_DiaDiem || null, 
-     NhaGiat: b?.NhaGiat || null, 
+    ID_DiaDiem: b?.ID_DiaDiem || null,
+    NhaGiat: b?.NhaGiat || null,
     // NguoiNhap: preset trong Policy (NhapDon) sẽ tự gán $CURRENT_USER
   };
 

@@ -2,6 +2,8 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 export default function TaoQRForm() {
     const router = useRouter();
@@ -24,7 +26,12 @@ export default function TaoQRForm() {
             });
             const j = await r.json().catch(() => ({}));
             if (!r.ok || !j.ok) throw new Error(j.error || "Tạo đơn thất bại");
-
+            const urls = [
+                'https://example1.com',
+                'https://example2.com',
+                'https://example3.com',
+            ];
+            generateExcel(urls);
             // refresh lại danh sách
             startTransition(() => router.refresh());
         } catch (e: any) {
@@ -32,6 +39,19 @@ export default function TaoQRForm() {
         } finally {
             setLoading(false);
         }
+    }
+    function generateExcel(urls: string[]) {
+        // Tạo một worksheet từ mảng URLs
+        const ws = XLSX.utils.aoa_to_sheet([['URL'], ...urls.map(url => [url])]);
+
+        // Tạo một workbook chứa worksheet
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'URLs');
+
+        // Tạo file Excel và tải về
+        const excelFile = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([excelFile], { type: 'application/octet-stream' });
+        saveAs(blob, 'urls.xlsx');
     }
 
     return (
