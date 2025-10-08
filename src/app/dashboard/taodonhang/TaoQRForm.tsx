@@ -27,6 +27,7 @@ export default function TaoQRForm() {
             const j = await r.json().catch(() => ({}));
             if (!r.ok || !j.ok) throw new Error(j.error || "Tạo đơn thất bại");
             const data = (await r.json()).data ?? [];
+            alert(data);
             const urls = [
                 'https://example1.com',
                 'https://example2.com',
