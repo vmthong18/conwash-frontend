@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
     const orderJson = await orderRes.json();
     const donhangId: number | undefined = orderJson?.data?.ID;
     if (!donhangId) return NextResponse.json({ ok: false, error: "Không lấy được ID đơn hàng vừa tạo" }, { status: 500 });
-    donhangURL.push(`donhangId`);
+
 
 
     // ===== 4) Sinh mã QR cho link chi tiết đơn & upload vào Directus =====
