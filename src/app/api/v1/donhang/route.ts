@@ -29,6 +29,9 @@ export async function POST(req: NextRequest) {
     TrangThai: trangThai,     // <— trạng thái
     // NguoiNhap: preset trong Policy (NhapDon) sẽ tự gán $CURRENT_USER
   };
+  const donhangURL: string[] = []; // <-- thêm 
+
+
   for (let i = 0; i < Math.max(1, count); i++) {
     const orderRes = await fetch(`${process.env.DIRECTUS_URL}/items/donhang?fields=ID`, {
       method: "POST",
@@ -39,14 +42,14 @@ export async function POST(req: NextRequest) {
     const orderJson = await orderRes.json();
     const donhangId: number | undefined = orderJson?.data?.ID;
     if (!donhangId) return NextResponse.json({ ok: false, error: "Không lấy được ID đơn hàng vừa tạo" }, { status: 500 });
-
+    donhangURL.push(`donhangId`);
 
 
     // ===== 4) Sinh mã QR cho link chi tiết đơn & upload vào Directus =====
     // URL hiển thị đơn (C có thể đổi sang route public nếu muốn): 
 
     const orderUrl = `${appBase}/dashboard/donhang/${donhangId}`;
-
+    donhangURL.push(orderUrl);
     // Tạo PNG QR (512px, viền mỏng)
     const png = await QRCode.toBuffer(orderUrl, { type: "png", width: 512, margin: 1 });
 
@@ -80,7 +83,15 @@ export async function POST(req: NextRequest) {
     }
   }
   // ===== 5) Trả kết quả
-  return NextResponse.json({ ok: true, data: {} });
+  //return NextResponse.json({ ok: true, data: {} });
+
+  return NextResponse.json({
+    ok: true,
+    data: {
+      donhangURL, // mảng chứa các ID đơn hàng đã được tạo
+    },
+  });
+
 }
 export async function PATCH(req: NextRequest) {
   const token = await getAccess();
