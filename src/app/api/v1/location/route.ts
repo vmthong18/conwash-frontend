@@ -1,6 +1,7 @@
 // src/app/api/v1/location/route.ts
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import router from "next/router";
 
 
 /**
@@ -14,10 +15,11 @@ export async function POST(req: Request) {
       jar.get(process.env.COOKIE_ACCESS || "be_giay_access")?.value;
 
     if (!token) {
-      return NextResponse.json(
+        router.push('/login');
+     /* return NextResponse.json(
         { ok: false, error: "Unauthenticated" },
         { status: 401 }
-      );
+      );*/
     }
 
     // const form = await req.formData();

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAccess } from "@/lib/cookies";
 import QRCode from "qrcode";
+import router from "next/router";
 
 export const runtime = "nodejs";
 
@@ -12,7 +13,7 @@ export const runtime = "nodejs";
  */
 export async function POST(req: NextRequest) {
   const token = await getAccess();
-  if (!token) return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
+  if (!token)   router.push('/login');//return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
   const body = await req.json().catch(() => ({}));
   const count = Math.max(1, Number(body.count || 1));
   const appBase =
@@ -95,7 +96,7 @@ export async function POST(req: NextRequest) {
 }
 export async function PATCH(req: NextRequest) {
   const token = await getAccess();
-  if (!token) return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
+  if (!token)   router.push('/login');//return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
   const STATUS_ORDER = [
     "TAO_MOI",
     "GHEP_DON",

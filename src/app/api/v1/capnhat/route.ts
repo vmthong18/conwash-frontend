@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAccess } from "@/lib/cookies";
+import router from "next/router";
 export async function PATCH(req: NextRequest) {
   const token = await getAccess();
-  if (!token) return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
+  if (!token)   router.push('/login');//return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
 
   const b = await req.json();
 
