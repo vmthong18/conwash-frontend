@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { setTokensOnResponse } from "@/lib/cookies";
-import router from "next/router";
 
 export async function POST(req: NextRequest) {
   const { email, password } = await req.json();
@@ -13,8 +12,7 @@ export async function POST(req: NextRequest) {
 
   if (!r.ok) {
     const err = await r.json().catch(() => ({}));
-    //return NextResponse.json({ ok: false, error: err?.errors?.[0]?.message || "Login failed" }, { status: 401 });
-     router.push('/login');
+    return NextResponse.json({ ok: false, error: err?.errors?.[0]?.message || "Login failed" }, { status: 401 });
   }
 
   const { data } = await r.json(); // { access_token, refresh_token, expires }

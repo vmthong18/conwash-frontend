@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
 import { getRefresh, setTokensOnResponse } from "@/lib/cookies";
-import router from "next/router";
 
 export async function POST() {
   const refresh_token = await getRefresh();
-  if (!refresh_token)   router.push('/login');//return NextResponse.json({ ok: false, error: "No refresh token" }, { status: 401 });
+  if (!refresh_token) return NextResponse.json({ ok: false, error: "No refresh token" }, { status: 401 });
 
   const r = await fetch(`${process.env.DIRECTUS_URL}/auth/refresh`, {
     method: "POST",
@@ -14,8 +13,7 @@ export async function POST() {
 
   if (!r.ok) {
     const err = await r.json().catch(() => ({}));
-   // return NextResponse.json({ ok: false, error: err?.errors?.[0]?.message || "Refresh failed" }, { status: 401 });
-     router.push('/login');
+    return NextResponse.json({ ok: false, error: err?.errors?.[0]?.message || "Refresh failed" }, { status: 401 });
   }
 
   const { data } = await r.json();

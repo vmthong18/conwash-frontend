@@ -1,11 +1,10 @@
 // src/app/api/upload/route.ts
 import { NextRequest } from "next/server";
 import { cookies } from "next/headers";
-import router from "next/router";
 
 export async function POST(req: NextRequest) {
   const token = (await cookies()).get(process.env.COOKIE_ACCESS || "be_giay_access")?.value;
-  if (!token)   router.push('/login');//return new Response(JSON.stringify({ ok:false, error:"Unauthenticated" }), { status:401 });
+  if (!token) return new Response(JSON.stringify({ ok:false, error:"Unauthenticated" }), { status:401 });
 
   const form = await req.formData();
   const file = form.get("file");
