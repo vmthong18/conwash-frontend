@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 
 export async function POST(req: NextRequest) {
   const token = (await cookies()).get(process.env.COOKIE_ACCESS || "be_giay_access")?.value;
-  if (!token) return new Response(JSON.stringify({ ok:false, error:"Unauthenticated" }), { status:401 });
+  if (!token) return new Response(JSON.stringify({ ok:false, error:"Unauthenticated" }),  { status: 401, headers: { Location: "/login" } });
 
   const form = await req.formData();
   const file = form.get("file");

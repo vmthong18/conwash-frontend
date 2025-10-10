@@ -4,7 +4,7 @@ import { getAccess } from "@/lib/cookies";
 // GET /api/v1/khachhang?phone=...
 export async function GET(req: NextRequest) {
   const token = await getAccess();
-  if (!token) return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
+  if (!token) return NextResponse.redirect('/login', 301);//return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
   const phone = req.nextUrl.searchParams.get("phone")?.trim();
   if (!phone) return NextResponse.json({ ok: false, error: "Thiếu phone" }, { status: 400 });
 
@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
 // POST /api/v1/khachhang  { Tenkhachhang, DiaChi, DienThoai }
 export async function POST(req: NextRequest) {
   const token = await getAccess();
-  if (!token) return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
+  if (!token) return NextResponse.redirect('/login', 301);//return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
 
   const body = await req.json();
   const { Tenkhachhang, DiaChi, DienThoai } = body || {};

@@ -4,7 +4,7 @@ import { getAccess } from "@/lib/cookies";
 // GET ?kh=<id> -> trả về list DonHang trạng thái GHEP_DON của khách
 export async function GET(req: Request) {
   const token = await getAccess();
-  if (!token) return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
+  if (!token) return NextResponse.redirect('/login', 301);//return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
 
   const { searchParams } = new URL(req.url);
   const kh = searchParams.get("kh");
@@ -42,7 +42,7 @@ export async function GET(req: Request) {
 // POST -> tạo PhieuHang
 export async function POST(req: Request) {
   const token = await getAccess();
-  if (!token) return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
+  if (!token) return NextResponse.redirect('/login', 301);//return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
 
   const body = await req.json().catch(() => ({}));
   const { ID_KhachHang, DonHangIDs } = body || {};

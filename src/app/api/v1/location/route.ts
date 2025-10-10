@@ -14,10 +14,11 @@ export async function POST(req: Request) {
       jar.get(process.env.COOKIE_ACCESS || "be_giay_access")?.value;
 
     if (!token) {
-      return NextResponse.json(
+      return NextResponse.redirect('/login', 301);
+      /*return NextResponse.json(
         { ok: false, error: "Unauthenticated" },
         { status: 401 }
-      );
+      );*/
     }
 
     // const form = await req.formData();

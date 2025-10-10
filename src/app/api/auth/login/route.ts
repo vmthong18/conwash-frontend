@@ -12,7 +12,8 @@ export async function POST(req: NextRequest) {
 
   if (!r.ok) {
     const err = await r.json().catch(() => ({}));
-    return NextResponse.json({ ok: false, error: err?.errors?.[0]?.message || "Login failed" }, { status: 401 });
+     return NextResponse.redirect('/login', 301);
+    //return NextResponse.json({ ok: false, error: err?.errors?.[0]?.message || "Login failed" }, { status: 401 });
   }
 
   const { data } = await r.json(); // { access_token, refresh_token, expires }

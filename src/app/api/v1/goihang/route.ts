@@ -4,7 +4,7 @@ import { getAccess } from "@/lib/cookies";
 
 export async function GET(req: NextRequest) {
     const token = await getAccess();
-    if (!token) return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
+    if (!token) return NextResponse.redirect('/login', 301);//return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
 
 
 
