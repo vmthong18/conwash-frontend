@@ -93,6 +93,7 @@ export default async function Dashboard() {
             <br />
             {me?.first_name || me?.email || "User"}
           </h1>
+            <LogoutBtn />
         </section>
 
         {/* Nhóm menu theo quyền */}
