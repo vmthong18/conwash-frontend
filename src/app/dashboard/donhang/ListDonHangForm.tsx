@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useRouter } from "next/navigation";
 
 import Link from 'next/link';
+import Image from "next/image";
+import { Search, ChevronRight } from "lucide-react";
 import { redirect } from 'next/dist/server/api-utils';
 
 type DonHang = {
@@ -26,6 +28,20 @@ type DonHang = {
 type PhieuHang = {
     id: number;
     Donhangs: string; // Assuming it's a string like "[1,2,3]"
+};
+const STATUS_UI: Record<string, { label: string; cls: string }> = {
+  TAO_MOI: { label: "Tạo mới", cls: "bg-zinc-50 text-zinc-700" },
+  GHEP_DON: { label: "Chờ ghép đơn", cls: "bg-green-50 text-green-700" },
+  LEN_DON: { label: "Đơn hàng mới tạo", cls: "bg-slate-50 text-slate-700" },
+  CHO_LAY: { label: "Chờ lấy", cls: "bg-amber-50 text-amber-700" },
+  VAN_CHUYEN: { label: "Vận chuyển", cls: "bg-violet-50 text-violet-700" },
+  DANG_GIAT: { label: "Đang giặt", cls: "bg-blue-50 text-blue-700" },
+  GIAT_XONG: { label: "Giặt xong", cls: "bg-sky-50 text-sky-700" },
+  CHO_VAN_CHUYEN_LAI: { label: "Chờ chuyển lại", cls: "bg-zinc-50 text-zinc-700" },
+  VAN_CHUYEN_LAI: { label: "Vận chuyển lại", cls: "bg-zinc-50 text-zinc-700" },
+  QUAY_NHAN_GIAY: { label: "Quầy nhận giày", cls: "bg-zinc-50 text-zinc-700" },
+  SAN_SANG: { label: "Sẵn sàng giao", cls: "bg-emerald-50 text-emerald-700" },
+  HOAN_THANH: { label: "Đã hoàn thành", cls: "bg-emerald-50 text-emerald-700" },
 };
 const STATUS_LABEL: Record<string, string> = {
     TAO_MOI: "Tạo mới",
@@ -295,27 +311,32 @@ export default function ListDonHang({
         });
     };
     return (
-        <main className="p-8">
-            <div className="flex items-center justify-between">
-                <h1 className="text-2xl font-bold">Mặt hàng </h1>
-                <div className="flex items-center gap-3">
-                    <Link href="/dashboard" className="text-blue-600 hover:underline">← Về Dashboard</Link>
+         <main className="min-h-dvh bg-gray-50">
+           
+      
 
-                    <button onClick={handleUpdateStatus} className="px-3 py-2 rounded bg-green-600 text-white hover:bg-green-700" >
-                        Cập nhật trạng thái
-                    </button>
-                </div>
-            </div>
 
-            {/* Thanh tìm kiếm */}
-            <form method="get" className="mt-4 flex gap-2">
-                <input
-                    name="q"
 
-                    placeholder="Nhập tên KH hoặc SĐT…"
-                    className="border rounded px-3 py-2 w-72"
-                />
-                <select
+
+
+        
+      {/* Header */}
+      <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
+        <div className="mx-auto max-w-sm px-4 py-3">
+          <h1 className="text-[20px] font-semibold">Danh sách mặt hàng</h1>
+        </div>
+      </div>
+
+      {/* Bộ lọc */}
+      <div className="mx-auto max-w-sm px-4">
+        <form  method="get" className="relative">
+          <Search className="absolute left-3 top-3.5" size={18} />
+          <input
+            name="q"
+            className="w-full rounded-2xl border border-gray-300 bg-white pl-10 pr-3 py-2.5 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Tìm kiếm Tên hoặc SĐT khách hàng"
+          />
+            <select
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
                     className="border rounded px-3 py-2"
@@ -331,93 +352,90 @@ export default function ListDonHang({
                 <input type="hidden" name="limit" value={limit} />
                 <input type="hidden" name="sort" value={sort} />
                 <button className="px-4 py-2 bg-gray-800 text-white rounded">Tìm</button>
-            </form>
+        </form>
 
-            {/* Bảng */}
-            <div className="mt-6 overflow-x-auto">
-                <table className="min-w-full border border-gray-300 bg-white">
-                    <thead className="bg-gray-100">
-                        <tr>
-                            <th className="p-2 border-b">
-                                <input
-                                    type="checkbox"
-                                    onChange={(e) => toggleAll(e.target.checked)}
-                                    checked={selectedItems.length === donHangList.length}
-                                />
-                            </th>
-                            <Th label="ID" sort="ID" current={sort} />
-                            <th className="text-left p-2 border-b">Tên khách hàng</th>
-                            <th className="text-left p-2 border-b">Số điện thoại</th>
-                            <th className="text-left p-2 border-b">Đơn hàng</th>
-                            <th className="text-left p-2 border-b">Trạng thái</th>
-                            <th className="text-left p-2 border-b">QR</th>
+        
+      </div>
 
+      {/* Danh sách */}
+      <ul className="mx-auto max-w-sm p-4 space-y-3">
+        {donHangList.map((r) => {
+          const id = r.ID;
+          const kh = r.ID_KhachHang || {};
+          const name = kh.TenKhachHang || "Khách lẻ";
+          const phone = kh.DienThoai || "";
+          const imgId =
+            r?.AnhFile?.id 
+            undefined;
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {donHangList.map((r) => {
-                            return (
-                                <tr key={r.ID} className="border-b">
-                                    <td className="p-2">
-                                        <input
+          const st = STATUS_UI[r.TrangThai || ""] || {
+            label: r.TrangThai || "",
+            cls: "bg-zinc-50 text-zinc-700",
+          };
+/*
+          const tổng = Array.isArray(o.Items)
+            ? o.Items.reduce((s, it) => s + (it?.Tien || 0), 0)
+            : undefined;
+*/
+          return (
+            <li key={id} className="rounded-3xl bg-white border border-gray-100 shadow-sm">
+              {/* Header ID + badge */}
+              <div className="flex items-center justify-between px-4 pt-3">
+                 
+                <div className="text-[13px] text-gray-600 font-medium">ID: #{id}</div>
+                <span className={`text-[12px] font-medium px-2.5 py-1 rounded-full ${st.cls}`}>
+                   {STATUS_LABEL[r?.TrangThai ?? ""]}
+                </span>
+              </div>
+
+              {/* Thân card: ảnh + info */}
+              <div className="grid grid-cols-[88px,1fr] gap-3 px-4 py-3">
+                <div className="relative w-[88px] h-[88px] rounded-xl overflow-hidden bg-gray-100">
+                  {imgId ? (
+                    <Image
+                      src={assetUrl(imgId, 176)}
+                      alt={name}
+                      fill
+                      sizes="88px"
+                      className="object-cover"
+                    />
+                  ) : null}
+                </div>
+                <div>
+                  <div className="font-semibold leading-tight">{name}</div>
+                  {phone && (
+                    <div className="text-[13px] text-gray-600 mt-0.5">{phone}</div>
+                  )}
+                  {/* Nếu anh có địa chỉ, thêm 1 dòng như ảnh Figma */}
+                </div>
+              </div>
+
+             
+
+              {/* Checkbox chọn */}
+              <div className="px-4 pb-3 flex items-center gap-2">
+                 <input
                                             type="checkbox"
                                             checked={isChecked(r.ID)}
                                             onChange={() => handleSelect(r.ID)}
                                         />
-                                    </td>
-                                    <td className="p-2">{r.ID}</td>
-                                    <td className="p-2">{r?.ID_KhachHang?.TenKhachHang ?? "-"}</td>
-                                    <td className="p-2">{r?.ID_KhachHang?.DienThoai ?? "-"}</td>
-                                    <td className="p-2">{getPhieuHang(r?.ID)}</td>
-                                    <td className="p-2">
-                                        {STATUS_LABEL[r?.TrangThai ?? ""]}
-                                    </td>
-                                    <td className="p-2">
-                                        {r?.AnhFile?.id ? (
-                                            <a
-                                                href={`${ASSETS}/assets/${r.AnhFile.id}`}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                                title="Mở QR gốc"
-                                            >
-                                                <img
-                                                    src={assetUrl(r.AnhFile.id, 64)}
-                                                    alt="QR"
-                                                    className="h-12 w-12 rounded border bg-white p-1 object-contain"
-                                                />
-                                            </a>
-                                        ) : (
-                                            "-"
-                                        )}
-                                    </td>
+                <span className="text-[14px] text-gray-700">Chọn đơn này</span>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
 
-
-
-                                </tr>
-                            )
-                        }
-                        )}
-                        {donHangList.length === 0 && (
-                            <tr><td colSpan={6} className="p-4 text-center text-gray-500">Không có dữ liệu</td></tr>
-                        )}
-                    </tbody>
-                </table>
-            </div>
-
-            {/* Phân trang */}
-            <div className="mt-4 flex items-center gap-3">
-                <span>Trang {page}</span>
-                <div className="flex gap-2">
-                    {hasPrev ? (
-                        <Link href={paramsFor(page - 1)} className="px-3 py-1 border rounded">← Trước</Link>
-                    ) : <span className="px-3 py-1 border rounded opacity-50">← Trước</span>}
-                    {hasNext ? (
-                        <Link href={paramsFor(page + 1)} className="px-3 py-1 border rounded">Sau →</Link>
-                    ) : <span className="px-3 py-1 border rounded opacity-50">Sau →</span>}
-                </div>
-            </div>
-        </main>
+      {/* Nút hành động sticky */}
+      <div className="sticky bottom-0 z-10 border-t bg-white/80 backdrop-blur">
+        <div className="mx-auto max-w-sm p-4">
+        
+              <button onClick={handleUpdateStatus} className="w-full rounded-2xl bg-blue-600 py-3 text-white font-medium disabled:opacity-60" >
+                        Cập nhật trạng thái
+                    </button>
+        </div>
+      </div>
+    </main>
     );
 }
 function Th({ label, sort, current }: { label: string; sort: string; current: string }) {
