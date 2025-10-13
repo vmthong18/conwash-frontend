@@ -35,7 +35,7 @@ export default function LoginPage() {
         {/* Logo */}
         <div className="flex justify-center mb-6">
           {/* Thay ảnh logo đúng của anh vào /public/logo-conwash.png|svg */}
-          <img src="/public/conwash-logo.png" alt="Conwash" width={140} height={72}/>
+          <img src="/conwash-logo.png" alt="Conwash" width={140} height={72}/>
         </div>
 
         {/* Form */}
