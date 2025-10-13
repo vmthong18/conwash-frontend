@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -35,7 +36,8 @@ export default function LoginPage() {
         {/* Logo */}
         <div className="flex justify-center mb-6">
           {/* Thay ảnh logo đúng của anh vào /public/logo-conwash.png|svg */}
-          <img src="/conwash-logo.png" alt="Conwash" width={140} height={72}/>
+          
+          <Image src="/conwash-logo.png" alt="Conwash" width={140} height={72} priority />
         </div>
 
         {/* Form */}
