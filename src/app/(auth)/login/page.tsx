@@ -30,38 +30,54 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center p-6">
-      <form onSubmit={onSubmit} className="w-full max-w-sm bg-white p-6 rounded shadow">
-        <h1 className="text-xl font-semibold">Đăng nhập</h1>
+    <main className="min-h-dvh bg-gray-50 flex items-center justify-center px-6">
+      <div className="w-full max-w-sm">
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          {/* Thay ảnh logo đúng của anh vào /public/logo-conwash.png|svg */}
+          <img src="/img/conwash-logo.png" alt="Conwash" width={140} height={72}/>
+        </div>
 
-        <label className="block text-sm mt-4">Email</label>
-        <input
-          className="mt-1 w-full border rounded px-3 py-2"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-
-        <label className="block text-sm mt-3">Mật khẩu</label>
-        <input
-          className="mt-1 w-full border rounded px-3 py-2"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-
-        {err && <p className="text-sm text-red-600 mt-2">{err}</p>}
-
-        <button
-          className="mt-4 w-full bg-blue-600 text-white py-2 rounded disabled:opacity-60"
-          disabled={loading}
-          type="submit"
+        {/* Form */}
+        <form
+          onSubmit={onSubmit}
+          className="bg-transparent"
         >
-          {loading ? "Đang đăng nhập..." : "Đăng nhập"}
-        </button>
-      </form>
+          {/* Username / Email */}
+          <label className="sr-only">Tên đăng nhập</label>
+          <input
+            className="w-full rounded-2xl border border-gray-300 bg-white px-4 py-3 text-[15px] placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            type="text"
+            placeholder="Nhập tên đăng nhập"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          {/* Password */}
+          <label className="sr-only">Mật khẩu</label>
+          <input
+            className="mt-3 w-full rounded-2xl border border-gray-300 bg-white px-4 py-3 text-[15px] placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            type="password"
+            placeholder="Nhập tên mật khẩu"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          {/* Error */}
+          {err && <p className="text-sm text-red-600 mt-2">{err}</p>}
+
+          {/* Submit button */}
+          <button
+            className="mt-4 w-full rounded-2xl bg-blue-600 py-3 text-white font-medium active:scale-[0.99] disabled:opacity-60"
+            disabled={loading}
+            type="submit"
+          >
+            {loading ? "Đang đăng nhập..." : "Đăng nhập"}
+          </button>
+        </form>
+      </div>
     </main>
   );
 }
