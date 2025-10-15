@@ -372,7 +372,18 @@ export default function ListDonHang({
                         <li key={id} className="rounded-3xl bg-white border border-gray-100 shadow-sm">
                             {/* Header ID + badge */}
                             <div className="flex items-center justify-between px-4 pt-3">
-                                <div className="text-[13px] text-gray-600 font-medium">ID: #{id}</div>
+                                 <input
+                                    type="checkbox"
+                                    checked={isChecked(r.ID)}
+                                    onChange={() => handleSelect(r.ID)}
+                                    className="size-4 rounded border-gray-300"
+                                />
+                                <div className="text-[13px] text-gray-600 font-medium"><input
+                                    type="checkbox"
+                                    checked={isChecked(r.ID)}
+                                    onChange={() => handleSelect(r.ID)}
+                                    className="size-4 rounded border-gray-300"
+                                />      ID: #{id}</div>
                                 <span className={`text-[12px] font-medium px-2.5 py-1 rounded-full ${st.cls}`}>
                                     {st.label || "—"}
                                 </span>
@@ -402,16 +413,7 @@ export default function ListDonHang({
                             </div>
 
                            
-                            {/* Checkbox */}
-                            <div className="px-4 pb-3 flex items-center gap-2">
-                                <input
-                                    type="checkbox"
-                                    checked={isChecked(r.ID)}
-                                    onChange={() => handleSelect(r.ID)}
-                                    className="size-4 rounded border-gray-300"
-                                />
-                                <span className="text-[14px] text-gray-700">Chọn đơn này</span>
-                            </div>
+                          
                         </li>
                     );
                 })}
