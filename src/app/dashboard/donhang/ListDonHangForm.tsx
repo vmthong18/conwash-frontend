@@ -329,28 +329,28 @@ export default function ListDonHang({
                         className="w-full rounded-2xl border border-gray-300 bg-white pl-10 pr-3 py-2.5 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Tìm kiếm Tên hoặc SĐT khách hàng"
                     />
-                    <div className="mt-3">
-                        <div className="relative">
-                            <select
-                                value={statusFilter}
-                                onChange={(e) => setStatusFilter(e.target.value)}
-                                className="border rounded px-3 py-2"
-                                name="g"
-                            >
-                                <option value="ALL">Tất cả trạng thái</option>
-                                {Object.entries(STATUS_LABEL).map(([key, label]) => (
-                                    <option key={key} value={key}>
-                                        {label}
-                                    </option>
-                                ))}
-                            </select>
-                            <input type="hidden" name="limit" value={limit} />
-                            <input type="hidden" name="sort" value={sort} />
-                            <button className="px-4 py-2 bg-gray-800 text-white rounded">Tìm</button>
-                        </div>
-                    </div>
-                </form>
 
+                </form>
+                <div className="mt-3">
+                    <div className="relative">
+                        <select
+                            value={statusFilter}
+                            onChange={(e) => setStatusFilter(e.target.value)}
+                            className="border rounded px-3 py-2"
+                            name="g"
+                        >
+                            <option value="ALL">Tất cả trạng thái</option>
+                            {Object.entries(STATUS_LABEL).map(([key, label]) => (
+                                <option key={key} value={key}>
+                                    {label}
+                                </option>
+                            ))}
+                        </select>
+                        <input type="hidden" name="limit" value={limit} />
+                        <input type="hidden" name="sort" value={sort} />
+                        <button className="px-4 py-2 bg-gray-800 text-white rounded">Tìm</button>
+                    </div>
+                </div>
 
             </div>
 
