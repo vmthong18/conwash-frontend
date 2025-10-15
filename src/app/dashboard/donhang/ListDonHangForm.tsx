@@ -400,7 +400,7 @@ export default function ListDonHang({
                       sizes="88px"
                       className="object-cover"
                     />
-                  ) : "124214"}
+                  ) : null}
                 </div>
                 <div>
                   <div className="font-semibold leading-tight">{name}</div>
