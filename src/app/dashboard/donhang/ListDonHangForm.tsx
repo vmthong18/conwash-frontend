@@ -401,23 +401,7 @@ export default function ListDonHang({
                                 </div>
                             </div>
 
-                            {/* Dịch vụ + Tổng tiền (tạm số 0 nếu chưa có dữ liệu) */}
-                            <div className="px-4 pb-3">
-                                <ul className="text-[14px] text-gray-700 space-y-1.5">
-                                    <li className="flex justify-between">
-                                        <span className="flex items-center gap-2">
-                                            <span className="inline-block w-1.5 h-1.5 rounded-full bg-gray-400" />
-                                            Dịch vụ
-                                        </span>
-                                        <span className="font-semibold">0</span>
-                                    </li>
-                                </ul>
-                                <div className="mt-2 flex justify-between border-t pt-2">
-                                    <span className="text-[14px] text-gray-500">Tổng tiền</span>
-                                    <span className="font-bold">0</span>
-                                </div>
-                            </div>
-
+                           
                             {/* Checkbox */}
                             <div className="px-4 pb-3 flex items-center gap-2">
                                 <input
