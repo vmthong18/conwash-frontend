@@ -18,6 +18,9 @@ type DonHang = {
     AnhFile?: {
         id: string;
     };
+    AnhNhan?: {
+        id: string;
+    };
     NguoiNhap?: {
         id: string;
         first_name?: string;
@@ -365,7 +368,7 @@ export default function ListDonHang({
           const name = kh.TenKhachHang || "Khách lẻ";
           const phone = kh.DienThoai || "";
           const imgId =
-            r?.AnhFile?.id 
+            r?.AnhNhan?.id 
             undefined;
 
           const st = STATUS_UI[r.TrangThai || ""] || {

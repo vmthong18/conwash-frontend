@@ -53,7 +53,7 @@ export default async function donhangPage({ searchParams }: { searchParams: Sear
   const url = new URL(`${process.env.DIRECTUS_URL}/items/donhang`);
   // Expand các trường khách hàng để hiển thị
   url.searchParams.set("fields",
-    "ID,TrangThai,GhiChu,ID_KhachHang.ID,ID_KhachHang.TenKhachHang,ID_KhachHang.DienThoai,NguoiNhap.first_name,NguoiNhap.email,AnhList.file.id,AnhFile.id"
+    "ID,TrangThai,GhiChu,ID_KhachHang.ID,ID_KhachHang.TenKhachHang,ID_KhachHang.DienThoai,NguoiNhap.first_name,NguoiNhap.email,AnhList.file.id,AnhFile.id,AnhNhan.id"
   );
 
   url.searchParams.set("limit", String(limit));
