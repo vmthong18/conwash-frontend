@@ -313,15 +313,7 @@ export default function ListDonHang({
     };
     return (
         <main className="min-h-dvh bg-gray-50">
-
-
-
-
-
-
-
-
-            {/* Header */}
+            {/* Header giống mobile: căn trái, tiêu đề 20px bold */}
             <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
                 <div className="mx-auto max-w-sm px-4 py-3">
                     <h1 className="text-[20px] font-semibold">Danh sách mặt hàng</h1>
@@ -365,9 +357,7 @@ export default function ListDonHang({
                     const kh = r.ID_KhachHang || {};
                     const name = kh.TenKhachHang || "Khách lẻ";
                     const phone = kh.DienThoai || "";
-                    const imgId =
-                        r?.AnhNhan
-                    undefined;
+                    const imgId = r?.AnhNhan ? r.AnhNhan : undefined;
 
                     const st = STATUS_UI[r.TrangThai || ""] || {
                         label: r.TrangThai || "",
@@ -379,20 +369,19 @@ export default function ListDonHang({
                                 : undefined;
                     */
                     return (
-                        <li key={id} className="rounded-3xl bg-white border border-gray-100 shadow-sm">
+                        <li className="rounded-3xl bg-white border border-gray-100 shadow-sm">
                             {/* Header ID + badge */}
                             <div className="flex items-center justify-between px-4 pt-3">
-
                                 <div className="text-[13px] text-gray-600 font-medium">ID: #{id}</div>
                                 <span className={`text-[12px] font-medium px-2.5 py-1 rounded-full ${st.cls}`}>
                                     {st.label || "—"}
                                 </span>
                             </div>
 
-                            {/* Thân card: ảnh + info */}
+                            {/* Thân card: ảnh + info KH */}
                             <div className="grid grid-cols-[88px,1fr] gap-3 px-4 py-3">
                                 <div className="relative w-[88px] h-[88px] rounded-xl overflow-hidden bg-gray-100">
-                                    {imgId ? (
+                                    {imgId && (
                                         <Image
                                             src={assetUrl(imgId, 176)}
                                             alt={name}
@@ -400,44 +389,39 @@ export default function ListDonHang({
                                             sizes="88px"
                                             className="object-cover"
                                         />
-                                    ) : null}
+                                    )}
                                 </div>
                                 <div>
                                     <div className="font-semibold leading-tight">{name}</div>
-                                    {phone && (
-                                        <div className="text-[13px] text-gray-600 mt-0.5">{phone}</div>
-                                    )}
-                                    {/* Nếu anh có địa chỉ, thêm 1 dòng như ảnh Figma */}
+                                    {phone && <div className="text-[13px] text-gray-600 mt-0.5">{phone}</div>}
+                                    {/* có địa chỉ thì thêm 1 dòng tương tự */}
                                 </div>
                             </div>
-                            {/* Dịch vụ + tổng tiền */}
-                          
-                                <div className="px-4 pb-3">
-                                    <ul className="text-[14px] text-gray-700 space-y-1.5">
-                                       
-                                            <li key={1} className="flex justify-between">
-                                                <span className="flex items-center gap-2">
-                                                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-gray-400" />
-                                                    {"Dịch vụ"}
-                                                </span>
-                                                <span className="font-semibold">0</span>
-                                            </li>
-                                       
-                                    </ul>
-                                    <div className="mt-2 flex justify-between border-t pt-2">
-                                        <span className="text-[14px] text-gray-500">Tổng tiền</span>
-                                        <span className="font-bold">0</span>
-                                    </div>
+
+                            {/* Dịch vụ + Tổng tiền (tạm số 0 nếu chưa có dữ liệu) */}
+                            <div className="px-4 pb-3">
+                                <ul className="text-[14px] text-gray-700 space-y-1.5">
+                                    <li className="flex justify-between">
+                                        <span className="flex items-center gap-2">
+                                            <span className="inline-block w-1.5 h-1.5 rounded-full bg-gray-400" />
+                                            Dịch vụ
+                                        </span>
+                                        <span className="font-semibold">0</span>
+                                    </li>
+                                </ul>
+                                <div className="mt-2 flex justify-between border-t pt-2">
+                                    <span className="text-[14px] text-gray-500">Tổng tiền</span>
+                                    <span className="font-bold">0</span>
                                 </div>
-                            
+                            </div>
 
-
-                            {/* Checkbox chọn */}
+                            {/* Checkbox */}
                             <div className="px-4 pb-3 flex items-center gap-2">
                                 <input
                                     type="checkbox"
                                     checked={isChecked(r.ID)}
                                     onChange={() => handleSelect(r.ID)}
+                                    className="size-4 rounded border-gray-300"
                                 />
                                 <span className="text-[14px] text-gray-700">Chọn đơn này</span>
                             </div>
