@@ -31,18 +31,18 @@ type PhieuHang = {
     Donhangs: string; // Assuming it's a string like "[1,2,3]"
 };
 const STATUS_UI: Record<string, { label: string; cls: string }> = {
-  TAO_MOI: { label: "Tạo mới", cls: "bg-zinc-50 text-zinc-700" },
-  GHEP_DON: { label: "Chờ ghép đơn", cls: "bg-green-50 text-green-700" },
-  LEN_DON: { label: "Đơn hàng mới tạo", cls: "bg-slate-50 text-slate-700" },
-  CHO_LAY: { label: "Chờ lấy", cls: "bg-amber-50 text-amber-700" },
-  VAN_CHUYEN: { label: "Vận chuyển", cls: "bg-violet-50 text-violet-700" },
-  DANG_GIAT: { label: "Đang giặt", cls: "bg-blue-50 text-blue-700" },
-  GIAT_XONG: { label: "Giặt xong", cls: "bg-sky-50 text-sky-700" },
-  CHO_VAN_CHUYEN_LAI: { label: "Chờ chuyển lại", cls: "bg-zinc-50 text-zinc-700" },
-  VAN_CHUYEN_LAI: { label: "Vận chuyển lại", cls: "bg-zinc-50 text-zinc-700" },
-  QUAY_NHAN_GIAY: { label: "Quầy nhận giày", cls: "bg-zinc-50 text-zinc-700" },
-  SAN_SANG: { label: "Sẵn sàng giao", cls: "bg-emerald-50 text-emerald-700" },
-  HOAN_THANH: { label: "Đã hoàn thành", cls: "bg-emerald-50 text-emerald-700" },
+    TAO_MOI: { label: "Tạo mới", cls: "bg-zinc-50 text-zinc-700" },
+    GHEP_DON: { label: "Chờ ghép đơn", cls: "bg-green-50 text-green-700" },
+    LEN_DON: { label: "Đơn hàng mới tạo", cls: "bg-slate-50 text-slate-700" },
+    CHO_LAY: { label: "Chờ lấy", cls: "bg-amber-50 text-amber-700" },
+    VAN_CHUYEN: { label: "Vận chuyển", cls: "bg-violet-50 text-violet-700" },
+    DANG_GIAT: { label: "Đang giặt", cls: "bg-blue-50 text-blue-700" },
+    GIAT_XONG: { label: "Giặt xong", cls: "bg-sky-50 text-sky-700" },
+    CHO_VAN_CHUYEN_LAI: { label: "Chờ chuyển lại", cls: "bg-zinc-50 text-zinc-700" },
+    VAN_CHUYEN_LAI: { label: "Vận chuyển lại", cls: "bg-zinc-50 text-zinc-700" },
+    QUAY_NHAN_GIAY: { label: "Quầy nhận giày", cls: "bg-zinc-50 text-zinc-700" },
+    SAN_SANG: { label: "Sẵn sàng giao", cls: "bg-emerald-50 text-emerald-700" },
+    HOAN_THANH: { label: "Đã hoàn thành", cls: "bg-emerald-50 text-emerald-700" },
 };
 const STATUS_LABEL: Record<string, string> = {
     TAO_MOI: "Tạo mới",
@@ -312,131 +312,150 @@ export default function ListDonHang({
         });
     };
     return (
-         <main className="min-h-dvh bg-gray-50">
-           
-      
+        <main className="min-h-dvh bg-gray-50">
 
 
 
 
 
-        
-      {/* Header */}
-      <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
-        <div className="mx-auto max-w-sm px-4 py-3">
-          <h1 className="text-[20px] font-semibold">Danh sách mặt hàng</h1>
-        </div>
-      </div>
 
-      {/* Bộ lọc */}
-      <div className="mx-auto max-w-sm px-4">
-        <form  method="get" className="relative">
-          <Search className="absolute left-3 top-3.5" size={18} />
-          <input
-            name="q"
-            className="w-full rounded-2xl border border-gray-300 bg-white pl-10 pr-3 py-2.5 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Tìm kiếm Tên hoặc SĐT khách hàng"
-          />
-            <select
-                    value={statusFilter}
-                    onChange={(e) => setStatusFilter(e.target.value)}
-                    className="border rounded px-3 py-2"
-                    name="g"
-                >
-                    <option value="ALL">Tất cả trạng thái</option>
-                    {Object.entries(STATUS_LABEL).map(([key, label]) => (
-                        <option key={key} value={key}>
-                            {label}
-                        </option>
-                    ))}
-                </select>
-                <input type="hidden" name="limit" value={limit} />
-                <input type="hidden" name="sort" value={sort} />
-                <button className="px-4 py-2 bg-gray-800 text-white rounded">Tìm</button>
-        </form>
 
-        
-      </div>
 
-      {/* Danh sách */}
-      <ul className="mx-auto max-w-sm p-4 space-y-3">
-        {donHangList.map((r) => {
-          const id = r.ID;
-          const kh = r.ID_KhachHang || {};
-          const name = kh.TenKhachHang || "Khách lẻ";
-          const phone = kh.DienThoai || "";
-          const imgId =
-            r?.AnhNhan 
-            undefined;
+            {/* Header */}
+            <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
+                <div className="mx-auto max-w-sm px-4 py-3">
+                    <h1 className="text-[20px] font-semibold">Danh sách mặt hàng</h1>
+                </div>
+            </div>
 
-          const st = STATUS_UI[r.TrangThai || ""] || {
-            label: r.TrangThai || "",
-            cls: "bg-zinc-50 text-zinc-700",
-          };
-/*
-          const tổng = Array.isArray(o.Items)
-            ? o.Items.reduce((s, it) => s + (it?.Tien || 0), 0)
-            : undefined;
-*/
-          return (
-            <li key={id} className="rounded-3xl bg-white border border-gray-100 shadow-sm">
-              {/* Header ID + badge */}
-              <div className="flex items-center justify-between px-4 pt-3">
-                 
-                <div className="text-[13px] text-gray-600 font-medium">ID: #{id}</div>
-                <span className={`text-[12px] font-medium px-2.5 py-1 rounded-full ${st.cls}`}>
-                   {st.label || "—"}
-                </span>
-              </div>
-
-              {/* Thân card: ảnh + info */}
-              <div className="grid grid-cols-[88px,1fr] gap-3 px-4 py-3">
-                <div className="relative w-[88px] h-[88px] rounded-xl overflow-hidden bg-gray-100">
-                  {imgId ? (
-                    <Image
-                      src={assetUrl(imgId, 176)}
-                      alt={name}
-                      fill
-                      sizes="88px"
-                      className="object-cover"
+            {/* Bộ lọc */}
+            <div className="mx-auto max-w-sm px-4">
+                <form method="get" className="relative">
+                    <Search className="absolute left-3 top-3.5" size={18} />
+                    <input
+                        name="q"
+                        className="w-full rounded-2xl border border-gray-300 bg-white pl-10 pr-3 py-2.5 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Tìm kiếm Tên hoặc SĐT khách hàng"
                     />
-                  ) : null}
-                </div>
-                <div>
-                  <div className="font-semibold leading-tight">{name}</div>
-                  {phone && (
-                    <div className="text-[13px] text-gray-600 mt-0.5">{phone}</div>
-                  )}
-                  {/* Nếu anh có địa chỉ, thêm 1 dòng như ảnh Figma */}
-                </div>
-              </div>
+                    <select
+                        value={statusFilter}
+                        onChange={(e) => setStatusFilter(e.target.value)}
+                        className="border rounded px-3 py-2"
+                        name="g"
+                    >
+                        <option value="ALL">Tất cả trạng thái</option>
+                        {Object.entries(STATUS_LABEL).map(([key, label]) => (
+                            <option key={key} value={key}>
+                                {label}
+                            </option>
+                        ))}
+                    </select>
+                    <input type="hidden" name="limit" value={limit} />
+                    <input type="hidden" name="sort" value={sort} />
+                    <button className="px-4 py-2 bg-gray-800 text-white rounded">Tìm</button>
+                </form>
 
-             
 
-              {/* Checkbox chọn */}
-              <div className="px-4 pb-3 flex items-center gap-2">
-                 <input
-                                            type="checkbox"
-                                            checked={isChecked(r.ID)}
-                                            onChange={() => handleSelect(r.ID)}
+            </div>
+
+            {/* Danh sách */}
+            <ul className="mx-auto max-w-sm p-4 space-y-3">
+                {donHangList.map((r) => {
+                    const id = r.ID;
+                    const kh = r.ID_KhachHang || {};
+                    const name = kh.TenKhachHang || "Khách lẻ";
+                    const phone = kh.DienThoai || "";
+                    const imgId =
+                        r?.AnhNhan
+                    undefined;
+
+                    const st = STATUS_UI[r.TrangThai || ""] || {
+                        label: r.TrangThai || "",
+                        cls: "bg-zinc-50 text-zinc-700",
+                    };
+                    /*
+                              const tổng = Array.isArray(o.Items)
+                                ? o.Items.reduce((s, it) => s + (it?.Tien || 0), 0)
+                                : undefined;
+                    */
+                    return (
+                        <li key={id} className="rounded-3xl bg-white border border-gray-100 shadow-sm">
+                            {/* Header ID + badge */}
+                            <div className="flex items-center justify-between px-4 pt-3">
+
+                                <div className="text-[13px] text-gray-600 font-medium">ID: #{id}</div>
+                                <span className={`text-[12px] font-medium px-2.5 py-1 rounded-full ${st.cls}`}>
+                                    {st.label || "—"}
+                                </span>
+                            </div>
+
+                            {/* Thân card: ảnh + info */}
+                            <div className="grid grid-cols-[88px,1fr] gap-3 px-4 py-3">
+                                <div className="relative w-[88px] h-[88px] rounded-xl overflow-hidden bg-gray-100">
+                                    {imgId ? (
+                                        <Image
+                                            src={assetUrl(imgId, 176)}
+                                            alt={name}
+                                            fill
+                                            sizes="88px"
+                                            className="object-cover"
                                         />
-                <span className="text-[14px] text-gray-700">Chọn đơn này</span>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+                                    ) : null}
+                                </div>
+                                <div>
+                                    <div className="font-semibold leading-tight">{name}</div>
+                                    {phone && (
+                                        <div className="text-[13px] text-gray-600 mt-0.5">{phone}</div>
+                                    )}
+                                    {/* Nếu anh có địa chỉ, thêm 1 dòng như ảnh Figma */}
+                                </div>
+                            </div>
+                            {/* Dịch vụ + tổng tiền */}
+                          
+                                <div className="px-4 pb-3">
+                                    <ul className="text-[14px] text-gray-700 space-y-1.5">
+                                       
+                                            <li key={1} className="flex justify-between">
+                                                <span className="flex items-center gap-2">
+                                                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-gray-400" />
+                                                    {"Dịch vụ"}
+                                                </span>
+                                                <span className="font-semibold">0</span>
+                                            </li>
+                                       
+                                    </ul>
+                                    <div className="mt-2 flex justify-between border-t pt-2">
+                                        <span className="text-[14px] text-gray-500">Tổng tiền</span>
+                                        <span className="font-bold">0</span>
+                                    </div>
+                                </div>
+                            
 
-      {/* Nút hành động sticky */}
-      <div className="sticky bottom-0 z-10 border-t bg-white/80 backdrop-blur">
-        <div className="mx-auto max-w-sm p-4">
-        
-              <button onClick={handleUpdateStatus} className="w-full rounded-2xl bg-blue-600 py-3 text-white font-medium disabled:opacity-60" >
+
+                            {/* Checkbox chọn */}
+                            <div className="px-4 pb-3 flex items-center gap-2">
+                                <input
+                                    type="checkbox"
+                                    checked={isChecked(r.ID)}
+                                    onChange={() => handleSelect(r.ID)}
+                                />
+                                <span className="text-[14px] text-gray-700">Chọn đơn này</span>
+                            </div>
+                        </li>
+                    );
+                })}
+            </ul>
+
+            {/* Nút hành động sticky */}
+            <div className="sticky bottom-0 z-10 border-t bg-white/80 backdrop-blur">
+                <div className="mx-auto max-w-sm p-4">
+
+                    <button onClick={handleUpdateStatus} className="w-full rounded-2xl bg-blue-600 py-3 text-white font-medium disabled:opacity-60" >
                         Cập nhật trạng thái
                     </button>
-        </div>
-      </div>
-    </main>
+                </div>
+            </div>
+        </main>
     );
 }
 function Th({ label, sort, current }: { label: string; sort: string; current: string }) {
