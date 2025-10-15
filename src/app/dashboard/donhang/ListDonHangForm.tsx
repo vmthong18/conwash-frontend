@@ -384,7 +384,7 @@ export default function ListDonHang({
                  
                 <div className="text-[13px] text-gray-600 font-medium">ID: #{id}</div>
                 <span className={`text-[12px] font-medium px-2.5 py-1 rounded-full ${st.cls}`}>
-                   {STATUS_LABEL[r?.TrangThai ?? ""]}
+                   {st.label || "—"}
                 </span>
               </div>
 
