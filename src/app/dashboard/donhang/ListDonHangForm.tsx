@@ -378,9 +378,9 @@ export default function ListDonHang({
                                 </span>
                             </div>
 
-                            {/* Thân card: ảnh + info KH */}
-                            <div className="grid grid-cols-[88px,1fr] gap-3 px-4 py-3">
-                                <div className="relative w-[88px] h-[88px] rounded-xl overflow-hidden bg-gray-100">
+                            {/* Thân card: ảnh + thông tin KH (căn cùng hàng) */}
+                            <div className="flex items-center gap-3 px-4 py-3">
+                                <div className="relative w-[88px] h-[88px] rounded-xl overflow-hidden bg-gray-100 shrink-0">
                                     {imgId && (
                                         <Image
                                             src={assetUrl(imgId, 176)}
@@ -391,10 +391,13 @@ export default function ListDonHang({
                                         />
                                     )}
                                 </div>
-                                <div>
-                                    <div className="font-semibold leading-tight">{name}</div>
+
+                                {/* min-w-0 để text không đẩy vỡ layout, self-center nếu muốn cân giữa ảnh */}
+                                <div className="flex-1 min-w-0">
+                                    <div className="font-semibold leading-tight truncate">{name}</div>
                                     {phone && <div className="text-[13px] text-gray-600 mt-0.5">{phone}</div>}
-                                    {/* có địa chỉ thì thêm 1 dòng tương tự */}
+                                    {/* nếu có địa chỉ: */}
+                                    {/* <div className="text-[13px] text-gray-600 line-clamp-2">Địa chỉ…</div> */}
                                 </div>
                             </div>
 
