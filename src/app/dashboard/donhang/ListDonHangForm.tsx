@@ -369,7 +369,7 @@ export default function ListDonHang({
                                 : undefined;
                     */
                     return (
-                        <li className="rounded-3xl bg-white border border-gray-100 shadow-sm">
+                        <li key={id} className="rounded-3xl bg-white border border-gray-100 shadow-sm">
                             {/* Header ID + badge */}
                             <div className="flex items-center justify-between px-4 pt-3">
                                 <div className="text-[13px] text-gray-600 font-medium">ID: #{id}</div>
