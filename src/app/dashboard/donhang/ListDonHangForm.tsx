@@ -334,7 +334,7 @@ export default function ListDonHang({
                         <div className="relative">
                             <select
                                 value={statusFilter}
-                                onChange={(e) => setStatusFilter(e.target.value)}
+                                onChange={(e) => {setStatusFilter(e.target.value); e.currentTarget.form?.requestSubmit()}}
                                 className="w-full appearance-none rounded-2xl border border-gray-300 bg-white px-3 py-2.5 pr-9 text-left text-[15px] shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 name="g"
                             >
