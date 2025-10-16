@@ -9,14 +9,16 @@ export default function ActionButton({
 }: { id: string; token?: string; label?: string }) {
   const router = useRouter();                    // ← đưa hook ra top-level
   const [loading, setLoading] = useState(false);
-   const sizeCls ="px-3 py-2 text-sm rounded-xl";
-    
+  const sizeCls = "px-3 py-2 text-sm rounded-xl";
+
 
   const base =
     `block w-[66%] mx-auto ${sizeCls} text-center font-medium transition
      shadow-[0_6px_14px_-6px_rgba(37,99,235,.35)]
      focus:outline-none focus:ring-2 focus:ring-blue-500
      active:scale-[0.99] disabled:opacity-60 `;
+  let tt=JSON.stringify({ ThanhToan: "True" });
+  if(label=="Hoàn thành") tt=JSON.stringify({ TrangThai: "HOAN_THANH" });
   async function onClick() {
     try {
       setLoading(true);
@@ -29,7 +31,7 @@ export default function ActionButton({
           "Content-Type": "application/json",
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
-        body: JSON.stringify({ TrangThai: "HOAN_THANH" }),
+        body: tt,
       });
 
       if (!res.ok) {

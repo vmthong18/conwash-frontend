@@ -53,7 +53,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
   q.searchParams.set("limit", String(limit));
   q.searchParams.set("offset", String(offset));
   q.searchParams.set("sort", "-id");
-  q.searchParams.set("fields", "id,ID_KhachHang,Donhangs,TongTien,TrangThai,ID_DiaDiem"); // lấy đủ trường cần
+  q.searchParams.set("fields", "id,ID_KhachHang,Donhangs,TongTien,TrangThai,ID_DiaDiem,ThanhToan"); // lấy đủ trường cần
 
   const res = await fetch(q.toString(), {
     headers: { Authorization: `Bearer ${token}` },
@@ -114,21 +114,22 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
       ids,                       // danh sách id ảnh
       tong: Number(p.TongTien ?? 0),
       tt: String(p.TrangThai),
+      thanhtoan: p.ThanhToan,
     };
   }));
 
-  function getNextStatus(current: string | undefined, id: string | undefined) {
+  function getNextStatus(current: string | undefined, id: string | undefined, thanhtoan: string | undefined) {
     if (!current) return current;
     const idx = STATUS_ORDER.indexOf(current.trim());
     //if (idx === -1 || idx === STATUS_ORDER.length - 1) return current+"___"+idx+"___"+STATUS_ORDER.length ;
-
+    if (thanhtoan == "False") return (
+      <ActionButton id={String(id)} token={token} label="Thanh toán" />
+    );
     if (idx == 1) return (
       <ActionButton id={String(id)} token={token} label="Hoàn thành" />
     );
-   // return STATUS_LABEL[STATUS_ORDER[idx]];
-   return (
-      <ActionButton id={String(id)} token={token} label="Hoàn thành" />
-    );
+    return STATUS_LABEL[STATUS_ORDER[idx]];
+   
   }
   const hasNext = phieuRows.length === limit;
 
@@ -223,7 +224,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
                   <span className="font-bold">{r.tong.toLocaleString("vi-VN")} đ</span>
                 </div>
               </div>
-                {getNextStatus(String(r.tt), String(r.id))}
+                {getNextStatus(String(r.tt), String(r.id),r.thanhtoan)}
             </li>
           );
         })}
