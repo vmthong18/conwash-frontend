@@ -2,8 +2,14 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
 import ActionButton from "./ActionButton";
+import { MapPin, ChevronDown } from "lucide-react";
 
 type Search = { [k: string]: string | string[] | undefined };
+const STATUS_BADGE: Record<string, string> = {
+  DANG_XU_LY: "bg-green-50 text-green-700",
+  SAN_SANG: "bg-emerald-50 text-emerald-700",
+  HOAN_THANH: "bg-slate-100 text-slate-700",
+};
 const STATUS_LABEL: Record<string, string> = {
   DANG_XU_LY: "Đang xử lý",
   SAN_SANG: "Sẵn sàng",
@@ -126,82 +132,8 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
   return (
     <main className="p-6">
 
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Đơn hàng</h1>
-        <div className="flex items-center gap-3">
-          <Link href="/dashboard" className="text-blue-600 hover:underline">← Về Dashboard</Link>
-          {/* Nút nhập đơn hàng */}
-          <Link href="/dashboard/phieuhang/tao" className="px-3 py-2 rounded bg-green-600 text-white hover:bg-green-700">
-            + Nhập đơn hàng
-          </Link>
-        </div>
-      </div>
-      <div className="overflow-x-auto">
-        <table className="min-w-full border bg-white">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="p-2 border-b w-16">#</th>
-              <th className="p-2 border-b text-left">Tên khách hàng</th>
-              <th className="p-2 border-b text-left">Số điện thoại</th>
-              <th className="p-2 border-b text-left">Ảnh khi nhận (mỗi mặt hàng 1 ảnh)</th>
-              <th className="p-2 border-b text-left">Mặt hàng</th>
-              <th className="p-2 border-b text-right">Tổng tiền</th>
-              <th className="p-2 border-b text-right">Địa điểm</th>
-              <th className="p-2 border-b text-right">Trạng thái</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r, i) => (
-              <tr key={r.id} className="border-b">
-                <td className="p-2 text-center">#{r.id}</td>
-                <td className="p-2">{r.kh.TenKhachHang || "-"}</td>
-                <td className="p-2">{r.kh.DienThoai || "-"}</td>
-                <td className="p-2">
-                  {r.imgs.length ? (
-                    <div className="flex gap-2">
-                      {r.imgs.map((id, idx) => (
-                        <a key={idx} href={`${ASSETS}/assets/${id}`} target="_blank" rel="noreferrer">
-                          <img
-                            src={`${ASSETS}/assets/${id}?width=64&height=64&fit=cover`}
-                            className="h-12 w-12 rounded border object-cover"
-                            alt="Ảnh nhận"
-
-                          />
-                        </a>
-                      ))}
-                    </div>
-                  ) : "–"}
-                </td>
-                 <td className="p-2">
-                  {r.ids.length ? (
-                    <div className="flex gap-2">
-                      {r.ids.map((id, idx) => (
-
-                        <a key={idx} href={`/dashboard/donhang/${id}`} target="_blank" rel="noreferrer">
-                         #{id} 
-                        </a>
-                      ))}
-                    </div>
-                  ) : "–"}
-                </td>
-                <td className="p-2 text-right">
-                  {r.tong.toLocaleString("vi-VN")} đ
-                </td>
-                <td className="p-2 text-right">
-                  {r.dd.TenDiaDiem}
-                </td>
-                <td className="p-2 text-right">
-                  {getNextStatus(String(r.tt), String(r.id))}
-
-                </td>
-              </tr>
-            ))}
-            {!rows.length && (
-              <tr><td colSpan={5} className="p-4 text-center text-gray-500">Không có dữ liệu</td></tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+    
+   
 
       {/* phân trang */}
       <div className="mt-4 flex gap-2">
@@ -212,6 +144,125 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
           className={`px-3 py-1 border rounded ${hasNext ? "" : "opacity-50 pointer-events-none"}`}>
           Sau →
         </Link>
+      </div>
+
+
+
+        {/* Header nhẹ */}
+      <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
+        <div className="mx-auto max-w-sm px-4 py-3">
+          <h1 className="text-[20px] font-semibold">Danh sách đơn hàng</h1>
+        </div>
+      </div>
+
+      {/* Ô chọn địa điểm */}
+      <div className="mx-auto max-w-sm px-4">
+        <div className="rounded-2xl border bg-white p-3 shadow-sm flex items-start gap-3">
+          <div className="rounded-full bg-blue-50 p-2">
+            <MapPin size={18} className="text-blue-600" />
+          </div>
+          <div className="flex-1">
+            <div className="font-medium">
+              {rows[0]?.dd?.TenDiaDiem || "Chưa chọn địa điểm"}
+            </div>
+            <div className="text-[13px] text-gray-600">
+              {/* Nếu có địa chỉ chi tiết thì render ở đây */}
+              {/* Ví dụ: 10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh */}
+            </div>
+          </div>
+          <ChevronDown size={18} className="text-gray-500" />
+        </div>
+      </div>
+
+      {/* Danh sách phiếu */}
+      <ul className="mx-auto max-w-sm p-4 space-y-3">
+        {rows.map((r) => {
+          const badge = STATUS_BADGE[r.tt] || "bg-slate-100 text-slate-700";
+          return (
+            <li key={r.id} className="rounded-2xl bg-white border border-gray-200 shadow-sm">
+              {/* Header ID + trạng thái */}
+              <div className="flex items-center justify-between px-4 pt-3">
+                <div className="text-[13px] text-gray-600 font-medium">
+                  ID đơn hàng: #{r.id}
+                </div>
+                <span className={`text-[12px] font-medium px-2.5 py-1 rounded-full ${badge}`}>
+                  {STATUS_LABEL[r.tt] ?? r.tt}
+                </span>
+              </div>
+
+              {/* Thông tin KH + grid ảnh */}
+              <div className="px-4 pt-2 pb-3">
+                <div className="font-semibold">
+                  {r.kh.TenKhachHang || "-"}{" "}
+                  <span className="text-gray-400">•</span>{" "}
+                  {r.kh.DienThoai || "-"}
+                </div>
+
+                {/* Grid ảnh + mã #id mỗi ảnh */}
+                {r.imgs.length ? (
+                  <div className="mt-2 border-dashed border-t pt-2">
+                    <div className="grid grid-cols-4 gap-2">
+                      {r.imgs.slice(0, 4).map((fid, idx) => (
+                        <a
+                          key={idx}
+                          href={`${ASSETS}/assets/${fid}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="block"
+                        >
+                          <img
+                            src={`${ASSETS}/assets/${fid}?width=88&height=88&fit=cover`}
+                            className="h-20 w-20 rounded-md border object-cover"
+                            alt={`Ảnh đơn #${r.ids[idx] ?? ""}`}
+                          />
+                          <div className="text-[11px] text-gray-500 mt-1">
+                            #{r.ids[idx] ?? ""}
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+
+                {/* Tổng tiền */}
+                <div className="mt-3 flex justify-between border-t pt-2">
+                  <span className="text-[14px] text-gray-500">Tổng tiền</span>
+                  <span className="font-bold">{r.tong.toLocaleString("vi-VN")} đ</span>
+                </div>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+
+      {/* Phân trang (nếu cần) */}
+      <div className="mx-auto max-w-sm px-4 pb-28">
+        <div className="mt-2 flex gap-2 justify-between">
+          <Link
+            href={`?page=${Math.max(1, page - 1)}&limit=${limit}`}
+            className="px-3 py-2 rounded-2xl border bg-white shadow-sm text-sm"
+          >
+            ← Trước
+          </Link>
+          <Link
+            href={`?page=${hasNext ? page + 1 : page}&limit=${limit}`}
+            className={`px-3 py-2 rounded-2xl border bg-white shadow-sm text-sm ${hasNext ? "" : "opacity-50 pointer-events-none"}`}
+          >
+            Sau →
+          </Link>
+        </div>
+      </div>
+
+      {/* Nút tạo đơn hàng (sticky đáy) */}
+      <div className="sticky bottom-0 z-10 border-t bg-white/80 backdrop-blur">
+        <div className="mx-auto max-w-sm p-4">
+          <Link
+            href="/dashboard/phieuhang/tao"
+            className="block w-full text-center rounded-2xl bg-blue-600 py-3 text-white font-medium"
+          >
+            Tạo đơn hàng
+          </Link>
+        </div>
       </div>
     </main>
   );
