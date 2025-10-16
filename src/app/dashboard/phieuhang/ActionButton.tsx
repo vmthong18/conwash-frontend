@@ -13,7 +13,7 @@ export default function ActionButton({
     
 
   const base =
-    `w-[66%] mx-auto ${sizeCls} text-center font-medium transition
+    `w-[66%] block mx-auto ${sizeCls} text-center font-medium transition
      shadow-[0_6px_14px_-6px_rgba(37,99,235,.35)]
      focus:outline-none focus:ring-2 focus:ring-blue-500
      active:scale-[0.99] disabled:opacity-60 `;
