@@ -18,7 +18,7 @@ export default async function Page() {
 
   // Đơn ở trạng thái GHEP_DON
   const ordersRes = await fetch(
-    `${base}/items/donhang?fields=ID,GhiChu,GoiHangs,ID_KhachHang.ID,ID_KhachHang.TenKhachHang,ID_KhachHang.DienThoai,ID_DiaDiem&filter[TrangThai][_eq]=GHEP_DON&limit=-1&filter[NguoiNhap][_eq]=${me.id}&filter[ID_DiaDiem][_eq]=${me.location}`,
+    `${base}/items/donhang?fields=ID,GhiChu,GoiHangs,ID_KhachHang.ID,ID_KhachHang.TenKhachHang,ID_KhachHang.DienThoai,ID_DiaDiem,AnhNhan&filter[TrangThai][_eq]=GHEP_DON&limit=-1&filter[NguoiNhap][_eq]=${me.id}&filter[ID_DiaDiem][_eq]=${me.location}`,
     { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" }
   );
   const orders = (await ordersRes.json()).data ?? [];

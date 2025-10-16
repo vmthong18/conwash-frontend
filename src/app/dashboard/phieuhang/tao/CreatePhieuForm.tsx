@@ -12,6 +12,7 @@ type Order = {
     GoiHangs?: unknown; // JSON: [1,4] hoặc string "[1,4]"
     ID_KhachHang?: Khach | null;
     ID_DiaDiem?: string | null;
+    AnhNhan: string | null;
 };
 const STATUS = { GHEP_DON: { label: "Chờ ghép đơn", cls: "bg-green-50 text-green-700" } };
 function vnd(n: number) {
@@ -158,11 +159,14 @@ export default function CreatePhieuForm({
             </main>
         );
     }
-const money = (n: number) =>
-  (n || 0).toLocaleString("vi-VN", { maximumFractionDigits: 0 }) + " VND";
+    const ASSETS = process.env.NEXT_PUBLIC_DIRECTUS_ASSETS ?? process.env.DIRECTUS_URL ?? "";
+    const assetUrl = (id: string, size = 96) =>
+        `${ASSETS}/assets/${id}?width=${size}&height=${size}&fit=cover`;
+    const money = (n: number) =>
+        (n || 0).toLocaleString("vi-VN", { maximumFractionDigits: 0 }) + " VND";
     return (
         <main className="min-h-dvh bg-gray-50">
-           
+
 
             {/* Header */}
             <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
@@ -176,7 +180,7 @@ const money = (n: number) =>
                     const kh = o.ID_KhachHang || ({} as Khach);
                     const sub = subtotal(o);
                     const ids = toIdList(o.GoiHangs);
-                 
+
                     const checked = picked.includes(o.ID);
                     return (
                         <li key={o.ID} className="rounded-3xl bg-white border border-gray-200 shadow-sm">
@@ -198,6 +202,9 @@ const money = (n: number) =>
 
                             {/* Ảnh + thông tin KH (nếu có ảnh thì thay phần img) */}
                             <div className="flex items-center gap-3 px-4 py-3">
+                                {o.AnhNhan && (
+                                    <img src={assetUrl(o.AnhNhan, 176)} className="h-20 w-20 rounded-xl object-cover border bg-gray-100" />
+                                )}
                                 {/* <img src={...} className="h-20 w-20 rounded-xl object-cover border bg-gray-100" /> */}
                                 <div className="flex-1 min-w-0">
                                     <div className="font-semibold leading-tight">{kh?.TenKhachHang || "Khách lẻ"}</div>
@@ -220,7 +227,7 @@ const money = (n: number) =>
                                             <span className="font-semibold">{money(priceById[id] ?? 0)}</span>
                                         </li>
                                     ))}
-                                    
+
                                 </ul>
                                 <div className="mt-2 flex justify-between border-t pt-2">
                                     <span className="text-[14px] text-gray-500">Tổng tiền</span>
