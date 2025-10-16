@@ -120,7 +120,7 @@ export default function CreatePhieuForm({
                     TongTien: total,
                     TrangThai: "DANG_XU_LY",
                     ID_DiaDiem: orders[0]?.ID_DiaDiem || null,
-                    ThanhToan: paid,
+                    ThanhToan: (paid?1:0),
                 }),
             });
 
