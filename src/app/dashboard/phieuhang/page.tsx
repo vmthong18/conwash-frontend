@@ -125,7 +125,10 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
     if (idx == 1) return (
       <ActionButton id={String(id)} token={token} label="Hoàn thành" />
     );
-    return STATUS_LABEL[STATUS_ORDER[idx]];
+   // return STATUS_LABEL[STATUS_ORDER[idx]];
+   return (
+      <ActionButton id={String(id)} token={token} label="Hoàn thành" />
+    );
   }
   const hasNext = phieuRows.length === limit;
 
@@ -220,6 +223,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
                   <span className="font-bold">{r.tong.toLocaleString("vi-VN")} đ</span>
                 </div>
               </div>
+                {getNextStatus(String(r.tt), String(r.id))}
             </li>
           );
         })}

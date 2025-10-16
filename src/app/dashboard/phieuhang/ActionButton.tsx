@@ -42,7 +42,7 @@ export default function ActionButton({
     <button
       onClick={onClick}
       disabled={loading}
-      className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+      className="block w-full text-center rounded-2xl bg-blue-600 py-3 text-white font-medium"
     >
       {loading ? "Đang cập nhật..." : label}
     </button>

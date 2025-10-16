@@ -12,7 +12,7 @@ type Order = {
     GoiHangs?: unknown; // JSON: [1,4] hoặc string "[1,4]"
     ID_KhachHang?: Khach | null;
     ID_DiaDiem?: string | null;
-    AnhNhan: string | null;
+    AnhNhan?: string | null;
 };
 const STATUS = { GHEP_DON: { label: "Chờ ghép đơn", cls: "bg-green-50 text-green-700" } };
 function vnd(n: number) {
