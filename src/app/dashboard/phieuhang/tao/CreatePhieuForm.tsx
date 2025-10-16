@@ -66,6 +66,8 @@ export default function CreatePhieuForm({
     const [picked, setPicked] = useState<number[]>(orders.map((o) => o.ID));
     const [saving, setSaving] = useState(false);
     const [err, setErr] = useState<string | null>(null);
+    const [paid, setPaid] = useState(false); // ✅ đã thanh toán?
+
 
     // Tạm tính từng đơn = tổng tiền các gói trong cột GoiHangs
     const subtotal = (o: Order): number => {
@@ -118,6 +120,7 @@ export default function CreatePhieuForm({
                     TongTien: total,
                     TrangThai: "DANG_XU_LY",
                     ID_DiaDiem: orders[0]?.ID_DiaDiem || null,
+                    ThanhToan: paid,
                 }),
             });
 
@@ -238,6 +241,16 @@ export default function CreatePhieuForm({
                     );
                 })}
             </ul>
+            {/* ✅ Checkbox Đã thanh toán */}
+            <label className="inline-flex items-center gap-2 whitespace-nowrap">
+                <input
+                    type="checkbox"
+                    className="size-4 rounded border-gray-300"
+                    checked={paid}
+                    onChange={(e) => setPaid(e.target.checked)}
+                />
+                <span className="text-[14px] text-gray-700">Đã thanh toán</span>
+            </label>
 
             {/* Thanh đáy sticky: tổng + nút tạo đơn */}
             <div className="sticky bottom-0 z-10 border-t bg-white/80 backdrop-blur">
@@ -256,6 +269,7 @@ export default function CreatePhieuForm({
                     </button>
                 </div>
             </div>
+
 
             {/* Thông báo lỗi */}
             {err && <p className="mx-auto max-w-sm px-4 pb-4 text-sm text-red-600">{err}</p>}
