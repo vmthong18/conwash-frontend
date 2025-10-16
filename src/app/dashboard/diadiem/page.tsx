@@ -2,6 +2,8 @@
 import { cookies } from "next/headers";
 import Link from "next/link";
 import ChonDiaDiemButton from "./ChonDiaDiemButton";
+import Image from "next/image";
+import { ChevronRight, Store } from "lucide-react";
 
 type DiaDiem = { ID: number; TenDiaDiem: string };
 
@@ -43,43 +45,45 @@ export default async function DiaDiemPage() {
   const rows: DiaDiem[] = json?.data ?? [];
 
   return (
-    <main className="p-8">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Địa điểm đang hoạt động</h1>
-        <Link href="/dashboard" className="text-blue-600 hover:underline">
-          ← Về Dashboard
-        </Link>
+    <main className="min-h-dvh bg-gray-50">
+      {/* Logo */}
+      <div className="pt-6 flex justify-center">
+        {/* Đặt logo tại /public/conwash-logo.png hoặc .svg */}
+        <Image src="/conwash-logo.png" alt="CONWASH" width={140} height={60} priority />
       </div>
 
-      <div className="mt-6 overflow-x-auto">
-        <table className="min-w-full border border-gray-300 bg-white">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="text-left p-2 border-b w-24">ID</th>
-              <th className="text-left p-2 border-b">Tên địa điểm</th>
-              <th className="text-left p-2 border-b w-40">Chọn</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr key={r.ID} className="border-b">
-                <td className="p-2">#{r.ID}</td>
-                <td className="p-2">{r.TenDiaDiem}</td>
-                <td className="p-2">
-                 <ChonDiaDiemButton id={r.ID.toString()} />
-                </td>
-              </tr>
-            ))}
-            {rows.length === 0 && (
-              <tr>
-                <td className="p-4 text-center text-gray-500" colSpan={3}>
-                  Chưa có địa điểm hoạt động
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+      {/* Tiêu đề */}
+      <div className="mx-auto max-w-sm px-4 mt-4">
+        <h1 className="text-[20px] font-semibold">Địa điểm đang hoạt động</h1>
       </div>
+
+      {/* Danh sách địa điểm */}
+      <ul className="mx-auto max-w-sm p-4 space-y-3">
+        {rows.map((r) => (
+          <li key={r.ID} className="rounded-3xl bg-white border border-gray-100 shadow-sm">
+            <ChonDiaDiemButton id={String(r.ID)} className="p-4">
+              <div className="flex items-center gap-3">
+                <div className="rounded-full bg-blue-50 p-2">
+                  <Store size={20} className="text-blue-600" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-[16px] leading-tight">
+                    {r.TenDiaDiem}
+                  </div>
+                  <div className="text-[13px] text-gray-500 mt-0.5 truncate">
+                    { `Địa chỉ của ${r.TenDiaDiem}`}
+                  </div>
+                </div>
+                <ChevronRight size={18} className="text-gray-500" />
+              </div>
+            </ChonDiaDiemButton>
+          </li>
+        ))}
+
+        {rows.length === 0 && (
+          <li className="text-center text-gray-500 py-8">Chưa có địa điểm hoạt động</li>
+        )}
+      </ul>
     </main>
   );
 }
