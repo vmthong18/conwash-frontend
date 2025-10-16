@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { da } from "zod/locales";
+import { Camera, ChevronLeft, MapPin } from "lucide-react";
 
 type GoiHang = {
     ID: number;
@@ -400,158 +401,207 @@ export default function EditForm({
     function getNhaGiat(id_diadiem: number, type: number) {
         return listNhaGiat.find(b => b.ID_DiaDiem === id_diadiem && b.Type === type);
     };
-    return (
-        <main className="min-h-screen p-8">
-            <h1 className="text-2xl font-bold">Nhập đơn hàng - {locationName}</h1>
+  return (
+  <main className="min-h-dvh bg-gray-50">
+    {/* Header mobile */}
+    <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
+      <div className="mx-auto max-w-sm px-4 py-3 flex items-center gap-2">
+        <button type="button" onClick={() => history.back()} aria-label="Quay lại" className="p-1 -ml-1">
+          <ChevronLeft size={20} />
+        </button>
+        <h1 className="text-[20px] font-semibold">Tạo mặt hàng</h1>
+      </div>
+    </div>
 
-            <form onSubmit={onSubmit} className="mt-6 space-y-4 max-w-xl">
+    <form onSubmit={onSubmit} className="mx-auto max-w-sm px-4 pb-28 space-y-4">
+      {/* Hàng đầu: #ID + Box địa điểm */}
+      <div className="flex items-start gap-3">
+        <div className="rounded-2xl bg-white px-4 py-3 shadow-sm border border-gray-200">
+          <div className="text-[22px] font-bold">#{ID}</div>
+        </div>
 
-                <div className="flex flex-col gap-2">
-                    <label className="block text-sm">Số điện thoại</label>
-                    <input
-                        className="mt-1 w-full border rounded px-3 py-2"
-                        value={DienThoai}
-                        onChange={handlePhoneInputChange} // Gọi hàm khi người dùng gõ
-                        placeholder="VD: 0987xxxxxx"
-                        required
-                    />
+        <div className="flex-1 rounded-2xl bg-white px-4 py-3 shadow-sm border border-gray-200">
+          <div className="flex items-start gap-2">
+            <div className="rounded-full bg-blue-50 p-2">
+              <MapPin size={18} className="text-blue-600" />
+            </div>
+            <div className="flex-1">
+              <div className="font-medium">{locationName || "Chọn địa điểm"}</div>
+              {/* Nếu có địa chỉ chi tiết, hiển thị ở dòng dưới */}
+              {/* <div className="text-[13px] text-gray-600">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức…</div> */}
+            </div>
+          </div>
+        </div>
+      </div>
 
-                    {/* Hiển thị các gợi ý nếu có */}
-                    {suggestions.length > 0 && (
-                        <ul className="mt-2 max-h-40 overflow-auto border rounded-lg shadow-lg">
-                            {suggestions.map((customer, index) => (
-                                <li
-                                    key={index}
-                                    className="p-2 cursor-pointer hover:bg-gray-100"
-                                    onClick={() => handleSuggestionSelect(customer)}
-                                >
-                                    {customer.DienThoai}
-                                </li>
-                            ))}
-                        </ul>
-                    )}
+      {/* Tên KH */}
+      <div>
+        <label className="block mb-1 text-sm text-gray-700">Tên khách hàng</label>
+        <input
+          className="w-full rounded-2xl border border-gray-300 bg-white px-3 py-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={TenKhachHang}
+          onChange={(e) => setTenKhachHang(e.target.value)}
+          placeholder="Nhập tên khách hàng"
+          required={!ID_KhachHang}
+        />
+      </div>
+
+      {/* SĐT + gợi ý */}
+      <div>
+        <label className="block mb-1 text-sm text-gray-700">Số điện thoại</label>
+        <input
+          className="w-full rounded-2xl border border-gray-300 bg-white px-3 py-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={DienThoai}
+          onChange={handlePhoneInputChange}
+          placeholder="Nhập số điện thoại"
+          required
+        />
+        {!!suggestions.length && (
+          <ul className="mt-2 max-h-40 overflow-auto rounded-2xl border bg-white shadow-sm">
+            {suggestions.map((c, i) => (
+              <li
+                key={i}
+                className="px-3 py-2 text-sm cursor-pointer hover:bg-gray-50"
+                onClick={() => handleSuggestionSelect(c)}
+              >
+                {c.TenKhachHang} • {c.DienThoai}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      {/* Địa chỉ */}
+      <div>
+        <label className="block mb-1 text-sm text-gray-700">Địa chỉ</label>
+        <input
+          className="w-full rounded-2xl border border-gray-300 bg-white px-3 py-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={DiaChi}
+          onChange={(e) => setDiaChi(e.target.value)}
+          placeholder="Nhập địa chỉ"
+        />
+      </div>
+
+      {/* Ghi chú */}
+      <div>
+        <label className="block mb-1 text-sm text-gray-700">Ghi chú</label>
+        <textarea
+          className="w-full min-h-[92px] rounded-2xl border border-gray-300 bg-white px-3 py-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={GhiChu}
+          onChange={(e) => setGhiChu(e.target.value)}
+          placeholder="Ghi chú yêu cầu khách hàng"
+        />
+      </div>
+
+      {/* Ảnh đại diện (ảnh khi nhận) */}
+      <div>
+        <label className="block mb-1 text-sm text-gray-700">Ảnh đại diện</label>
+        <div className="rounded-2xl border-2 border-dashed border-gray-300 bg-white px-4 py-6 text-center">
+          {AnhPreview ? (
+            <div className="flex items-center justify-center">
+              <img src={AnhPreview} alt="preview" className="h-24 rounded border object-cover" />
+            </div>
+          ) : (
+            <div className="flex flex-col items-center gap-2 text-gray-600">
+              <Camera size={24} />
+              <div className="text-sm">Chụp ảnh/ Upload ảnh</div>
+            </div>
+          )}
+
+          <input type="file" accept="image/*" className="mt-3" onChange={onUploadChange} />
+          {errors.anhNhan && <p className="text-sm text-red-600 mt-2">{errors.anhNhan}</p>}
+          {uploading && <p className="text-sm text-gray-600 mt-1">Đang tải ảnh…</p>}
+        </div>
+      </div>
+
+      {/* Dịch vụ (các gói hàng) */}
+      <div>
+        <div className="block mb-1 text-sm text-gray-700">Dịch vụ</div>
+        {errors.goiHangerr && <p className="text-sm text-red-600 mb-2">{errors.goiHangerr}</p>}
+        <div className="space-y-2">
+          {Array.isArray(goihangList) && goihangList.map((goi) => {
+            const disabled = idx >= 2;
+            const checked = isChecked(goi.ID);
+            return (
+              <label key={goi.ID} className="flex items-center gap-3 rounded-2xl border bg-white px-3 py-2 shadow-sm">
+                <input
+                  type="checkbox"
+                  className="size-4 rounded border-gray-300"
+                  onChange={() => handleCheckboxChange(goi.ID)}
+                  disabled={disabled}
+                  checked={checked}
+                />
+                <span className="text-[15px]">
+                  {goi.TenGoi} <span className="text-gray-500">— {goi.GiaTien.toLocaleString("vi-VN")} VND</span>
+                </span>
+              </label>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* (Tùy trạng thái) Ảnh trước/ sau giặt giữ nguyên logic cũ */}
+      {idx > 1 && (
+        <div>
+          <label className="block mb-1 text-sm text-gray-700">Ảnh trước giặt</label>
+          <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti} />
+          {errors.anhTruoc && <p className="text-sm text-red-600 mt-1">{errors.anhTruoc}</p>}
+          {!!previews.length && (
+            <div className="mt-2 flex flex-wrap gap-2">
+              {previews.map((src, i) => (
+                <div key={i} className="relative">
+                  <img src={src} className="h-20 w-20 object-cover rounded border" />
+                  <button type="button" onClick={() => removeImg(i)} className="absolute -top-2 -right-2 bg-black/70 text-white text-xs rounded-full px-1">x</button>
                 </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
-                <div>
-                    <label className="block text-sm">Tên khách hàng</label>
-                    <input
-                        className="mt-1 w-full border rounded px-3 py-2"
-                        value={TenKhachHang}
-                        onChange={(e) => setTenKhachHang(e.target.value)}
-                        placeholder="Tự điền nếu đã tìm thấy theo SĐT"
-                        required={!ID_KhachHang} // bắt buộc khi KH chưa tồn tại
-                    />
+      {idx > 5 && (
+        <div>
+          <label className="block mb-1 text-sm text-gray-700">Ảnh sau giặt</label>
+          <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti_after} />
+          {errors.anhSau && <p className="text-sm text-red-600 mt-1">{errors.anhSau}</p>}
+          {!!previews_after.length && (
+            <div className="mt-2 flex flex-wrap gap-2">
+              {previews_after.map((src, i) => (
+                <div key={i} className="relative">
+                  <img src={src} className="h-20 w-20 object-cover rounded border" />
+                  <button type="button" onClick={() => removeImg_after(i)} className="absolute -top-2 -right-2 bg-black/70 text-white text-xs rounded-full px-1">x</button>
                 </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
-                <div>
-                    <label className="block text-sm">Địa chỉ</label>
-                    <input
-                        className="mt-1 w-full border rounded px-3 py-2"
-                        value={DiaChi}
-                        onChange={(e) => setDiaChi(e.target.value)}
-                        placeholder="Tự điền nếu đã tìm thấy theo SĐT"
-                    />
-                </div>
+      {/* Thông báo */}
+      {msg && (
+        <p className={`text-sm ${msg.startsWith("Đã tìm") ? "text-green-700" : "text-red-600"}`}>{msg}</p>
+      )}
+    </form>
 
-                <div className="block text-sm">
-                    <div>
-                        <label className="block text-sm">Ghi chú</label>
-                        <input className="mt-1 w-full border rounded px-3 py-2" value={GhiChu} onChange={(e) => setGhiChu(e.target.value)} />
-                    </div>
+    {/* Nút tạo mặt hàng (sticky đáy) */}
+    <div className="sticky bottom-0 z-10 border-t bg-white/80 backdrop-blur">
+      <div className="mx-auto max-w-sm p-4">
+        <button
+          className="w-full rounded-2xl bg-blue-600 py-3 text-white font-medium disabled:opacity-60"
+          disabled={saving}
+          type="submit"
+          formAction={onSubmit as any} // đảm bảo submit form ở trên
+          onClick={(e)=>{
+            // để nút ở ngoài form vẫn submit: forward click tới form
+            const form = (e.currentTarget.ownerDocument?.querySelector('form') as HTMLFormElement|undefined);
+            form?.requestSubmit();
+          }}
+        >
+          {saving ? "Đang lưu..." : "Tạo mặt hàng"}
+        </button>
+      </div>
+    </div>
+  </main>
+);
 
-                </div>
-                <div>
-                    <label className="block text-sm">Ảnh khi nhận</label>
-                    <input type="file" accept="image/*" className="mt-1" onChange={onUploadChange} />
-                    {errors.anhNhan && <p className="text-sm text-red-600 mt-1">{errors.anhNhan}</p>}
-                    {uploading && <p className="text-sm text-gray-600">Đang tải ảnh…</p>}
-                    {AnhPreview && (
-                        <div className="mt-2">
-                            <img src={AnhPreview} alt="preview" className="h-24 rounded border" />
-
-                        </div>
-                    )}
-                </div>
-                {idx > 1 && (
-                    <div>
-                        <label className="block text-sm">Ảnh trước giặt</label>
-                        <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti} />
-                        {errors.anhTruoc && <p className="text-sm text-red-600 mt-1">{errors.anhTruoc}</p>}
-                        {uploading && <p className="text-sm text-gray-600">Đang tải ảnh…</p>}
-                        {!!previews.length && (
-                            <div className="mt-2 flex flex-wrap gap-2">
-                                {previews.map((src, i) => (
-                                    <div key={i} className="relative">
-                                        <img src={src} className="h-20 w-20 object-cover rounded border" />
-                                        <button type="button"
-                                            onClick={() => removeImg(i)}
-                                            className="absolute -top-2 -right-2 bg-black/70 text-white text-xs rounded-full px-1">x</button>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-
-                )}
-
-
-
-                {idx > 5 && (
-                    <div>
-                        <label className="block text-sm">Ảnh sau khi giặt</label>
-                        <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti_after} />
-                        {errors.anhSau && <p className="text-sm text-red-600 mt-1">{errors.anhSau}</p>}
-                        {uploading && <p className="text-sm text-gray-600">Đang tải ảnh…</p>}
-                        {!!previews_after.length && (
-                            <div className="mt-2 flex flex-wrap gap-2">
-                                {previews_after.map((src, i) => (
-                                    <div key={i} className="relative">
-                                        <img src={src} className="h-20 w-20 object-cover rounded border" />
-                                        <button type="button"
-                                            onClick={() => removeImg_after(i)}
-                                            className="absolute -top-2 -right-2 bg-black/70 text-white text-xs rounded-full px-1">x</button>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-
-                )}
-                <div>
-                    <label className="block text-sm">Chọn Gói Hàng</label>
-                    <div className="space-y-2">
-                        {errors.goiHangerr && <p className="text-sm text-red-600 mt-1">{errors.goiHangerr}</p>}
-                        {Array.isArray(goihangList) && goihangList.map((goi) => {
-                            const disabled = idx >= 2;
-                            return (
-                                <div key={goi.ID} className="flex items-center">
-                                    <input
-                                        type="checkbox"
-                                        id={`goi_${goi.ID}`}
-                                        value={goi.ID}
-                                        onChange={() => handleCheckboxChange(goi.ID)}
-                                        disabled={disabled}
-                                        checked={isChecked(goi.ID)}
-                                        className="mr-2 "
-                                    />
-                                    <label htmlFor={`goi_${goi.ID}`} className="text-sm">{goi.TenGoi} - {goi.GiaTien} VND</label>
-                                </div>
-                            )
-                        }
-                        )
-                        }
-                    </div>
-                </div>
-
-                {msg && <p className={`text-sm mt-1 ${msg.startsWith("Đã tìm") ? "text-green-700" : "text-red-600"}`}>{msg}</p>}
-
-                <div className="flex gap-2">
-                    <button className="px-4 py-2 bg-green-600 text-white rounded disabled:opacity-60" disabled={saving} type="submit">
-                        {saving ? "Đang lưu..." : "Lưu đơn hàng"}
-                    </button>
-                    <button className="px-4 py-2 border rounded" type="button" onClick={() => history.back()}>Hủy</button>
-                </div>
-            </form>
-        </main>
-    );
 }

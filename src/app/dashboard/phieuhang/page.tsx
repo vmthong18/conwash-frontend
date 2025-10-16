@@ -135,17 +135,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
     
    
 
-      {/* phân trang */}
-      <div className="mt-4 flex gap-2">
-        <Link href={`?page=${Math.max(1, page - 1)}&limit=${limit}`} className="px-3 py-1 border rounded">
-          ← Trước
-        </Link>
-        <Link href={`?page=${hasNext ? page + 1 : page}&limit=${limit}`}
-          className={`px-3 py-1 border rounded ${hasNext ? "" : "opacity-50 pointer-events-none"}`}>
-          Sau →
-        </Link>
-      </div>
-
+ 
 
 
         {/* Header nhẹ */}
