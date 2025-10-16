@@ -122,13 +122,13 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
     if (!current) return current;
     const idx = STATUS_ORDER.indexOf(current.trim());
     //if (idx === -1 || idx === STATUS_ORDER.length - 1) return current+"___"+idx+"___"+STATUS_ORDER.length ;
-    if (thanhtoan == "False") return (
+    if (thanhtoan == "0") return (
       <ActionButton id={String(id)} token={token} label="Thanh toán" />
     );
     if (idx == 1) return (
       <ActionButton id={String(id)} token={token} label="Hoàn thành" />
     );
-    return STATUS_LABEL[STATUS_ORDER[idx]];
+    return "";
    
   }
   const hasNext = phieuRows.length === limit;
