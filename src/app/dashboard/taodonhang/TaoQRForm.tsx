@@ -11,7 +11,10 @@ export default function TaoQRForm() {
     const [loading, setLoading] = useState(false);
     const [isPending, startTransition] = useTransition();
     const [err, setErr] = useState<string | null>(null);
-
+    const appBase =
+        process.env.NEXT_PUBLIC_APP_URL ||
+        process.env.BASE_URL ||
+        "http://localhost:3000";
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         setErr(null);
@@ -26,10 +29,10 @@ export default function TaoQRForm() {
             });
             const j = await r.json().catch(() => ({}));
             if (!r.ok || !j.ok) throw new Error(j.error || "Tạo đơn thất bại");
-            const urls: string[] = j.data?.donhangURL || [];
-           
-           
-            generateExcel(urls);
+            const ids: string[] = j.data?.donhangURL || [];
+
+
+            generateExcel(ids);
             // refresh lại danh sách
             startTransition(() => router.refresh());
         } catch (e: any) {
@@ -38,9 +41,9 @@ export default function TaoQRForm() {
             setLoading(false);
         }
     }
-    function generateExcel(urls: string[]) {
+    function generateExcel(ids: string[]) {
         // Tạo một worksheet từ mảng URLs
-        const ws = XLSX.utils.aoa_to_sheet([['URL'], ...urls.map(url => [url])]);
+        const ws = XLSX.utils.aoa_to_sheet([['URL','ID'], ...ids.map(url => [`${ appBase }/dashboard/donhang/${url}`,`#${url}}`])]);
 
         // Tạo một workbook chứa worksheet
         const wb = XLSX.utils.book_new();
