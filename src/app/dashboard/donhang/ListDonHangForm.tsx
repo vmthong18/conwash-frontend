@@ -34,13 +34,13 @@ const STATUS_UI: Record<string, { label: string; cls: string }> = {
     TAO_MOI: { label: "Tạo mới", cls: "bg-zinc-50 text-zinc-700" },
     GHEP_DON: { label: "Chờ ghép đơn", cls: "bg-green-50 text-green-700" },
     LEN_DON: { label: "Đơn hàng mới tạo", cls: "bg-slate-50 text-slate-700" },
-    CHO_LAY: { label: "Chờ lấy", cls: "bg-amber-50 text-amber-700" },
-    VAN_CHUYEN: { label: "Vận chuyển", cls: "bg-violet-50 text-violet-700" },
+    CHO_LAY: { label: "Chờ vận chuyển đi giặt", cls: "bg-amber-50 text-amber-700" },
+    VAN_CHUYEN: { label: "Vận chuyển đi giặt", cls: "bg-violet-50 text-violet-700" },
     DANG_GIAT: { label: "Đang giặt", cls: "bg-blue-50 text-blue-700" },
     GIAT_XONG: { label: "Giặt xong", cls: "bg-sky-50 text-sky-700" },
-    CHO_VAN_CHUYEN_LAI: { label: "Chờ chuyển lại", cls: "bg-zinc-50 text-zinc-700" },
-    VAN_CHUYEN_LAI: { label: "Vận chuyển lại", cls: "bg-zinc-50 text-zinc-700" },
-    QUAY_NHAN_GIAY: { label: "Quầy nhận giày", cls: "bg-zinc-50 text-zinc-700" },
+    CHO_VAN_CHUYEN_LAI: { label: "Chờ vận chuyển trả giày", cls: "bg-zinc-50 text-zinc-700" },
+    VAN_CHUYEN_LAI: { label: "Vận chuyển trả giày", cls: "bg-zinc-50 text-zinc-700" },
+    QUAY_NHAN_GIAY: { label: "Quầy nhận giày sạch", cls: "bg-zinc-50 text-zinc-700" },
     SAN_SANG: { label: "Sẵn sàng giao", cls: "bg-emerald-50 text-emerald-700" },
     HOAN_THANH: { label: "Đã hoàn thành", cls: "bg-emerald-50 text-emerald-700" },
 };
@@ -311,7 +311,7 @@ export default function ListDonHang({
             return [...prev, { id, trangThai: row?.TrangThai }];
         });
     };
-    
+
     return (
         <main className="min-h-dvh bg-gray-50">
             {/* Header giống mobile: căn trái, tiêu đề 20px bold */}
@@ -334,7 +334,7 @@ export default function ListDonHang({
                         <div className="relative">
                             <select
                                 value={statusFilter}
-                                onChange={(e) => {setStatusFilter(e.target.value); e.currentTarget.form?.requestSubmit()}}
+                                onChange={(e) => { setStatusFilter(e.target.value); e.currentTarget.form?.requestSubmit() }}
                                 className="w-full appearance-none rounded-2xl border border-gray-300 bg-white px-3 py-2.5 pr-9 text-left text-[15px] shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 name="g"
                             >
@@ -347,7 +347,7 @@ export default function ListDonHang({
                             </select>
                             <input type="hidden" name="limit" value={limit} />
                             <input type="hidden" name="sort" value={sort} />
-                     
+
                         </div>
                     </div>
 
@@ -422,8 +422,13 @@ export default function ListDonHang({
             {/* Nút hành động sticky */}
             <div className="sticky bottom-0 z-10 border-t bg-white/80 backdrop-blur">
                 <div className="mx-auto max-w-sm p-4">
-
-                    <button onClick={handleUpdateStatus} className="w-full rounded-2xl bg-blue-600 py-3 text-white font-medium disabled:opacity-60" >
+                    <input
+                        type="checkbox"
+                         className="size-4 rounded border-gray-300"
+                        onChange={(e) => toggleAll(e.target.checked)}
+                        checked={selectedItems.length === donHangList.length}
+                    />
+                    <button onClick={handleUpdateStatus} className="w-[66%] float-right rounded-2xl bg-blue-600 py-3 text-white font-medium disabled:opacity-60" >
                         Cập nhật trạng thái
                     </button>
                 </div>
