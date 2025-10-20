@@ -43,7 +43,7 @@ export default function TaoQRForm() {
     }
     function generateExcel(ids: string[]) {
         // Tạo một worksheet từ mảng URLs
-        const ws = XLSX.utils.aoa_to_sheet([['URL','ID'], ...ids.map(url => [`${ appBase }/dashboard/donhang/${url}`,`#${url}}`])]);
+        const ws = XLSX.utils.aoa_to_sheet([['URL','ID'], ...ids.map(url => [`${ appBase }/dashboard/donhang/${url}`,`#${url}`])]);
 
         // Tạo một workbook chứa worksheet
         const wb = XLSX.utils.book_new();
