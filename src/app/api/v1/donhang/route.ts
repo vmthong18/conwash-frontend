@@ -48,9 +48,8 @@ export async function POST(req: NextRequest) {
     // ===== 4) Sinh mã QR cho link chi tiết đơn & upload vào Directus =====
     // URL hiển thị đơn (C có thể đổi sang route public nếu muốn): 
 
-    //const orderUrl = `${appBase}/dashboard/donhang/${donhangId}`;
-    const orderUrl = `${donhangId}`;
-    donhangURL.push(orderUrl);
+    const orderUrl = `${appBase}/dashboard/donhang/${donhangId}`;
+    donhangURL.push(`${donhangId}`);
     // Tạo PNG QR (512px, viền mỏng)
     const png = await QRCode.toBuffer(orderUrl, { type: "png", width: 512, margin: 1 });
 
