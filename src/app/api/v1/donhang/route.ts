@@ -133,7 +133,7 @@ export async function PATCH(req: NextRequest) {
   const next = STATUS_ORDER[Math.min(idx + 1, STATUS_ORDER.length - 1)];
  // return NextResponse.json({ ok: false, error: next }, { status: 400 });
   if (next == "GHEP_DON") {
-    const { payload } = b || {};
+
     const r = await directusFetch(`/items/donhang`, { method: "PATCH", body: JSON.stringify(b) });
     const data = await r.json();
     if (!r.ok) return NextResponse.json({ ok: false, error: JSON.stringify(b) }, { status: r.status });
@@ -142,6 +142,7 @@ export async function PATCH(req: NextRequest) {
 
   }
   else {
+    return NextResponse.json({ ok: false, error: "line 145"  }, { status: 400 });
     // ===== 1) Xác định khách hàng (tìm theo SĐT, nếu chưa có thì tạo) =====
     let ID_khachhang = b?.ID_KhachHang;
     if (!ID_khachhang) {
