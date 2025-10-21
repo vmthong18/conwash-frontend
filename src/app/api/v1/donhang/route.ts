@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAccess } from "@/lib/cookies";
 import QRCode from "qrcode";
+import { directusFetch } from "@/lib/directusFetch";
 
 export const runtime = "nodejs";
 
@@ -33,7 +34,7 @@ export async function POST(req: NextRequest) {
 
 
   for (let i = 0; i < Math.max(1, count); i++) {
-    const orderRes = await fetch(`${process.env.DIRECTUS_URL}/items/donhang?fields=ID`, {
+    const orderRes = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang?fields=ID`, {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
       body: JSON.stringify(payloadOrder),
@@ -58,7 +59,7 @@ export async function POST(req: NextRequest) {
     // Node 20 có Blob/File sẵn; dùng Blob để tương thích
     fd.append("file", new Blob([new Uint8Array(png)], { type: "image/png" }), `qr-donhang-${donhangId}.png`);
 
-    const uploadRes = await fetch(`${process.env.DIRECTUS_URL}/files`, {
+    const uploadRes = await directusFetch(`${process.env.DIRECTUS_URL}/files`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: fd,
@@ -75,7 +76,7 @@ export async function POST(req: NextRequest) {
 
     // Ghi id file QR vào cột AnhFile của donhang
     if (qrFileId) {
-      await fetch(`${process.env.DIRECTUS_URL}/items/donhang/${donhangId}`, {
+      await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang/${donhangId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ AnhFile: qrFileId }),
@@ -137,7 +138,7 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ ok: false, error: "Thiếu ID_KhachHang hoặc DienThoai" }, { status: 400 });
     }
 
-    const findRes = await fetch(
+    const findRes = await directusFetch(
       `${process.env.DIRECTUS_URL}/items/khachhang?filter[DienThoai][_eq]=${encodeURIComponent(DienThoai)}&limit=1`,
       { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" }
     );
@@ -146,7 +147,7 @@ export async function PATCH(req: NextRequest) {
     let kh = found?.data?.[0];
 
     if (!kh) {
-      const createRes = await fetch(`${process.env.DIRECTUS_URL}/items/khachhang`, {
+      const createRes = await directusFetch(`${process.env.DIRECTUS_URL}/items/khachhang`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ TenKhachHang, DiaChi, DienThoai }),
@@ -185,7 +186,7 @@ export async function PATCH(req: NextRequest) {
   if (ids.length) {
     for (let i = 0; i < ids.length; i++) {
       const item_anh = ids[i];
-      const kq = await fetch(`${process.env.DIRECTUS_URL}/items/donhang_anh/${item_anh}`, {
+      const kq = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang_anh/${item_anh}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -197,7 +198,7 @@ export async function PATCH(req: NextRequest) {
 
     for (let i = 0; i < imgs.length; i++) {
       const fid = imgs[i];
-      const r = await fetch(`${process.env.DIRECTUS_URL}/items/donhang_anh`, {
+      const r = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang_anh`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ don_hang: donhangId, file: fid, sort: i }),
@@ -224,7 +225,7 @@ export async function PATCH(req: NextRequest) {
   if (ids_after.length) {
     for (let i = 0; i < ids_after.length; i++) {
       const item_anh = ids_after[i];
-      const kq = await fetch(`${process.env.DIRECTUS_URL}/items/donhang_anh_after/${item_anh}`, {
+      const kq = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang_anh_after/${item_anh}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -234,7 +235,7 @@ export async function PATCH(req: NextRequest) {
   if (imgs_after.length) {
     for (let i = 0; i < imgs_after.length; i++) {
       const fid = imgs_after[i];
-      const r = await fetch(`${process.env.DIRECTUS_URL}/items/donhang_anh_after`, {
+      const r = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang_anh_after`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ don_hang: donhangId, file: fid, sort: i }),
@@ -249,7 +250,7 @@ export async function PATCH(req: NextRequest) {
   }
 
 
-  const update = await fetch(`${process.env.DIRECTUS_URL}/items/donhang/${donhangId}`, {
+  const update = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang/${donhangId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
