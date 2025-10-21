@@ -1,3 +1,4 @@
+// src/app/api/v1/donhang/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { getAccess } from "@/lib/cookies";
 import QRCode from "qrcode";
@@ -266,5 +267,31 @@ export async function PATCH(req: NextRequest) {
   const updatedData = await update.json();
   return NextResponse.json({ ok: true, data: updatedData?.data });
 }
+export async function GET(req: NextRequest) {
+  const token = await getAccess();
+  if (!token) return NextResponse.redirect('/login', 301);//return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
+
+
+  const r = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang`+'>'+req.nextUrl.searchParams.toString(), {
+    headers: { Authorization: `Bearer ${token}` },
+    cache: "no-store"
+  });
+
+  if (!r.ok) {
+    const err = await r.text().catch(() => "");
+    return NextResponse.json({ ok: false, error: err || "Lookup failed" }, { status: 400 });
+  }
+
+  const data = await r.json();
+  const kh = (data?.data || [])|| null;
+
+  return NextResponse.json({
+    ok: true,
+    found: !!kh,
+    kh,
+    customers: data?.data?.map((item: any) => item.DienThoai) || []  // Trả về danh sách số điện thoại
+  });
+}
+
 
 

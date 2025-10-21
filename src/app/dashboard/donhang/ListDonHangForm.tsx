@@ -128,7 +128,7 @@ export default function ListDonHang({
         `${ASSETS}/assets/${id}?width=${size}&height=${size}&fit=cover`;
     const fetchDonHang = async () => {
         setLoading(true);
-        const url = new URL(`${ASSETS}/items/donhang`);
+        const url = new URL(`/api/v1/donhang`);
         url.searchParams.set("fields",
             "ID,TrangThai,GhiChu,ID_KhachHang.ID,ID_KhachHang.TenKhachHang,ID_KhachHang.DienThoai,NguoiNhap.first_name,NguoiNhap.email,AnhList.file.id,AnhFile.id"
         );
@@ -155,7 +155,7 @@ export default function ListDonHang({
 
         }
 
-        const res = await directusFetch(url.toString(), {
+        const res = await fetch(url.toString(), {
             headers: { Authorization: `Bearer ${token}` },
             cache: 'no-store',
         });
