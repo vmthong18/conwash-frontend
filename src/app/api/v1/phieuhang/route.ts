@@ -68,8 +68,8 @@ export async function PATCH(req: Request) {
   // ❗ ĐỌC JSON RỒI STRINGIFY – KHÔNG pass thẳng req.body (tránh lỗi duplex)
   const body = await req.json().catch(() => ({}));
   // ví dụ yêu cầu có { id, ...payload }
-  const { payload } = body || {};
- 
+  const { id, ...payload } = body || {};
+  if (!id) return NextResponse.json({ ok: false, error: "Thiếu id"+JSON.stringify(payload) }, { status: 400 });
 
   // Lưu vào bảng PhieuHang
   const r = await directusFetch(`${process.env.DIRECTUS_URL}/items/phieuhang`, {
