@@ -68,13 +68,13 @@ export async function PATCH(req: Request) {
   // ❗ ĐỌC JSON RỒI STRINGIFY – KHÔNG pass thẳng req.body (tránh lỗi duplex)
   const body = await req.json().catch(() => ({}));
   // ví dụ yêu cầu có { id, ...payload }
-  const { payload } = body || {};
- 
+  const { ID_KhachHang, Donhangs, TongTien, TrangThai, ID_DiaDiem, ThanhToan } = body || {};
+
 
   // Lưu vào bảng PhieuHang
   const r = await directusFetch(`/items/phieuhang`, {
     method: "POST",
-    body: JSON.stringify(payload),
+    body: JSON.stringify({ ID_KhachHang, Donhangs: Donhangs,TongTien,TrangThai,ID_DiaDiem,ThanhToan })
 
   });
   const data = await r.json();
