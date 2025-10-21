@@ -128,34 +128,35 @@ export default function ListDonHang({
         `${ASSETS}/assets/${id}?width=${size}&height=${size}&fit=cover`;
     const fetchDonHang = async () => {
         setLoading(true);
-        const url = new URL(`/api/v1/donhang`);
-        url.searchParams.set("fields",
+        //const url = new URL(`/api/v1/donhang`);
+        const url = new URLSearchParams();
+        url.set("fields",
             "ID,TrangThai,GhiChu,ID_KhachHang.ID,ID_KhachHang.TenKhachHang,ID_KhachHang.DienThoai,NguoiNhap.first_name,NguoiNhap.email,AnhList.file.id,AnhFile.id"
         );
-        url.searchParams.set("limit", String(limit));
-        url.searchParams.set("offset", String((page - 1) * limit));
-        url.searchParams.set("sort", sort);
-        url.searchParams.set("filter[TrangThai][_neq]", "TAO_MOI");
+        url.set("limit", String(limit));
+        url.set("offset", String((page - 1) * limit));
+        url.set("sort", sort);
+        url.set("filter[TrangThai][_neq]", "TAO_MOI");
         if (["Giat", "Shipper"].includes(rolename)) {
             // Chỉ thấy CHO_LAY và DANG_GIAT
-            url.searchParams.set("filter[TrangThai][_in]", "CHO_LAY,DANG_GIAT,VAN_CHUYEN,GIAT_XONG,CHO_VAN_CHUYEN_LAI");
-            url.searchParams.set("filter[NhaGiat][_eq]", nameid);
+            url.set("filter[TrangThai][_in]", "CHO_LAY,DANG_GIAT,VAN_CHUYEN,GIAT_XONG,CHO_VAN_CHUYEN_LAI");
+            url.set("filter[NhaGiat][_eq]", nameid);
         }
         if (["Shipper", "NhanVienQuay"].includes(rolename)) {
             // Chỉ thấy CHO_LAY và DANG_GIAT
-            url.searchParams.set("filter[ID_DiaDiem][_eq]", locationid);
+            url.set("filter[ID_DiaDiem][_eq]", locationid);
         }
         // Tìm theo tên KH hoặc số điện thoại (deep filter qua quan hệ)
         if (q) {
-            url.searchParams.set("filter[_or][0][ID_KhachHang][TenKhachHang][_contains]", q);
-            url.searchParams.set("filter[_or][1][ID_KhachHang][DienThoai][_contains]", q);
+            url.set("filter[_or][0][ID_KhachHang][TenKhachHang][_contains]", q);
+            url.set("filter[_or][1][ID_KhachHang][DienThoai][_contains]", q);
         }
         if (g && g !== "ALL") {
-            url.searchParams.set("filter[TrangThai][_eq]", g);
+            url.set("filter[TrangThai][_eq]", g);
 
         }
 
-        const res = await fetch(url.toString());
+       const res = await fetch(`/api/v1/donhang?${url.toString()}`);
 
         if (res.ok) {
             const json = await res.json();
