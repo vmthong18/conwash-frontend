@@ -366,7 +366,7 @@ export default function EditForm({
       //fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
       const data = await r.json();
       if (!r.ok || !data.ok) {
-        return alert("data " + await r.text() || "Không tạo được đơn");
+        return alert("data " + data.text() || "Không tạo được đơn");
       }
       else {
         if (idx == 0) {
