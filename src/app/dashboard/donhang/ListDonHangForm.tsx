@@ -315,11 +315,11 @@ export default function ListDonHang({
         <main className="min-h-dvh bg-gray-50">
             {/* Header giống mobile: căn trái, tiêu đề 20px bold */}
             <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
-                <div className="mx-auto max-w-sm px-4 py-3">
+                <div className="mx-auto max-w-sm px-4 py-3 flex items-center justify-between">
                     <h1 className="text-[20px] font-semibold">Danh sách mặt hàng</h1>
-                    <div className='flex items-right gap-3'>
-                        <Link href="/dashboard">Dashboard</Link>
-                    </div>
+                    <Link href="/dashboard" className="text-blue-600 hover:underline">
+                        Dashboard
+                    </Link>
                 </div>
             </div>
 
@@ -380,13 +380,13 @@ export default function ListDonHang({
                             {/* Header ID + badge */}
                             <div className="flex items-center justify-between px-4 pt-3">
 
-                                <div className="text-[13px] text-gray-600 font-medium">    
+                                <div className="text-[13px] text-gray-600 font-medium">
                                     <input
-                                    type="checkbox"
-                                    checked={isChecked(r.ID)}
-                                    onChange={() => handleSelect(r.ID)}
-                                    className="size-4 rounded border-gray-300"
-                                />
+                                        type="checkbox"
+                                        checked={isChecked(r.ID)}
+                                        onChange={() => handleSelect(r.ID)}
+                                        className="size-4 rounded border-gray-300"
+                                    />
                                     <Link href={`/dashboard/donhang/edit/${id}`}>
                                         ID: #{id}
                                     </Link>  </div>
