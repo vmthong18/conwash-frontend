@@ -131,7 +131,7 @@ export default function CreatePhieuForm({
             }
             const updates = picked.map((id) => ({ ID: id, TrangThai: "LEN_DON" })); // chú ý primary key là "ID"
             const res_donhang = await fetch(`/api/v1/donhang`, {
-                method: "PUT",
+                method: "PATCH",
                 body: JSON.stringify(updates),
             });
             if (!res_donhang.ok) {

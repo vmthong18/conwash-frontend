@@ -131,148 +131,152 @@ export async function PATCH(req: NextRequest) {
       : "TAO_MOI";
   const idx = Math.max(0, STATUS_ORDER.indexOf(trangThai));
   const next = STATUS_ORDER[Math.min(idx + 1, STATUS_ORDER.length - 1)];
-  // ===== 1) Xác định khách hàng (tìm theo SĐT, nếu chưa có thì tạo) =====
-  let ID_khachhang = b?.ID_KhachHang;
-  if (!ID_khachhang) {
-    const { TenKhachHang, DiaChi, DienThoai } = b || {};
-    if (!DienThoai) {
-      return NextResponse.json({ ok: false, error: "Thiếu ID_KhachHang hoặc DienThoai" }, { status: 400 });
-    }
+  if (next == "CHO_LAY") {
+    const { payload } = b || {};
+    const r = await directusFetch(`/items/donhang`, { method: "PATCH", body: JSON.stringify(payload) });
+    const data = await r.json();
+    if (!r.ok) return NextResponse.json({ ok: false, error: data?.errors?.[0]?.message || "Patch failed" }, { status: r.status });
 
-    const findRes = await directusFetch(
-      `${process.env.DIRECTUS_URL}/items/khachhang?filter[DienThoai][_eq]=${encodeURIComponent(DienThoai)}&limit=1`,
-      { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" }
-    );
-    if (!findRes.ok) return NextResponse.json({ ok: false, error: "line 115" + await findRes.text() }, { status: 400 });
-    const found = await findRes.json().catch(() => ({}));
-    let kh = found?.data?.[0];
-
-    if (!kh) {
-      const createRes = await directusFetch(`${process.env.DIRECTUS_URL}/items/khachhang`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ TenKhachHang, DiaChi, DienThoai }),
-      });
-      if (!createRes.ok) return NextResponse.json({ ok: false, error: "line 125" + await createRes.text() }, { status: 400 });
-      const created = await createRes.json();
-      kh = created?.data;
-    }
-    ID_khachhang = kh?.ID;
+    return NextResponse.json({ ok: true, id: data?.data?.ID ?? data?.data?.id, data: data?.data });
 
   }
-
-  // ===== 2) Tạo DON HANG (chưa có ảnh, chưa có QR) =====
-  const payloadOrder: any = {
-    ID_KhachHang: ID_khachhang,
-    GhiChu: b?.GhiChu ?? null,
-    AnhNhan: b?.Anh ?? null,
-    GoiHangs: b?.GoiHangIDs ?? null,
-    NguoiNhap: b?.NguoiNhap ?? null,
-    TrangThai: next,     // <— trạng thái
-    ID_DiaDiem: b?.ID_DiaDiem || null,
-    NhaGiat: b?.NhaGiat || null,
-    // NguoiNhap: preset trong Policy (NhapDon) sẽ tự gán $CURRENT_USER
-  };
-
-
-  const q = new URL(`${process.env.DIRECTUS_URL}/items/donhang_anh`);
-  q.searchParams.set("fields", "id");
-  q.searchParams.set("limit", "500");
-  q.searchParams.set("filter[don_hang][_eq]", String(donhangId));
-
-  const listRes = await directusFetch(q.pathname + '?' + q.searchParams.toString());
-  const ids = (await listRes.json())?.data?.map((x: any) => x.id) ?? [];
-
-  // 3.2 Xoá bulk theo CSV (nếu có)
-  if (ids.length) {
-    for (let i = 0; i < ids.length; i++) {
-      const item_anh = ids[i];
-      const kq = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang_anh/${item_anh}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-    }
-  }
-
-  if (imgs.length) {
-
-    for (let i = 0; i < imgs.length; i++) {
-      const fid = imgs[i];
-      const r = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang_anh`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ don_hang: donhangId, file: fid, sort: i }),
-      });
-      if (!r.ok) {
-        return NextResponse.json(
-          { ok: false, error: `Tạo ảnh thứ ${i + 1} thất bại: ${await r.text()}`, order_id: donhangId },
-          { status: 400 }
-        );
+  else {
+    // ===== 1) Xác định khách hàng (tìm theo SĐT, nếu chưa có thì tạo) =====
+    let ID_khachhang = b?.ID_KhachHang;
+    if (!ID_khachhang) {
+      const { TenKhachHang, DiaChi, DienThoai } = b || {};
+      if (!DienThoai) {
+        return NextResponse.json({ ok: false, error: "Thiếu ID_KhachHang hoặc DienThoai" }, { status: 400 });
       }
 
-    }
-  }
+      const findRes = await directusFetch(
+        `${process.env.DIRECTUS_URL}/items/khachhang?filter[DienThoai][_eq]=${encodeURIComponent(DienThoai)}&limit=1`,
+      );
+      if (!findRes.ok) return NextResponse.json({ ok: false, error: "line 115" + await findRes.text() }, { status: 400 });
+      const found = await findRes.json().catch(() => ({}));
+      let kh = found?.data?.[0];
 
-  const q_after = new URL(`${process.env.DIRECTUS_URL}/items/donhang_anh_after`);
-  q_after.searchParams.set("fields", "id");
-  q_after.searchParams.set("limit", "100");
-  q_after.searchParams.set("filter[don_hang][_eq]", String(donhangId));
-
-  const listRes_after = await directusFetch(q_after.pathname + '?' + q_after.searchParams.toString());
-  const ids_after = (await listRes_after.json())?.data?.map((x: any) => x.id) ?? [];
-
-  // 3.2 Xoá bulk theo CSV (nếu có)
-  if (ids_after.length) {
-    for (let i = 0; i < ids_after.length; i++) {
-      const item_anh = ids_after[i];
-      const kq = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang_anh_after/${item_anh}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      if (!kh) {
+        const createRes = await directusFetch(`${process.env.DIRECTUS_URL}/items/khachhang`, {
+          method: "POST",
+          body: JSON.stringify({ TenKhachHang, DiaChi, DienThoai }),
+        });
+        if (!createRes.ok) return NextResponse.json({ ok: false, error: "line 125" + await createRes.text() }, { status: 400 });
+        const created = await createRes.json();
+        kh = created?.data;
+      }
+      ID_khachhang = kh?.ID;
 
     }
-  }
-  if (imgs_after.length) {
-    for (let i = 0; i < imgs_after.length; i++) {
-      const fid = imgs_after[i];
-      const r = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang_anh_after`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ don_hang: donhangId, file: fid, sort: i }),
-      });
-      if (!r.ok) {
-        return NextResponse.json(
-          { ok: false, error: `Tạo ảnh thứ ${i + 1} thất bại: ${await r.text()}`, order_id: donhangId },
-          { status: 400 }
-        );
+
+    // ===== 2) Tạo DON HANG (chưa có ảnh, chưa có QR) =====
+    const payloadOrder: any = {
+      ID_KhachHang: ID_khachhang,
+      GhiChu: b?.GhiChu ?? null,
+      AnhNhan: b?.Anh ?? null,
+      GoiHangs: b?.GoiHangIDs ?? null,
+      NguoiNhap: b?.NguoiNhap ?? null,
+      TrangThai: next,     // <— trạng thái
+      ID_DiaDiem: b?.ID_DiaDiem || null,
+      NhaGiat: b?.NhaGiat || null,
+      // NguoiNhap: preset trong Policy (NhapDon) sẽ tự gán $CURRENT_USER
+    };
+
+
+    const q = new URL(`${process.env.DIRECTUS_URL}/items/donhang_anh`);
+    q.searchParams.set("fields", "id");
+    q.searchParams.set("limit", "500");
+    q.searchParams.set("filter[don_hang][_eq]", String(donhangId));
+
+    const listRes = await directusFetch(q.pathname + '?' + q.searchParams.toString());
+    const ids = (await listRes.json())?.data?.map((x: any) => x.id) ?? [];
+
+    // 3.2 Xoá bulk theo CSV (nếu có)
+    if (ids.length) {
+      for (let i = 0; i < ids.length; i++) {
+        const item_anh = ids[i];
+        const kq = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang_anh/${item_anh}`, {
+          method: "DELETE",
+        });
+
       }
     }
+
+    if (imgs.length) {
+
+      for (let i = 0; i < imgs.length; i++) {
+        const fid = imgs[i];
+        const r = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang_anh`, {
+          method: "POST",
+          body: JSON.stringify({ don_hang: donhangId, file: fid, sort: i }),
+        });
+        if (!r.ok) {
+          return NextResponse.json(
+            { ok: false, error: `Tạo ảnh thứ ${i + 1} thất bại: ${await r.text()}`, order_id: donhangId },
+            { status: 400 }
+          );
+        }
+
+      }
+    }
+
+    const q_after = new URL(`${process.env.DIRECTUS_URL}/items/donhang_anh_after`);
+    q_after.searchParams.set("fields", "id");
+    q_after.searchParams.set("limit", "100");
+    q_after.searchParams.set("filter[don_hang][_eq]", String(donhangId));
+
+    const listRes_after = await directusFetch(q_after.pathname + '?' + q_after.searchParams.toString());
+    const ids_after = (await listRes_after.json())?.data?.map((x: any) => x.id) ?? [];
+
+    // 3.2 Xoá bulk theo CSV (nếu có)
+    if (ids_after.length) {
+      for (let i = 0; i < ids_after.length; i++) {
+        const item_anh = ids_after[i];
+        const kq = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang_anh_after/${item_anh}`, {
+          method: "DELETE",
+        });
+
+      }
+    }
+    if (imgs_after.length) {
+      for (let i = 0; i < imgs_after.length; i++) {
+        const fid = imgs_after[i];
+        const r = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang_anh_after`, {
+          method: "POST",
+          body: JSON.stringify({ don_hang: donhangId, file: fid, sort: i }),
+        });
+        if (!r.ok) {
+          return NextResponse.json(
+            { ok: false, error: `Tạo ảnh thứ ${i + 1} thất bại: ${await r.text()}`, order_id: donhangId },
+            { status: 400 }
+          );
+        }
+      }
+    }
+
+
+    const update = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang/${donhangId}`, {
+      method: "PATCH",
+      body: JSON.stringify(payloadOrder),
+    });
+    if (!update.ok) {
+      const err = await update.text().catch(() => "");
+      return NextResponse.json({ ok: false, error: "line 225" + err || "Cập nhật thất bại" }, { status: 400 });
+    }
+
+    const updatedData = await update.json();
+    return NextResponse.json({ ok: true, data: updatedData?.data });
+
   }
 
 
-  const update = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang/${donhangId}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(payloadOrder),
-  });
-  if (!update.ok) {
-    const err = await update.text().catch(() => "");
-    return NextResponse.json({ ok: false, error: "line 225" + err || "Cập nhật thất bại" }, { status: 400 });
-  }
-
-  const updatedData = await update.json();
-  return NextResponse.json({ ok: true, data: updatedData?.data });
 }
 export async function GET(req: NextRequest) {
   const token = await getAccess();
   if (!token) return NextResponse.redirect('/login', 301);//return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
 
 
-  const r = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang`+'>'+req.nextUrl.searchParams.toString(), {
+  const r = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang` + '>' + req.nextUrl.searchParams.toString(), {
     headers: { Authorization: `Bearer ${token}` },
     cache: "no-store"
   });
@@ -283,7 +287,7 @@ export async function GET(req: NextRequest) {
   }
 
   const data = await r.json();
-  const kh = (data?.data || [])|| null;
+  const kh = (data?.data || []) || null;
 
   return NextResponse.json({
     ok: true,
@@ -297,12 +301,7 @@ export async function PUT(req: NextRequest) {
   if (!token) return NextResponse.redirect(new URL("/login", req.url), 302);
 
   const body = await req.json().catch(() => ({}));
-  const { payload } = body || {};
-  const r = await directusFetch(`/items/donhang`, { method: "PATCH", body: JSON.stringify(payload) });
-  const data = await r.json();
-  if (!r.ok) return NextResponse.json({ ok:false, error: data?.errors?.[0]?.message || "Patch failed" }, { status: r.status });
 
-  return NextResponse.json({ ok: true, id: data?.data?.ID ?? data?.data?.id, data: data?.data });
 }
 
 
