@@ -28,7 +28,7 @@ export async function directusFetch(inputPath: string, init: RequestInit = {}) {
     const headers = new Headers(init.headers || {});
     if (at) headers.set("Authorization", `Bearer ${at}`);
     if (!headers.has("Content-Type")) headers.set("Content-Type", "application/json");
-    const url = (DIRECTUS_URL == inputPath) ? inputPath : DIRECTUS_URL + inputPath;
+    const url = (DIRECTUS_URL.trim() == inputPath.trim()) ? inputPath : DIRECTUS_URL + inputPath;
     const go = () => fetch(`${url}`, { ...init, headers, cache: "no-store" });
 
     // lần 1
