@@ -1,9 +1,10 @@
 // src/app/dashboard/LogoutBtn.tsx
 "use client";
+import { directusFetch } from "@/lib/directusFetch";
 
 export default function LogoutBtn() {
   const onClick = async () => {
-    await fetch("/api/auth/logout", { method: "POST" });
+    await directusFetch("/api/auth/logout", { method: "POST" });
     window.location.href = "/login";
   };
   return (

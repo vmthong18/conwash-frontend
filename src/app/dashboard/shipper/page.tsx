@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
 import LogoutBtn from "../LogoutBtn";
+import { directusFetch } from "@/lib/directusFetch";
 
 // Kiểu dữ liệu gọn gàng
 type DiaDiem = { ID: number; TenDiaDiem: string };
@@ -30,7 +31,7 @@ export default async function PageDiaDiem() {
     ddUrl.searchParams.set("sort", "TenDiaDiem");
     ddUrl.searchParams.set("limit", "-1");
 
-    const ddRes = await fetch(ddUrl.toString(), {
+    const ddRes = await directusFetch(ddUrl.toString(), {
         headers: { Authorization: `Bearer ${access}` },
         cache: "no-store",
     });
@@ -55,7 +56,7 @@ export default async function PageDiaDiem() {
     ddng.searchParams.set("sort", "ID_DiaDiem");
     ddng.searchParams.set("limit", "-1");
 
-    const ddngRes = await fetch(ddng.toString(), {
+    const ddngRes = await directusFetch(ddng.toString(), {
         headers: { Authorization: `Bearer ${access}` },
         cache: "no-store",
     });
@@ -79,7 +80,7 @@ export default async function PageDiaDiem() {
     const nglst = new URL(`${API}/users`);
     nglst.searchParams.set("filter[title][_null]", "false");
 
-    const ngRes = await fetch(nglst.toString(), {
+    const ngRes = await directusFetch(nglst.toString(), {
         headers: { Authorization: `Bearer ${access}` },
         cache: "no-store",
     });
@@ -105,7 +106,7 @@ export default async function PageDiaDiem() {
     ngdd.searchParams.set("sort", "NhaGiat");
     ngdd.searchParams.set("limit", "-1");
 
-    const ngddRes = await fetch(ngdd.toString(), {
+    const ngddRes = await directusFetch(ngdd.toString(), {
         headers: { Authorization: `Bearer ${access}` },
         cache: "no-store",
     });
@@ -225,7 +226,7 @@ export default async function PageDiaDiem() {
         cUrl_gx.searchParams.set("filter[TrangThai][_in]", trangthai);
         cUrl_gx.searchParams.set("filter[ID_DiaDiem][_eq]", String(diadiem));
         cUrl_gx.searchParams.set("filter[NhaGiat][_eq]", nhagiat);
-        const r_gx = await fetch(cUrl_gx.toString(), {
+        const r_gx = await directusFetch(cUrl_gx.toString(), {
             headers: { Authorization: `Bearer ${access}` },
             cache: "no-store",
         });

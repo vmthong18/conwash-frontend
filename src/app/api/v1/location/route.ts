@@ -1,6 +1,7 @@
 // src/app/api/v1/location/route.ts
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { directusFetch } from "@/lib/directusFetch";
 
 
 /**
@@ -37,7 +38,7 @@ export async function POST(req: Request) {
     const field =
       process.env.DIRECTUS_USER_LOCATION_FIELD || "location"; // tên cột trong directus_users
 
-    const res = await fetch(`${base}/users/me`, {
+    const res = await directusFetch(`${base}/users/me`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,

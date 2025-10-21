@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { pick } from "zod/mini";
+import { directusFetch } from "@/lib/directusFetch";
 
 type Goi = { ID: number; TenGoi: string; GiaTien: number | string };
 type Khach = { ID: number; TenKhachHang?: string; DienThoai?: string };
@@ -107,7 +108,7 @@ export default function CreatePhieuForm({
             if (!api) throw new Error("Thiếu cấu hình DIRECTUS_URL / NEXT_PUBLIC_DIRECTUS_URL.");
 
             // Lưu phiếu vào bảng phieuhang
-            const res = await fetch(`${api}/items/phieuhang`, {
+            const res = await directusFetch(`${api}/items/phieuhang`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -133,7 +134,7 @@ export default function CreatePhieuForm({
                 throw new Error(msg);
             }
             const updates = picked.map((id) => ({ ID: id, TrangThai: "LEN_DON" })); // chú ý primary key là "ID"
-            const res_donhang = await fetch(`${api}/items/donhang`, {
+            const res_donhang = await directusFetch(`${api}/items/donhang`, {
                 method: "PATCH",
                 headers: {
                     Authorization: `Bearer ${token}`,

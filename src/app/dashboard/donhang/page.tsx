@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import Link from "next/link";
 import ListDonHang from "./ListDonHangForm";
+import { directusFetch } from "@/lib/directusFetch";
 
 type Search = { [k: string]: string | string[] | undefined };
 
@@ -9,7 +10,7 @@ export default async function donhangPage({ searchParams }: { searchParams: Sear
   const jar = await cookies();
   const access = jar.get(process.env.COOKIE_ACCESS || "be_giay_access")?.value;
   if (!access) return <div className="p-8">Chưa đăng nhập.</div>;
-  const meRes = await fetch(
+  const meRes = await directusFetch(
     `${process.env.DIRECTUS_URL}/users/me?fields=role.name,location,id`,
     { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" }
   );
@@ -79,7 +80,7 @@ export default async function donhangPage({ searchParams }: { searchParams: Sear
 
   }
 
-  const res = await fetch(url.toString(), {
+  const res = await directusFetch(url.toString(), {
     headers: { Authorization: `Bearer ${access}` },
     cache: "no-store",
   });
@@ -101,7 +102,7 @@ export default async function donhangPage({ searchParams }: { searchParams: Sear
     url_phieuhang.searchParams.set("filter[_or]["+i+"][Donhangs][_contains]", data[i].ID);
    
   }
-  const res_phieuhang = await fetch(url_phieuhang.toString(), {
+  const res_phieuhang = await directusFetch(url_phieuhang.toString(), {
     headers: { Authorization: `Bearer ${access}` },
     cache: "no-store",
   });

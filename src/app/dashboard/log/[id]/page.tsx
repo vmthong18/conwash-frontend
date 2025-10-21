@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import Link from "next/link";
+import { directusFetch } from "@/lib/directusFetch";
 
 type Revisions = {
     id: number;
@@ -63,7 +64,7 @@ export default async function logDetail({
     url_revisions.searchParams.set("filter[collection][_eq]", "donhang");
     url_revisions.searchParams.set("filter[item][_eq]", id);
 
-    const r_r = await fetch(url_revisions.toString(), {
+    const r_r = await directusFetch(url_revisions.toString(), {
         headers: { Authorization: `Bearer ${access}` },
         cache: "no-store",
     });

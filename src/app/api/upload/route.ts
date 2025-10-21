@@ -1,6 +1,7 @@
 // src/app/api/upload/route.ts
 import { NextRequest } from "next/server";
 import { cookies } from "next/headers";
+import { directusFetch } from "@/lib/directusFetch";
 
 export async function POST(req: NextRequest) {
   const token = (await cookies()).get(process.env.COOKIE_ACCESS || "be_giay_access")?.value;
@@ -13,7 +14,7 @@ export async function POST(req: NextRequest) {
   const fd = new FormData();
   fd.append("file", file, (file as any).name || "upload.bin");
 
-  const up = await fetch(`${process.env.DIRECTUS_URL}/files`, {
+  const up = await directusFetch(`${process.env.DIRECTUS_URL}/files`, {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },
     body: fd,

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import ActionButton from "./ActionButton";
 import { MapPin, ChevronDown } from "lucide-react";
+import { directusFetch } from "@/lib/directusFetch";
 
 type Search = { [k: string]: string | string[] | undefined };
 const STATUS_BADGE: Record<string, string> = {
@@ -55,7 +56,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
   q.searchParams.set("sort", "-id");
   q.searchParams.set("fields", "id,ID_KhachHang,Donhangs,TongTien,TrangThai,ID_DiaDiem,ThanhToan"); // lấy đủ trường cần
 
-  const res = await fetch(q.toString(), {
+  const res = await directusFetch(q.toString(), {
     headers: { Authorization: `Bearer ${token}` },
     cache: "no-store",
   });
@@ -72,7 +73,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
     // Khách
     let kh = { TenKhachHang: "-", DienThoai: "-" };
     if (p.ID_KhachHang) {
-      const khRes = await fetch(
+      const khRes = await directusFetch(
         `${API}/items/khachhang/${p.ID_KhachHang}?fields=TenKhachHang,DienThoai`,
         { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" }
       );
@@ -81,7 +82,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
 
     let dd = { TenDiaDiem: "Không xác định"};
     if (p.ID_DiaDiem) {
-      const ddRes = await fetch(
+      const ddRes = await directusFetch(
         `${API}/items/diadiem/${p.ID_DiaDiem}?fields=TenDiaDiem`,
         { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" }
       );
@@ -95,7 +96,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
       const dhURL = new URL(`${API}/items/donhang`);
       dhURL.searchParams.set("fields", "ID,AnhNhan");
       dhURL.searchParams.set("filter[ID][_in]", ids.join(","));
-      const dhRes = await fetch(dhURL.toString(), {
+      const dhRes = await directusFetch(dhURL.toString(), {
         headers: { Authorization: `Bearer ${token}` },
         cache: "no-store",
       });

@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import Link from "next/link";
 import TaoQRForm from "./TaoQRForm"; 
+import { directusFetch } from "@/lib/directusFetch";
 
 type Search = { [k: string]: string | string[] | undefined };
 
@@ -52,7 +53,7 @@ export default async function TaodonhangPage({ searchParams }: { searchParams: S
 
 
 
-  const res = await fetch(url.toString(), {
+  const res = await directusFetch(url.toString(), {
     headers: { Authorization: `Bearer ${access}` },
     cache: "no-store",
   });

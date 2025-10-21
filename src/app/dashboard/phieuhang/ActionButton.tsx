@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { directusFetch } from "@/lib/directusFetch";
 
 export default function ActionButton({
   id,
@@ -25,7 +26,7 @@ export default function ActionButton({
       const api = process.env.NEXT_PUBLIC_DIRECTUS_ASSETS;
       if (!api) throw new Error("Thiếu cấu hình DIRECTUS_URL.");
 
-      const res = await fetch(`${api}/items/phieuhang/${id}`, {
+      const res = await directusFetch(`${api}/items/phieuhang/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

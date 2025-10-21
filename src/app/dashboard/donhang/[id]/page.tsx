@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 import StatusWidget from "./StatusWidget";
 import { redirect, notFound } from "next/navigation";
+import { directusFetch } from "@/lib/directusFetch";
 
 
 const ASSETS =
@@ -53,7 +54,7 @@ export default async function donhangDetail({
     fields
   )}`;
 
-  const res = await fetch(url, {
+  const res = await directusFetch(url, {
     headers: { Authorization: `Bearer ${access}` },
     cache: "no-store",
   });
@@ -85,7 +86,7 @@ export default async function donhangDetail({
   let me: any = null;
   let roleName = "";
   let checkVisible = false;
-  const meRes = await fetch(`${process.env.DIRECTUS_URL}/users/me?fields=role.name`, {
+  const meRes = await directusFetch(`${process.env.DIRECTUS_URL}/users/me?fields=role.name`, {
     headers: { Authorization: `Bearer ${access}` },
     cache: "no-store"
   });
@@ -105,7 +106,7 @@ export default async function donhangDetail({
   q_after.searchParams.set("limit", "100");
   q_after.searchParams.set("filter[don_hang][_eq]", String(r.ID));
 
-  const listRes_after = await fetch(q_after, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
+  const listRes_after = await directusFetch(q_after.toString(), { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
   const ids_after = (await listRes_after.json())?.data?.map((x: any) => x.file) ?? [];
 
   const q = new URL(`${process.env.DIRECTUS_URL}/items/donhang_anh`);
@@ -113,14 +114,14 @@ export default async function donhangDetail({
   q.searchParams.set("limit", "100");
   q.searchParams.set("filter[don_hang][_eq]", String(r.ID));
 
-  const listRes = await fetch(q, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
+  const listRes = await directusFetch(q.toString(), { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
   const ids = (await listRes.json())?.data?.map((x: any) => x.file) ?? [];
   let dc = r.ID_DiaDiem;
 
   let locationName = "";
   if (dc) {
     const q_location_name = new URL(`${process.env.DIRECTUS_URL}/items/diadiem/${dc}`);
-    const listRes_location_name = await fetch(q_location_name, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
+    const listRes_location_name = await directusFetch(q_location_name.toString(), { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
     if (listRes_location_name.ok) {
       const found = await listRes_location_name.json();
       const dg = (found?.data || {}) || null;

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAccess } from "@/lib/cookies";
+import { directusFetch } from "@/lib/directusFetch";
 
 // GET /api/v1/khachhang?phone=...
 export async function GET(req: NextRequest) {
@@ -12,7 +13,7 @@ export async function GET(req: NextRequest) {
   url.searchParams.set("filter[DienThoai][_contains]", phone);  // Tìm kiếm theo số điện thoại chứa chuỗi nhập vào
   url.searchParams.set("limit", "10"); // Giới hạn 10 kết quả
 
-  const r = await fetch(url.toString(), {
+  const r = await directusFetch(url.toString(), {
     headers: { Authorization: `Bearer ${token}` },
     cache: "no-store"
   });
@@ -46,7 +47,7 @@ export async function POST(req: NextRequest) {
     }
 
   // Nếu đã tồn tại theo SĐT thì trả luôn
-  const check = await fetch(
+  const check = await directusFetch(
     `${process.env.DIRECTUS_URL}/items/khachhang?filter[DienThoai][_eq]=${encodeURIComponent(DienThoai)}&limit=1`,
     { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" }
   ).then(r => r.json()).catch(()=>({}));
@@ -55,7 +56,7 @@ export async function POST(req: NextRequest) {
   if (existed) return NextResponse.json({ ok: true, created: false, kh: existed });
 
   // Tạo KH mới
-  const r = await fetch(`${process.env.DIRECTUS_URL}/items/khachhang`, {
+  const r = await directusFetch(`${process.env.DIRECTUS_URL}/items/khachhang`, {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
     body: JSON.stringify({ Tenkhachhang, DiaChi, DienThoai }),

@@ -179,7 +179,7 @@ export async function PATCH(req: NextRequest) {
   q.searchParams.set("limit", "500");
   q.searchParams.set("filter[don_hang][_eq]", String(donhangId));
 
-  const listRes = await fetch(q, { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" });
+  const listRes = await directusFetch(q.pathname + '?' + q.searchParams.toString());
   const ids = (await listRes.json())?.data?.map((x: any) => x.id) ?? [];
 
   // 3.2 Xoá bulk theo CSV (nếu có)
@@ -218,7 +218,7 @@ export async function PATCH(req: NextRequest) {
   q_after.searchParams.set("limit", "100");
   q_after.searchParams.set("filter[don_hang][_eq]", String(donhangId));
 
-  const listRes_after = await fetch(q_after, { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" });
+  const listRes_after = await directusFetch(q_after.pathname + '?' + q_after.searchParams.toString());
   const ids_after = (await listRes_after.json())?.data?.map((x: any) => x.id) ?? [];
 
   // 3.2 Xoá bulk theo CSV (nếu có)

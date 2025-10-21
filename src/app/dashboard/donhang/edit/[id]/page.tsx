@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import Link from "next/link";
 import EditForm from "./EditForm";
-
+import { directusFetch } from "@/lib/directusFetch";
 
 
 const ASSETS =
@@ -55,7 +55,7 @@ export default async function EditDetail({
     fields
   )}`;
 
-  const res = await fetch(url, {
+  const res = await directusFetch(url, {
     headers: { Authorization: `Bearer ${access}` },
     cache: "no-store",
   });
@@ -84,7 +84,7 @@ export default async function EditDetail({
   q_after.searchParams.set("limit", "100");
   q_after.searchParams.set("filter[don_hang][_eq]", String(r.ID));
 
-  const listRes_after = await fetch(q_after, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
+  const listRes_after = await directusFetch(q_after.toString(), { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
   const ids_after = (await listRes_after.json())?.data?.map((x: any) => x.file) ?? [];
 
   const q = new URL(`${process.env.DIRECTUS_URL}/items/donhang_anh`);
@@ -92,10 +92,10 @@ export default async function EditDetail({
   q.searchParams.set("limit", "100");
   q.searchParams.set("filter[don_hang][_eq]", String(r.ID));
 
-  const listRes = await fetch(q, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
+  const listRes = await directusFetch(q.toString(), { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
   const ids = (await listRes.json())?.data?.map((x: any) => x.file) ?? [];
   let me: any = null;
-  const meRes = await fetch(`${process.env.DIRECTUS_URL}/users/me?fields=id,role.name,location`, {
+  const meRes = await directusFetch(`${process.env.DIRECTUS_URL}/users/me?fields=id,role.name,location`, {
     headers: { Authorization: `Bearer ${access}` },
     cache: "no-store"
   });
@@ -116,7 +116,7 @@ export default async function EditDetail({
   let locationName = "";
   if (dc) {
     const q_location_name = new URL(`${process.env.DIRECTUS_URL}/items/diadiem/${dc}`);
-    const listRes_location_name = await fetch(q_location_name, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
+    const listRes_location_name = await directusFetch(q_location_name.toString(), { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
     if (listRes_location_name.ok) {
       const found = await listRes_location_name.json();
       const dg = (found?.data || {}) || null;
@@ -128,7 +128,7 @@ export default async function EditDetail({
   q_checkghepdon.searchParams.set("filter[ID_DiaDiem][_eq]", me.location);
   q_checkghepdon.searchParams.set("fields", "ID_KhachHang.ID,ID_KhachHang.TenKhachHang,ID_KhachHang.DienThoai,ID_KhachHang.DiaChi");
 
-  const listRes_checkghepdon = await fetch(q_checkghepdon, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
+  const listRes_checkghepdon = await directusFetch(q_checkghepdon.toString(), { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
 
 
   if (listRes_checkghepdon.ok) {
@@ -144,9 +144,9 @@ export default async function EditDetail({
     }
 
   }
-  const response_goihang = await fetch(`${process.env.DIRECTUS_URL}/items/goihang`, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" }); // Chỉnh lại endpoint API của bạn nếu cần
+  const response_goihang = await directusFetch(`${process.env.DIRECTUS_URL}/items/goihang`, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" }); // Chỉnh lại endpoint API của bạn nếu cần
    const { data: data_goihang } = await response_goihang.json();
-   const response_box_nhagiat = await fetch(`${process.env.DIRECTUS_URL}/items/mapping_nhagiat`, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" }); // Chỉnh lại endpoint API của bạn nếu cần
+   const response_box_nhagiat = await directusFetch(`${process.env.DIRECTUS_URL}/items/mapping_nhagiat`, { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" }); // Chỉnh lại endpoint API của bạn nếu cần
    const { data: data_box_nhagiat } = await response_box_nhagiat.json();
   return (
     <EditForm

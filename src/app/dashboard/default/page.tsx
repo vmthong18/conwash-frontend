@@ -1,10 +1,11 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { directusFetch } from "@/lib/directusFetch";
 export default async function defaultPage() {
     const jar = await cookies();
     const access = jar.get(process.env.COOKIE_ACCESS || "be_giay_access")?.value;
     if (!access) return <div className="p-8">Chưa đăng nhập.</div>;
-    const meRes = await fetch(
+    const meRes = await directusFetch(
         `${process.env.DIRECTUS_URL}/users/me?fields=role.name`,
         { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" }
     );

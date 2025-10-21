@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAccess } from "@/lib/cookies";
-
+import { directusFetch } from "@/lib/directusFetch";
 
 export async function GET(req: NextRequest) {
     const token = await getAccess();
@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
 
     const url = new URL(`${process.env.DIRECTUS_URL}/items/goihang`);
 
-    const res = await fetch(url.toString(), {
+    const res = await directusFetch(url.toString(), {
         headers: { Authorization: `Bearer ${token}` },
         cache: "no-store",
     });

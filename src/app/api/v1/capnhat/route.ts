@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAccess } from "@/lib/cookies";
+import { directusFetch } from "@/lib/directusFetch";
 export async function PATCH(req: NextRequest) {
   const token = await getAccess();
   if (!token) return NextResponse.redirect('/login', 301);//return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
@@ -26,7 +27,7 @@ export async function PATCH(req: NextRequest) {
   };
 
 
-  const update = await fetch(`${process.env.DIRECTUS_URL}/items/donhang/${donHangId}`, {
+  const update = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang/${donHangId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -59,7 +60,7 @@ export async function PATCH(req: NextRequest) {
         const dhURL = new URL(`${process.env.DIRECTUS_URL}/items/donhang`);
         dhURL.searchParams.set("fields", "TrangThai");
         dhURL.searchParams.set("filter[ID][_in]", ids.join(","));
-        const dhRes = await fetch(dhURL.toString(), {
+        const dhRes = await directusFetch(dhURL.toString(), {
           headers: { Authorization: `Bearer ${token}` },
           cache: "no-store",
         });
@@ -69,7 +70,7 @@ export async function PATCH(req: NextRequest) {
           const allSanSang = arr.every((item) => item.TrangThai === "SAN_SANG");
           if (allSanSang) {
             // Cập nhật phiếu sang trạng thái SAN_SANG
-            await fetch(`${process.env.DIRECTUS_URL}/items/phieuhang/${dg[0].id}`, {
+            await directusFetch(`${process.env.DIRECTUS_URL}/items/phieuhang/${dg[0].id}`, {
               method: "PATCH",
               headers: {
                 "Content-Type": "application/json",

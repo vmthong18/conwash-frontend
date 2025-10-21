@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getAccess } from "@/lib/cookies";
+import { directusFetch } from "@/lib/directusFetch";
 
 // GET ?kh=<id> -> trả về list DonHang trạng thái GHEP_DON của khách
 export async function GET(req: Request) {
@@ -28,7 +29,7 @@ export async function GET(req: Request) {
   url.searchParams.set("limit", "-1");
   url.searchParams.set("sort", "ID");
 
-  const r = await fetch(url, { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" });
+  const r = await directusFetch(url.pathname + '?' + url.searchParams.toString());
   const data = await r.json();
   if (!r.ok)
     return NextResponse.json(
@@ -51,7 +52,7 @@ export async function POST(req: Request) {
   }
 
   // Lưu vào bảng PhieuHang
-  const r = await fetch(`${process.env.DIRECTUS_URL}/items/phieuhang`, {
+  const r = await directusFetch(`${process.env.DIRECTUS_URL}/items/phieuhang`, {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
     body: JSON.stringify({ ID_KhachHang, Donhangs: DonHangIDs }),

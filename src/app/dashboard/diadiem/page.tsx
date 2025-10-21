@@ -4,6 +4,7 @@ import Link from "next/link";
 import ChonDiaDiemButton from "./ChonDiaDiemButton";
 import Image from "next/image";
 import { ChevronRight, Store } from "lucide-react";
+import { directusFetch } from "@/lib/directusFetch";
 
 type DiaDiem = { ID: number; TenDiaDiem: string };
 
@@ -24,7 +25,7 @@ export default async function DiaDiemPage() {
   url.searchParams.set("filter[TrangThai][_eq]", "HoatDong");
   url.searchParams.set("sort", "TenDiaDiem");
 
-  const res = await fetch(url.toString(), {
+  const res = await directusFetch(url.toString(), {
     headers: { Authorization: `Bearer ${access}` },
     cache: "no-store",
   });
