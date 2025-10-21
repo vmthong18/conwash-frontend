@@ -155,10 +155,7 @@ export default function ListDonHang({
 
         }
 
-        const res = await fetch(url.toString(), {
-            headers: { Authorization: `Bearer ${token}` },
-            cache: 'no-store',
-        });
+        const res = await fetch(url.toString());
 
         if (res.ok) {
             const json = await res.json();
@@ -239,7 +236,7 @@ export default function ListDonHang({
                 )
             );
             alert('Cập nhật trạng thái thành công!');
-            //await fetchDonHang(); // Refresh data
+            await fetchDonHang(); // Refresh data
             //router.replace(`/dashboard/donhang?r=${Date.now()}`);
 
         } catch (error) {
