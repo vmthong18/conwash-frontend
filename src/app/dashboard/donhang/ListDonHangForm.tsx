@@ -131,7 +131,7 @@ export default function ListDonHang({
         //const url = new URL(`/api/v1/donhang`);
         const url = new URLSearchParams();
         url.set("fields",
-           "ID,TrangThai,GhiChu,ID_KhachHang.ID,ID_KhachHang.TenKhachHang,ID_KhachHang.DienThoai,NguoiNhap.first_name,NguoiNhap.email,AnhList.file.id,AnhFile.id,AnhNhan"
+            "ID,TrangThai,GhiChu,ID_KhachHang.ID,ID_KhachHang.TenKhachHang,ID_KhachHang.DienThoai,NguoiNhap.first_name,NguoiNhap.email,AnhList.file.id,AnhFile.id,AnhNhan"
         );
         url.set("limit", String(limit));
         url.set("offset", String((page - 1) * limit));
@@ -156,14 +156,14 @@ export default function ListDonHang({
 
         }
 
-       const res = await fetch(`/api/v1/donhang?${url.toString()}`);
+        const res = await fetch(`/api/v1/donhang?${url.toString()}`);
 
         if (res.ok) {
             const json = await res.json();
 
             setDonHangList(json?.data ?? []);
         } else {
-            alert('Lỗi tải dữ liệu'+await res.text());
+            alert('Lỗi tải dữ liệu' + await res.text());
         }
         setLoading(false);
     };
@@ -317,6 +317,9 @@ export default function ListDonHang({
             <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
                 <div className="mx-auto max-w-sm px-4 py-3">
                     <h1 className="text-[20px] font-semibold">Danh sách mặt hàng</h1>
+                    <div className='flex items-right gap-3'>
+                        <Link href="/dashboard">Dashboard</Link>
+                    </div>
                 </div>
             </div>
 
@@ -382,7 +385,10 @@ export default function ListDonHang({
                                     checked={isChecked(r.ID)}
                                     onChange={() => handleSelect(r.ID)}
                                     className="size-4 rounded border-gray-300"
-                                />      ID: #{id}</div>
+                                />
+                                    <Link href={`/dashboard/donhang/edit/${id}`}>
+                                        ID: #{id}
+                                    </Link>  </div>
                                 <span className={`text-[12px] font-medium px-2.5 py-1 rounded-full ${st.cls}`}>
                                     {st.label || "—"}
                                 </span>
@@ -423,7 +429,7 @@ export default function ListDonHang({
                 <div className="mx-auto max-w-sm p-4">
                     <input
                         type="checkbox"
-                         className="size-4 rounded border-gray-300"
+                        className="size-4 rounded border-gray-300"
                         onChange={(e) => toggleAll(e.target.checked)}
                         checked={selectedItems.length === donHangList.length}
                     />
