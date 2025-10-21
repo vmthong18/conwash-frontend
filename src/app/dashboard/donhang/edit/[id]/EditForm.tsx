@@ -402,7 +402,7 @@ export default function EditForm({
   function getNhaGiat(id_diadiem: number, type: number) {
     return listNhaGiat.find(b => b.ID_DiaDiem === id_diadiem && b.Type === type);
   };
-  const disabled_textbox = (idx >= 2);
+  const disabled_textbox = (idx >= 1);
   return (
     <main className="min-h-dvh bg-gray-50">
       {/* Header mobile */}
@@ -555,7 +555,11 @@ export default function EditForm({
         {idx > 1 && (
           <div>
             <label className="block mb-1 text-sm text-gray-700">Ảnh trước giặt</label>
-            <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti} />
+              {idx < 3 && (
+                   <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti} />
+
+              )}
+           
             {errors.anhTruoc && <p className="text-sm text-red-600 mt-1">{errors.anhTruoc}</p>}
             {!!previews.length && (
               <div className="mt-2 flex flex-wrap gap-2">
@@ -573,7 +577,11 @@ export default function EditForm({
         {idx > 5 && (
           <div>
             <label className="block mb-1 text-sm text-gray-700">Ảnh sau giặt</label>
-            <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti_after} />
+               {idx < 7 && (
+                   <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti_after} />
+
+              )}
+            
             {errors.anhSau && <p className="text-sm text-red-600 mt-1">{errors.anhSau}</p>}
             {!!previews_after.length && (
               <div className="mt-2 flex flex-wrap gap-2">
