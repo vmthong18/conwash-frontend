@@ -278,7 +278,7 @@ export async function GET(req: NextRequest) {
   if (!token) return NextResponse.redirect('/login', 301);//return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
 
 
-  const r = await directusFetch(`/items/donhang` + '>' + req.nextUrl.searchParams.toString());
+  const r = await directusFetch(`/items/donhang` + '?' + req.nextUrl.searchParams.toString());
 
   if (!r.ok) {
     const err = await r.text().catch(() => "");
