@@ -27,12 +27,8 @@ export async function PATCH(req: NextRequest) {
   };
 
 
-  const update = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang/${donHangId}`, {
+  const update = await directusFetch(`/items/donhang/${donHangId}`, {
     method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
     body: JSON.stringify(payloadOrder),
   });
   if (!update.ok) {
@@ -41,14 +37,14 @@ export async function PATCH(req: NextRequest) {
   }
 
   if (trangThai === "SAN_SANG") {
-    const q = new URL(`${process.env.DIRECTUS_URL}/items/phieuhang`);
+    const q = new URL(`/items/phieuhang`);
     q.searchParams.set("fields", "id,Donhangs");
     q.searchParams.set("limit", "100");
     q.searchParams.set("filter[_or][0][Donhangs][_eq]", `[${donHangId}]`);
     q.searchParams.set("filter[_or][1][Donhangs][_starts_with]", `[${donHangId},`);
     q.searchParams.set("filter[_or][2][Donhangs][_ends_with]", `,${donHangId}]`);
     q.searchParams.set("filter[_or][3][Donhangs][_contains]", `,${donHangId},`);
-    const listRes = await fetch(q, { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" });
+    const listRes = await directusFetch(q.toString());
     
     if (listRes.ok) {
       const found = await listRes.json();
@@ -57,7 +53,7 @@ export async function PATCH(req: NextRequest) {
       //return NextResponse.json({ ok: false, error: `DANH SACH ID: ${JSON.stringify(ids)}` }, { status: 400 });
      // alert(`DANH SACH ID: ${JSON.stringify(ids)}`);
       if (ids.length) {
-        const dhURL = new URL(`${process.env.DIRECTUS_URL}/items/donhang`);
+        const dhURL = new URL(`/items/donhang`);
         dhURL.searchParams.set("fields", "TrangThai");
         dhURL.searchParams.set("filter[ID][_in]", ids.join(","));
         const dhRes = await directusFetch(dhURL.toString(), {
@@ -70,12 +66,8 @@ export async function PATCH(req: NextRequest) {
           const allSanSang = arr.every((item) => item.TrangThai === "SAN_SANG");
           if (allSanSang) {
             // Cập nhật phiếu sang trạng thái SAN_SANG
-            await directusFetch(`${process.env.DIRECTUS_URL}/items/phieuhang/${dg[0].id}`, {
+            await directusFetch(`/items/phieuhang/${dg[0].id}`, {
               method: "PATCH",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
               body: JSON.stringify({ TrangThai: "SAN_SANG" }),
             });
           }

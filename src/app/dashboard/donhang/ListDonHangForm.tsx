@@ -239,7 +239,7 @@ export default function ListDonHang({
                 )
             );
             alert('Cập nhật trạng thái thành công!');
-            await fetchDonHang(); // Refresh data
+            //await fetchDonHang(); // Refresh data
             //router.replace(`/dashboard/donhang?r=${Date.now()}`);
 
         } catch (error) {
