@@ -379,17 +379,34 @@ export default function ListDonHang({
                         <li key={id} className="rounded-3xl bg-white border border-gray-100 shadow-sm">
                             {/* Header ID + badge */}
                             <div className="flex items-center justify-between px-4 pt-3">
-
-                                <div className="text-[13px] text-gray-600 font-medium">
+                                {/* Trái: checkbox + ID */}
+                                <label className="flex items-center gap-2 text-[13px] text-gray-700">
                                     <input
                                         type="checkbox"
                                         checked={isChecked(r.ID)}
                                         onChange={() => handleSelect(r.ID)}
-                                        className="size-4 rounded border-gray-300"
+                                        className="h-4 w-4 rounded border-gray-300 accent-blue-600 cursor-pointer"
                                     />
-                                    <Link href={`/dashboard/donhang/edit/${id}`}>
-                                        ID: #{id}
-                                    </Link>  </div>
+                                    <Link
+                                        href={`/dashboard/donhang/edit/${id}`}
+                                        className="inline-flex items-center gap-1"
+                                    >
+                                        <span className="text-gray-500">ID:</span>
+                                        <span
+                                            className="
+          inline-flex items-center rounded-full
+          bg-blue-50 text-blue-700
+          border border-blue-200
+          px-2 py-0.5 text-[12px] font-semibold
+          hover:bg-blue-100 transition-colors
+        "
+                                        >
+                                            #{id}
+                                        </span>
+                                    </Link>
+                                </label>
+
+                                {/* Phải: trạng thái */}
                                 <span className={`text-[12px] font-medium px-2.5 py-1 rounded-full ${st.cls}`}>
                                     {st.label || "—"}
                                 </span>
