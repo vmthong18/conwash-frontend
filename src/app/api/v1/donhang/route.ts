@@ -131,7 +131,7 @@ export async function PATCH(req: NextRequest) {
       : "TAO_MOI";
   const idx = Math.max(0, STATUS_ORDER.indexOf(trangThai));
   const next = STATUS_ORDER[Math.min(idx + 1, STATUS_ORDER.length - 1)];
-  return NextResponse.json({ ok: false, error: b[0].TrangThai }, { status: 400 });
+  return NextResponse.json({ ok: false, error: JSON.stringify(b) }, { status: 400 });
   if (trangThai == "GHEP_DON") {
     //return NextResponse.json({ ok: false, error: "line 136"  }, { status: 400 });
     const r = await directusFetch(`/items/donhang`, { method: "PATCH", body: JSON.stringify(b) });
