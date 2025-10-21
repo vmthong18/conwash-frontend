@@ -449,7 +449,7 @@ export default function EditForm({
             value={DienThoai}
             onChange={handlePhoneInputChange}
             placeholder="Nhập số điện thoại"
-            disabled={disabled_textbox}
+            disabled={true}
             required
           />
           {!!suggestions.length && (
