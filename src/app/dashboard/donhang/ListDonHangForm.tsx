@@ -380,7 +380,8 @@ export default function ListDonHang({
                             {/* Header ID + badge */}
                             <div className="flex items-center justify-between px-4 pt-3">
 
-                                <div className="text-[13px] text-gray-600 font-medium"><input
+                                <div className="text-[13px] text-gray-600 font-medium">    
+                                    <input
                                     type="checkbox"
                                     checked={isChecked(r.ID)}
                                     onChange={() => handleSelect(r.ID)}
