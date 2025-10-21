@@ -131,9 +131,9 @@ export async function PATCH(req: NextRequest) {
       : "TAO_MOI";
   const idx = Math.max(0, STATUS_ORDER.indexOf(trangThai));
   const next = STATUS_ORDER[Math.min(idx + 1, STATUS_ORDER.length - 1)];
-  return NextResponse.json({ ok: false, error: b.length }, { status: 400 });
-  if (trangThai == "GHEP_DON") {
-    //return NextResponse.json({ ok: false, error: "line 136"  }, { status: 400 });
+  //return NextResponse.json({ ok: false, error: b.length }, { status: 400 });
+  if (b.length>=1) {
+    return NextResponse.json({ ok: false, error: "line 136"  }, { status: 400 });
     const r = await directusFetch(`/items/donhang`, { method: "PATCH", body: JSON.stringify(b) });
     const data = await r.json();
     if (!r.ok) return NextResponse.json({ ok: false, error: JSON.stringify(b) }, { status: r.status });
@@ -142,7 +142,7 @@ export async function PATCH(req: NextRequest) {
 
   }
   else {
-    //return NextResponse.json({ ok: false, error: "line 145" }, { status: 400 });
+    return NextResponse.json({ ok: false, error: "line 145" }, { status: 400 });
     // ===== 1) Xác định khách hàng (tìm theo SĐT, nếu chưa có thì tạo) =====
     let ID_khachhang = b?.ID_KhachHang;
     if (!ID_khachhang) {
