@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { da } from "zod/locales";
+import Link from "next/link";
 import { Camera, ChevronLeft, MapPin } from "lucide-react";
 
 type GoiHang = {
@@ -404,12 +405,15 @@ export default function EditForm({
   return (
     <main className="min-h-dvh bg-gray-50">
       {/* Header mobile */}
+
+
+
       <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
-        <div className="mx-auto max-w-sm px-4 py-3 flex items-center gap-2">
-          <button type="button" onClick={() => history.back()} aria-label="Quay lại" className="p-1 -ml-1">
-            <ChevronLeft size={20} />
-          </button>
+        <div className="mx-auto max-w-sm px-4 py-3 flex items-center justify-between">
           <h1 className="text-[20px] font-semibold">Tạo mặt hàng</h1>
+          <Link href="/dashboard/donhang" className="text-blue-600 hover:underline">
+            Danh sách
+          </Link>
         </div>
       </div>
 

@@ -37,7 +37,7 @@ function parseDonhangs(raw: any): number[] {
 }
 
 export default async function PhieuHangList({ searchParams }: { searchParams: Search }) {
-   const params = await searchParams;  
+  const params = await searchParams;
   const jar = await cookies();
   const token = jar.get(process.env.COOKIE_ACCESS || "be_giay_access")?.value;
   if (!token) return <div className="p-8">Chưa đăng nhập.</div>;
@@ -80,7 +80,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
       if (khRes.ok) kh = await khRes.json().then(j => j.data || kh);
     }
 
-    let dd = { TenDiaDiem: "Không xác định"};
+    let dd = { TenDiaDiem: "Không xác định" };
     if (p.ID_DiaDiem) {
       const ddRes = await directusFetch(
         `${API}/items/diadiem/${p.ID_DiaDiem}?fields=TenDiaDiem`,
@@ -111,7 +111,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
       id: p.id,
       kh,
       dd,
-      imgs,     
+      imgs,
       ids,                       // danh sách id ảnh
       tong: Number(p.TongTien ?? 0),
       tt: String(p.TrangThai),
@@ -130,26 +130,29 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
       <ActionButton id={String(id)} token={token} label="Hoàn thành" />
     );
     return "";
-   
+
   }
   const hasNext = phieuRows.length === limit;
 
   return (
     <main className="p-6">
 
-    
+
+
+
+
+
+
+      {/* Header nhẹ */}
    
-
- 
-
-
-        {/* Header nhẹ */}
-      <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
-        <div className="mx-auto max-w-sm px-4 py-3">
-          <h1 className="text-[20px] font-semibold">Danh sách đơn hàng</h1>
-        </div>
-      </div>
-
+ <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
+                <div className="mx-auto max-w-sm px-4 py-3 flex items-center justify-between">
+                    <h1 className="text-[20px] font-semibold">Danh sách đơn hàng</h1>
+                    <Link href="/dashboard" className="text-blue-600 hover:underline">
+                        Dashboard
+                    </Link>
+                </div>
+            </div>
       {/* Ô chọn địa điểm */}
       <div className="mx-auto max-w-sm px-4">
         <div className="rounded-2xl border bg-white p-3 shadow-sm flex items-start gap-3">
@@ -225,7 +228,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
                   <span className="font-bold">{r.tong.toLocaleString("vi-VN")} đ</span>
                 </div>
               </div>
-                {getNextStatus(String(r.tt), String(r.id),r.thanhtoan)}
+              {getNextStatus(String(r.tt), String(r.id), r.thanhtoan)}
             </li>
           );
         })}

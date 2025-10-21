@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { pick } from "zod/mini";
@@ -166,11 +166,15 @@ export default function CreatePhieuForm({
 
 
             {/* Header */}
+         
             <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
-                <div className="mx-auto max-w-sm px-4 py-3">
-                    <h1 className="text-[20px] font-semibold">Tạo đơn hàng</h1>
-                </div>
-            </div>
+        <div className="mx-auto max-w-sm px-4 py-3 flex items-center justify-between">
+        <h1 className="text-[20px] font-semibold">Tạo đơn hàng</h1>
+          <Link href="/dashboard/donhang" className="text-blue-600 hover:underline">
+            Danh sách
+          </Link>
+        </div>
+      </div>
             {/* Danh sách card */}
             <ul className="mx-auto max-w-sm p-4 space-y-3">
                 {orders.map((o) => {
