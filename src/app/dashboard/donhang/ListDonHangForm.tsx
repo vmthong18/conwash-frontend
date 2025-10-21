@@ -163,7 +163,7 @@ export default function ListDonHang({
 
             setDonHangList(json?.data ?? []);
         } else {
-            alert('Lỗi tải dữ liệu');
+            alert('Lỗi tải dữ liệu'+await res.text());
         }
         setLoading(false);
     };
