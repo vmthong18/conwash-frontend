@@ -109,7 +109,7 @@ export default function CreatePhieuForm({
 
             // Lưu phiếu vào bảng phieuhang
             const res = await fetch(`/api/v1/phieuhang`, {
-                method: "PATCH",
+                method: "POST",
                 body: JSON.stringify({
                     ID_KhachHang: firstCustomer.ID, // khách theo đơn đầu tiên
                     Donhangs: picked,               // danh sách ID đơn
@@ -130,12 +130,8 @@ export default function CreatePhieuForm({
                 throw new Error(msg);
             }
             const updates = picked.map((id) => ({ ID: id, TrangThai: "LEN_DON" })); // chú ý primary key là "ID"
-            const res_donhang = await fetch(`${api}/items/donhang`, {
-                method: "PATCH",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
+            const res_donhang = await fetch(`/api/v1/donhang`, {
+                method: "PUT",
                 body: JSON.stringify(updates),
             });
             if (!res_donhang.ok) {

@@ -45,16 +45,17 @@ export async function POST(req: Request) {
   const token = await getAccess();
   if (!token) return NextResponse.redirect('/login', 301);//return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
 
+  // ❗ ĐỌC JSON RỒI STRINGIFY – KHÔNG pass thẳng req.body (tránh lỗi duplex)
   const body = await req.json().catch(() => ({}));
-  const { ID_KhachHang, DonHangIDs } = body || {};
-  if (!ID_KhachHang || !Array.isArray(DonHangIDs) || DonHangIDs.length === 0) {
-    return NextResponse.json({ ok: false, error: "Thiếu ID_KhachHang hoặc DonHangIDs" }, { status: 400 });
-  }
+  // ví dụ yêu cầu có { id, ...payload }
+  const { ID_KhachHang, Donhangs, TongTien, TrangThai, ID_DiaDiem, ThanhToan } = body || {};
+
 
   // Lưu vào bảng PhieuHang
-  const r = await directusFetch(`${process.env.DIRECTUS_URL}/items/phieuhang`, {
+  const r = await directusFetch(`/items/phieuhang`, {
     method: "POST",
-    body: JSON.stringify({ ID_KhachHang, Donhangs: DonHangIDs }),
+    body: JSON.stringify({ ID_KhachHang, Donhangs: Donhangs,TongTien,TrangThai,ID_DiaDiem,ThanhToan })
+
   });
   const data = await r.json();
   if (!r.ok) return NextResponse.json({ ok: false, error: data?.errors?.[0]?.message || "Create PhieuHang failed" }, { status: r.status });
