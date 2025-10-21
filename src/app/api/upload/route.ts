@@ -16,7 +16,6 @@ export async function POST(req: NextRequest) {
 
   const up = await directusFetch(`${process.env.DIRECTUS_URL}/files`, {
     method: "POST",
-    headers: { Authorization: `Bearer ${token}` },
     body: fd,
   });
 
