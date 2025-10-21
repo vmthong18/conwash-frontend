@@ -54,7 +54,6 @@ export async function POST(req: Request) {
   // Lưu vào bảng PhieuHang
   const r = await directusFetch(`${process.env.DIRECTUS_URL}/items/phieuhang`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
     body: JSON.stringify({ ID_KhachHang, Donhangs: DonHangIDs }),
   });
   const data = await r.json();
@@ -66,10 +65,17 @@ export async function PATCH(req: Request) {
   const token = await getAccess();
   if (!token) return NextResponse.redirect('/login', 301);//return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
 
+  // ❗ ĐỌC JSON RỒI STRINGIFY – KHÔNG pass thẳng req.body (tránh lỗi duplex)
+  const body = await req.json().catch(() => ({}));
+  // ví dụ yêu cầu có { id, ...payload }
+  const { id, ...payload } = body || {};
+  if (!id) return NextResponse.json({ ok: false, error: "Thiếu id" }, { status: 400 });
+
   // Lưu vào bảng PhieuHang
   const r = await directusFetch(`${process.env.DIRECTUS_URL}/items/phieuhang`, {
     method: "POST",
-    body: req.body,
+    body: JSON.stringify(payload),
+
   });
   const data = await r.json();
   if (!r.ok) return NextResponse.json({ ok: false, error: data?.errors?.[0]?.message || "Create PhieuHang failed" }, { status: r.status });
