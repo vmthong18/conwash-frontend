@@ -135,7 +135,8 @@ export default function CreatePhieuForm({
                 body: JSON.stringify(updates),
             });
             if (!res_donhang.ok) {
-                console.error('Bulk PATCH failed', res_donhang.status, await res_donhang.text());
+                alert(await res_donhang.text());
+                //console.error('Bulk PATCH failed', res_donhang.status, await res_donhang.text());
             }
             alert(`Tạo đơn #${data?.data?.ID ?? ""} thành công!`);
             //router.replace(redirectTo);
