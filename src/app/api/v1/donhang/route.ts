@@ -278,10 +278,7 @@ export async function GET(req: NextRequest) {
   if (!token) return NextResponse.redirect('/login', 301);//return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
 
 
-  const r = await directusFetch(`${process.env.DIRECTUS_URL}/items/donhang` + '>' + req.nextUrl.searchParams.toString(), {
-    headers: { Authorization: `Bearer ${token}` },
-    cache: "no-store"
-  });
+  const r = await directusFetch(`/items/donhang` + '>' + req.nextUrl.searchParams.toString());
 
   if (!r.ok) {
     const err = await r.text().catch(() => "");
@@ -297,13 +294,6 @@ export async function GET(req: NextRequest) {
     kh,
     customers: data?.data?.map((item: any) => item.DienThoai) || []  // Trả về danh sách số điện thoại
   });
-}
-export async function PUT(req: NextRequest) {
-  const token = getAccess();
-  if (!token) return NextResponse.redirect(new URL("/login", req.url), 302);
-
-  const body = await req.json().catch(() => ({}));
-
 }
 
 
