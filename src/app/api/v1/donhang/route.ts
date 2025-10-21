@@ -134,7 +134,7 @@ export async function PATCH(req: NextRequest) {
  // return NextResponse.json({ ok: false, error: next }, { status: 400 });
   if (next == "GHEP_DON") {
     const { payload } = b || {};
-    const r = await directusFetch(`/items/donhang`, { method: "PATCH", body: JSON.stringify(payload) });
+    const r = await directusFetch(`/items/donhang`, { method: "PATCH", body: JSON.stringify(b) });
     const data = await r.json();
     if (!r.ok) return NextResponse.json({ ok: false, error: JSON.stringify(b) }, { status: r.status });
 
