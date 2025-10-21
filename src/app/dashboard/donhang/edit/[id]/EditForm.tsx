@@ -402,6 +402,7 @@ export default function EditForm({
   function getNhaGiat(id_diadiem: number, type: number) {
     return listNhaGiat.find(b => b.ID_DiaDiem === id_diadiem && b.Type === type);
   };
+  const disabled_textbox = idx >= 2;
   return (
     <main className="min-h-dvh bg-gray-50">
       {/* Header mobile */}
@@ -448,6 +449,7 @@ export default function EditForm({
             value={DienThoai}
             onChange={handlePhoneInputChange}
             placeholder="Nhập số điện thoại"
+            disabled={disabled_textbox}
             required
           />
           {!!suggestions.length && (
@@ -472,6 +474,7 @@ export default function EditForm({
             value={TenKhachHang}
             onChange={(e) => setTenKhachHang(e.target.value)}
             placeholder="Nhập tên khách hàng"
+            disabled={disabled_textbox}
             required={!ID_KhachHang}
           />
         </div>
@@ -486,6 +489,7 @@ export default function EditForm({
             value={DiaChi}
             onChange={(e) => setDiaChi(e.target.value)}
             placeholder="Nhập địa chỉ"
+            disabled={disabled_textbox}
           />
         </div>
 
