@@ -131,7 +131,7 @@ export default function ListDonHang({
         //const url = new URL(`/api/v1/donhang`);
         const url = new URLSearchParams();
         url.set("fields",
-            "ID,TrangThai,GhiChu,ID_KhachHang.ID,ID_KhachHang.TenKhachHang,ID_KhachHang.DienThoai,NguoiNhap.first_name,NguoiNhap.email,AnhList.file.id,AnhFile.id"
+           "ID,TrangThai,GhiChu,ID_KhachHang.ID,ID_KhachHang.TenKhachHang,ID_KhachHang.DienThoai,NguoiNhap.first_name,NguoiNhap.email,AnhList.file.id,AnhFile.id,AnhNhan"
         );
         url.set("limit", String(limit));
         url.set("offset", String((page - 1) * limit));

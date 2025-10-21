@@ -80,10 +80,7 @@ export default async function donhangPage({ searchParams }: { searchParams: Sear
 
   }
 
-  const res = await directusFetch(url.toString(), {
-    headers: { Authorization: `Bearer ${access}` },
-    cache: "no-store",
-  });
+  const res = await directusFetch(url.toString());
 
   if (!res.ok) {
     const text = await res.text().catch(() => "");
