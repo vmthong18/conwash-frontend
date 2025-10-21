@@ -8,10 +8,7 @@ export default async function Page() {
   const access = jar.get(process.env.COOKIE_ACCESS || "be_giay_access")?.value!;
   const base = process.env.DIRECTUS_URL!;
   let me: any = null;
-  const meRes = await directusFetch(`${process.env.DIRECTUS_URL}/users/me`, {
-    headers: { Authorization: `Bearer ${access}` },
-    cache: "no-store"
-  });
+  const meRes = await directusFetch(`${process.env.DIRECTUS_URL}/users/me`);
   if (meRes.ok) {
     const meData = await meRes.json();
     me = meData?.data;
@@ -19,15 +16,13 @@ export default async function Page() {
 
   // Đơn ở trạng thái GHEP_DON
   const ordersRes = await directusFetch(
-    `${base}/items/donhang?fields=ID,GhiChu,GoiHangs,ID_KhachHang.ID,ID_KhachHang.TenKhachHang,ID_KhachHang.DienThoai,ID_DiaDiem,AnhNhan&filter[TrangThai][_eq]=GHEP_DON&limit=-1&filter[NguoiNhap][_eq]=${me.id}&filter[ID_DiaDiem][_eq]=${me.location}`,
-    { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" }
+    `${base}/items/donhang?fields=ID,GhiChu,GoiHangs,ID_KhachHang.ID,ID_KhachHang.TenKhachHang,ID_KhachHang.DienThoai,ID_DiaDiem,AnhNhan&filter[TrangThai][_eq]=GHEP_DON&limit=-1&filter[NguoiNhap][_eq]=${me.id}&filter[ID_DiaDiem][_eq]=${me.location}`
   );
   const orders = (await ordersRes.json()).data ?? [];
 
   // Danh mục gói hàng
   const goiRes = await directusFetch(
-    `${base}/items/goihang?fields=ID,TenGoi,GiaTien&limit=-1`,
-    { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" }
+    `${base}/items/goihang?fields=ID,TenGoi,GiaTien&limit=-1`
   );
   const goiHang = (await goiRes.json()).data ?? [];
 
