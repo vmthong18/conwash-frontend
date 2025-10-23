@@ -590,6 +590,23 @@ export default function EditForm({
                   <div className="text-sm">Chụp ảnh/ Upload ảnh</div>
                 </div>
               )}
+              
+
+              {idx < 3 && (
+                <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti} />
+
+              )}
+
+              {errors.anhTruoc && <p className="text-sm text-red-600 mt-1">{errors.anhTruoc}</p>}
+
+            </div>
+          </div>
+        )}
+
+        {idx > 4 && (
+          <div>
+            <label className="block mb-1 text-sm text-gray-700">Ảnh sau giặt</label>
+            <div className="rounded-2xl border-2 border-dashed border-gray-300 bg-white px-4 py-6 text-center">
               {!!previews_after.length ? (
                 <div className="mt-2 flex flex-wrap gap-2">
                   {previews_after.map((src, i) => (
@@ -608,22 +625,6 @@ export default function EditForm({
                 </div>
 
               )}
-
-              {idx < 3 && (
-                <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti} />
-
-              )}
-
-              {errors.anhTruoc && <p className="text-sm text-red-600 mt-1">{errors.anhTruoc}</p>}
-
-            </div>
-          </div>
-        )}
-
-        {idx > 4 && (
-          <div>
-            <label className="block mb-1 text-sm text-gray-700">Ảnh sau giặt</label>
-            <div className="rounded-2xl border-2 border-dashed border-gray-300 bg-white px-4 py-6 text-center">
               {idx < 6 && (
                 <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti_after} />
 
