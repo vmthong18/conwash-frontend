@@ -19,47 +19,47 @@ export default function ActionButton({
      focus:outline-none focus:ring-2 focus:ring-blue-500
      active:scale-[0.99] disabled:opacity-60 `;
 
-  if (label == "Hoàn thành")
-    async function onClick() {
-      try {
-        setLoading(true);
-        const api = process.env.NEXT_PUBLIC_DIRECTUS_ASSETS;
-        if (!api) throw new Error("Thiếu cấu hình DIRECTUS_URL.");
-        if (label == "Hoàn thành") {
-          const tt = { id: id, TrangThai: "HOAN_THANH", ThanhToan: 1 };
-          const res = await fetch(`/api/v1/phieuhang`, {
-            method: "PATCH",
-            body: JSON.stringify(tt),
-          });
-          if (!res.ok) {
-            const t = await res.text().catch(() => "");
-            throw new Error(`HTTP ${res.status} ${t}`);
-          }
 
-        }
-        else {
-          const tt = { id: id, ThanhToan: 1, TrangThai: "DANG_XU_LY" };
-          const res = await fetch(`/api/v1/phieuhang`, {
-            method: "PATCH",
-            body: JSON.stringify(tt),
-          });
-          if (!res.ok) {
-            const t = await res.text().catch(() => "");
-            throw new Error(`HTTP ${res.status} ${t}`);
-          }
-
+  async function onClick() {
+    try {
+      setLoading(true);
+      const api = process.env.NEXT_PUBLIC_DIRECTUS_ASSETS;
+      if (!api) throw new Error("Thiếu cấu hình DIRECTUS_URL.");
+      if (label == "Hoàn thành") {
+        const tt = { id: id, TrangThai: "HOAN_THANH", ThanhToan: 1 };
+        const res = await fetch(`/api/v1/phieuhang`, {
+          method: "PATCH",
+          body: JSON.stringify(tt),
+        });
+        if (!res.ok) {
+          const t = await res.text().catch(() => "");
+          throw new Error(`HTTP ${res.status} ${t}`);
         }
 
-
-
-
-        router.refresh();                           // làm mới trang
-      } catch (e: any) {
-        alert(`Lỗi: ${e?.message || String(e)}`);
-      } finally {
-        setLoading(false);
       }
+      else {
+        const tt = { id: id, ThanhToan: 1, TrangThai: "DANG_XU_LY" };
+        const res = await fetch(`/api/v1/phieuhang`, {
+          method: "PATCH",
+          body: JSON.stringify(tt),
+        });
+        if (!res.ok) {
+          const t = await res.text().catch(() => "");
+          throw new Error(`HTTP ${res.status} ${t}`);
+        }
+
+      }
+
+
+
+
+      router.refresh();                           // làm mới trang
+    } catch (e: any) {
+      alert(`Lỗi: ${e?.message || String(e)}`);
+    } finally {
+      setLoading(false);
     }
+  }
 
   return (
     <button
