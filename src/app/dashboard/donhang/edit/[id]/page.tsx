@@ -51,11 +51,14 @@ export default async function EditDetail({
     "ID_DiaDiem",
   ].join(",");
 
-  const url = `/items/donhang/${id}?fields=${encodeURIComponent(
+  const url = `${process.env.DIRECTUS_URL}/items/donhang/${id}?fields=${encodeURIComponent(
     fields
   )}`;
 
-  const res = await directusFetch(url);
+  const res = await directusFetch(url, {
+    headers: { Authorization: `Bearer ${access}` },
+    cache: "no-store",
+  });
 
   if (!res.ok) {
     const t = await res.text().catch(() => "");
@@ -76,23 +79,26 @@ export default async function EditDetail({
   }
 
   const { data: r } = await res.json();
-  const q_after = new URL(`/items/donhang_anh_after`);
+  const q_after = new URL(`${process.env.DIRECTUS_URL}/items/donhang_anh_after`);
   q_after.searchParams.set("fields", "file");
   q_after.searchParams.set("limit", "100");
   q_after.searchParams.set("filter[don_hang][_eq]", String(r.ID));
 
-  const listRes_after = await directusFetch(q_after.toString());
+  const listRes_after = await directusFetch(q_after.toString(), { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
   const ids_after = (await listRes_after.json())?.data?.map((x: any) => x.file) ?? [];
 
-  const q = new URL(`/items/donhang_anh`);
+  const q = new URL(`${process.env.DIRECTUS_URL}/items/donhang_anh`);
   q.searchParams.set("fields", "file");
   q.searchParams.set("limit", "100");
   q.searchParams.set("filter[don_hang][_eq]", String(r.ID));
 
-  const listRes = await directusFetch(q.toString());
+  const listRes = await directusFetch(q.toString(), { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" });
   const ids = (await listRes.json())?.data?.map((x: any) => x.file) ?? [];
   let me: any = null;
-  const meRes = await directusFetch(`/users/me?fields=id,role.name,location`);
+  const meRes = await directusFetch(`${process.env.DIRECTUS_URL}/users/me?fields=id,role.name,location`, {
+    headers: { Authorization: `Bearer ${access}` },
+    cache: "no-store"
+  });
   if (meRes.ok) {
     const meData = await meRes.json();
     me = meData?.data;
@@ -109,7 +115,7 @@ export default async function EditDetail({
   }
   let locationName = "";
   if (dc) {
-    const q_location_name = new URL(`/items/diadiem/${dc}`);
+    const q_location_name = new URL(`${process.env.DIRECTUS_URL}/items/diadiem/${dc}`);
     const listRes_location_name = await directusFetch(q_location_name.toString());
     if (listRes_location_name.ok) {
       const found = await listRes_location_name.json();
@@ -117,7 +123,7 @@ export default async function EditDetail({
       locationName = dg.TenDiaDiem || "";
     }
   }
-  const q_checkghepdon = new URL(`/items/donhang`);
+  const q_checkghepdon = new URL(`${process.env.DIRECTUS_URL}/items/donhang`);
   q_checkghepdon.searchParams.set("filter[TrangThai][_eq]", "GHEP_DON");
   q_checkghepdon.searchParams.set("filter[ID_DiaDiem][_eq]", me.location);
   q_checkghepdon.searchParams.set("fields", "ID_KhachHang.ID,ID_KhachHang.TenKhachHang,ID_KhachHang.DienThoai,ID_KhachHang.DiaChi");
@@ -138,10 +144,10 @@ export default async function EditDetail({
     }
 
   }
-  const response_goihang = await directusFetch(`/items/goihang`); // Chỉnh lại endpoint API của bạn nếu cần
-  const { data: data_goihang } = await response_goihang.json();
-  const response_box_nhagiat = await directusFetch(`/items/mapping_nhagiat`); // Chỉnh lại endpoint API của bạn nếu cần
-  const { data: data_box_nhagiat } = await response_box_nhagiat.json();
+  const response_goihang = await directusFetch(`${process.env.DIRECTUS_URL}/items/goihang`); // Chỉnh lại endpoint API của bạn nếu cần
+   const { data: data_goihang } = await response_goihang.json();
+   const response_box_nhagiat = await directusFetch(`${process.env.DIRECTUS_URL}/items/mapping_nhagiat`); // Chỉnh lại endpoint API của bạn nếu cần
+   const { data: data_box_nhagiat } = await response_box_nhagiat.json();
   return (
     <EditForm
       id={r.ID}
