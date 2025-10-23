@@ -242,15 +242,19 @@ export default function CreatePhieuForm({
                 })}
             </ul>
             {/* ✅ Checkbox Đã thanh toán */}
-            <label className="inline-flex items-center gap-2 whitespace-nowrap">
-                <input
+               <div className="mx-auto max-w-sm px-4 mt-3">
+                <label className="inline-flex items-center gap-2">
+                     <input
                     type="checkbox"
                     className="size-4 rounded border-gray-300"
                     checked={paid}
                     onChange={(e) => setPaid(e.target.checked)}
                 />
-                <span className="text-[14px] text-gray-700">Đã thanh toán</span>
-            </label>
+
+                     <span className="text-[14px] text-gray-700">Đã thanh toán</span>
+                </label>
+            </div>
+            
 
             {/* Thanh đáy sticky: tổng + nút tạo đơn */}
             <div className="sticky bottom-0 z-10 border-t bg-white/80 backdrop-blur">
