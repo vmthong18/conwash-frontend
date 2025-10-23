@@ -197,7 +197,7 @@ export default function ListDonHang({
             if (["Administrator", "Giat"].includes(rolename) && ["DANG_GIAT", "VAN_CHUYEN", "CHO_VAN_CHUYEN_LAI"].includes(currentStatus)) {
                 checkVisible = true;
             }
-            if (["GIAT_XONG", "LEN_DON"].includes(currentStatus)) {
+            if (["DANG_GIAT", "LEN_DON"].includes(currentStatus)) {
                 return alert('Bạn phải quét QR để cập nhật ảnh ở trạng thái này');
 
             }

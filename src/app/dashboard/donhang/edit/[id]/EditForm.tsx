@@ -404,6 +404,17 @@ export default function EditForm({
   function getNhaGiat(id_diadiem: number, type: number) {
     return listNhaGiat.find(b => b.ID_DiaDiem === id_diadiem && b.Type === type);
   };
+  function getBtn() {
+
+    if (["Administrator", "NhanVienQuay"].includes(roleName) && ["TAO_MOI","CHO_LAY", "LEN_DON", "QUAY_NHAN_GIAY", "VAN_CHUYEN_LAI"].includes(TrangThai)) {
+      return true;
+    }
+    if (["Administrator", "Giat"].includes(roleName) && ["DANG_GIAT", "VAN_CHUYEN", "CHO_VAN_CHUYEN_LAI","GIAT_XONG"].includes(TrangThai)) {
+      return true;
+    }
+    return false
+
+  }
   const disabled_textbox = (idx >= 1);
   return (
     <main className="min-h-dvh bg-gray-50">
@@ -411,7 +422,7 @@ export default function EditForm({
       <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
         <div className="mx-auto max-w-sm px-4 py-3 flex items-center gap-3">
           <RedirectBtn page="/dashboard/donhang" />
-          <h1 className="text-[20px] font-semibold">Tạo mặt hàng</h1>
+          <h1 className="text-[20px] font-semibold">{idx > 2 ? "Chi tiết mặt hàng" : "Tạo mặt hàng"}</h1>
 
           <LogoutBtn />
         </div>
@@ -571,7 +582,9 @@ export default function EditForm({
                 {previews.map((src, i) => (
                   <div key={i} className="relative">
                     <img src={src} className="h-20 w-20 object-cover rounded border" />
-                    <button type="button" onClick={() => removeImg(i)} className="absolute -top-2 -right-2 bg-black/70 text-white text-xs rounded-full px-1">x</button>
+                    {idx < 3 && (
+                      <button type="button" onClick={() => removeImg(i)} className="absolute -top-2 -right-2 bg-black/70 text-white text-xs rounded-full px-1">x</button>
+                    )}
                   </div>
                 ))}
               </div>
@@ -593,7 +606,9 @@ export default function EditForm({
                 {previews_after.map((src, i) => (
                   <div key={i} className="relative">
                     <img src={src} className="h-20 w-20 object-cover rounded border" />
-                    <button type="button" onClick={() => removeImg_after(i)} className="absolute -top-2 -right-2 bg-black/70 text-white text-xs rounded-full px-1">x</button>
+                    {idx < 6 && (
+                      <button type="button" onClick={() => removeImg_after(i)} className="absolute -top-2 -right-2 bg-black/70 text-white text-xs rounded-full px-1">x</button>
+                    )}
                   </div>
                 ))}
               </div>
@@ -621,7 +636,7 @@ export default function EditForm({
               form?.requestSubmit();
             }}
           >
-            {saving ? "Đang lưu..." : (idx > 2 ? "Chuyển trạng thái" : "Tạo mặt hàng")}
+            {getBtn()?(saving ? "Đang lưu..." : (idx > 2 ? "Chuyển trạng thái" : "Tạo mặt hàng")):""}
           </button>
         </div>
       </div>
