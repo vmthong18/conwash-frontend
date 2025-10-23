@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 import Link from 'next/link';
 import Image from "next/image";
-import { Search, ChevronRight } from "lucide-react";
+import { Search, ChevronRight, ChevronLeft } from "lucide-react";
 import { redirect } from 'next/dist/server/api-utils';
 
 type DonHang = {
@@ -321,7 +321,7 @@ export default function ListDonHang({
 
       className="text-blue-600 hover:underline"
     >
-      <ChevronRight size={18} className="inline-block text-gray-500" />
+      <ChevronLeft size={18} className="inline-block text-gray-500" />
     </button>
                     <h1 className="text-[20px] font-semibold">Danh sách mặt hàng</h1>
 
@@ -338,15 +338,7 @@ export default function ListDonHang({
                 </div>
             </div>
 
-            {/* Header giống mobile: căn trái, tiêu đề 20px bold */}
-            <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
-                <div className="mx-auto max-w-sm px-4 py-3 flex items-center justify-between">
-                    <h1 className="text-[20px] font-semibold">Danh sách mặt hàng</h1>
-                    <Link href="/dashboard" className="text-blue-600 hover:underline">
-                        Dashboard
-                    </Link>
-                </div>
-            </div>
+       
 
             {/* Bộ lọc */}
             <div className="mx-auto max-w-sm px-4">
