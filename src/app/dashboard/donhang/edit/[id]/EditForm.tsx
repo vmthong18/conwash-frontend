@@ -406,10 +406,10 @@ export default function EditForm({
   };
   function getBtn() {
 
-    if (["Administrator", "NhanVienQuay"].includes(roleName) && ["TAO_MOI","CHO_LAY", "LEN_DON", "QUAY_NHAN_GIAY", "VAN_CHUYEN_LAI"].includes(TrangThai)) {
+    if (["Administrator", "NhanVienQuay"].includes(roleName) && ["TAO_MOI", "CHO_LAY", "LEN_DON", "QUAY_NHAN_GIAY", "VAN_CHUYEN_LAI"].includes(TrangThai)) {
       return true;
     }
-    if (["Administrator", "Giat"].includes(roleName) && ["DANG_GIAT", "VAN_CHUYEN", "CHO_VAN_CHUYEN_LAI","GIAT_XONG"].includes(TrangThai)) {
+    if (["Administrator", "Giat"].includes(roleName) && ["DANG_GIAT", "VAN_CHUYEN", "CHO_VAN_CHUYEN_LAI", "GIAT_XONG"].includes(TrangThai)) {
       return true;
     }
     return false
@@ -621,25 +621,29 @@ export default function EditForm({
           <p className={`text-sm ${msg.startsWith("Đã tìm") ? "text-green-700" : "text-red-600"}`}>{msg}</p>
         )}
       </form>
+      {getBtn() && (
 
-      {/* Nút tạo mặt hàng (sticky đáy) */}
-      <div className="sticky bottom-0 z-10 border-t bg-white/80 backdrop-blur">
-        <div className="mx-auto max-w-sm p-4">
-          <button
-            className="w-full rounded-2xl bg-blue-600 py-3 text-white font-medium disabled:opacity-60"
-            disabled={saving}
-            type="submit"
-            formAction={onSubmit as any} // đảm bảo submit form ở trên
-            onClick={(e) => {
-              // để nút ở ngoài form vẫn submit: forward click tới form
-              const form = (e.currentTarget.ownerDocument?.querySelector('form') as HTMLFormElement | undefined);
-              form?.requestSubmit();
-            }}
-          >
-            {getBtn()?(saving ? "Đang lưu..." : (idx > 1 ? "Chuyển trạng thái" : "Tạo mặt hàng")):""}
-          </button>
+        <div className="sticky bottom-0 z-10 border-t bg-white/80 backdrop-blur">
+          <div className="mx-auto max-w-sm p-4">
+            <button
+              className="w-full rounded-2xl bg-blue-600 py-3 text-white font-medium disabled:opacity-60"
+              disabled={saving}
+              type="submit"
+              formAction={onSubmit as any} // đảm bảo submit form ở trên
+              onClick={(e) => {
+                // để nút ở ngoài form vẫn submit: forward click tới form
+                const form = (e.currentTarget.ownerDocument?.querySelector('form') as HTMLFormElement | undefined);
+                form?.requestSubmit();
+              }}
+            >
+              {(saving ? "Đang lưu..." : (idx > 1 ? "Chuyển trạng thái" : "Tạo mặt hàng"))}
+            </button>
+          </div>
         </div>
-      </div>
+
+
+      )}
+
     </main>
   );
 
