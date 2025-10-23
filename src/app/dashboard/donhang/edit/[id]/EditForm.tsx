@@ -338,49 +338,67 @@ export default function EditForm({
       return; // dừng lưu
     }
     try {
-      const body: any = { ID, GhiChu, AnhFiles: anhIds };
-      if (AnhId) body.Anh = AnhId;
-      if (ID_KhachHang) body.ID_KhachHang = ID_KhachHang;
-      else {
-        body.TenKhachHang = TenKhachHang.trim();
-        body.DiaChi = DiaChi.trim();
-        body.DienThoai = DienThoai.trim();
-      }
-      body.AnhList = anhIds;
-      body.AnhList_After = anhIds_after;
-      body.TrangThai = TrangThai;
-
-      if (idx == 0) {
-        body.NguoiNhap = Me;
-      }
-      //body.GoiHangIDs = selectedGoiHangs; // Gửi mảng ID các gói hàng đã chọn
-      let ghs = Array.from(
-        new Set(selectedGoiHangs.map(x => x?.id).filter((v): v is number => typeof v === "number"))
-      );
-
-      body.GoiHangIDs = ghs;
-      body.ID_DiaDiem = locationId; // Gửi location hiện tại
-      let type_nhagiat = selectedGoiHangs[0].loai ? selectedGoiHangs[0].loai : 0;
-      let ten_nhagiat = getNhaGiat(parseInt(body.ID_DiaDiem, 10), type_nhagiat)?.NhaGiat;
-      body.NhaGiat = ten_nhagiat;
-      // alert(ghs+"---"+getNhaGiat(parseInt(body.ID_DiaDiem, 10), type_nhagiat)?.NhaGiat);
-      // return;
-      const r = await fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
-      //fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
-      const data = await r.json();
-      if (!r.ok || !data.ok) {
-        return alert("data: " + JSON.stringify(data) || "Không tạo được đơn");
+      if (TrangThai == "QUAY_NHAN_GIAY") {
+          const ttss = [{
+                ID: ID,
+                TrangThai: "SAN_SANG",              // <<<<<<<<< dùng trạng thái kế tiếp
+            }];
+         const r = await fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(ttss) });
+        //fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+        const data = await r.json();
+        if (!r.ok || !data.ok) {
+          return alert("data: " + JSON.stringify(data));
+        }
+         router.replace(`/dashboard/donhang?r=${Date.now()}`);
       }
       else {
+        const body: any = { ID, GhiChu, AnhFiles: anhIds };
+        if (AnhId) body.Anh = AnhId;
+        if (ID_KhachHang) body.ID_KhachHang = ID_KhachHang;
+        else {
+          body.TenKhachHang = TenKhachHang.trim();
+          body.DiaChi = DiaChi.trim();
+          body.DienThoai = DienThoai.trim();
+        }
+        body.AnhList = anhIds;
+        body.AnhList_After = anhIds_after;
+        body.TrangThai = TrangThai;
+
         if (idx == 0) {
-          router.replace("/dashboard/phieuhang/tao");
+          body.NguoiNhap = Me;
+        }
+        //body.GoiHangIDs = selectedGoiHangs; // Gửi mảng ID các gói hàng đã chọn
+        let ghs = Array.from(
+          new Set(selectedGoiHangs.map(x => x?.id).filter((v): v is number => typeof v === "number"))
+        );
+
+        body.GoiHangIDs = ghs;
+        body.ID_DiaDiem = locationId; // Gửi location hiện tại
+        let type_nhagiat = selectedGoiHangs[0].loai ? selectedGoiHangs[0].loai : 0;
+        let ten_nhagiat = getNhaGiat(parseInt(body.ID_DiaDiem, 10), type_nhagiat)?.NhaGiat;
+        body.NhaGiat = ten_nhagiat;
+        // alert(ghs+"---"+getNhaGiat(parseInt(body.ID_DiaDiem, 10), type_nhagiat)?.NhaGiat);
+        // return;
+        const r = await fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+        //fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+        const data = await r.json();
+        if (!r.ok || !data.ok) {
+          return alert("data: " + JSON.stringify(data) || "Không tạo được đơn");
         }
         else {
+          if (idx == 0) {
+            router.replace("/dashboard/phieuhang/tao");
+          }
+          else {
 
-          router.replace(`/dashboard/donhang?r=${Date.now()}`);
+            router.replace(`/dashboard/donhang?r=${Date.now()}`);
+          }
+
         }
 
       }
+
+
 
 
     } catch (e: any) {
@@ -590,7 +608,7 @@ export default function EditForm({
                   <div className="text-sm">Chụp ảnh/ Upload ảnh</div>
                 </div>
               )}
-              
+
 
               {idx < 3 && (
                 <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti} />

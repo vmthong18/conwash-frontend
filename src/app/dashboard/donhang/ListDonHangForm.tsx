@@ -8,7 +8,6 @@ import RedirectBtn from "@/app/dashboard/RedirectBtn";
 import Link from 'next/link';
 import Image from "next/image";
 import { Search, ChevronRight, ChevronLeft } from "lucide-react";
-import { LogOut } from "lucide-react";  // Thêm icon logout
 import { redirect } from 'next/dist/server/api-utils';
 
 type DonHang = {

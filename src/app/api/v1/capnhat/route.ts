@@ -37,7 +37,7 @@ export async function PATCH(req: NextRequest) {
   }
 
   if (trangThai === "SAN_SANG") {
-    const q = new URL(`/items/phieuhang`);
+    const q = new URL(`${process.env.DIRECTUS_URL}/items/phieuhang`);
     q.searchParams.set("fields", "id,Donhangs");
     q.searchParams.set("limit", "100");
     q.searchParams.set("filter[_or][0][Donhangs][_eq]", `[${donHangId}]`);
@@ -53,13 +53,10 @@ export async function PATCH(req: NextRequest) {
       //return NextResponse.json({ ok: false, error: `DANH SACH ID: ${JSON.stringify(ids)}` }, { status: 400 });
      // alert(`DANH SACH ID: ${JSON.stringify(ids)}`);
       if (ids.length) {
-        const dhURL = new URL(`/items/donhang`);
+        const dhURL = new URL(`${process.env.DIRECTUS_URL}/items/donhang`);
         dhURL.searchParams.set("fields", "TrangThai");
         dhURL.searchParams.set("filter[ID][_in]", ids.join(","));
-        const dhRes = await directusFetch(dhURL.toString(), {
-          headers: { Authorization: `Bearer ${token}` },
-          cache: "no-store",
-        });
+        const dhRes = await directusFetch(dhURL.toString());
         if (dhRes.ok) {
           const dh = await dhRes.json();
           const arr: any[] = dh?.data ?? [];
