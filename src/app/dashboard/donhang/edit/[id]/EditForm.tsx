@@ -346,6 +346,7 @@ export default function EditForm({
          const r = await fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(ttss) });
         //fetch("/api/v1/donhang", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
         const data = await r.json();
+           return alert("data: " + JSON.stringify(data));
         if (!r.ok || !data.ok) {
           return alert("data: " + JSON.stringify(data));
         }
