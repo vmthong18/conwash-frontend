@@ -7,7 +7,8 @@ export default function ActionButton({
   id,
   token,
   label = "Đánh dấu hoàn thành",
-}: { id: string; token?: string; label?: string }) {
+  ids,
+}: { id: string; token?: string; label?: string; ids: number[]; }) {
   const router = useRouter();                    // ← đưa hook ra top-level
   const [loading, setLoading] = useState(false);
   const sizeCls = "px-3 py-2 text-sm rounded-xl";
@@ -35,7 +36,15 @@ export default function ActionButton({
           const t = await res.text().catch(() => "");
           throw new Error(`HTTP ${res.status} ${t}`);
         }
-
+        const updates = ids.map((id) => ({ ID: id, TrangThai: "HOAN_THANH" }));
+        const res_donhang = await fetch(`/api/v1/donhang`, {
+          method: "PATCH",
+          body: JSON.stringify(updates),
+        });
+        if (!res_donhang.ok) {
+          alert(await res_donhang.text());
+          //console.error('Bulk PATCH failed', res_donhang.status, await res_donhang.text());
+        }
       }
       else {
         const tt = [{ id: id, ThanhToan: 1, TrangThai: "DANG_XU_LY" }];

@@ -121,15 +121,15 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
     };
   }));
 
-  function getNextStatus(current: string | undefined, id: string | undefined, thanhtoan: string | undefined) {
+  function getNextStatus(current: string | undefined, id: string | undefined, thanhtoan: string | undefined, ids: number[]) {
     if (!current) return current;
     const idx = STATUS_ORDER.indexOf(current.trim());
     //if (idx === -1 || idx === STATUS_ORDER.length - 1) return current+"___"+idx+"___"+STATUS_ORDER.length ;
     if (thanhtoan == "0") return (
-      <ActionButton id={String(id)} token={token} label="Thanh toán" />
+      <ActionButton id={String(id)} token={token} label="Thanh toán" ids={ids} />
     );
     if (idx == 1) return (
-      <ActionButton id={String(id)} token={token} label="Hoàn thành" />
+      <ActionButton id={String(id)} token={token} label="Hoàn thành" ids={ids}/>
     );
     return "";
 
@@ -231,7 +231,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
                   <span className="font-bold">{r.tong.toLocaleString("vi-VN")} đ</span>
                 </div>
               </div>
-              {getNextStatus(String(r.tt), String(r.id), r.thanhtoan)}
+              {getNextStatus(String(r.tt), String(r.id), r.thanhtoan,r.ids)}
             </li>
           );
         })}
