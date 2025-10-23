@@ -18,22 +18,24 @@ export default function ActionButton({
      shadow-[0_6px_14px_-6px_rgba(37,99,235,.35)]
      focus:outline-none focus:ring-2 focus:ring-blue-500
      active:scale-[0.99] disabled:opacity-60 `;
-  let tt=JSON.stringify({ ThanhToan: 1 });
-  if(label=="Hoàn thành") tt=JSON.stringify({ TrangThai: "HOAN_THANH" });
+  let tt = JSON.stringify({ id: id, ThanhToan: 1 });
+  if (label == "Hoàn thành") tt = JSON.stringify({ id: id, TrangThai: "HOAN_THANH" });
   async function onClick() {
     try {
       setLoading(true);
       const api = process.env.NEXT_PUBLIC_DIRECTUS_ASSETS;
       if (!api) throw new Error("Thiếu cấu hình DIRECTUS_URL.");
 
-      const res = await fetch(`${api}/items/phieuhang/${id}`, {
+
+      const res = await fetch(`/api/v1/phieuhang`, {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        },
-        body: tt,
+        body: tt
       });
+
+      if (label == "Hoàn thành") { 
+
+        
+      }
 
       if (!res.ok) {
         const t = await res.text().catch(() => "");
