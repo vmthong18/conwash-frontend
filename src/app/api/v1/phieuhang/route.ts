@@ -69,10 +69,13 @@ export async function PATCH(req: Request) {
   // ❗ ĐỌC JSON RỒI STRINGIFY – KHÔNG pass thẳng req.body (tránh lỗi duplex)
   const body = await req.json().catch(() => ({}));
 
-  return NextResponse.json({ ok: false, error: body || "Create PhieuHang failed" }, { status: 400 });
+  //return NextResponse.json({ ok: false, error: body || "Create PhieuHang failed" }, { status: 400 });
   // Lưu vào bảng PhieuHang
   const r = await directusFetch(`/items/phieuhang`, {
     method: "PATCH",
+    headers: {
+    "Content-Type": "application/json",  // Đảm bảo body là JSON
+  },
     body: JSON.stringify(body)
 
   });
