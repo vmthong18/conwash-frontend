@@ -321,7 +321,7 @@ export default function ListDonHang({
                         onClick={() => router.push("/dashboard")}
 
                         aria-label="Quay lại"
-                        className="p-1 -ml-1"
+                        className="p-1 -ml-1 cursor-pointer"
                     >
                         <ChevronLeft size={20} />
                     </button>
@@ -333,9 +333,9 @@ export default function ListDonHang({
                             // Xử lý đăng xuất
                             alert("Đăng xuất thành công!");  // Cần làm backend để logout thực tế
                         }}
-                        className="text-blue-600 hover:underline"
+                        className="text-blue-600 hover:underline cursor-pointer"
                     >
-                        <LogOut size={18} className="inline-block text-gray-500" /> Đăng xuất
+                        <LogOut size={18} className="inline-block text-gray-500" />
                     </button>
                 </div>
             </div>
