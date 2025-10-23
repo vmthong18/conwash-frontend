@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { da } from "zod/locales";
 import Link from "next/link";
 import { Camera, ChevronLeft, MapPin } from "lucide-react";
+import LogoutBtn from "@/app/dashboard/LogoutBtn";
+import RedirectBtn from "@/app/dashboard/RedirectBtn";
 
 type GoiHang = {
   ID: number;
@@ -406,17 +408,17 @@ export default function EditForm({
   return (
     <main className="min-h-dvh bg-gray-50">
       {/* Header mobile */}
+        <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
+                <div className="mx-auto max-w-sm px-4 py-3 flex items-center gap-3">
+                    <RedirectBtn page="/dashboard/donhang" />
+                    <h1 className="text-[20px] font-semibold">Tạo mặt hàng</h1>
+
+                    <LogoutBtn />
+                </div>
+            </div>
 
 
-
-      <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
-        <div className="mx-auto max-w-sm px-4 py-3 flex items-center justify-between">
-          <h1 className="text-[20px] font-semibold">Tạo mặt hàng</h1>
-          <Link href="/dashboard/donhang" className="text-blue-600 hover:underline">
-            Danh sách
-          </Link>
-        </div>
-      </div>
+    
 
       <form onSubmit={onSubmit} className="mx-auto max-w-sm px-4 pb-28 space-y-4">
         {/* Hàng đầu: #ID + Box địa điểm */}

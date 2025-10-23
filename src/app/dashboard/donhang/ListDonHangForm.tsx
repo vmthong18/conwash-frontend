@@ -318,10 +318,10 @@ export default function ListDonHang({
             {/* Header */}
             <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
                 <div className="mx-auto max-w-sm px-4 py-3 flex items-center gap-3">
-                      <RedirectBtn page="/dashboard"/>
+                    <RedirectBtn page="/dashboard" />
                     <h1 className="text-[20px] font-semibold">Danh sách mặt hàng</h1>
 
-                    <LogoutBtn/>
+                    <LogoutBtn />
                 </div>
             </div>
 

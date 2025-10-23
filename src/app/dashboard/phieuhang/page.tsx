@@ -4,6 +4,8 @@ import { cookies } from "next/headers";
 import ActionButton from "./ActionButton";
 import { MapPin, ChevronDown } from "lucide-react";
 import { directusFetch } from "@/lib/directusFetch";
+import LogoutBtn from "@/app/dashboard/LogoutBtn";
+import RedirectBtn from "@/app/dashboard/RedirectBtn";
 
 type Search = { [k: string]: string | string[] | undefined };
 const STATUS_BADGE: Record<string, string> = {
@@ -144,15 +146,16 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
 
 
       {/* Header nhẹ */}
+    {/* Header */}
+               <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
+                   <div className="mx-auto max-w-sm px-4 py-3 flex items-center gap-3">
+                       <RedirectBtn page="/dashboard" />
+                       <h1 className="text-[20px] font-semibold">Danh sách đơn hàng</h1>
    
- <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
-                <div className="mx-auto max-w-sm px-4 py-3 flex items-center justify-between">
-                    <h1 className="text-[20px] font-semibold">Danh sách đơn hàng</h1>
-                    <Link href="/dashboard" className="text-blue-600 hover:underline">
-                        Dashboard
-                    </Link>
-                </div>
-            </div>
+                       <LogoutBtn />
+                   </div>
+               </div>
+
       {/* Ô chọn địa điểm */}
       <div className="mx-auto max-w-sm px-4">
         <div className="rounded-2xl border bg-white p-3 shadow-sm flex items-start gap-3">
