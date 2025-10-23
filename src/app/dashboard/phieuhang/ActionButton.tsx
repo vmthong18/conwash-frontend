@@ -26,7 +26,7 @@ export default function ActionButton({
       const api = process.env.NEXT_PUBLIC_DIRECTUS_ASSETS;
       if (!api) throw new Error("Thiếu cấu hình DIRECTUS_URL.");
       if (label == "Hoàn thành") {
-        const tt = { id: id, TrangThai: "HOAN_THANH", ThanhToan: 1 };
+        const tt = [{ id: id, TrangThai: "HOAN_THANH", ThanhToan: 1 }];
         const res = await fetch(`/api/v1/phieuhang`, {
           method: "PATCH",
           body: JSON.stringify(tt),
@@ -38,7 +38,7 @@ export default function ActionButton({
 
       }
       else {
-        const tt = { id: id, ThanhToan: 1, TrangThai: "DANG_XU_LY" };
+        const tt = [{ id: id, ThanhToan: 1, TrangThai: "DANG_XU_LY" }];
         const res = await fetch(`/api/v1/phieuhang`, {
           method: "PATCH",
           body: JSON.stringify(tt),
