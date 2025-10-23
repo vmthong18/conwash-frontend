@@ -11,7 +11,7 @@ export async function PATCH(req: NextRequest) {
   // ===== 0) Chuẩn hóa dữ liệu đầu vào =====
 
   const donHangId = b?.ID;
-  //return NextResponse.json({ ok: false, error: "line 225" + donHangId }, { status: 400 });
+  return NextResponse.json({ ok: false, error: "line 225" + donHangId }, { status: 400 });
   const trangThai: string =
     typeof b?.TrangThai === "string" && b.TrangThai.length
       ? b.TrangThai
