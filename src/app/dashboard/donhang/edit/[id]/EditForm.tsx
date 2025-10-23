@@ -377,7 +377,7 @@ export default function EditForm({
         }
         else {
 
-          router.replace(`/dashboard/donhang?page=1&limit=10&sort=-ID&g=ALL`);
+          router.replace(`/dashboard/donhang?r=${Date.now()}`);
         }
 
       }
@@ -408,17 +408,17 @@ export default function EditForm({
   return (
     <main className="min-h-dvh bg-gray-50">
       {/* Header mobile */}
-        <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
-                <div className="mx-auto max-w-sm px-4 py-3 flex items-center gap-3">
-                    <RedirectBtn page="/dashboard/donhang" />
-                    <h1 className="text-[20px] font-semibold">Tạo mặt hàng</h1>
+      <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
+        <div className="mx-auto max-w-sm px-4 py-3 flex items-center gap-3">
+          <RedirectBtn page="/dashboard/donhang" />
+          <h1 className="text-[20px] font-semibold">Tạo mặt hàng</h1>
 
-                    <LogoutBtn />
-                </div>
-            </div>
+          <LogoutBtn />
+        </div>
+      </div>
 
 
-    
+
 
       <form onSubmit={onSubmit} className="mx-auto max-w-sm px-4 pb-28 space-y-4">
         {/* Hàng đầu: #ID + Box địa điểm */}
@@ -520,11 +520,11 @@ export default function EditForm({
                 <div className="text-sm">Chụp ảnh/ Upload ảnh</div>
               </div>
             )}
- {idx < 2 && (
-                    <input type="file" accept="image/*" className="mt-3" onChange={onUploadChange} />
+            {idx < 2 && (
+              <input type="file" accept="image/*" className="mt-3" onChange={onUploadChange} />
 
-              )}
-           
+            )}
+
             {errors.anhNhan && <p className="text-sm text-red-600 mt-2">{errors.anhNhan}</p>}
             {uploading && <p className="text-sm text-gray-600 mt-1">Đang tải ảnh…</p>}
           </div>
@@ -560,11 +560,11 @@ export default function EditForm({
         {idx > 1 && (
           <div>
             <label className="block mb-1 text-sm text-gray-700">Ảnh trước giặt</label>
-              {idx < 3 && (
-                   <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti} />
+            {idx < 3 && (
+              <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti} />
 
-              )}
-           
+            )}
+
             {errors.anhTruoc && <p className="text-sm text-red-600 mt-1">{errors.anhTruoc}</p>}
             {!!previews.length && (
               <div className="mt-2 flex flex-wrap gap-2">
@@ -582,11 +582,11 @@ export default function EditForm({
         {idx > 4 && (
           <div>
             <label className="block mb-1 text-sm text-gray-700">Ảnh sau giặt</label>
-               {idx < 6 && (
-                   <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti_after} />
+            {idx < 6 && (
+              <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti_after} />
 
-              )}
-            
+            )}
+
             {errors.anhSau && <p className="text-sm text-red-600 mt-1">{errors.anhSau}</p>}
             {!!previews_after.length && (
               <div className="mt-2 flex flex-wrap gap-2">
@@ -621,7 +621,7 @@ export default function EditForm({
               form?.requestSubmit();
             }}
           >
-            {saving ? "Đang lưu..." : (idx>2?"Chuyển trạng thái":"Tạo mặt hàng")}
+            {saving ? "Đang lưu..." : (idx > 2 ? "Chuyển trạng thái" : "Tạo mặt hàng")}
           </button>
         </div>
       </div>
