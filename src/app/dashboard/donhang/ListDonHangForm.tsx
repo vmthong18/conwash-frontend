@@ -313,6 +313,31 @@ export default function ListDonHang({
 
     return (
         <main className="min-h-dvh bg-gray-50">
+            {/* Header */}
+            <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
+                <div className="mx-auto max-w-sm px-4 py-3 flex items-center justify-between">
+                      <button
+      onClick={() => router.push("/dashboard")}
+
+      className="text-blue-600 hover:underline"
+    >
+      <ChevronRight size={18} className="inline-block text-gray-500" />
+    </button>
+                    <h1 className="text-[20px] font-semibold">Danh sách mặt hàng</h1>
+
+                    {/* Nút Logout */}
+                    <button
+                        onClick={() => {
+                            // Xử lý logout
+                            alert("Đã đăng xuất"); // Chưa làm thực tế, dùng cho mục đích UI
+                        }}
+                        className="text-blue-600 hover:underline"
+                    >
+                        Đăng xuất
+                    </button>
+                </div>
+            </div>
+
             {/* Header giống mobile: căn trái, tiêu đề 20px bold */}
             <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
                 <div className="mx-auto max-w-sm px-4 py-3 flex items-center justify-between">
@@ -356,7 +381,18 @@ export default function ListDonHang({
                 </form>
 
             </div>
+            <div className="mx-auto max-w-sm px-4 mt-3">
+                <label className="inline-flex items-center gap-2">
+                    <input
+                        type="checkbox"
+                        className="h-4 w-4 rounded border-gray-300 accent-blue-600 cursor-pointer"
+                        checked={selectedItems.length === donHangList.length}
+                        onChange={(e) => toggleAll(e.target.checked)}
+                    />
 
+                    <span className="text-[14px] text-gray-700">Chọn tất cả</span>
+                </label>
+            </div>
             {/* Danh sách */}
             <ul className="mx-auto max-w-sm p-4 space-y-3">
                 {donHangList.map((r) => {
@@ -445,13 +481,8 @@ export default function ListDonHang({
             {/* Nút hành động sticky */}
             <div className="sticky bottom-0 z-10 border-t bg-white/80 backdrop-blur">
                 <div className="mx-auto max-w-sm p-4">
-                    <input
-                        type="checkbox"
-                        className="size-4 rounded border-gray-300"
-                        onChange={(e) => toggleAll(e.target.checked)}
-                        checked={selectedItems.length === donHangList.length}
-                    />
-                    <button onClick={handleUpdateStatus} className="w-[66%] float-right rounded-2xl bg-blue-600 py-3 text-white font-medium disabled:opacity-60" >
+
+                    <button onClick={handleUpdateStatus} className="w-full float-right rounded-2xl bg-blue-600 py-3 text-white font-medium disabled:opacity-60" >
                         Cập nhật trạng thái
                     </button>
                 </div>
