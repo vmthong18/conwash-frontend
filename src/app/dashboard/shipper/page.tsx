@@ -350,30 +350,29 @@ export default async function PageDiaDiem() {
                 </table>
             </div>
 
-            <div className="mt-6 overflow-x-auto">
-                <table className="min-w-full border border-gray-300 bg-white">
-                    <thead className="bg-gray-100">
-                        <tr>
-                            <th className="text-left p-2 border-b">Điểm đi</th>
-                            <th className="text-left p-2 border-b">Điểm đến</th>
-                            <th className="text-left p-2 border-b w-48">Đơn hàng đang chờ lấy</th>
-                            <th className="text-left p-2 border-b w-48">Đơn hàng đang chuyển</th>
-                            <th className="text-left p-2 border-b w-48">Đơn hàng đã chuyển</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {mng.map((d) => (
-                            <tr key={d.ID} className="border-b">
-                                <td className="p-2">{getDiaDiem(d.ID_DiaDiem)}</td>
-                                <td className="p-2">{getNhaGiat(d.NhaGiat)}</td>
-                                <td className="p-2">{getResult("CHO_LAY", d.ID_DiaDiem, d.NhaGiat)}</td>
-                                <td className="p-2">{getResult("VAN_CHUYEN", d.ID_DiaDiem, d.NhaGiat)}</td>
-                                <td className="p-2">{getResult("DANG_GIAT,GIAT_XONG", d.ID_DiaDiem, d.NhaGiat)}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+             {mng.map((d) => (
+                <div key={d.ID} className="mb-4 border p-4 rounded-lg shadow-lg">
+                    <div className="flex items-center justify-between mb-2">
+                        <div>
+                            <h2 className="text-xl font-bold">{getDiaDiem(d.ID_DiaDiem)}</h2>
+                            <p className="text-sm text-gray-500">{getNhaGiat(d.NhaGiat)}</p>
+                        </div>
+                        
+                    </div>
+                    <div className="flex flex-col space-y-2">
+                        <div className="flex justify-between text-sm text-gray-600">
+                            <span>Đơn hàng chờ giao</span>
+                            <span>{getResult("CHO_LAY", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
+                        </div>
+                        <div className="flex justify-between text-sm text-gray-600">
+                            <span>Đơn hàng đang giao</span>
+                            <span> {getResult("VAN_CHUYEN", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
+                        </div>
+                       
+                    </div>
+              
+                </div>
+            ))}
 
 
 
