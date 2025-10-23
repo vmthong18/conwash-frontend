@@ -6,11 +6,12 @@ export async function PATCH(req: NextRequest) {
   if (!token) return NextResponse.redirect('/login', 301);//return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
 
   const b = await req.json();
-   return NextResponse.json({ ok: false, error: "line 225" + JSON.stringify(b) }, { status: 400 });
+   
 
   // ===== 0) Chuẩn hóa dữ liệu đầu vào =====
 
   const donHangId = b?.ID;
+  return NextResponse.json({ ok: false, error: "line 225" + donHangId }, { status: 400 });
   const trangThai: string =
     typeof b?.TrangThai === "string" && b.TrangThai.length
       ? b.TrangThai
