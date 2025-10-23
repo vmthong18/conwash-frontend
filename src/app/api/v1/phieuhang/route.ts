@@ -73,7 +73,7 @@ export async function PATCH(req: Request) {
   // Lưu vào bảng PhieuHang
   const r = await directusFetch(`/items/phieuhang`, {
     method: "PATCH",
-    body: JSON.stringify(body)
+    body: JSON.stringify(body.data)
 
   });
 
