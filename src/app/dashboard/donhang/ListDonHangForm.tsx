@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from "next/navigation";
 
 import LogoutBtn from "@/app/dashboard/LogoutBtn";
+import RedirectBtn from "@/app/dashboard/RedirectBtn";
 import Link from 'next/link';
 import Image from "next/image";
 import { Search, ChevronRight, ChevronLeft } from "lucide-react";
@@ -317,14 +318,7 @@ export default function ListDonHang({
             {/* Header */}
             <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
                 <div className="mx-auto max-w-sm px-4 py-3 flex items-center gap-3">
-                    <button
-                        onClick={() => router.push("/dashboard")}
-
-                        aria-label="Quay lại"
-                        className="p-1 -ml-1 cursor-pointer"
-                    >
-                        <ChevronLeft size={20} />
-                    </button>
+                      <RedirectBtn page="/dashboard"/>
                     <h1 className="text-[20px] font-semibold">Danh sách mặt hàng</h1>
 
                     <LogoutBtn/>

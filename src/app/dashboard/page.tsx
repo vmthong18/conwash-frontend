@@ -74,27 +74,19 @@ export default async function Dashboard() {
   }
   return (
     <main className="min-h-dvh bg-gray-50">
-      {/* Header nhẹ giống mobile */}
-      <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
-        <div className="mx-auto max-w-sm px-4 py-3">
-          <Link href="/signin" className="inline-flex items-center gap-1 text-gray-600">
-            <ChevronLeft size={18} />
-            <span className="sr-only">Back</span>
-          </Link>
-        </div>
-      </div>
+       <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
+                      <div className="mx-auto max-w-sm px-4 py-3 flex items-center gap-3">
+                       
+                          <h1 className="text-[20px] font-semibold"> Xin chào, {me?.first_name || me?.email || "User"}</h1>
+      
+                          <LogoutBtn/>
+                      </div>
+                  </div>
+    
 
       {/* Nội dung chính */}
       <div className="mx-auto max-w-sm px-4 pb-8">
-        {/* Chào người dùng */}
-        <section className="mt-1 mb-4">
-          <h1 className="text-[22px] font-bold leading-snug">
-            Xin chào,
-            <br />
-            {me?.first_name || me?.email || "User"}
-          </h1>
-            <LogoutBtn />
-        </section>
+      
 
         {/* Nhóm menu theo quyền */}
         <div className="grid gap-3">
