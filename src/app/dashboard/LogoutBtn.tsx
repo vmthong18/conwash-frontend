@@ -1,6 +1,7 @@
 // src/app/dashboard/LogoutBtn.tsx
-import { LogOut } from "lucide-react";  // Thêm icon logout
 "use client";
+import { LogOut } from "lucide-react";  // Thêm icon logout
+
 
 export default function LogoutBtn() {
   const onClick = async () => {
