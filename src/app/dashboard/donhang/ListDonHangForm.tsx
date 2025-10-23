@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import Link from 'next/link';
 import Image from "next/image";
 import { Search, ChevronRight, ChevronLeft } from "lucide-react";
+import { LogOut } from "lucide-react";  // Thêm icon logout
 import { redirect } from 'next/dist/server/api-utils';
 
 type DonHang = {
@@ -315,30 +316,31 @@ export default function ListDonHang({
         <main className="min-h-dvh bg-gray-50">
             {/* Header */}
             <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
-                <div className="mx-auto max-w-sm px-4 py-3 flex items-center justify-between">
-                      <button
-      onClick={() => router.push("/dashboard")}
+                <div className="mx-auto max-w-sm px-4 py-3 flex items-center gap-3">
+                    <button
+                        onClick={() => router.push("/dashboard")}
 
-      className="text-blue-600 hover:underline"
-    >
-      <ChevronLeft size={18} className="inline-block text-gray-500" />
-    </button>
+                        aria-label="Quay lại"
+                        className="p-1 -ml-1"
+                    >
+                        <ChevronLeft size={20} />
+                    </button>
                     <h1 className="text-[20px] font-semibold">Danh sách mặt hàng</h1>
 
                     {/* Nút Logout */}
                     <button
                         onClick={() => {
-                            // Xử lý logout
-                            alert("Đã đăng xuất"); // Chưa làm thực tế, dùng cho mục đích UI
+                            // Xử lý đăng xuất
+                            alert("Đăng xuất thành công!");  // Cần làm backend để logout thực tế
                         }}
                         className="text-blue-600 hover:underline"
                     >
-                        Đăng xuất
+                        <LogOut size={18} className="inline-block text-gray-500" /> Đăng xuất
                     </button>
                 </div>
             </div>
 
-       
+
 
             {/* Bộ lọc */}
             <div className="mx-auto max-w-sm px-4">
