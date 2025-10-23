@@ -71,14 +71,8 @@ export async function PATCH(req: Request) {
 
   //return NextResponse.json({ ok: false, error: token || "Create PhieuHang failed" }, { status: 400 });
   // Lưu vào bảng PhieuHang
-  const r = await directusFetch(`/items/phieuhang`, {
-    method: "PATCH",
-    headers: {
-    "Content-Type": "application/json",  // Đảm bảo body là JSON
-  },
-    body: JSON.stringify(body)
-
-  });
+   const r = await directusFetch(`/items/phieuhang`, { method: "PATCH", body: JSON.stringify(body) });
+ 
 
   const data = await r.json();
   if (!r.ok) return NextResponse.json({ ok: false, error: data?.errors?.[0]?.message || "Create PhieuHang failed" }, { status: r.status });
