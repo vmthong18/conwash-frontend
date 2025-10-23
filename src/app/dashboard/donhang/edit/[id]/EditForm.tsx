@@ -422,7 +422,7 @@ export default function EditForm({
       <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
         <div className="mx-auto max-w-sm px-4 py-3 flex items-center gap-3">
           <RedirectBtn page="/dashboard/donhang" />
-          <h1 className="text-[20px] font-semibold">{idx > 1 ? "Chi tiết mặt hàng"+idx : "Tạo mặt hàng"}</h1>
+          <h1 className="text-[20px] font-semibold">{idx > 1 ? "Chi tiết mặt hàng" : "Tạo mặt hàng"}</h1>
 
           <LogoutBtn />
         </div>
@@ -570,49 +570,68 @@ export default function EditForm({
         {/* (Tùy trạng thái) Ảnh trước/ sau giặt giữ nguyên logic cũ */}
         {idx > 1 && (
           <div>
+
             <label className="block mb-1 text-sm text-gray-700">Ảnh trước giặt</label>
-            {idx < 3 && (
-              <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti} />
+            <div className="rounded-2xl border-2 border-dashed border-gray-300 bg-white px-4 py-6 text-center">
+              {!!previews.length ? (
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {previews.map((src, i) => (
+                    <div key={i} className="relative">
+                      <img src={src} className="h-20 w-20 object-cover rounded border" />
+                      {idx < 3 && (
+                        <button type="button" onClick={() => removeImg(i)} className="absolute -top-2 -right-2 bg-black/70 text-white text-xs rounded-full px-1">x</button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-col items-center gap-2 text-gray-600">
+                  <Camera size={24} />
+                  <div className="text-sm">Chụp ảnh/ Upload ảnh</div>
+                </div>
+              )}
+              {!!previews_after.length ? (
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {previews_after.map((src, i) => (
+                    <div key={i} className="relative">
+                      <img src={src} className="h-20 w-20 object-cover rounded border" />
+                      {idx < 6 && (
+                        <button type="button" onClick={() => removeImg_after(i)} className="absolute -top-2 -right-2 bg-black/70 text-white text-xs rounded-full px-1">x</button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-col items-center gap-2 text-gray-600">
+                  <Camera size={24} />
+                  <div className="text-sm">Chụp ảnh/ Upload ảnh</div>
+                </div>
 
-            )}
+              )}
 
-            {errors.anhTruoc && <p className="text-sm text-red-600 mt-1">{errors.anhTruoc}</p>}
-            {!!previews.length && (
-              <div className="mt-2 flex flex-wrap gap-2">
-                {previews.map((src, i) => (
-                  <div key={i} className="relative">
-                    <img src={src} className="h-20 w-20 object-cover rounded border" />
-                    {idx < 3 && (
-                      <button type="button" onClick={() => removeImg(i)} className="absolute -top-2 -right-2 bg-black/70 text-white text-xs rounded-full px-1">x</button>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
+              {idx < 3 && (
+                <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti} />
+
+              )}
+
+              {errors.anhTruoc && <p className="text-sm text-red-600 mt-1">{errors.anhTruoc}</p>}
+
+            </div>
           </div>
         )}
 
         {idx > 4 && (
           <div>
             <label className="block mb-1 text-sm text-gray-700">Ảnh sau giặt</label>
-            {idx < 6 && (
-              <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti_after} />
+            <div className="rounded-2xl border-2 border-dashed border-gray-300 bg-white px-4 py-6 text-center">
+              {idx < 6 && (
+                <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti_after} />
 
-            )}
+              )}
 
-            {errors.anhSau && <p className="text-sm text-red-600 mt-1">{errors.anhSau}</p>}
-            {!!previews_after.length && (
-              <div className="mt-2 flex flex-wrap gap-2">
-                {previews_after.map((src, i) => (
-                  <div key={i} className="relative">
-                    <img src={src} className="h-20 w-20 object-cover rounded border" />
-                    {idx < 6 && (
-                      <button type="button" onClick={() => removeImg_after(i)} className="absolute -top-2 -right-2 bg-black/70 text-white text-xs rounded-full px-1">x</button>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
+              {errors.anhSau && <p className="text-sm text-red-600 mt-1">{errors.anhSau}</p>}
+
+            </div>
           </div>
         )}
 
