@@ -333,7 +333,7 @@ export default function ListDonHang({
                             // Xử lý đăng xuất
                             alert("Đăng xuất thành công!");  // Cần làm backend để logout thực tế
                         }}
-                        className="text-blue-600 hover:underline cursor-pointer"
+                        className="text-blue-600 hover:underline cursor-pointer ml-auto"
                     >
                         <LogOut size={18} className="inline-block text-gray-500" />
                     </button>
