@@ -1,4 +1,5 @@
 // src/app/dashboard/LogoutBtn.tsx
+import { LogOut } from "lucide-react";  // Thêm icon logout
 "use client";
 
 export default function LogoutBtn() {
@@ -7,8 +8,12 @@ export default function LogoutBtn() {
     window.location.href = "/login";
   };
   return (
-    <button onClick={onClick} className="px-4 py-2 bg-gray-800 text-white rounded">
-      Đăng xuất
+ 
+    <button
+      onClick={onClick}
+      className="text-blue-600 hover:underline ml-auto cursor-pointer"
+    >
+      <LogOut size={20} className="inline-block text-gray-500" />
     </button>
   );
 }

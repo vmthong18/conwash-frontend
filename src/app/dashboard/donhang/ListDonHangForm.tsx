@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from "next/navigation";
 
-
+import LogoutBtn from "@/app/dashboard/LogoutBtn";
 import Link from 'next/link';
 import Image from "next/image";
 import { Search, ChevronRight, ChevronLeft } from "lucide-react";
@@ -327,16 +327,7 @@ export default function ListDonHang({
                     </button>
                     <h1 className="text-[20px] font-semibold">Danh sách mặt hàng</h1>
 
-                    {/* Nút Logout */}
-                    <button
-                        onClick={() => {
-                            // Xử lý đăng xuất
-                            alert("Đăng xuất thành công!");  // Cần làm backend để logout thực tế
-                        }}
-                        className="text-blue-600 hover:underline cursor-pointer ml-auto"
-                    >
-                        <LogOut size={18} className="inline-block text-gray-500" />
-                    </button>
+                    <LogoutBtn/>
                 </div>
             </div>
 
