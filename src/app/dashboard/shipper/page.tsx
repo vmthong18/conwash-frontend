@@ -251,36 +251,39 @@ export default async function PageDiaDiem() {
     };
     return (
 
-           <main className="p-8">
+            <main className="p-8">
             {/* Header */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-6">
                 <h1 className="text-2xl font-bold">Vận chuyển</h1>
-                <span className="text-blue-500">{mng.length} đơn</span>
+                <span className="text-blue-500">100 đơn</span>
             </div>
 
-            {/* Delivery List */}
-            {mng.map((d) => (
-                <div key={d.ID} className="mb-4 p-4 border border-gray-300 rounded-lg shadow-md">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <h2 className="text-xl font-bold text-blue-600">{getDiaDiem(d.ID_DiaDiem)}</h2>
-                            <p className="text-sm text-gray-500">{getNhaGiat(d.NhaGiat)}</p>
+            {/* List of Locations */}
+            {mng.map((data, index) => (
+                <div key={index} className="mb-4 p-4 border border-gray-300 rounded-lg shadow-md">
+                    <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center space-x-2">
+                            {/* Icon and Location */}
+                            <span className="text-blue-500">📦</span>
+                            <div>
+                                <h2 className="text-xl font-bold text-blue-600">Box Quận 1</h2>
+                                <p className="text-sm text-gray-500">địa chỉ</p>
+                            </div>
                         </div>
-                        <div className="text-blue-500">{getResult("CHO_LAY", d.ID_DiaDiem, d.NhaGiat)} đơn</div>
+                        <div className="text-blue-500">32432 đơn</div>
                     </div>
-
                     <div className="mt-2">
                         <div className="flex justify-between text-sm text-gray-600">
                             <span>Đơn hàng chờ giao</span>
-                            <span>{getResult("CHO_LAY", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
+                            <span>1 đơn</span>
                         </div>
                         <div className="flex justify-between text-sm text-gray-600">
                             <span>Đơn hàng đang giao</span>
-                            <span>{getResult("VAN_CHUYEN", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
+                            <span>2 đơn</span>
                         </div>
                     </div>
 
-                  
+                    
                 </div>
             ))}
         </main>
