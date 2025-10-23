@@ -520,8 +520,11 @@ export default function EditForm({
                 <div className="text-sm">Chụp ảnh/ Upload ảnh</div>
               </div>
             )}
+ {idx < 2 && (
+                    <input type="file" accept="image/*" className="mt-3" onChange={onUploadChange} />
 
-            <input type="file" accept="image/*" className="mt-3" onChange={onUploadChange} />
+              )}
+           
             {errors.anhNhan && <p className="text-sm text-red-600 mt-2">{errors.anhNhan}</p>}
             {uploading && <p className="text-sm text-gray-600 mt-1">Đang tải ảnh…</p>}
           </div>
