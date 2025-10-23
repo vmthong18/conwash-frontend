@@ -18,8 +18,8 @@ export default function ActionButton({
      shadow-[0_6px_14px_-6px_rgba(37,99,235,.35)]
      focus:outline-none focus:ring-2 focus:ring-blue-500
      active:scale-[0.99] disabled:opacity-60 `;
-  let tt = JSON.stringify({ data:{id: id, ThanhToan: 1,} });
-  if (label == "Hoàn thành") tt = JSON.stringify({ data:{id: id, TrangThai: "HOAN_THANH", }});
+  let tt = { id: id, ThanhToan: 1 ,TrangThai:"DANG_XU_LY"};
+  if (label == "Hoàn thành") tt = { id: id, TrangThai: "HOAN_THANH",ThanhToan: 1 };
   async function onClick() {
     try {
       setLoading(true);
@@ -27,10 +27,11 @@ export default function ActionButton({
       if (!api) throw new Error("Thiếu cấu hình DIRECTUS_URL.");
 
 
+     
       const res = await fetch(`/api/v1/phieuhang`, {
-        method: "PATCH",
-        body: tt
-      });
+                method: "PATCH",
+                body: JSON.stringify(tt),
+            });
 
       if (label == "Hoàn thành") { 
 
