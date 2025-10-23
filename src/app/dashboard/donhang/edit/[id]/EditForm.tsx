@@ -422,7 +422,7 @@ export default function EditForm({
       <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
         <div className="mx-auto max-w-sm px-4 py-3 flex items-center gap-3">
           <RedirectBtn page="/dashboard/donhang" />
-          <h1 className="text-[20px] font-semibold">{idx > 2 ? "Chi tiết mặt hàng" : "Tạo mặt hàng"}</h1>
+          <h1 className="text-[20px] font-semibold">{idx > 1 ? "Chi tiết mặt hàng" : "Tạo mặt hàng"}</h1>
 
           <LogoutBtn />
         </div>
@@ -636,7 +636,7 @@ export default function EditForm({
               form?.requestSubmit();
             }}
           >
-            {getBtn()?(saving ? "Đang lưu..." : (idx > 2 ? "Chuyển trạng thái" : "Tạo mặt hàng")):""}
+            {getBtn()?(saving ? "Đang lưu..." : (idx > 1 ? "Chuyển trạng thái" : "Tạo mặt hàng")):""}
           </button>
         </div>
       </div>
