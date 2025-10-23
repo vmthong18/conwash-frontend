@@ -6,7 +6,7 @@ export async function PATCH(req: NextRequest) {
   if (!token) return NextResponse.redirect('/login', 301);//return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
 
   const b = await req.json();
-
+ return alert("data: " + JSON.stringify(b));
   // ===== 0) Chuẩn hóa dữ liệu đầu vào =====
 
   const donHangId = b?.ID;
