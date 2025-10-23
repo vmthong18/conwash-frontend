@@ -280,12 +280,7 @@ export default async function PageDiaDiem() {
                         </div>
                     </div>
 
-                    <button
-                        onClick={() => alert("Đã giao thành công")}
-                        className="mt-4 py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-                    >
-                        Đã giao thành công
-                    </button>
+                  
                 </div>
             ))}
         </main>
