@@ -329,7 +329,7 @@ export default function EditForm({
     if (idx > 1 && anhIds.length < REQUIRED_ANH_TRUOC) {
       nextErrors.anhTruoc = `Cần đủ ${REQUIRED_ANH_TRUOC} ảnh trước giặt (hiện có ${anhIds.length}).`;
     }
-    if (idx > 5 && anhIds_after.length < REQUIRED_ANH_SAU) {
+    if (idx > 4 && anhIds_after.length < REQUIRED_ANH_SAU) {
       nextErrors.anhSau = `Cần đủ ${REQUIRED_ANH_SAU} ảnh sau giặt (hiện có ${anhIds_after.length}).`;
     }
     if (Object.keys(nextErrors).length) {
@@ -579,10 +579,10 @@ export default function EditForm({
           </div>
         )}
 
-        {idx > 5 && (
+        {idx > 4 && (
           <div>
             <label className="block mb-1 text-sm text-gray-700">Ảnh sau giặt</label>
-               {idx < 7 && (
+               {idx < 6 && (
                    <input type="file" accept="image/*" multiple className="mt-1" onChange={onUploadMulti_after} />
 
               )}
@@ -621,7 +621,7 @@ export default function EditForm({
               form?.requestSubmit();
             }}
           >
-            {saving ? "Đang lưu..." : "Tạo mặt hàng"}
+            {saving ? "Đang lưu..." : (idx>2?"Chuyển trạng thái":"Tạo mặt hàng")}
           </button>
         </div>
       </div>
