@@ -339,7 +339,7 @@ export default function EditForm({
     }
     try {
       if (TrangThai == "QUAY_NHAN_GIAY") {
-         const tt = [{ ID: id, TrangThai: "SAN_SANG" }];
+         const tt = { ID: id, TrangThai: "SAN_SANG" };
           const r = await fetch(`/api/v1/capnhat`, {
           method: "PATCH",
           body: JSON.stringify(tt),
