@@ -67,7 +67,7 @@ export async function PATCH(req: Request) {
   if (!token) return NextResponse.redirect('/login', 301);//return NextResponse.json({ ok: false, error: "Unauthenticated" }, { status: 401 });
 
   // ❗ ĐỌC JSON RỒI STRINGIFY – KHÔNG pass thẳng req.body (tránh lỗi duplex)
-  const body = await req.json().catch(() => ({}));
+ const body = await req.json();
 
   //return NextResponse.json({ ok: false, error: token || "Create PhieuHang failed" }, { status: 400 });
   // Lưu vào bảng PhieuHang
