@@ -251,131 +251,43 @@ export default async function PageDiaDiem() {
     };
     return (
 
-        <main className="p-8">
+           <main className="p-8">
+            {/* Header */}
             <div className="flex items-center justify-between">
-                <h1 className="text-2xl font-bold">Vận chuyển đi</h1>
-                <LogoutBtn />
+                <h1 className="text-2xl font-bold">Vận chuyển</h1>
+                <span className="text-blue-500">{mng.length} đơn</span>
             </div>
 
-            <div className="mt-6 overflow-x-auto">
-                <table className="min-w-full border border-gray-300 bg-white">
-                    <thead className="bg-gray-100">
-                        <tr>
-
-                            <th className="text-left p-2 border-b">Điểm đi</th>
-                            <th className="text-left p-2 border-b">Điểm đến</th>
-                            <th className="text-left p-2 border-b w-48">
-                                Đơn hàng đang chờ lấy
-                            </th>
-                            <th className="text-left p-2 border-b w-48">
-                                Đơn hàng đang chuyển
-                            </th>
-                            <th className="text-left p-2 border-b w-48">
-                                Đơn hàng đã chuyển
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {mng.map((d) => {
-                            //const c = countsByLocation.get(d.ID) ?? 0;
-                            //const c_gx = countsByLocation_gx.get(d.ID) ?? 0;
-                            return (
-                                <tr key={d.ID} className="border-b">
-
-                                    <td className="p-2">{getDiaDiem(d.ID_DiaDiem)}</td>
-                                    <td className="p-2">{getNhaGiat(d.NhaGiat)}</td>
-                                    <td className="p-2">{getResult("CHO_LAY", d.ID_DiaDiem, d.NhaGiat)}</td>
-                                    <td className="p-2">
-                                        {getResult("VAN_CHUYEN", d.ID_DiaDiem, d.NhaGiat)}
-                                    </td>
-                                    <td className="p-2">
-                                        {getResult("DANG_GIAT,GIAT_XONG,", d.ID_DiaDiem, d.NhaGiat)}
-                                    </td>
-                                </tr>
-                            );
-                        })}
-
-
-                    </tbody>
-                </table>
-
-            </div>
-            <div className="flex items-center justify-between">
-                <h1 className="text-2xl font-bold">Vận chuyển về</h1>
-
-            </div>
-
-            <div className="mt-6 overflow-x-auto">
-
-                <table className="min-w-full border border-gray-300 bg-white">
-                    <thead className="bg-gray-100">
-                        <tr>
-
-                            <th className="text-left p-2 border-b">Điểm đi</th>
-                            <th className="text-left p-2 border-b">Điểm đến</th>
-                            <th className="text-left p-2 border-b w-48">
-                                Đơn hàng đang chờ lấy
-                            </th>
-                            <th className="text-left p-2 border-b w-48">
-                                Đơn hàng đang chuyển
-                            </th>
-                            <th className="text-left p-2 border-b w-48">
-                                Đơn hàng đã chuyển
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {mngdd.map((d) => {
-                            //const c = countsByLocation.get(d.ID) ?? 0;
-                            //const c_gx = countsByLocation_gx.get(d.ID) ?? 0;
-                            return (
-                                <tr key={d.ID} className="border-b">
-
-                                    <td className="p-2">{getNhaGiat(d.NhaGiat)}</td>
-                                    <td className="p-2">{getDiaDiem(d.ID_DiaDiem)}</td>
-
-                                    <td className="p-2">{getResult("CHO_VAN_CHUYEN_LAI", d.ID_DiaDiem, d.NhaGiat)}</td>
-                                    <td className="p-2">
-                                        {getResult("VAN_CHUYEN_LAI", d.ID_DiaDiem, d.NhaGiat)}
-                                    </td>
-                                    <td className="p-2">
-                                        {getResult("QUAY_NHAN_GIAY", d.ID_DiaDiem, d.NhaGiat)}
-                                    </td>
-                                </tr>
-                            );
-                        })}
-
-
-                    </tbody>
-                </table>
-            </div>
-
-             {mng.map((d) => (
-                <div key={d.ID} className="mb-4 border p-4 rounded-lg shadow-lg">
-                    <div className="flex items-center justify-between mb-2">
+            {/* Delivery List */}
+            {mng.map((d) => (
+                <div key={d.ID} className="mb-4 p-4 border border-gray-300 rounded-lg shadow-md">
+                    <div className="flex items-center justify-between">
                         <div>
-                            <h2 className="text-xl font-bold">{getDiaDiem(d.ID_DiaDiem)}</h2>
+                            <h2 className="text-xl font-bold text-blue-600">{getDiaDiem(d.ID_DiaDiem)}</h2>
                             <p className="text-sm text-gray-500">{getNhaGiat(d.NhaGiat)}</p>
                         </div>
-                        
+                        <div className="text-blue-500">{getResult("CHO_LAY", d.ID_DiaDiem, d.NhaGiat)} đơn</div>
                     </div>
-                    <div className="flex flex-col space-y-2">
+
+                    <div className="mt-2">
                         <div className="flex justify-between text-sm text-gray-600">
                             <span>Đơn hàng chờ giao</span>
                             <span>{getResult("CHO_LAY", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
                         </div>
                         <div className="flex justify-between text-sm text-gray-600">
                             <span>Đơn hàng đang giao</span>
-                            <span> {getResult("VAN_CHUYEN", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
+                            <span>{getResult("VAN_CHUYEN", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
                         </div>
-                       
                     </div>
-              
+
+                    <button
+                        onClick={() => alert("Đã giao thành công")}
+                        className="mt-4 py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                    >
+                        Đã giao thành công
+                    </button>
                 </div>
             ))}
-
-
-
         </main>
 
     );
