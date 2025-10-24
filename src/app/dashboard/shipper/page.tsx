@@ -259,7 +259,7 @@ export default async function PageDiaDiem() {
 
             {/* Render List of Locations and Delivery Info */}
             {mng.map((d) => (
-                <div key={d.ID} className="mb-4 p-4 border border-gray-300 rounded-lg shadow-md">
+                <div key={d.ID} className="mx-auto max-w-sm px-4">
                     <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center space-x-2">
                             {/* Icon and Location */}
@@ -268,7 +268,7 @@ export default async function PageDiaDiem() {
                                 <h2 className="text-xl font-bold text-blue-600">{getNhaGiat(d.NhaGiat)}</h2>
                                 <p className="text-sm text-gray-500">Địa điểm</p>
                             </div>
-                            <span className="text-blue-500">...</span>
+                            <span className="text-blue-500">.........</span>
                             <span className="text-blue-500">📦</span>
                             <div className="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
                                 <h2 className="text-xl font-bold text-blue-600">{getDiaDiem(d.ID_DiaDiem)}</h2>
@@ -291,7 +291,7 @@ export default async function PageDiaDiem() {
             ))}
 
             {mngdd.map((d) => (
-                <div key={d.ID} className="mb-4 p-4 border border-gray-300 rounded-lg shadow-md">
+                <div key={d.ID} className="mx-auto max-w-sm px-4">
                     <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center space-x-2">
                             {/* Icon and Location */}
@@ -300,7 +300,7 @@ export default async function PageDiaDiem() {
                                 <h2 className="text-xl font-bold text-blue-600">{getNhaGiat(d.NhaGiat)}</h2>
                                 <p className="text-sm text-gray-500">Địa điểm</p>
                             </div>
-                            <span className="text-blue-500">...</span>
+                            <span className="text-blue-500">.........</span>
                             <span className="text-blue-500">📦</span>
                             <div className="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
                                 <h2 className="text-xl font-bold text-blue-600">{getDiaDiem(d.ID_DiaDiem)}</h2>
