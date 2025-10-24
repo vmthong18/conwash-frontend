@@ -251,7 +251,7 @@ export default async function PageDiaDiem() {
     };
     return (
 
-            <main className="p-8">
+            <main className="p-6">
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
                 <h1 className="text-2xl font-bold">Vận chuyển</h1>
