@@ -274,38 +274,38 @@ export default async function PageDiaDiem() {
                                         </div>
                                         <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px", gap: "8px", fontSize: "16px", color: "#7a7c80", }}>
                                             <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414", }}>
-                                                {/* 1 card: 2 dòng “Box Thảo Điền / Giặt giày vải” */}
-                                                <div className="flex items-stretch gap-2">
-                                                    {/* Cột trái: chấm – vạch – chấm */}
-                                                    <div className="flex w-3 flex-col items-center py-1">
-                                                        {/* chấm trên (ngang tiêu đề) */}
-                                                        <span className="h-2.5 w-2.5 rounded-full bg-sky-600 mt-0.5" />
-                                                        {/* vạch dọc: phải là block + flex-1 */}
+                                                {/* KHỐI 2 DÒNG */}
+                                                <div className="grid grid-cols-[12px_1fr] gap-x-2">
+                                                    {/* Hàng 1: Box Thảo Điền + dot + vạch dọc tới divider */}
+                                                    <div className="flex flex-col items-center">
+                                                        <span className="h-2.5 w-2.5 rounded-full bg-sky-600 mt-1" />
+                                                        {/* vạch dọc đến đúng divider */}
                                                         <span className="block w-px flex-1 bg-gray-300/70 my-1" />
-                                                        {/* chấm dưới (ngang tiêu đề 2) */}
-                                                        <span className="h-2.5 w-2.5 rounded-full bg-sky-600 mb-0.5" />
+                                                    </div>
+                                                    <div>
+                                                        <div className="font-semibold text-[15px] leading-5">Box Thảo Điền</div>
+                                                        <div className="text-sm text-slate-600 leading-5">
+                                                            10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam
+                                                        </div>
+                                                        {/* divider giữa 2 dòng */}
+                                                        <div className="my-2 border-t border-dotted border-slate-300/80" />
                                                     </div>
 
-                                                    {/* Cột phải: nội dung 2 dòng */}
-                                                    <div className="flex-1">
-                                                        <div>
-                                                            <div className="font-semibold text-[15px] leading-5">Box Thảo Điền</div>
-                                                            <div className="text-sm text-slate-600 leading-5">
-                                                                10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam
-                                                            </div>
-                                                        </div>
-
-                                                        {/* đường kẻ chấm chấm giữa 2 dòng */}
-                                                        <div className="my-2 border-t border-dotted border-slate-300/80" />
-
-                                                        <div>
-                                                            <div className="font-semibold text-[15px] leading-5">Giặt giày vải</div>
-                                                            <div className="text-sm text-slate-600 leading-5">
-                                                                10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam
-                                                            </div>
+                                                    {/* Hàng 2: Giặt giày vải + dot riêng (không dùng vạch, hoặc dùng vạch ngắn nếu cần) */}
+                                                    <div className="flex flex-col items-center">
+                                                        <span className="h-2.5 w-2.5 rounded-full bg-sky-600 mt-1" />
+                                                        {/* Nếu muốn kẻ xuống tiếp bên dưới, thêm vạch ngắn:
+    <span className="block w-px flex-1 bg-gray-300/70 my-1" />
+    */}
+                                                    </div>
+                                                    <div>
+                                                        <div className="font-semibold text-[15px] leading-5">Giặt giày vải</div>
+                                                        <div className="text-sm text-slate-600 leading-5">
+                                                            10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam
                                                         </div>
                                                     </div>
                                                 </div>
+
 
 
 
