@@ -259,14 +259,19 @@ export default async function PageDiaDiem() {
             </div>
 
             {/* List of Locations */}
-            {mng.map((data, index) => (
-                <div key={index} className="mb-4 p-4 border border-gray-300 rounded-lg shadow-md">
+            {mng.map((d) => (
+                <div key={d.ID} className="mb-4 p-4 border border-gray-300 rounded-lg shadow-md">
                     <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center space-x-2">
                             {/* Icon and Location */}
                             <span className="text-blue-500">📦</span>
                             <div>
-                                <h2 className="text-xl font-bold text-blue-600">Box Quận 1</h2>
+                                <h2 className="text-xl font-bold text-blue-600">{getNhaGiat(d.NhaGiat)}</h2>
+                                <p className="text-sm text-gray-500">địa chỉ</p>
+                            </div>
+                            <span className="text-blue-500">📦</span>
+                            <div>
+                                <h2 className="text-xl font-bold text-blue-600">{getDiaDiem(d.ID_DiaDiem)}</h2>
                                 <p className="text-sm text-gray-500">địa chỉ</p>
                             </div>
                         </div>
@@ -275,11 +280,44 @@ export default async function PageDiaDiem() {
                     <div className="mt-2">
                         <div className="flex justify-between text-sm text-gray-600">
                             <span>Đơn hàng chờ giao</span>
-                            <span>1 đơn</span>
+                            <span>{getResult("CHO_LAY", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
                         </div>
                         <div className="flex justify-between text-sm text-gray-600">
                             <span>Đơn hàng đang giao</span>
-                            <span>2 đơn</span>
+                            <span>{getResult("VAN_CHUYEN", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            ))}
+
+            {mngdd.map((d) => (
+                <div key={d.ID} className="mb-4 p-4 border border-gray-300 rounded-lg shadow-md">
+                    <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center space-x-2">
+                            {/* Icon and Location */}
+                            <span className="text-blue-500">📦</span>
+                            <div>
+                                <h2 className="text-xl font-bold text-blue-600">{getNhaGiat(d.NhaGiat)}</h2>
+                                <p className="text-sm text-gray-500">địa chỉ</p>
+                            </div>
+                            <span className="text-blue-500">📦</span>
+                            <div>
+                                <h2 className="text-xl font-bold text-blue-600">{getDiaDiem(d.ID_DiaDiem)}</h2>
+                                <p className="text-sm text-gray-500">địa chỉ</p>
+                            </div>
+                        </div>
+                        <div className="text-blue-500">32432 đơn</div>
+                    </div>
+                    <div className="mt-2">
+                        <div className="flex justify-between text-sm text-gray-600">
+                            <span>Đơn hàng chờ giao</span>
+                            <span>{getResult("CHO_LAY", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
+                        </div>
+                        <div className="flex justify-between text-sm text-gray-600">
+                            <span>Đơn hàng đang giao</span>
+                            <span>{getResult("VAN_CHUYEN", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
                         </div>
                     </div>
 
