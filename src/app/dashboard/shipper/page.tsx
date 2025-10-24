@@ -252,6 +252,8 @@ export default async function PageDiaDiem() {
     };
     {
         return (
+                <main className="p-6">
+ <div className="mx-auto max-w-sm px-4">
             <div style={{width: "100%", position: "relative", borderRadius: "12px", backgroundColor: "#e7eefc", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start", textAlign: "left", fontSize: "14px", color: "#141414", fontFamily: "Roboto",}}>
       			<div style={{alignSelf: "stretch", borderRadius: "12px", backgroundColor: "#fff", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
         				<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 12px", gap: "20px",}}>
@@ -298,12 +300,11 @@ export default async function PageDiaDiem() {
           					</div>
         				</div>
       			</div>
-      			<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "flex-end", padding: "8px 12px", textAlign: "center", color: "#fff",}}>
-        				<div style={{borderRadius: "8px", backgroundColor: "#1059e0", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", padding: "6px 8px",}}>
-          					<div style={{position: "relative", lineHeight: "20px",}}>{`Đã giao thành công `}</div>
-        				</div>
-      			</div>
-    		</div>);
+      		
+    		</div>
+</div>
+            </main>
+            );
     };
 
 
