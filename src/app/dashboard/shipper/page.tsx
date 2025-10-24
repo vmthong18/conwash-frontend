@@ -274,41 +274,33 @@ export default async function PageDiaDiem() {
                                         </div>
                                         <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px", gap: "8px", fontSize: "16px", color: "#7a7c80", }}>
                                             <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414", }}>
-                                                {/* 1 KHỐI ĐỊA ĐIỂM */}
+                                                {/* Cụm 2 dòng: Box Thảo Điền & Giặt giày vải */}
                                                 <div className="flex items-start gap-2">
-                                                    {/* Cột trái: chấm + line dọc */}
-                                                    <div className="flex flex-col items-center">
-                                                        {/* chấm xanh – ngang hàng tiêu đề */}
-                                                        <span className="inline-block h-2.5 w-2.5 rounded-full bg-sky-600 mt-1" />
-                                                        {/* line dọc nối xuống nội dung bên dưới */}
-                                                        <span className="block w-px flex-1 border-r border-gray-300/70 mt-1" />
+                                                    {/* Cột trái: chấm – line – chấm */}
+                                                    <div className="flex flex-col items-center py-1">
+                                                        <span className="h-2.5 w-2.5 rounded-full bg-sky-600" />
+                                                        <span className="w-px flex-1 bg-gray-300/70 my-1" />
+                                                        <span className="h-2.5 w-2.5 rounded-full bg-sky-600" />
                                                     </div>
 
-                                                    {/* Cột phải: chữ */}
+                                                    {/* Cột phải: nội dung 2 dòng */}
                                                     <div className="flex-1">
-                                                        <div className="font-semibold text-[15px] leading-5">Box Thảo Điền</div>
-                                                        <div className="text-sm text-gray-600 leading-5">
-                                                            10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam
+                                                        <div className="mb-3">
+                                                            <div className="font-semibold text-[15px] leading-5">Box Thảo Điền</div>
+                                                            <div className="text-sm text-gray-600 leading-5">
+                                                                10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam
+                                                            </div>
+                                                        </div>
+
+                                                        <div>
+                                                            <div className="font-semibold text-[15px] leading-5">Giặt giày vải</div>
+                                                            <div className="text-sm text-gray-600 leading-5">
+                                                                10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                {/* Divider chấm chấm giữa mục 1 và mục 2 */}
-                                                <div className="my-2 border-t border-dotted border-gray-300/80" />
-
-                                                {/* 2 KHỐI NHÀ GIẶT */}
-                                                <div className="flex items-start gap-2">
-                                                    <div className="flex flex-col items-center">
-                                                        <span className="inline-block h-2.5 w-2.5 rounded-full bg-sky-600 mt-1" />
-                                                        <span className="block w-px flex-1 border-r border-gray-300/70 mt-1" />
-                                                    </div>
-                                                    <div className="flex-1">
-                                                        <div className="font-semibold text-[15px] leading-5">Giặt giày vải</div>
-                                                        <div className="text-sm text-gray-600 leading-5">
-                                                            10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam
-                                                        </div>
-                                                    </div>
-                                                </div>
 
                                             </div>
                                             <div style={{ alignSelf: "stretch", height: "1px", position: "relative", borderTop: "1px dashed #c4c6cc", boxSizing: "border-box", }} />
