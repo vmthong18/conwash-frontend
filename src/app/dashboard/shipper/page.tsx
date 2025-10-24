@@ -264,13 +264,13 @@ export default async function PageDiaDiem() {
                 								</div>
               							</div>
               							<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
-                								<img style={{alignSelf: "stretch", height: "1px", position: "relative", maxWidth: "100%", overflow: "hidden", flexShrink: "0",}} alt="" />
+                								<img  style={{alignSelf: "stretch", height: "1px", position: "relative", maxWidth: "100%", overflow: "hidden", flexShrink: "0", width: "100%",}} width={343} height={1} sizes="100vw" alt="" />
               							</div>
               							<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px", gap: "8px", fontSize: "16px", color: "#7a7c80",}}>
                 								<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414",}}>
                   									<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", gap: "4px",}}>
                     										<div style={{alignSelf: "stretch", width: "20px", display: "flex", flexDirection: "column", alignItems: "center",}}>
-                      											<img style={{width: "20px", height: "20px",}} alt="" />
+                      											<Image src="" style={{width: "20px", height: "20px",}} width={20} height={20} sizes="100vw" alt="" />
                       											<div style={{width: "0.5px", flex: "1", position: "relative", borderRight: "0.5px solid #d3d5db", boxSizing: "border-box",}} />
                     										</div>
                     										<div style={{width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "0px 0px 8px", boxSizing: "border-box", gap: "2px",}}>
@@ -279,7 +279,7 @@ export default async function PageDiaDiem() {
                     										</div>
                   									</div>
                   									<div style={{alignSelf: "stretch", height: "62px", display: "flex", alignItems: "center", gap: "4px",}}>
-                    										<img style={{alignSelf: "stretch", width: "20px", maxHeight: "100%",}} alt="" />
+                    										<Image src="" style={{alignSelf: "stretch", width: "20px", maxHeight: "100%",}} width={20} height={62} sizes="100vw" alt="" />
                     										<div style={{width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px",}}>
                       											<div style={{alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500",}}>Box Quận 1</div>
                       											<div style={{alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80",}}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
@@ -316,13 +316,13 @@ export default async function PageDiaDiem() {
                 								</div>
               							</div>
               							<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
-                								<img style={{alignSelf: "stretch", height: "1px", position: "relative", maxWidth: "100%", overflow: "hidden", flexShrink: "0",}} alt="" />
+                								<Image src="" style={{alignSelf: "stretch", height: "1px", position: "relative", maxWidth: "100%", overflow: "hidden", flexShrink: "0", width: "100%",}} width={343} height={1} sizes="100vw" alt="" />
               							</div>
               							<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px", gap: "8px", fontSize: "16px", color: "#7a7c80",}}>
                 								<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414",}}>
                   									<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", gap: "4px",}}>
                     										<div style={{alignSelf: "stretch", width: "20px", display: "flex", flexDirection: "column", alignItems: "center",}}>
-                      											<img style={{width: "20px", height: "20px",}} alt="" />
+                      											<Image src="" style={{width: "20px", height: "20px",}} width={20} height={20} sizes="100vw" alt="" />
                       											<div style={{width: "0.5px", flex: "1", position: "relative", borderRight: "0.5px solid #d3d5db", boxSizing: "border-box",}} />
                     										</div>
                     										<div style={{width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "0px 0px 8px", boxSizing: "border-box", gap: "2px",}}>
@@ -331,7 +331,7 @@ export default async function PageDiaDiem() {
                     										</div>
                   									</div>
                   									<div style={{alignSelf: "stretch", height: "62px", display: "flex", alignItems: "center", gap: "4px",}}>
-                    										<img style={{alignSelf: "stretch", width: "20px", maxHeight: "100%",}} alt="" />
+                    										<Image src="" style={{alignSelf: "stretch", width: "20px", maxHeight: "100%",}} width={20} height={62} sizes="100vw" alt="" />
                     										<div style={{width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px",}}>
                       											<div style={{alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500",}}>Box Quận 1</div>
                       											<div style={{alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",}}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
@@ -368,13 +368,13 @@ export default async function PageDiaDiem() {
                 								</div>
               							</div>
               							<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
-                								<img style={{alignSelf: "stretch", height: "1px", position: "relative", maxWidth: "100%", overflow: "hidden", flexShrink: "0",}} alt="" />
+                								<Image src="" style={{alignSelf: "stretch", height: "1px", position: "relative", maxWidth: "100%", overflow: "hidden", flexShrink: "0", width: "100%",}} width={343} height={1} sizes="100vw" alt="" />
               							</div>
               							<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px", gap: "8px", fontSize: "16px", color: "#7a7c80",}}>
                 								<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414",}}>
                   									<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", gap: "4px",}}>
                     										<div style={{alignSelf: "stretch", width: "20px", display: "flex", flexDirection: "column", alignItems: "center",}}>
-                      											<img style={{width: "20px", height: "20px",}} alt="" />
+                      											<Image src="" style={{width: "20px", height: "20px",}} width={20} height={20} sizes="100vw" alt="" />
                       											<div style={{width: "0.5px", flex: "1", position: "relative", borderRight: "0.5px solid #d3d5db", boxSizing: "border-box",}} />
                     										</div>
                     										<div style={{width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "0px 0px 8px", boxSizing: "border-box", gap: "2px",}}>
@@ -383,7 +383,7 @@ export default async function PageDiaDiem() {
                     										</div>
                   									</div>
                   									<div style={{alignSelf: "stretch", height: "62px", display: "flex", alignItems: "center", gap: "4px",}}>
-                    										<img style={{alignSelf: "stretch", width: "20px", maxHeight: "100%",}} alt="" />
+                    										<Image src="" style={{alignSelf: "stretch", width: "20px", maxHeight: "100%",}} width={20} height={62} sizes="100vw" alt="" />
                     										<div style={{width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px",}}>
                       											<div style={{alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500",}}>Box Quận 1</div>
                       											<div style={{alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80",}}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
@@ -417,13 +417,13 @@ export default async function PageDiaDiem() {
         				<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-end", zIndex: "2",}}>
           					<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", padding: "8px 4px", fontSize: "20px",}}>
             						<div style={{flex: "1", display: "flex", alignItems: "center", padding: "0px 12px",}}>
-              							<img style={{width: "83px", position: "relative", maxHeight: "100%", objectFit: "cover", flexShrink: "0",}} alt="" />
+              							<Image src="" style={{width: "83px", position: "relative", maxHeight: "100%", objectFit: "cover", flexShrink: "0",}} width={83} height={40} sizes="100vw" alt="" />
               							<div style={{width: "193px", display: "none", alignItems: "center", padding: "11px 0px", boxSizing: "border-box", gap: "2px", flexShrink: "0",}}>
                 								<div style={{flex: "1", position: "relative", lineHeight: "28px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",}}>Chi tiết mặt hàng</div>
                 								<div style={{height: "16px", width: "16px", position: "relative", overflow: "hidden", flexShrink: "0", display: "none",}} />
               							</div>
             						</div>
-            						<img style={{height: "48px", width: "48px", borderRadius: "8px",}} alt="" />
+            						<Image src="" style={{height: "48px", width: "48px", borderRadius: "8px",}} width={48} height={48} sizes="100vw" alt="" />
           					</div>
           					<div style={{width: "375px", display: "none", flexDirection: "column", alignItems: "flex-start", padding: "0px 16px 16px", boxSizing: "border-box", color: "#999",}}>
             						<div style={{alignSelf: "stretch", filter: "drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.1)) drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.04))", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
@@ -432,8 +432,8 @@ export default async function PageDiaDiem() {
                   									<div style={{flex: "1", display: "flex", alignItems: "center", padding: "8px 8px 8px 12px", gap: "8px", zIndex: "0",}}>
                     										<div style={{height: "20px", width: "20px", position: "relative", overflow: "hidden", flexShrink: "0",}}>
                       											<div style={{position: "relative", backgroundColor: "#666", width: "15px", height: "15px",}}>
-                        												<img style={{position: "absolute", height: "100%", width: "100%", top: "15.28%", right: "-15.28%", bottom: "-15.28%", left: "15.28%", maxWidth: "100%", overflow: "hidden", maxHeight: "100%",}} alt="" />
-                        												<img style={{position: "absolute", height: "100%", width: "100%", top: "15.28%", right: "-15.28%", bottom: "-15.28%", left: "15.28%", maxWidth: "100%", overflow: "hidden", maxHeight: "100%",}} alt="" />
+                        												<Image src="" style={{position: "absolute", height: "100%", width: "100%", top: "15.28%", right: "-15.28%", bottom: "-15.28%", left: "15.28%", maxWidth: "100%", overflow: "hidden", maxHeight: "100%",}} width={15} height={15} sizes="100vw" alt="" />
+                        												<Image src="" style={{position: "absolute", height: "100%", width: "100%", top: "15.28%", right: "-15.28%", bottom: "-15.28%", left: "15.28%", maxWidth: "100%", overflow: "hidden", maxHeight: "100%",}} width={15} height={15} sizes="100vw" alt="" />
                       											</div>
                     										</div>
                     										<div style={{flex: "1", display: "flex", alignItems: "center", padding: "0px 4px 0px 0px",}}>
@@ -451,7 +451,7 @@ export default async function PageDiaDiem() {
               							<div style={{height: "16px", width: "16px", display: "flex", alignItems: "center", justifyContent: "center", padding: "8px", boxSizing: "border-box",}}>
                 								<div style={{borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px", zIndex: "0",}}>
                   									<div style={{height: "20px", width: "20px", position: "relative", overflow: "hidden", flexShrink: "0", zIndex: "0",}}>
-                    										<img style={{position: "relative", width: "15px", height: "15px",}} alt="" />
+                    										<Image src="" style={{position: "relative", width: "100%", height: "15px",}} width={15} height={15} sizes="100vw" alt="" />
                   									</div>
                 								</div>
               							</div>
@@ -471,15 +471,15 @@ export default async function PageDiaDiem() {
       			<div style={{position: "absolute", width: "100%", top: "0px", right: "0px", left: "0px", height: "44px", overflow: "hidden", textAlign: "center", fontSize: "15px", color: "#000", fontFamily: "'SF Pro Text'",}}>
         				<div style={{position: "absolute", top: "18.33px", right: "15.37px", width: "24.3px", height: "11.3px",}}>
           					<div style={{position: "absolute", top: "0px", right: "2.3px", borderRadius: "2.67px", backgroundColor: "#000", border: "1px solid #000", boxSizing: "border-box", width: "22px", height: "11.3px", opacity: "0.35", mixBlendMode: "normal",}} />
-          					<img style={{position: "absolute", top: "3.67px", right: "0px", width: "1.3px", height: "4px", opacity: "0.4", mixBlendMode: "normal",}} alt="" />
+          					<Image src="" style={{position: "absolute", top: "3.67px", right: "0px", width: "1.3px", height: "4px", opacity: "0.4", mixBlendMode: "normal",}} width={1.3} height={4} sizes="100vw" alt="" />
           					<div style={{position: "absolute", top: "2px", right: "4.3px", borderRadius: "1.33px", backgroundColor: "#000", width: "18px", height: "7.3px",}} />
         				</div>
         				<div style={{position: "relative", backgroundColor: "#000", width: "15.3px", height: "11px",}}>
-          					<img style={{position: "absolute", top: "19px", right: "-313px", width: "15.3px", height: "4.8px",}} alt="" />
-          					<img style={{position: "absolute", top: "22.81px", right: "-310.37px", width: "10px", height: "3.6px",}} alt="" />
-          					<img style={{position: "absolute", top: "26.62px", right: "-307.64px", width: "4.6px", height: "3.4px",}} alt="" />
+          					<Image src="" style={{position: "absolute", top: "19px", right: "-313px", width: "15.3px", height: "4.8px",}} width={15.3} height={4.8} sizes="100vw" alt="" />
+          					<Image src="" style={{position: "absolute", top: "22.81px", right: "-310.37px", width: "10px", height: "3.6px",}} width={10} height={3.6} sizes="100vw" alt="" />
+          					<Image src="" style={{position: "absolute", top: "26.62px", right: "-307.64px", width: "4.6px", height: "3.4px",}} width={4.6} height={3.4} sizes="100vw" alt="" />
         				</div>
-        				<img style={{position: "relative", width: "17px", height: "10.7px",}} alt="" />
+        				<Image src="" style={{position: "relative", width: "17px", height: "10.7px",}} width={17} height={10.7} sizes="100vw" alt="" />
         				<div style={{position: "absolute", top: "14px", left: "16px", fontWeight: "600", display: "inline-block", width: "54px",}}>9:41</div>
       			</div>
     		</div>);
