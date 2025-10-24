@@ -251,239 +251,239 @@ export default async function PageDiaDiem() {
         return diaDiems.find(b => b.ID === id)?.TenDiaDiem;
     };
     {
-  	return (
-    		<div style={{width: "100%", height: "812px", position: "relative", backgroundColor: "#f2f4f7", overflow: "hidden", textAlign: "left", fontSize: "14px", color: "#141414", fontFamily: "Roboto",}}>
-      			<div style={{position: "absolute", height: "calc(100% - 142px)", width: "100%", top: "108px", right: "0px", bottom: "34px", left: "0px", display: "flex", flexDirection: "column", alignItems: "center", padding: "16px", boxSizing: "border-box",}}>
-        				<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "16px",}}>
-          					<div style={{width: "343px", borderRadius: "12px", backgroundColor: "#e7eefc", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
-            						<div style={{alignSelf: "stretch", borderRadius: "12px", backgroundColor: "#fff", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
-              							<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 12px", gap: "20px",}}>
-                								<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>Vận chuyển</div>
-                								<div style={{borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", color: "#1059e0", fontFamily: "Inter",}}>
-                  									<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>23 đơn</div>
-                								</div>
-              							</div>
-              							<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
-                								<img style={{alignSelf: "stretch", height: "1px", position: "relative", maxWidth: "100%", overflow: "hidden", flexShrink: "0", width: "100%",}} width={343} height={1} sizes="100vw" alt="" />
-              							</div>
-              							<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px", gap: "8px", fontSize: "16px", color: "#7a7c80",}}>
-                								<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414",}}>
-                  									<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", gap: "4px",}}>
-                    										<div style={{alignSelf: "stretch", width: "20px", display: "flex", flexDirection: "column", alignItems: "center",}}>
-                      											<img style={{width: "20px", height: "20px",}} width={20} height={20} sizes="100vw" alt="" />
-                      											<div style={{width: "0.5px", flex: "1", position: "relative", borderRight: "0.5px solid #d3d5db", boxSizing: "border-box",}} />
-                    										</div>
-                    										<div style={{width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "0px 0px 8px", boxSizing: "border-box", gap: "2px",}}>
-                      											<div style={{alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500",}}>Box Quận 1</div>
-                      											<div style={{alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80",}}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                    										</div>
-                  									</div>
-                  									<div style={{alignSelf: "stretch", height: "62px", display: "flex", alignItems: "center", gap: "4px",}}>
-                    										<img style={{alignSelf: "stretch", width: "20px", maxHeight: "100%",}} width={20} height={62} sizes="100vw" alt="" />
-                    										<div style={{width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px",}}>
-                      											<div style={{alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500",}}>Box Quận 1</div>
-                      											<div style={{alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80",}}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                    										</div>
-                  									</div>
-                								</div>
-                								<div style={{alignSelf: "stretch", height: "1px", position: "relative", borderTop: "1px dashed #c4c6cc", boxSizing: "border-box",}} />
-                								<div style={{display: "flex", alignItems: "center",}}>
-                  									<div style={{width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0",}}>{`Đơn hàng chờ giao: `}</div>
-                  									<div style={{borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter",}}>
-                    										<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>23 đơn</div>
-                  									</div>
-                								</div>
-                								<div style={{display: "flex", alignItems: "center",}}>
-                  									<div style={{width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0",}}>{`Đơn hàng đang giao: `}</div>
-                  									<div style={{borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter",}}>
-                    										<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>23 đơn</div>
-                  									</div>
-                								</div>
-              							</div>
-            						</div>
-            						<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "flex-end", padding: "8px 12px", textAlign: "center", color: "#fff",}}>
-              							<div style={{borderRadius: "8px", backgroundColor: "#1059e0", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", padding: "6px 8px",}}>
-                								<div style={{position: "relative", lineHeight: "20px",}}>{`Đã giao thành công `}</div>
-              							</div>
-            						</div>
-          					</div>
-          					<div style={{width: "343px", borderRadius: "12px", backgroundColor: "#e7eefc", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
-            						<div style={{alignSelf: "stretch", borderRadius: "12px", backgroundColor: "#fff", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
-              							<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 12px", gap: "20px",}}>
-                								<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>Vận chuyển</div>
-                								<div style={{borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", color: "#1059e0", fontFamily: "Inter",}}>
-                  									<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>23 đơn</div>
-                								</div>
-              							</div>
-              							<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
-                								<img style={{alignSelf: "stretch", height: "1px", position: "relative", maxWidth: "100%", overflow: "hidden", flexShrink: "0", width: "100%",}} width={343} height={1} sizes="100vw" alt="" />
-              							</div>
-              							<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px", gap: "8px", fontSize: "16px", color: "#7a7c80",}}>
-                								<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414",}}>
-                  									<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", gap: "4px",}}>
-                    										<div style={{alignSelf: "stretch", width: "20px", display: "flex", flexDirection: "column", alignItems: "center",}}>
-                      											<img style={{width: "20px", height: "20px",}} width={20} height={20} sizes="100vw" alt="" />
-                      											<div style={{width: "0.5px", flex: "1", position: "relative", borderRight: "0.5px solid #d3d5db", boxSizing: "border-box",}} />
-                    										</div>
-                    										<div style={{width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "0px 0px 8px", boxSizing: "border-box", gap: "2px",}}>
-                      											<div style={{alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500",}}>Box Quận 1</div>
-                      											<div style={{alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",}}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                    										</div>
-                  									</div>
-                  									<div style={{alignSelf: "stretch", height: "62px", display: "flex", alignItems: "center", gap: "4px",}}>
-                    										<img style={{alignSelf: "stretch", width: "20px", maxHeight: "100%",}} width={20} height={62} sizes="100vw" alt="" />
-                    										<div style={{width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px",}}>
-                      											<div style={{alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500",}}>Box Quận 1</div>
-                      											<div style={{alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",}}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                    										</div>
-                  									</div>
-                								</div>
-                								<div style={{alignSelf: "stretch", height: "1px", position: "relative", borderTop: "1px dashed #c4c6cc", boxSizing: "border-box",}} />
-                								<div style={{display: "flex", alignItems: "center",}}>
-                  									<div style={{width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0",}}>{`Đơn hàng đã giao: `}</div>
-                  									<div style={{borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter",}}>
-                    										<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>23 đơn</div>
-                  									</div>
-                								</div>
-                								<div style={{display: "flex", alignItems: "center",}}>
-                  									<div style={{width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0",}}>{`Đơn hàng đang giao: `}</div>
-                  									<div style={{borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter",}}>
-                    										<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>23 đơn</div>
-                  									</div>
-                								</div>
-              							</div>
-            						</div>
-            						<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "flex-end", padding: "8px 12px", textAlign: "center", color: "#fff",}}>
-              							<div style={{borderRadius: "8px", backgroundColor: "#1059e0", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", padding: "6px 8px",}}>
-                								<div style={{position: "relative", lineHeight: "20px",}}>{`Đã giao thành công `}</div>
-              							</div>
-            						</div>
-          					</div>
-          					<div style={{width: "343px", borderRadius: "12px", backgroundColor: "#e7eefc", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
-            						<div style={{alignSelf: "stretch", borderRadius: "12px", backgroundColor: "#fff", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
-              							<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 12px", gap: "20px",}}>
-                								<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>Vận chuyển</div>
-                								<div style={{borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", color: "#1059e0", fontFamily: "Inter",}}>
-                  									<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>23 đơn</div>
-                								</div>
-              							</div>
-              							<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
-                								<img style={{alignSelf: "stretch", height: "1px", position: "relative", maxWidth: "100%", overflow: "hidden", flexShrink: "0", width: "100%",}} width={343} height={1} sizes="100vw" alt="" />
-              							</div>
-              							<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px", gap: "8px", fontSize: "16px", color: "#7a7c80",}}>
-                								<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414",}}>
-                  									<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", gap: "4px",}}>
-                    										<div style={{alignSelf: "stretch", width: "20px", display: "flex", flexDirection: "column", alignItems: "center",}}>
-                      											<img style={{width: "20px", height: "20px",}} width={20} height={20} sizes="100vw" alt="" />
-                      											<div style={{width: "0.5px", flex: "1", position: "relative", borderRight: "0.5px solid #d3d5db", boxSizing: "border-box",}} />
-                    										</div>
-                    										<div style={{width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "0px 0px 8px", boxSizing: "border-box", gap: "2px",}}>
-                      											<div style={{alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500",}}>Box Quận 1</div>
-                      											<div style={{alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80",}}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                    										</div>
-                  									</div>
-                  									<div style={{alignSelf: "stretch", height: "62px", display: "flex", alignItems: "center", gap: "4px",}}>
-                    										<img style={{alignSelf: "stretch", width: "20px", maxHeight: "100%",}} width={20} height={62} sizes="100vw" alt="" />
-                    										<div style={{width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px",}}>
-                      											<div style={{alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500",}}>Box Quận 1</div>
-                      											<div style={{alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80",}}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                    										</div>
-                  									</div>
-                								</div>
-                								<div style={{alignSelf: "stretch", height: "1px", position: "relative", borderTop: "1px dashed #c4c6cc", boxSizing: "border-box",}} />
-                								<div style={{display: "flex", alignItems: "center",}}>
-                  									<div style={{width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0",}}>{`Đơn hàng đã giao: `}</div>
-                  									<div style={{borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter",}}>
-                    										<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>23 đơn</div>
-                  									</div>
-                								</div>
-                								<div style={{display: "flex", alignItems: "center",}}>
-                  									<div style={{width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0",}}>{`Đơn hàng đang giao: `}</div>
-                  									<div style={{borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter",}}>
-                    										<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>23 đơn</div>
-                  									</div>
-                								</div>
-              							</div>
-            						</div>
-            						<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "flex-end", padding: "8px 12px", textAlign: "center", color: "#fff",}}>
-              							<div style={{borderRadius: "8px", backgroundColor: "#1059e0", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", padding: "6px 8px",}}>
-                								<div style={{position: "relative", lineHeight: "20px",}}>{`Đã giao thành công `}</div>
-              							</div>
-            						</div>
-          					</div>
-        				</div>
-      			</div>
-      			<div style={{position: "absolute", top: "44px", left: "0px", width: "375px", display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-end", fontSize: "16px", color: "#333",}}>
-        				<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-end", zIndex: "2",}}>
-          					<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", padding: "8px 4px", fontSize: "20px",}}>
-            						<div style={{flex: "1", display: "flex", alignItems: "center", padding: "0px 12px",}}>
-              							<img style={{width: "83px", position: "relative", maxHeight: "100%", objectFit: "cover", flexShrink: "0",}} width={83} height={40} sizes="100vw" alt="" />
-              							<div style={{width: "193px", display: "none", alignItems: "center", padding: "11px 0px", boxSizing: "border-box", gap: "2px", flexShrink: "0",}}>
-                								<div style={{flex: "1", position: "relative", lineHeight: "28px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",}}>Chi tiết mặt hàng</div>
-                								<div style={{height: "16px", width: "16px", position: "relative", overflow: "hidden", flexShrink: "0", display: "none",}} />
-              							</div>
-            						</div>
-            						<img style={{height: "48px", width: "48px", borderRadius: "8px",}} width={48} height={48} sizes="100vw" alt="" />
-          					</div>
-          					<div style={{width: "375px", display: "none", flexDirection: "column", alignItems: "flex-start", padding: "0px 16px 16px", boxSizing: "border-box", color: "#999",}}>
-            						<div style={{alignSelf: "stretch", filter: "drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.1)) drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.04))", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
-              							<div style={{alignSelf: "stretch", borderRadius: "8px", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
-                								<div style={{alignSelf: "stretch", borderRadius: "8px", backgroundColor: "#fff", border: "1px solid rgba(0, 0, 0, 0.2)", overflow: "hidden", display: "flex", alignItems: "center", zIndex: "0",}}>
-                  									<div style={{flex: "1", display: "flex", alignItems: "center", padding: "8px 8px 8px 12px", gap: "8px", zIndex: "0",}}>
-                    										<div style={{height: "20px", width: "20px", position: "relative", overflow: "hidden", flexShrink: "0",}}>
-                      											<div style={{position: "relative", backgroundColor: "#666", width: "15px", height: "15px",}}>
-                        												<img style={{position: "absolute", height: "100%", width: "100%", top: "15.28%", right: "-15.28%", bottom: "-15.28%", left: "15.28%", maxWidth: "100%", overflow: "hidden", maxHeight: "100%",}} width={15} height={15} sizes="100vw" alt="" />
-                        												<img style={{position: "absolute", height: "100%", width: "100%", top: "15.28%", right: "-15.28%", bottom: "-15.28%", left: "15.28%", maxWidth: "100%", overflow: "hidden", maxHeight: "100%",}} width={15} height={15} sizes="100vw" alt="" />
-                      											</div>
-                    										</div>
-                    										<div style={{flex: "1", display: "flex", alignItems: "center", padding: "0px 4px 0px 0px",}}>
-                      											<div style={{flex: "1", overflow: "hidden", display: "flex", alignItems: "center",}}>
-                        												<div style={{flex: "1", position: "relative", letterSpacing: "0.5px", lineHeight: "24px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", zIndex: "0",}}>Nhập nội dung tìm kiếm tin tức</div>
-                      											</div>
-                    										</div>
-                  									</div>
-                								</div>
-              							</div>
-            						</div>
-          					</div>
-          					<div style={{width: "147px", display: "none", alignItems: "flex-start", padding: "8px 16px 24px", boxSizing: "border-box",}}>
-            						<div style={{display: "flex", alignItems: "center", gap: "12px",}}>
-              							<div style={{height: "16px", width: "16px", display: "flex", alignItems: "center", justifyContent: "center", padding: "8px", boxSizing: "border-box",}}>
-                								<div style={{borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px", zIndex: "0",}}>
-                  									<div style={{height: "20px", width: "20px", position: "relative", overflow: "hidden", flexShrink: "0", zIndex: "0",}}>
-                    										<img style={{position: "relative", width: "100%", height: "15px",}} width={15} height={15} sizes="100vw" alt="" />
-                  									</div>
-                								</div>
-              							</div>
-              							<div style={{position: "relative", letterSpacing: "0.5px", lineHeight: "24px",}}>Chọn tất cả</div>
-            						</div>
-          					</div>
-        				</div>
-        				<div style={{width: "375px", height: "1px", overflow: "hidden", flexShrink: "0", display: "none", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", zIndex: "1",}} />
-        				<div style={{width: "100%", height: "100%", position: "absolute", margin: "0", top: "0px", right: "0px", bottom: "0px", left: "0px", display: "none", zIndex: "0",}}>
-          					<div style={{position: "absolute", height: "100%", width: "100%", top: "0px", right: "0px", bottom: "0px", left: "0px", boxShadow: "0px 4px 12px -2px rgba(0, 0, 0, 0.1), 0px 0px 4px rgba(0, 0, 0, 0.04)", backgroundColor: "#fff", display: "none",}} />
-          					<div style={{position: "absolute", height: "100%", width: "100%", top: "0px", right: "0px", bottom: "0px", left: "0px", backgroundColor: "#fff", display: "none",}} />
-        				</div>
-      			</div>
-      			<div style={{position: "absolute", width: "100%", right: "0px", bottom: "0px", left: "0px", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", padding: "21px 120px 8px", boxSizing: "border-box",}}>
-        				<div style={{width: "135px", height: "5px", position: "relative", borderRadius: "2.5px", backgroundColor: "#000", zIndex: "0",}} />
-      			</div>
-      			<div style={{position: "absolute", width: "100%", top: "0px", right: "0px", left: "0px", height: "44px", overflow: "hidden", textAlign: "center", fontSize: "15px", color: "#000", fontFamily: "'SF Pro Text'",}}>
-        				<div style={{position: "absolute", top: "18.33px", right: "15.37px", width: "24.3px", height: "11.3px",}}>
-          					<div style={{position: "absolute", top: "0px", right: "2.3px", borderRadius: "2.67px", backgroundColor: "#000", border: "1px solid #000", boxSizing: "border-box", width: "22px", height: "11.3px", opacity: "0.35", mixBlendMode: "normal",}} />
-          					<img style={{position: "absolute", top: "3.67px", right: "0px", width: "1.3px", height: "4px", opacity: "0.4", mixBlendMode: "normal",}} width={1.3} height={4} sizes="100vw" alt="" />
-          					<div style={{position: "absolute", top: "2px", right: "4.3px", borderRadius: "1.33px", backgroundColor: "#000", width: "18px", height: "7.3px",}} />
-        				</div>
-        				<div style={{position: "relative", backgroundColor: "#000", width: "15.3px", height: "11px",}}>
-          					<img style={{position: "absolute", top: "19px", right: "-313px", width: "15.3px", height: "4.8px",}} width={15.3} height={4.8} sizes="100vw" alt="" />
-          					<img style={{position: "absolute", top: "22.81px", right: "-310.37px", width: "10px", height: "3.6px",}} width={10} height={3.6} sizes="100vw" alt="" />
-          					<img style={{position: "absolute", top: "26.62px", right: "-307.64px", width: "4.6px", height: "3.4px",}} width={4.6} height={3.4} sizes="100vw" alt="" />
-        				</div>
-        				<img style={{position: "relative", width: "17px", height: "10.7px",}} width={17} height={10.7} sizes="100vw" alt="" />
-        				<div style={{position: "absolute", top: "14px", left: "16px", fontWeight: "600", display: "inline-block", width: "54px",}}>9:41</div>
-      			</div>
-    		</div>);
-};
+        return (
+            <div style={{ width: "100%", height: "812px", position: "relative", backgroundColor: "#f2f4f7", overflow: "hidden", textAlign: "left", fontSize: "14px", color: "#141414", fontFamily: "Roboto", }}>
+                <div style={{ position: "absolute", height: "calc(100% - 142px)", width: "100%", top: "108px", right: "0px", bottom: "34px", left: "0px", display: "flex", flexDirection: "column", alignItems: "center", padding: "16px", boxSizing: "border-box", }}>
+                    <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "16px", }}>
+                        <div style={{ width: "343px", borderRadius: "12px", backgroundColor: "#e7eefc", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start", }}>
+                            <div style={{ alignSelf: "stretch", borderRadius: "12px", backgroundColor: "#fff", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start", }}>
+                                <div style={{ alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 12px", gap: "20px", }}>
+                                    <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>Vận chuyển</div>
+                                    <div style={{ borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", color: "#1059e0", fontFamily: "Inter", }}>
+                                        <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>23 đơn</div>
+                                    </div>
+                                </div>
+                                <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", }}>
+                                    <Image src="/Ellipse 2.svg" style={{ alignSelf: "stretch", height: "1px", position: "relative", maxWidth: "100%", overflow: "hidden", flexShrink: "0", width: "100%", }} width={343} height={1} sizes="100vw" alt="" />
+                                </div>
+                                <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px", gap: "8px", fontSize: "16px", color: "#7a7c80", }}>
+                                    <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414", }}>
+                                        <div style={{ alignSelf: "stretch", display: "flex", alignItems: "center", gap: "4px", }}>
+                                            <div style={{ alignSelf: "stretch", width: "20px", display: "flex", flexDirection: "column", alignItems: "center", }}>
+                                                <Image src="/Ellipse 2.svg" style={{ width: "20px", height: "20px", }} width={20} height={20} sizes="100vw" alt="" />
+                                                <div style={{ width: "0.5px", flex: "1", position: "relative", borderRight: "0.5px solid #d3d5db", boxSizing: "border-box", }} />
+                                            </div>
+                                            <div style={{ width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "0px 0px 8px", boxSizing: "border-box", gap: "2px", }}>
+                                                <div style={{ alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500", }}>Box Quận 1</div>
+                                                <div style={{ alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", }}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                                            </div>
+                                        </div>
+                                        <div style={{ alignSelf: "stretch", height: "62px", display: "flex", alignItems: "center", gap: "4px", }}>
+                                            <Image src="/Ellipse 2.svg" style={{ alignSelf: "stretch", width: "20px", maxHeight: "100%", }} width={20} height={62} sizes="100vw" alt="" />
+                                            <div style={{ width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px", }}>
+                                                <div style={{ alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500", }}>Box Quận 1</div>
+                                                <div style={{ alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", }}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style={{ alignSelf: "stretch", height: "1px", position: "relative", borderTop: "1px dashed #c4c6cc", boxSizing: "border-box", }} />
+                                    <div style={{ display: "flex", alignItems: "center", }}>
+                                        <div style={{ width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0", }}>{`Đơn hàng chờ giao: `}</div>
+                                        <div style={{ borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter", }}>
+                                            <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>23 đơn</div>
+                                        </div>
+                                    </div>
+                                    <div style={{ display: "flex", alignItems: "center", }}>
+                                        <div style={{ width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0", }}>{`Đơn hàng đang giao: `}</div>
+                                        <div style={{ borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter", }}>
+                                            <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>23 đơn</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style={{ alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "flex-end", padding: "8px 12px", textAlign: "center", color: "#fff", }}>
+                                <div style={{ borderRadius: "8px", backgroundColor: "#1059e0", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", padding: "6px 8px", }}>
+                                    <div style={{ position: "relative", lineHeight: "20px", }}>{`Đã giao thành công `}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style={{ width: "343px", borderRadius: "12px", backgroundColor: "#e7eefc", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start", }}>
+                            <div style={{ alignSelf: "stretch", borderRadius: "12px", backgroundColor: "#fff", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start", }}>
+                                <div style={{ alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 12px", gap: "20px", }}>
+                                    <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>Vận chuyển</div>
+                                    <div style={{ borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", color: "#1059e0", fontFamily: "Inter", }}>
+                                        <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>23 đơn</div>
+                                    </div>
+                                </div>
+                                <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", }}>
+                                    <Image src="/Ellipse 2.svg" style={{ alignSelf: "stretch", height: "1px", position: "relative", maxWidth: "100%", overflow: "hidden", flexShrink: "0", width: "100%", }} width={343} height={1} sizes="100vw" alt="" />
+                                </div>
+                                <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px", gap: "8px", fontSize: "16px", color: "#7a7c80", }}>
+                                    <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414", }}>
+                                        <div style={{ alignSelf: "stretch", display: "flex", alignItems: "center", gap: "4px", }}>
+                                            <div style={{ alignSelf: "stretch", width: "20px", display: "flex", flexDirection: "column", alignItems: "center", }}>
+                                                <Image src="/Ellipse 2.svg" style={{ width: "20px", height: "20px", }} width={20} height={20} sizes="100vw" alt="" />
+                                                <div style={{ width: "0.5px", flex: "1", position: "relative", borderRight: "0.5px solid #d3d5db", boxSizing: "border-box", }} />
+                                            </div>
+                                            <div style={{ width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "0px 0px 8px", boxSizing: "border-box", gap: "2px", }}>
+                                                <div style={{ alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500", }}>Box Quận 1</div>
+                                                <div style={{ alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", }}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                                            </div>
+                                        </div>
+                                        <div style={{ alignSelf: "stretch", height: "62px", display: "flex", alignItems: "center", gap: "4px", }}>
+                                            <Image src="/Ellipse 2.svg" style={{ alignSelf: "stretch", width: "20px", maxHeight: "100%", }} width={20} height={62} sizes="100vw" alt="" />
+                                            <div style={{ width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px", }}>
+                                                <div style={{ alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500", }}>Box Quận 1</div>
+                                                <div style={{ alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", }}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style={{ alignSelf: "stretch", height: "1px", position: "relative", borderTop: "1px dashed #c4c6cc", boxSizing: "border-box", }} />
+                                    <div style={{ display: "flex", alignItems: "center", }}>
+                                        <div style={{ width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0", }}>{`Đơn hàng đã giao: `}</div>
+                                        <div style={{ borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter", }}>
+                                            <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>23 đơn</div>
+                                        </div>
+                                    </div>
+                                    <div style={{ display: "flex", alignItems: "center", }}>
+                                        <div style={{ width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0", }}>{`Đơn hàng đang giao: `}</div>
+                                        <div style={{ borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter", }}>
+                                            <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>23 đơn</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style={{ alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "flex-end", padding: "8px 12px", textAlign: "center", color: "#fff", }}>
+                                <div style={{ borderRadius: "8px", backgroundColor: "#1059e0", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", padding: "6px 8px", }}>
+                                    <div style={{ position: "relative", lineHeight: "20px", }}>{`Đã giao thành công `}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style={{ width: "343px", borderRadius: "12px", backgroundColor: "#e7eefc", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start", }}>
+                            <div style={{ alignSelf: "stretch", borderRadius: "12px", backgroundColor: "#fff", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start", }}>
+                                <div style={{ alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 12px", gap: "20px", }}>
+                                    <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>Vận chuyển</div>
+                                    <div style={{ borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", color: "#1059e0", fontFamily: "Inter", }}>
+                                        <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>23 đơn</div>
+                                    </div>
+                                </div>
+                                <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", }}>
+                                    <Image src="/Ellipse 2.svg" style={{ alignSelf: "stretch", height: "1px", position: "relative", maxWidth: "100%", overflow: "hidden", flexShrink: "0", width: "100%", }} width={343} height={1} sizes="100vw" alt="" />
+                                </div>
+                                <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px", gap: "8px", fontSize: "16px", color: "#7a7c80", }}>
+                                    <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414", }}>
+                                        <div style={{ alignSelf: "stretch", display: "flex", alignItems: "center", gap: "4px", }}>
+                                            <div style={{ alignSelf: "stretch", width: "20px", display: "flex", flexDirection: "column", alignItems: "center", }}>
+                                                <Image src="/Ellipse 2.svg" style={{ width: "20px", height: "20px", }} width={20} height={20} sizes="100vw" alt="" />
+                                                <div style={{ width: "0.5px", flex: "1", position: "relative", borderRight: "0.5px solid #d3d5db", boxSizing: "border-box", }} />
+                                            </div>
+                                            <div style={{ width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "0px 0px 8px", boxSizing: "border-box", gap: "2px", }}>
+                                                <div style={{ alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500", }}>Box Quận 1</div>
+                                                <div style={{ alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", }}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                                            </div>
+                                        </div>
+                                        <div style={{ alignSelf: "stretch", height: "62px", display: "flex", alignItems: "center", gap: "4px", }}>
+                                            <Image src="/Ellipse 2.svg" style={{ alignSelf: "stretch", width: "20px", maxHeight: "100%", }} width={20} height={62} sizes="100vw" alt="" />
+                                            <div style={{ width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px", }}>
+                                                <div style={{ alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500", }}>Box Quận 1</div>
+                                                <div style={{ alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", }}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style={{ alignSelf: "stretch", height: "1px", position: "relative", borderTop: "1px dashed #c4c6cc", boxSizing: "border-box", }} />
+                                    <div style={{ display: "flex", alignItems: "center", }}>
+                                        <div style={{ width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0", }}>{`Đơn hàng đã giao: `}</div>
+                                        <div style={{ borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter", }}>
+                                            <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>23 đơn</div>
+                                        </div>
+                                    </div>
+                                    <div style={{ display: "flex", alignItems: "center", }}>
+                                        <div style={{ width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0", }}>{`Đơn hàng đang giao: `}</div>
+                                        <div style={{ borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter", }}>
+                                            <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>23 đơn</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style={{ alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "flex-end", padding: "8px 12px", textAlign: "center", color: "#fff", }}>
+                                <div style={{ borderRadius: "8px", backgroundColor: "#1059e0", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", padding: "6px 8px", }}>
+                                    <div style={{ position: "relative", lineHeight: "20px", }}>{`Đã giao thành công `}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style={{ position: "absolute", top: "44px", left: "0px", width: "375px", display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-end", fontSize: "16px", color: "#333", }}>
+                    <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-end", zIndex: "2", }}>
+                        <div style={{ alignSelf: "stretch", display: "flex", alignItems: "center", padding: "8px 4px", fontSize: "20px", }}>
+                            <div style={{ flex: "1", display: "flex", alignItems: "center", padding: "0px 12px", }}>
+                                <Image src="/Ellipse 2.svg" style={{ width: "83px", position: "relative", maxHeight: "100%", objectFit: "cover", flexShrink: "0", }} width={83} height={40} sizes="100vw" alt="" />
+                                <div style={{ width: "193px", display: "none", alignItems: "center", padding: "11px 0px", boxSizing: "border-box", gap: "2px", flexShrink: "0", }}>
+                                    <div style={{ flex: "1", position: "relative", lineHeight: "28px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", }}>Chi tiết mặt hàng</div>
+                                    <div style={{ height: "16px", width: "16px", position: "relative", overflow: "hidden", flexShrink: "0", display: "none", }} />
+                                </div>
+                            </div>
+                            <Image src="/Ellipse 2.svg" style={{ height: "48px", width: "48px", borderRadius: "8px", }} width={48} height={48} sizes="100vw" alt="" />
+                        </div>
+                        <div style={{ width: "375px", display: "none", flexDirection: "column", alignItems: "flex-start", padding: "0px 16px 16px", boxSizing: "border-box", color: "#999", }}>
+                            <div style={{ alignSelf: "stretch", filter: "drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.1)) drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.04))", display: "flex", flexDirection: "column", alignItems: "flex-start", }}>
+                                <div style={{ alignSelf: "stretch", borderRadius: "8px", display: "flex", flexDirection: "column", alignItems: "flex-start", }}>
+                                    <div style={{ alignSelf: "stretch", borderRadius: "8px", backgroundColor: "#fff", border: "1px solid rgba(0, 0, 0, 0.2)", overflow: "hidden", display: "flex", alignItems: "center", zIndex: "0", }}>
+                                        <div style={{ flex: "1", display: "flex", alignItems: "center", padding: "8px 8px 8px 12px", gap: "8px", zIndex: "0", }}>
+                                            <div style={{ height: "20px", width: "20px", position: "relative", overflow: "hidden", flexShrink: "0", }}>
+                                                <div style={{ position: "relative", backgroundColor: "#666", width: "15px", height: "15px", }}>
+                                                    <Image src="/Ellipse 2.svg" style={{ position: "absolute", height: "100%", width: "100%", top: "15.28%", right: "-15.28%", bottom: "-15.28%", left: "15.28%", maxWidth: "100%", overflow: "hidden", maxHeight: "100%", }} width={15} height={15} sizes="100vw" alt="" />
+                                                    <Image src="/Ellipse 2.svg" style={{ position: "absolute", height: "100%", width: "100%", top: "15.28%", right: "-15.28%", bottom: "-15.28%", left: "15.28%", maxWidth: "100%", overflow: "hidden", maxHeight: "100%", }} width={15} height={15} sizes="100vw" alt="" />
+                                                </div>
+                                            </div>
+                                            <div style={{ flex: "1", display: "flex", alignItems: "center", padding: "0px 4px 0px 0px", }}>
+                                                <div style={{ flex: "1", overflow: "hidden", display: "flex", alignItems: "center", }}>
+                                                    <div style={{ flex: "1", position: "relative", letterSpacing: "0.5px", lineHeight: "24px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", zIndex: "0", }}>Nhập nội dung tìm kiếm tin tức</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style={{ width: "147px", display: "none", alignItems: "flex-start", padding: "8px 16px 24px", boxSizing: "border-box", }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: "12px", }}>
+                                <div style={{ height: "16px", width: "16px", display: "flex", alignItems: "center", justifyContent: "center", padding: "8px", boxSizing: "border-box", }}>
+                                    <div style={{ borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px", zIndex: "0", }}>
+                                        <div style={{ height: "20px", width: "20px", position: "relative", overflow: "hidden", flexShrink: "0", zIndex: "0", }}>
+                                            <Image src="/Ellipse 2.svg" style={{ position: "relative", width: "100%", height: "15px", }} width={15} height={15} sizes="100vw" alt="" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style={{ position: "relative", letterSpacing: "0.5px", lineHeight: "24px", }}>Chọn tất cả</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style={{ width: "375px", height: "1px", overflow: "hidden", flexShrink: "0", display: "none", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", zIndex: "1", }} />
+                    <div style={{ width: "100%", height: "100%", position: "absolute", margin: "0", top: "0px", right: "0px", bottom: "0px", left: "0px", display: "none", zIndex: "0", }}>
+                        <div style={{ position: "absolute", height: "100%", width: "100%", top: "0px", right: "0px", bottom: "0px", left: "0px", boxShadow: "0px 4px 12px -2px rgba(0, 0, 0, 0.1), 0px 0px 4px rgba(0, 0, 0, 0.04)", backgroundColor: "#fff", display: "none", }} />
+                        <div style={{ position: "absolute", height: "100%", width: "100%", top: "0px", right: "0px", bottom: "0px", left: "0px", backgroundColor: "#fff", display: "none", }} />
+                    </div>
+                </div>
+                <div style={{ position: "absolute", width: "100%", right: "0px", bottom: "0px", left: "0px", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", padding: "21px 120px 8px", boxSizing: "border-box", }}>
+                    <div style={{ width: "135px", height: "5px", position: "relative", borderRadius: "2.5px", backgroundColor: "#000", zIndex: "0", }} />
+                </div>
+                <div style={{ position: "absolute", width: "100%", top: "0px", right: "0px", left: "0px", height: "44px", overflow: "hidden", textAlign: "center", fontSize: "15px", color: "#000", fontFamily: "'SF Pro Text'", }}>
+                    <div style={{ position: "absolute", top: "18.33px", right: "15.37px", width: "24.3px", height: "11.3px", }}>
+                        <div style={{ position: "absolute", top: "0px", right: "2.3px", borderRadius: "2.67px", backgroundColor: "#000", border: "1px solid #000", boxSizing: "border-box", width: "22px", height: "11.3px", opacity: "0.35", mixBlendMode: "normal", }} />
+                        <Image src="/Ellipse 2.svg" style={{ position: "absolute", top: "3.67px", right: "0px", width: "1.3px", height: "4px", opacity: "0.4", mixBlendMode: "normal", }} width={1.3} height={4} sizes="100vw" alt="" />
+                        <div style={{ position: "absolute", top: "2px", right: "4.3px", borderRadius: "1.33px", backgroundColor: "#000", width: "18px", height: "7.3px", }} />
+                    </div>
+                    <div style={{ position: "relative", backgroundColor: "#000", width: "15.3px", height: "11px", }}>
+                        <Image src="/Ellipse 2.svg" style={{ position: "absolute", top: "19px", right: "-313px", width: "15.3px", height: "4.8px", }} width={15.3} height={4.8} sizes="100vw" alt="" />
+                        <Image src="/Ellipse 2.svg" style={{ position: "absolute", top: "22.81px", right: "-310.37px", width: "10px", height: "3.6px", }} width={10} height={3.6} sizes="100vw" alt="" />
+                        <Image src="/Ellipse 2.svg" style={{ position: "absolute", top: "26.62px", right: "-307.64px", width: "4.6px", height: "3.4px", }} width={4.6} height={3.4} sizes="100vw" alt="" />
+                    </div>
+                    <Image src="/Ellipse 2.svg" style={{ position: "relative", width: "17px", height: "10.7px", }} width={17} height={10.7} sizes="100vw" alt="" />
+                    <div style={{ position: "absolute", top: "14px", left: "16px", fontWeight: "600", display: "inline-block", width: "54px", }}>9:41</div>
+                </div>
+            </div>);
+    };
 
 
 }
