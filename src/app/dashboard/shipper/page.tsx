@@ -270,7 +270,7 @@ export default async function PageDiaDiem() {
                 								<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414",}}>
                   									<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", gap: "4px",}}>
                     										<div style={{alignSelf: "stretch", width: "20px", display: "flex", flexDirection: "column", alignItems: "center",}}>
-                      											<Image src="" style={{width: "20px", height: "20px",}} width={20} height={20} sizes="100vw" alt="" />
+                      											<div style={{height: "9px", width: "100%", position: "relative", borderRadius: "50%", backgroundColor: "#1059e0",}} />
                       											<div style={{width: "0.5px", flex: "1", position: "relative", borderRight: "0.5px solid #d3d5db", boxSizing: "border-box",}} />
                     										</div>
                     										<div style={{width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "0px 0px 8px", boxSizing: "border-box", gap: "2px",}}>
@@ -322,7 +322,7 @@ export default async function PageDiaDiem() {
                 								<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414",}}>
                   									<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", gap: "4px",}}>
                     										<div style={{alignSelf: "stretch", width: "20px", display: "flex", flexDirection: "column", alignItems: "center",}}>
-                      											<Image src="" style={{width: "20px", height: "20px",}} width={20} height={20} sizes="100vw" alt="" />
+                      											<div style={{height: "9px", width: "100%", position: "relative", borderRadius: "50%", backgroundColor: "#1059e0",}} />
                       											<div style={{width: "0.5px", flex: "1", position: "relative", borderRight: "0.5px solid #d3d5db", boxSizing: "border-box",}} />
                     										</div>
                     										<div style={{width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "0px 0px 8px", boxSizing: "border-box", gap: "2px",}}>
@@ -374,7 +374,7 @@ export default async function PageDiaDiem() {
                 								<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414",}}>
                   									<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", gap: "4px",}}>
                     										<div style={{alignSelf: "stretch", width: "20px", display: "flex", flexDirection: "column", alignItems: "center",}}>
-                      											<Image src="" style={{width: "20px", height: "20px",}} width={20} height={20} sizes="100vw" alt="" />
+                      											<div style={{height: "9px", width: "100%", position: "relative", borderRadius: "50%", backgroundColor: "#1059e0",}} />
                       											<div style={{width: "0.5px", flex: "1", position: "relative", borderRight: "0.5px solid #d3d5db", boxSizing: "border-box",}} />
                     										</div>
                     										<div style={{width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "0px 0px 8px", boxSizing: "border-box", gap: "2px",}}>
