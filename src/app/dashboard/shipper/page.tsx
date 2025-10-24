@@ -8,7 +8,7 @@ import Image from "next/image";
 // Kiểu dữ liệu gọn gàng
 type DiaDiem = { ID: number; TenDiaDiem: string;DiaChi: string };
 type Mapping_NhaGiat = { ID: number; NhaGiat: string; ID_DiaDiem: number; Type: number; };
-type NhaGiat = { id: string; first_name: string; last_name: string; title: string };
+type NhaGiat = { id: string; first_name: string; last_name: string; title: string;description: string };
 type CountRow = {
     ID_DiaDiem: number | null;
     count: { "*": number } | number; // tuỳ phiên bản Directus
@@ -244,6 +244,9 @@ export default async function PageDiaDiem() {
     function getNhaGiat(id: string) {
         return ng.find(b => b.id === id)?.first_name;
     };
+     function getDiaChiNhaGiat(id: string) {
+        return ng.find(b => b.id === id)?.description;
+    };
     function getDiaDiem(id: number) {
         return diaDiems.find(b => b.ID === id)?.TenDiaDiem;
     };
@@ -301,7 +304,7 @@ export default async function PageDiaDiem() {
                                                     <div>
                                                         <div className="font-semibold text-[15px] leading-5">{getNhaGiat(d.NhaGiat)}</div>
                                                         <div className="text-sm text-slate-600 leading-5">
-                                                            10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam
+                                                            {getDiaChiNhaGiat(d.NhaGiat)}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -354,7 +357,8 @@ export default async function PageDiaDiem() {
                                                     <div>
                                                         <div className="font-semibold text-[15px] leading-5">{getNhaGiat(d.NhaGiat)}</div>
                                                         <div className="text-sm text-slate-600 leading-5">
-                                                            10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam
+                                                              {getDiaChiNhaGiat(d.NhaGiat)}
+                                                         
                                                         </div>
                                                         {/* divider giữa 2 dòng */}
                                                         <div className="my-2 border-t border-dotted border-slate-300/80" />
@@ -370,7 +374,7 @@ export default async function PageDiaDiem() {
                                                     <div>
                                                         <div className="font-semibold text-[15px] leading-5">{getDiaDiem(d.ID_DiaDiem)}</div>
                                                         <div className="text-sm text-slate-600 leading-5">
-                                                            10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam
+                                                               {getDiaChi(d.ID_DiaDiem)}
                                                         </div>
                                                     </div>
                                                 </div>
