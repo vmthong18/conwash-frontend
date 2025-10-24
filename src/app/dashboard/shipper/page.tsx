@@ -251,7 +251,7 @@ export default async function PageDiaDiem() {
     };
     return (
 
-        <main className="p-6">
+         <main className="p-6">
             <div className="flex items-center justify-between mb-6">
                 <h1 className="text-2xl font-bold">Vận chuyển</h1>
                 <span className="text-blue-500">100 đơn</span>
@@ -266,12 +266,13 @@ export default async function PageDiaDiem() {
                             <span className="text-blue-500">📦</span>
                             <div className="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
                                 <h2 className="text-xl font-bold text-blue-600">{getNhaGiat(d.NhaGiat)}</h2>
-                                <p className="text-sm text-gray-500">địa chỉ</p>
+                                <p className="text-sm text-gray-500">Địa điểm</p>
                             </div>
+                            <span className="text-blue-500">...</span>
                             <span className="text-blue-500">📦</span>
                             <div className="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
                                 <h2 className="text-xl font-bold text-blue-600">{getDiaDiem(d.ID_DiaDiem)}</h2>
-                                <p className="text-sm text-gray-500">địa chỉ</p>
+                                <p className="text-sm text-gray-500">Địa chỉ</p>
                             </div>
                         </div>
                         <div className="text-blue-500">32432 đơn</div>
@@ -298,12 +299,13 @@ export default async function PageDiaDiem() {
                             <span className="text-blue-500">📦</span>
                             <div className="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
                                 <h2 className="text-xl font-bold text-blue-600">{getNhaGiat(d.NhaGiat)}</h2>
-                                <p className="text-sm text-gray-500">địa chỉ</p>
+                                <p className="text-sm text-gray-500">Địa điểm</p>
                             </div>
+                            <span className="text-blue-500">...</span>
                             <span className="text-blue-500">📦</span>
                             <div className="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
                                 <h2 className="text-xl font-bold text-blue-600">{getDiaDiem(d.ID_DiaDiem)}</h2>
-                                <p className="text-sm text-gray-500">địa chỉ</p>
+                                <p className="text-sm text-gray-500">Địa chỉ</p>
                             </div>
                         </div>
                         <div className="text-blue-500">32432 đơn</div>
@@ -312,11 +314,11 @@ export default async function PageDiaDiem() {
                     <div className="mt-2">
                         <div className="flex justify-between text-sm text-gray-600">
                             <span>Đơn hàng chờ giao</span>
-                            <span>{getResult("CHO_VAN_CHUYEN_LAI", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
+                            <span>{getResult("CHO_LAY", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
                         </div>
                         <div className="flex justify-between text-sm text-gray-600">
                             <span>Đơn hàng đang giao</span>
-                            <span>{getResult("VAN_CHUYEN_LAI", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
+                            <span>{getResult("VAN_CHUYEN", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
                         </div>
                     </div>
                 </div>
