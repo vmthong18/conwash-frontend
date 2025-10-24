@@ -252,192 +252,193 @@ export default async function PageDiaDiem() {
     };
     {
   	return (
-    		<div className="w-full h-[812px] relative bg-whitesmoke overflow-hidden text-left text-num-14 text-gray-200 font-roboto">
-      			<div className="absolute h-[calc(100%_-_142px)] w-full top-[108px] right-[0px] bottom-[34px] left-[0px] flex flex-col items-center p-4 box-border">
-        				<div className="self-stretch flex flex-col items-start gap-4">
-          					<div className="w-[343px] rounded-num-12 bg-lavender overflow-hidden flex flex-col items-start">
-            						<div className="self-stretch rounded-num-12 bg-white overflow-hidden flex flex-col items-start">
-              							<div className="self-stretch flex items-center justify-between py-2 px-3 gap-5">
-                								<div className="relative leading-num-20 font-medium">Vận chuyển</div>
-                								<div className="rounded-num-8 bg-lavender flex items-center justify-center py-num-4 px-2 text-royalblue font-inter">
-                  									<div className="relative leading-num-20 font-medium">23 đơn</div>
+    		<div style={{width: "100%", height: "812px", position: "relative", backgroundColor: "#f2f4f7", overflow: "hidden", textAlign: "left", fontSize: "14px", color: "#141414", fontFamily: "Roboto",}}>
+      			<div style={{position: "absolute", height: "calc(100% - 142px)", width: "100%", top: "108px", right: "0px", bottom: "34px", left: "0px", display: "flex", flexDirection: "column", alignItems: "center", padding: "16px", boxSizing: "border-box",}}>
+        				<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "16px",}}>
+          					<div style={{width: "343px", borderRadius: "12px", backgroundColor: "#e7eefc", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
+            						<div style={{alignSelf: "stretch", borderRadius: "12px", backgroundColor: "#fff", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
+              							<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 12px", gap: "20px",}}>
+                								<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>Vận chuyển</div>
+                								<div style={{borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", color: "#1059e0", fontFamily: "Inter",}}>
+                  									<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>23 đơn</div>
                 								</div>
               							</div>
-              							<div className="self-stretch flex flex-col items-start">
-                								
+              							<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
+                								<img style={{alignSelf: "stretch", height: "1px", position: "relative", maxWidth: "100%", overflow: "hidden", flexShrink: "0",}} alt="" />
               							</div>
-              							<div className="self-stretch flex flex-col items-start p-3 gap-2 text-num-16 text-gray-100">
-                								<div className="self-stretch flex flex-col items-start text-gray-200">
-                  									<div className="self-stretch flex items-center gap-1">
-                    										<div className="self-stretch w-5 flex flex-col items-center">
-                      										
-                      											<div className="w-[0.5px] flex-1 relative border-lightgray border-solid border-r-[0.5px] box-border" />
+              							<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px", gap: "8px", fontSize: "16px", color: "#7a7c80",}}>
+                								<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414",}}>
+                  									<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", gap: "4px",}}>
+                    										<div style={{alignSelf: "stretch", width: "20px", display: "flex", flexDirection: "column", alignItems: "center",}}>
+                      											<img style={{width: "20px", height: "20px",}} alt="" />
+                      											<div style={{width: "0.5px", flex: "1", position: "relative", borderRight: "0.5px solid #d3d5db", boxSizing: "border-box",}} />
                     										</div>
-                    										<div className="w-num-292 flex flex-col items-start pt-num-0 px-num-0 pb-2 box-border gap-0.5">
-                      											<div className="self-stretch relative leading-num-24 font-medium">Box Quận 1</div>
-                      											<div className="self-stretch relative text-num-14 leading-num-20 text-gray-100">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                    										</div>
-                  									</div>
-                  									<div className="self-stretch h-[62px] flex items-center gap-1">
-                    									
-                    										<div className="w-num-292 flex flex-col items-start gap-0.5">
-                      											<div className="self-stretch relative leading-num-24 font-medium">Box Quận 1</div>
-                      											<div className="self-stretch relative text-num-14 leading-num-20 text-gray-100">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                    										<div style={{width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "0px 0px 8px", boxSizing: "border-box", gap: "2px",}}>
+                      											<div style={{alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500",}}>Box Quận 1</div>
+                      											<div style={{alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80",}}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
                     										</div>
                   									</div>
-                								</div>
-                								<div className="self-stretch h-px relative border-silver border-dashed border-t-[1px] box-border" />
-                								<div className="flex items-center">
-                  									<div className="w-num-156 relative leading-num-24 inline-block shrink-0">{`Đơn hàng chờ giao: `}</div>
-                  									<div className="rounded-num-8 bg-lavender flex items-center justify-center py-num-4 px-2 text-num-14 text-royalblue font-inter">
-                    										<div className="relative leading-num-20 font-medium">23 đơn</div>
+                  									<div style={{alignSelf: "stretch", height: "62px", display: "flex", alignItems: "center", gap: "4px",}}>
+                    										<img style={{alignSelf: "stretch", width: "20px", maxHeight: "100%",}} alt="" />
+                    										<div style={{width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px",}}>
+                      											<div style={{alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500",}}>Box Quận 1</div>
+                      											<div style={{alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80",}}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                    										</div>
                   									</div>
                 								</div>
-                								<div className="flex items-center">
-                  									<div className="w-num-156 relative leading-num-24 inline-block shrink-0">{`Đơn hàng đang giao: `}</div>
-                  									<div className="rounded-num-8 bg-lavender flex items-center justify-center py-num-4 px-2 text-num-14 text-royalblue font-inter">
-                    										<div className="relative leading-num-20 font-medium">23 đơn</div>
+                								<div style={{alignSelf: "stretch", height: "1px", position: "relative", borderTop: "1px dashed #c4c6cc", boxSizing: "border-box",}} />
+                								<div style={{display: "flex", alignItems: "center",}}>
+                  									<div style={{width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0",}}>{`Đơn hàng chờ giao: `}</div>
+                  									<div style={{borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter",}}>
+                    										<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>23 đơn</div>
+                  									</div>
+                								</div>
+                								<div style={{display: "flex", alignItems: "center",}}>
+                  									<div style={{width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0",}}>{`Đơn hàng đang giao: `}</div>
+                  									<div style={{borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter",}}>
+                    										<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>23 đơn</div>
                   									</div>
                 								</div>
               							</div>
             						</div>
-            						<div className="self-stretch flex items-center justify-end py-2 px-3 text-center text-white">
-              							<div className="rounded-num-8 bg-royalblue overflow-hidden flex items-center justify-center py-1.5 px-2">
-                								<div className="relative leading-num-20">{`Đã giao thành công `}</div>
-              							</div>
-            						</div>
-          					</div>
-          					<div className="w-[343px] rounded-num-12 bg-lavender overflow-hidden flex flex-col items-start">
-            						<div className="self-stretch rounded-num-12 bg-white overflow-hidden flex flex-col items-start">
-              							<div className="self-stretch flex items-center justify-between py-2 px-3 gap-5">
-                								<div className="relative leading-num-20 font-medium">Vận chuyển</div>
-                								<div className="rounded-num-8 bg-lavender flex items-center justify-center py-num-4 px-2 text-royalblue font-inter">
-                  									<div className="relative leading-num-20 font-medium">23 đơn</div>
-                								</div>
-              							</div>
-              							<div className="self-stretch flex flex-col items-start">
-                								
-              							</div>
-              							<div className="self-stretch flex flex-col items-start p-3 gap-2 text-num-16 text-gray-100">
-                								<div className="self-stretch flex flex-col items-start text-gray-200">
-                  									<div className="self-stretch flex items-center gap-1">
-                    										<div className="self-stretch w-5 flex flex-col items-center">
-                      											
-                      											<div className="w-[0.5px] flex-1 relative border-lightgray border-solid border-r-[0.5px] box-border" />
-                    										</div>
-                    										<div className="w-num-292 flex flex-col items-start pt-num-0 px-num-0 pb-2 box-border gap-0.5">
-                      											<div className="self-stretch relative leading-num-24 font-medium">Box Quận 1</div>
-                      											<div className="self-stretch relative text-num-14 leading-num-20 text-gray-100 overflow-hidden text-ellipsis whitespace-nowrap">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                    										</div>
-                  									</div>
-                  									<div className="self-stretch h-[62px] flex items-center gap-1">
-                    									
-                    										<div className="w-num-292 flex flex-col items-start gap-0.5">
-                      											<div className="self-stretch relative leading-num-24 font-medium">Box Quận 1</div>
-                      											<div className="self-stretch relative text-num-14 leading-num-20 text-gray-100 overflow-hidden text-ellipsis whitespace-nowrap">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                    										</div>
-                  									</div>
-                								</div>
-                								<div className="self-stretch h-px relative border-silver border-dashed border-t-[1px] box-border" />
-                								<div className="flex items-center">
-                  									<div className="w-num-156 relative leading-num-24 inline-block shrink-0">{`Đơn hàng đã giao: `}</div>
-                  									<div className="rounded-num-8 bg-lavender flex items-center justify-center py-num-4 px-2 text-num-14 text-royalblue font-inter">
-                    										<div className="relative leading-num-20 font-medium">23 đơn</div>
-                  									</div>
-                								</div>
-                								<div className="flex items-center">
-                  									<div className="w-num-156 relative leading-num-24 inline-block shrink-0">{`Đơn hàng đang giao: `}</div>
-                  									<div className="rounded-num-8 bg-lavender flex items-center justify-center py-num-4 px-2 text-num-14 text-royalblue font-inter">
-                    										<div className="relative leading-num-20 font-medium">23 đơn</div>
-                  									</div>
-                								</div>
-              							</div>
-            						</div>
-            						<div className="self-stretch flex items-center justify-end py-2 px-3 text-center text-white">
-              							<div className="rounded-num-8 bg-royalblue overflow-hidden flex items-center justify-center py-1.5 px-2">
-                								<div className="relative leading-num-20">{`Đã giao thành công `}</div>
+            						<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "flex-end", padding: "8px 12px", textAlign: "center", color: "#fff",}}>
+              							<div style={{borderRadius: "8px", backgroundColor: "#1059e0", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", padding: "6px 8px",}}>
+                								<div style={{position: "relative", lineHeight: "20px",}}>{`Đã giao thành công `}</div>
               							</div>
             						</div>
           					</div>
-          					<div className="w-[343px] rounded-num-12 bg-lavender overflow-hidden flex flex-col items-start">
-            						<div className="self-stretch rounded-num-12 bg-white overflow-hidden flex flex-col items-start">
-              							<div className="self-stretch flex items-center justify-between py-2 px-3 gap-5">
-                								<div className="relative leading-num-20 font-medium">Vận chuyển</div>
-                								<div className="rounded-num-8 bg-lavender flex items-center justify-center py-num-4 px-2 text-royalblue font-inter">
-                  									<div className="relative leading-num-20 font-medium">23 đơn</div>
+          					<div style={{width: "343px", borderRadius: "12px", backgroundColor: "#e7eefc", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
+            						<div style={{alignSelf: "stretch", borderRadius: "12px", backgroundColor: "#fff", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
+              							<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 12px", gap: "20px",}}>
+                								<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>Vận chuyển</div>
+                								<div style={{borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", color: "#1059e0", fontFamily: "Inter",}}>
+                  									<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>23 đơn</div>
                 								</div>
               							</div>
-              							<div className="self-stretch flex flex-col items-start">
-                							
+              							<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
+                								<img style={{alignSelf: "stretch", height: "1px", position: "relative", maxWidth: "100%", overflow: "hidden", flexShrink: "0",}} alt="" />
               							</div>
-              							<div className="self-stretch flex flex-col items-start p-3 gap-2 text-num-16 text-gray-100">
-                								<div className="self-stretch flex flex-col items-start text-gray-200">
-                  									<div className="self-stretch flex items-center gap-1">
-                    										<div className="self-stretch w-5 flex flex-col items-center">
-                      										
-                      											<div className="w-[0.5px] flex-1 relative border-lightgray border-solid border-r-[0.5px] box-border" />
+              							<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px", gap: "8px", fontSize: "16px", color: "#7a7c80",}}>
+                								<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414",}}>
+                  									<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", gap: "4px",}}>
+                    										<div style={{alignSelf: "stretch", width: "20px", display: "flex", flexDirection: "column", alignItems: "center",}}>
+                      											<img style={{width: "20px", height: "20px",}} alt="" />
+                      											<div style={{width: "0.5px", flex: "1", position: "relative", borderRight: "0.5px solid #d3d5db", boxSizing: "border-box",}} />
                     										</div>
-                    										<div className="w-num-292 flex flex-col items-start pt-num-0 px-num-0 pb-2 box-border gap-0.5">
-                      											<div className="self-stretch relative leading-num-24 font-medium">Box Quận 1</div>
-                      											<div className="self-stretch relative text-num-14 leading-num-20 text-gray-100">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                    										</div>
-                  									</div>
-                  									<div className="self-stretch h-[62px] flex items-center gap-1">
-                    										
-                    										<div className="w-num-292 flex flex-col items-start gap-0.5">
-                      											<div className="self-stretch relative leading-num-24 font-medium">Box Quận 1</div>
-                      											<div className="self-stretch relative text-num-14 leading-num-20 text-gray-100">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                    										<div style={{width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "0px 0px 8px", boxSizing: "border-box", gap: "2px",}}>
+                      											<div style={{alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500",}}>Box Quận 1</div>
+                      											<div style={{alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",}}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
                     										</div>
                   									</div>
-                								</div>
-                								<div className="self-stretch h-px relative border-silver border-dashed border-t-[1px] box-border" />
-                								<div className="flex items-center">
-                  									<div className="w-num-156 relative leading-num-24 inline-block shrink-0">{`Đơn hàng đã giao: `}</div>
-                  									<div className="rounded-num-8 bg-lavender flex items-center justify-center py-num-4 px-2 text-num-14 text-royalblue font-inter">
-                    										<div className="relative leading-num-20 font-medium">23 đơn</div>
+                  									<div style={{alignSelf: "stretch", height: "62px", display: "flex", alignItems: "center", gap: "4px",}}>
+                    										<img style={{alignSelf: "stretch", width: "20px", maxHeight: "100%",}} alt="" />
+                    										<div style={{width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px",}}>
+                      											<div style={{alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500",}}>Box Quận 1</div>
+                      											<div style={{alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",}}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                    										</div>
                   									</div>
                 								</div>
-                								<div className="flex items-center">
-                  									<div className="w-num-156 relative leading-num-24 inline-block shrink-0">{`Đơn hàng đang giao: `}</div>
-                  									<div className="rounded-num-8 bg-lavender flex items-center justify-center py-num-4 px-2 text-num-14 text-royalblue font-inter">
-                    										<div className="relative leading-num-20 font-medium">23 đơn</div>
+                								<div style={{alignSelf: "stretch", height: "1px", position: "relative", borderTop: "1px dashed #c4c6cc", boxSizing: "border-box",}} />
+                								<div style={{display: "flex", alignItems: "center",}}>
+                  									<div style={{width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0",}}>{`Đơn hàng đã giao: `}</div>
+                  									<div style={{borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter",}}>
+                    										<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>23 đơn</div>
+                  									</div>
+                								</div>
+                								<div style={{display: "flex", alignItems: "center",}}>
+                  									<div style={{width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0",}}>{`Đơn hàng đang giao: `}</div>
+                  									<div style={{borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter",}}>
+                    										<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>23 đơn</div>
                   									</div>
                 								</div>
               							</div>
             						</div>
-            						<div className="self-stretch flex items-center justify-end py-2 px-3 text-center text-white">
-              							<div className="rounded-num-8 bg-royalblue overflow-hidden flex items-center justify-center py-1.5 px-2">
-                								<div className="relative leading-num-20">{`Đã giao thành công `}</div>
+            						<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "flex-end", padding: "8px 12px", textAlign: "center", color: "#fff",}}>
+              							<div style={{borderRadius: "8px", backgroundColor: "#1059e0", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", padding: "6px 8px",}}>
+                								<div style={{position: "relative", lineHeight: "20px",}}>{`Đã giao thành công `}</div>
+              							</div>
+            						</div>
+          					</div>
+          					<div style={{width: "343px", borderRadius: "12px", backgroundColor: "#e7eefc", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
+            						<div style={{alignSelf: "stretch", borderRadius: "12px", backgroundColor: "#fff", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
+              							<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 12px", gap: "20px",}}>
+                								<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>Vận chuyển</div>
+                								<div style={{borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", color: "#1059e0", fontFamily: "Inter",}}>
+                  									<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>23 đơn</div>
+                								</div>
+              							</div>
+              							<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
+                								<img style={{alignSelf: "stretch", height: "1px", position: "relative", maxWidth: "100%", overflow: "hidden", flexShrink: "0",}} alt="" />
+              							</div>
+              							<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px", gap: "8px", fontSize: "16px", color: "#7a7c80",}}>
+                								<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414",}}>
+                  									<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", gap: "4px",}}>
+                    										<div style={{alignSelf: "stretch", width: "20px", display: "flex", flexDirection: "column", alignItems: "center",}}>
+                      											<img style={{width: "20px", height: "20px",}} alt="" />
+                      											<div style={{width: "0.5px", flex: "1", position: "relative", borderRight: "0.5px solid #d3d5db", boxSizing: "border-box",}} />
+                    										</div>
+                    										<div style={{width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "0px 0px 8px", boxSizing: "border-box", gap: "2px",}}>
+                      											<div style={{alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500",}}>Box Quận 1</div>
+                      											<div style={{alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80",}}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                    										</div>
+                  									</div>
+                  									<div style={{alignSelf: "stretch", height: "62px", display: "flex", alignItems: "center", gap: "4px",}}>
+                    										<img style={{alignSelf: "stretch", width: "20px", maxHeight: "100%",}} alt="" />
+                    										<div style={{width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px",}}>
+                      											<div style={{alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500",}}>Box Quận 1</div>
+                      											<div style={{alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80",}}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                    										</div>
+                  									</div>
+                								</div>
+                								<div style={{alignSelf: "stretch", height: "1px", position: "relative", borderTop: "1px dashed #c4c6cc", boxSizing: "border-box",}} />
+                								<div style={{display: "flex", alignItems: "center",}}>
+                  									<div style={{width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0",}}>{`Đơn hàng đã giao: `}</div>
+                  									<div style={{borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter",}}>
+                    										<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>23 đơn</div>
+                  									</div>
+                								</div>
+                								<div style={{display: "flex", alignItems: "center",}}>
+                  									<div style={{width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0",}}>{`Đơn hàng đang giao: `}</div>
+                  									<div style={{borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter",}}>
+                    										<div style={{position: "relative", lineHeight: "20px", fontWeight: "500",}}>23 đơn</div>
+                  									</div>
+                								</div>
+              							</div>
+            						</div>
+            						<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "flex-end", padding: "8px 12px", textAlign: "center", color: "#fff",}}>
+              							<div style={{borderRadius: "8px", backgroundColor: "#1059e0", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", padding: "6px 8px",}}>
+                								<div style={{position: "relative", lineHeight: "20px",}}>{`Đã giao thành công `}</div>
               							</div>
             						</div>
           					</div>
         				</div>
       			</div>
-      			<div className="absolute top-[44px] left-[0px] w-[375px] flex flex-col items-start justify-end text-num-16 text-darkslategray">
-        				<div className="self-stretch flex flex-col items-start justify-end z-[2]">
-          					<div className="self-stretch flex items-center py-2 px-num-4 text-[20px]">
-            						<div className="flex-1 flex items-center py-num-0 px-3">
-              							
-              							<div className="w-[193px] hidden items-center py-[11px] px-num-0 box-border gap-0.5 shrink-0">
-                								<div className="flex-1 relative leading-7 overflow-hidden text-ellipsis whitespace-nowrap">Chi tiết mặt hàng</div>
-                								<div className="h-4 w-4 relative overflow-hidden shrink-0 hidden" />
+      			<div style={{position: "absolute", top: "44px", left: "0px", width: "375px", display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-end", fontSize: "16px", color: "#333",}}>
+        				<div style={{alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-end", zIndex: "2",}}>
+          					<div style={{alignSelf: "stretch", display: "flex", alignItems: "center", padding: "8px 4px", fontSize: "20px",}}>
+            						<div style={{flex: "1", display: "flex", alignItems: "center", padding: "0px 12px",}}>
+              							<img style={{width: "83px", position: "relative", maxHeight: "100%", objectFit: "cover", flexShrink: "0",}} alt="" />
+              							<div style={{width: "193px", display: "none", alignItems: "center", padding: "11px 0px", boxSizing: "border-box", gap: "2px", flexShrink: "0",}}>
+                								<div style={{flex: "1", position: "relative", lineHeight: "28px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",}}>Chi tiết mặt hàng</div>
+                								<div style={{height: "16px", width: "16px", position: "relative", overflow: "hidden", flexShrink: "0", display: "none",}} />
               							</div>
             						</div>
-            						
+            						<img style={{height: "48px", width: "48px", borderRadius: "8px",}} alt="" />
           					</div>
-          					<div className="w-[375px] hidden flex-col items-start pt-num-0 px-4 pb-4 box-border text-darkgray">
-            						<div className="self-stretch [filter:drop-shadow(0px_2px_8px_rgba(0,_0,_0,_0.1))_drop-shadow(0px_0px_2px_rgba(0,_0,_0,_0.04))] flex flex-col items-start">
-              							<div className="self-stretch rounded-num-8 flex flex-col items-start">
-                								<div className="self-stretch rounded-num-8 bg-white border-gray-300 border-solid border-[1px] overflow-hidden flex items-center z-[0]">
-                  									<div className="flex-1 flex items-center py-2 pl-3 pr-2 gap-2 z-[0]">
-                    										<div className="h-5 w-5 relative overflow-hidden shrink-0">
-                      											<div className="relative bg-dimgray w-[15px] h-[15px]">
-                        												
+          					<div style={{width: "375px", display: "none", flexDirection: "column", alignItems: "flex-start", padding: "0px 16px 16px", boxSizing: "border-box", color: "#999",}}>
+            						<div style={{alignSelf: "stretch", filter: "drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.1)) drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.04))", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
+              							<div style={{alignSelf: "stretch", borderRadius: "8px", display: "flex", flexDirection: "column", alignItems: "flex-start",}}>
+                								<div style={{alignSelf: "stretch", borderRadius: "8px", backgroundColor: "#fff", border: "1px solid rgba(0, 0, 0, 0.2)", overflow: "hidden", display: "flex", alignItems: "center", zIndex: "0",}}>
+                  									<div style={{flex: "1", display: "flex", alignItems: "center", padding: "8px 8px 8px 12px", gap: "8px", zIndex: "0",}}>
+                    										<div style={{height: "20px", width: "20px", position: "relative", overflow: "hidden", flexShrink: "0",}}>
+                      											<div style={{position: "relative", backgroundColor: "#666", width: "15px", height: "15px",}}>
+                        												<img style={{position: "absolute", height: "100%", width: "100%", top: "15.28%", right: "-15.28%", bottom: "-15.28%", left: "15.28%", maxWidth: "100%", overflow: "hidden", maxHeight: "100%",}} alt="" />
+                        												<img style={{position: "absolute", height: "100%", width: "100%", top: "15.28%", right: "-15.28%", bottom: "-15.28%", left: "15.28%", maxWidth: "100%", overflow: "hidden", maxHeight: "100%",}} alt="" />
                       											</div>
                     										</div>
-                    										<div className="flex-1 flex items-center py-num-0 pl-num-0 pr-num-4">
-                      											<div className="flex-1 overflow-hidden flex items-center">
-                        												<div className="flex-1 relative tracking-[0.5px] leading-num-24 overflow-hidden text-ellipsis whitespace-nowrap z-[0]">Nhập nội dung tìm kiếm tin tức</div>
+                    										<div style={{flex: "1", display: "flex", alignItems: "center", padding: "0px 4px 0px 0px",}}>
+                      											<div style={{flex: "1", overflow: "hidden", display: "flex", alignItems: "center",}}>
+                        												<div style={{flex: "1", position: "relative", letterSpacing: "0.5px", lineHeight: "24px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", zIndex: "0",}}>Nhập nội dung tìm kiếm tin tức</div>
                       											</div>
                     										</div>
                   									</div>
@@ -445,39 +446,41 @@ export default async function PageDiaDiem() {
               							</div>
             						</div>
           					</div>
-          					<div className="w-[147px] hidden items-start pt-2 px-4 pb-6 box-border">
-            						<div className="flex items-center gap-3">
-              							<div className="h-4 w-4 flex items-center justify-center p-2 box-border">
-                								<div className="rounded flex items-center justify-center p-num-4 z-[0]">
-                  									<div className="h-5 w-5 relative overflow-hidden shrink-0 z-[0]">
-                    									
+          					<div style={{width: "147px", display: "none", alignItems: "flex-start", padding: "8px 16px 24px", boxSizing: "border-box",}}>
+            						<div style={{display: "flex", alignItems: "center", gap: "12px",}}>
+              							<div style={{height: "16px", width: "16px", display: "flex", alignItems: "center", justifyContent: "center", padding: "8px", boxSizing: "border-box",}}>
+                								<div style={{borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px", zIndex: "0",}}>
+                  									<div style={{height: "20px", width: "20px", position: "relative", overflow: "hidden", flexShrink: "0", zIndex: "0",}}>
+                    										<img style={{position: "relative", width: "15px", height: "15px",}} alt="" />
                   									</div>
                 								</div>
               							</div>
-              							<div className="relative tracking-[0.5px] leading-num-24">Chọn tất cả</div>
+              							<div style={{position: "relative", letterSpacing: "0.5px", lineHeight: "24px",}}>Chọn tất cả</div>
             						</div>
           					</div>
         				</div>
-        				<div className="w-[375px] h-px overflow-hidden shrink-0 hidden flex-col items-center justify-end z-[1]" />
-        				<div className="w-full h-full absolute !!m-[0 important] top-[0px] right-[0px] bottom-[0px] left-[0px] hidden z-[0]">
-          					<div className="absolute h-full w-full top-[0px] right-[0px] bottom-[0px] left-[0px] shadow-[0px_4px_12px_-2px_rgba(0,_0,_0,_0.1),_0px_0px_4px_rgba(0,_0,_0,_0.04)] bg-white hidden" />
-          					<div className="absolute h-full w-full top-[0px] right-[0px] bottom-[0px] left-[0px] bg-white hidden" />
+        				<div style={{width: "375px", height: "1px", overflow: "hidden", flexShrink: "0", display: "none", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", zIndex: "1",}} />
+        				<div style={{width: "100%", height: "100%", position: "absolute", margin: "0", top: "0px", right: "0px", bottom: "0px", left: "0px", display: "none", zIndex: "0",}}>
+          					<div style={{position: "absolute", height: "100%", width: "100%", top: "0px", right: "0px", bottom: "0px", left: "0px", boxShadow: "0px 4px 12px -2px rgba(0, 0, 0, 0.1), 0px 0px 4px rgba(0, 0, 0, 0.04)", backgroundColor: "#fff", display: "none",}} />
+          					<div style={{position: "absolute", height: "100%", width: "100%", top: "0px", right: "0px", bottom: "0px", left: "0px", backgroundColor: "#fff", display: "none",}} />
         				</div>
       			</div>
-      			<div className="absolute w-full right-[0px] bottom-[0px] left-[0px] overflow-hidden flex flex-col items-center justify-end pt-[21px] px-[120px] pb-2 box-border">
-        				<div className="w-[135px] h-[5px] relative rounded-[2.5px] bg-black z-[0]" />
+      			<div style={{position: "absolute", width: "100%", right: "0px", bottom: "0px", left: "0px", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end", padding: "21px 120px 8px", boxSizing: "border-box",}}>
+        				<div style={{width: "135px", height: "5px", position: "relative", borderRadius: "2.5px", backgroundColor: "#000", zIndex: "0",}} />
       			</div>
-      			<div className="absolute w-full top-[0px] right-[0px] left-[0px] h-11 overflow-hidden text-center text-[15px] text-black font-sf-pro-text">
-        				<div className="absolute top-[18.33px] right-[15.37px] w-[24.3px] h-[11.3px]">
-          					<div className="absolute top-[0px] right-[2.3px] rounded-[2.67px] bg-black border-black border-solid border-[1px] box-border w-[22px] h-[11.3px] opacity-[0.35] mix-blend-normal" />
-          					
-          					<div className="absolute top-[2px] right-[4.3px] rounded-[1.33px] bg-black w-[18px] h-[7.3px]" />
+      			<div style={{position: "absolute", width: "100%", top: "0px", right: "0px", left: "0px", height: "44px", overflow: "hidden", textAlign: "center", fontSize: "15px", color: "#000", fontFamily: "'SF Pro Text'",}}>
+        				<div style={{position: "absolute", top: "18.33px", right: "15.37px", width: "24.3px", height: "11.3px",}}>
+          					<div style={{position: "absolute", top: "0px", right: "2.3px", borderRadius: "2.67px", backgroundColor: "#000", border: "1px solid #000", boxSizing: "border-box", width: "22px", height: "11.3px", opacity: "0.35", mixBlendMode: "normal",}} />
+          					<img style={{position: "absolute", top: "3.67px", right: "0px", width: "1.3px", height: "4px", opacity: "0.4", mixBlendMode: "normal",}} alt="" />
+          					<div style={{position: "absolute", top: "2px", right: "4.3px", borderRadius: "1.33px", backgroundColor: "#000", width: "18px", height: "7.3px",}} />
         				</div>
-        				<div className="relative bg-black w-[15.3px] h-[11px]">
-          					
+        				<div style={{position: "relative", backgroundColor: "#000", width: "15.3px", height: "11px",}}>
+          					<img style={{position: "absolute", top: "19px", right: "-313px", width: "15.3px", height: "4.8px",}} alt="" />
+          					<img style={{position: "absolute", top: "22.81px", right: "-310.37px", width: "10px", height: "3.6px",}} alt="" />
+          					<img style={{position: "absolute", top: "26.62px", right: "-307.64px", width: "4.6px", height: "3.4px",}} alt="" />
         				</div>
-        				
-        				<div className="absolute top-[14px] left-[16px] font-semibold inline-block w-[54px]">9:41</div>
+        				<img style={{position: "relative", width: "17px", height: "10.7px",}} alt="" />
+        				<div style={{position: "absolute", top: "14px", left: "16px", fontWeight: "600", display: "inline-block", width: "54px",}}>9:41</div>
       			</div>
     		</div>);
 };
