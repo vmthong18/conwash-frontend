@@ -277,6 +277,7 @@ export default async function PageDiaDiem() {
                         </div>
                         <div className="text-blue-500">32432 đơn</div>
                     </div>
+
                     <div className="mt-2">
                         <div className="flex justify-between text-sm text-gray-600">
                             <span>Đơn hàng chờ giao</span>
@@ -287,8 +288,7 @@ export default async function PageDiaDiem() {
                             <span>{getResult("VAN_CHUYEN", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
                         </div>
                     </div>
-
-                    
+                   
                 </div>
             ))}
 
@@ -310,6 +310,7 @@ export default async function PageDiaDiem() {
                         </div>
                         <div className="text-blue-500">32432 đơn</div>
                     </div>
+
                     <div className="mt-2">
                         <div className="flex justify-between text-sm text-gray-600">
                             <span>Đơn hàng chờ giao</span>
@@ -320,8 +321,7 @@ export default async function PageDiaDiem() {
                             <span>{getResult("VAN_CHUYEN", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
                         </div>
                     </div>
-
-                    
+                   
                 </div>
             ))}
         </main>
