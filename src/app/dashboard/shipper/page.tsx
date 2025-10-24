@@ -251,8 +251,7 @@ export default async function PageDiaDiem() {
     };
     return (
 
-       <main className="p-6">
-            <div className="w-96 h-[812px] relative bg-neutral-base-surface overflow-hidden">
+       <div className="w-96 h-[812px] relative bg-neutral-base-surface overflow-hidden">
     <div className="w-96 h-[670px] p-4 left-0 top-[108px] absolute inline-flex flex-col justify-start items-center gap-6">
         <div className="self-stretch flex flex-col justify-start items-start gap-4">
             <div className="w-80 bg-primary-primary-50 rounded-xl outline outline-1 outline-offset-[-1px] flex flex-col justify-start items-start overflow-hidden">
@@ -459,7 +458,6 @@ export default async function PageDiaDiem() {
         <div className="w-14 left-[16px] top-[14px] absolute text-center justify-start text-black text-base font-semibold font-['SF_Pro_Text']">9:41</div>
     </div>
 </div>
-        </main>
 
     );
 }
