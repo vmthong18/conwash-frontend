@@ -274,44 +274,42 @@ export default async function PageDiaDiem() {
                                         </div>
                                         <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px", gap: "8px", fontSize: "16px", color: "#7a7c80", }}>
                                             <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414", }}>
-                                                <div style={{ alignSelf: "stretch", display: "flex", alignItems: "center", gap: "4px", }}>
-                                                    <div style={{
-                                                        width: "20px",
-                                                        display: "flex",
-                                                        flexDirection: "column",
-                                                        alignItems: "center",
-                                                        justifyContent: "flex-start", // hoặc 'center' nếu muốn giữa dòng
-                                                    }}>
-                                                        <Image
-                                                            src="/Ellipse 2.svg"
-                                                            style={{ width: "10px", height: "10px", marginTop: "2px" }}
-                                                            width={10}
-                                                            height={10}
-                                                            alt=""
-                                                        />
-                                                        <div
-                                                            style={{
-                                                                width: "0.5px",
-                                                                flex: 1,
-                                                                borderRight: "0.5px solid #d3d5db",
-                                                                boxSizing: "border-box",
-                                                                marginTop: "2px", // tùy chỉnh nhỏ để căn line
-                                                            }}
-                                                        />
+                                                {/* 1 KHỐI ĐỊA ĐIỂM */}
+                                                <div className="flex items-start gap-2">
+                                                    {/* Cột trái: chấm + line dọc */}
+                                                    <div className="flex flex-col items-center">
+                                                        {/* chấm xanh – ngang hàng tiêu đề */}
+                                                        <span className="inline-block h-2.5 w-2.5 rounded-full bg-sky-600 mt-1" />
+                                                        {/* line dọc nối xuống nội dung bên dưới */}
+                                                        <span className="block w-px flex-1 border-r border-gray-300/70 mt-1" />
                                                     </div>
 
-                                                    <div style={{ width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "0px 0px 8px", boxSizing: "border-box", gap: "2px", }}>
-                                                        <div style={{ alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500", }}>{getDiaDiem(d.ID_DiaDiem)}</div>
-                                                        <div style={{ alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", }}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                                                    {/* Cột phải: chữ */}
+                                                    <div className="flex-1">
+                                                        <div className="font-semibold text-[15px] leading-5">Box Thảo Điền</div>
+                                                        <div className="text-sm text-gray-600 leading-5">
+                                                            10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div style={{ alignSelf: "stretch", height: "62px", display: "flex", alignItems: "center", gap: "4px", }}>
-                                                    <Image src="/Ellipse 2.svg" style={{ alignSelf: "stretch", width: "10px", maxHeight: "100%", }} width={10} height={62} sizes="100vw" alt="" />
-                                                    <div style={{ width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px", }}>
-                                                        <div style={{ alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500", }}>{getNhaGiat(d.NhaGiat)}</div>
-                                                        <div style={{ alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", }}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+
+                                                {/* Divider chấm chấm giữa mục 1 và mục 2 */}
+                                                <div className="my-2 border-t border-dotted border-gray-300/80" />
+
+                                                {/* 2 KHỐI NHÀ GIẶT */}
+                                                <div className="flex items-start gap-2">
+                                                    <div className="flex flex-col items-center">
+                                                        <span className="inline-block h-2.5 w-2.5 rounded-full bg-sky-600 mt-1" />
+                                                        <span className="block w-px flex-1 border-r border-gray-300/70 mt-1" />
+                                                    </div>
+                                                    <div className="flex-1">
+                                                        <div className="font-semibold text-[15px] leading-5">Giặt giày vải</div>
+                                                        <div className="text-sm text-gray-600 leading-5">
+                                                            10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam
+                                                        </div>
                                                     </div>
                                                 </div>
+
                                             </div>
                                             <div style={{ alignSelf: "stretch", height: "1px", position: "relative", borderTop: "1px dashed #c4c6cc", boxSizing: "border-box", }} />
                                             <div style={{ display: "flex", alignItems: "center", }}>
@@ -372,14 +370,14 @@ export default async function PageDiaDiem() {
                                                     </div>
 
                                                     <div style={{ width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "0px 0px 8px", boxSizing: "border-box", gap: "2px", }}>
-                                                        <div style={{ alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500", }}>{getDiaDiem(d.ID_DiaDiem)}</div>
+                                                        <div style={{ alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500", }}>{getNhaGiat(d.NhaGiat)}</div>
                                                         <div style={{ alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", }}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
                                                     </div>
                                                 </div>
                                                 <div style={{ alignSelf: "stretch", height: "62px", display: "flex", alignItems: "center", gap: "4px", }}>
                                                     <Image src="/Ellipse 2.svg" style={{ alignSelf: "stretch", width: "10px", maxHeight: "100%", }} width={10} height={62} sizes="100vw" alt="" />
                                                     <div style={{ width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px", }}>
-                                                        <div style={{ alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500", }}>{getNhaGiat(d.NhaGiat)}</div>
+                                                        <div style={{ alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500", }}>{getDiaDiem(d.ID_DiaDiem)}</div>
                                                         <div style={{ alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", }}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
                                                     </div>
                                                 </div>
@@ -388,13 +386,13 @@ export default async function PageDiaDiem() {
                                             <div style={{ display: "flex", alignItems: "center", }}>
                                                 <div style={{ width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0", }}>{`Đơn hàng chờ giao: `}</div>
                                                 <div style={{ borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter", }}>
-                                                    <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>{getResult("CHO_LAY", d.ID_DiaDiem, d.NhaGiat)} đơn</div>
+                                                    <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>{getResult("CHO_VAN_CHUYEN_LAI", d.ID_DiaDiem, d.NhaGiat)} đơn</div>
                                                 </div>
                                             </div>
                                             <div style={{ display: "flex", alignItems: "center", }}>
                                                 <div style={{ width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0", }}>{`Đơn hàng đang giao: `}</div>
                                                 <div style={{ borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter", }}>
-                                                    <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>{getResult("VAN_CHUYEN", d.ID_DiaDiem, d.NhaGiat)} đơn</div>
+                                                    <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>{getResult("VAN_CHUYEN_LAI", d.ID_DiaDiem, d.NhaGiat)} đơn</div>
                                                 </div>
                                             </div>
                                         </div>
