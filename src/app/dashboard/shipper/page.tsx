@@ -252,75 +252,213 @@ export default async function PageDiaDiem() {
     return (
 
        <main className="p-6">
-            <div className="flex items-center justify-between mb-6">
-                <h1 className="text-2xl font-bold">Vận chuyển</h1>
-                <span className="text-blue-500">100 đơn</span>
+            <div className="w-96 h-[812px] relative bg-neutral-base-surface overflow-hidden">
+    <div className="w-96 h-[670px] p-4 left-0 top-[108px] absolute inline-flex flex-col justify-start items-center gap-6">
+        <div className="self-stretch flex flex-col justify-start items-start gap-4">
+            <div className="w-80 bg-primary-primary-50 rounded-xl outline outline-1 outline-offset-[-1px] flex flex-col justify-start items-start overflow-hidden">
+                <div className="self-stretch bg-background-base-on-surface1 rounded-xl flex flex-col justify-start items-start overflow-hidden">
+                    <div className="self-stretch px-3 py-2 inline-flex justify-between items-center">
+                        <div className="justify-start text-neutral-base-element-primary text-sm font-medium font-['Roboto'] leading-5">Vận chuyển</div>
+                        <div data-l-icon="false" data-r-icon="false" data-type="Infor" className="px-2 py-1 bg-background-support-info rounded-lg flex justify-center items-center gap-1">
+                            <div className="justify-start text-text-support-link text-sm font-medium font-['Inter'] leading-5">23 đơn</div>
+                        </div>
+                    </div>
+                    <div data-space="0" data-style="Horizontal" data-type="Light" className="self-stretch flex flex-col justify-start items-start">
+                        <div className="self-stretch h-px bg-neutral-base-stroke-bold" />
+                    </div>
+                    <div className="self-stretch p-3 flex flex-col justify-start items-start gap-2">
+                        <div className="self-stretch flex flex-col justify-start items-start">
+                            <div className="self-stretch inline-flex justify-start items-center gap-1">
+                                <div className="w-5 self-stretch inline-flex flex-col justify-start items-center">
+                                    <div className="w-5 h-5 p-1.5 inline-flex justify-start items-center gap-2.5">
+                                        <div className="w-2 h-2 bg-primary-primary-500 rounded-full" />
+                                    </div>
+                                    <div className="w-14 flex-1 origin-top-left rotate-90 outline outline-[0.50px] outline-offset-[-0.25px] outline-neutral-base-stroke-bold"></div>
+                                </div>
+                                <div className="w-72 pb-2 inline-flex flex-col justify-start items-start gap-0.5">
+                                    <div className="self-stretch justify-start text-neutral-base-element-primary text-base font-medium font-['Roboto'] leading-6">Box Quận 1</div>
+                                    <div className="self-stretch justify-start text-neutral-base-element-tertiary text-sm font-normal font-['Roboto'] leading-5">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                                </div>
+                            </div>
+                            <div className="self-stretch h-16 inline-flex justify-start items-center gap-1">
+                                <div className="w-5 self-stretch flex justify-center items-start gap-2.5">
+                                    <div className="p-1 flex justify-start items-center gap-2.5">
+                                        <div className="w-2 h-2 bg-primary-primary-500 rounded-full" />
+                                    </div>
+                                </div>
+                                <div className="w-72 inline-flex flex-col justify-start items-start gap-0.5">
+                                    <div className="self-stretch justify-start text-neutral-base-element-primary text-base font-medium font-['Roboto'] leading-6">Box Quận 1</div>
+                                    <div className="self-stretch justify-start text-neutral-base-element-tertiary text-sm font-normal font-['Roboto'] leading-5">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="self-stretch h-0 outline outline-1 outline-offset-[-0.50px] outline-neutral-base-stroke-light"></div>
+                        <div className="inline-flex justify-start items-center">
+                            <div className="w-40 justify-start text-text-neutral-body text-base font-normal font-['Roboto'] leading-6">Đơn hàng chờ giao: </div>
+                            <div data-l-icon="false" data-r-icon="false" data-type="Infor" className="px-2 py-1 bg-background-support-info rounded-lg flex justify-center items-center gap-1">
+                                <div className="justify-start text-text-support-link text-sm font-medium font-['Inter'] leading-5">23 đơn</div>
+                            </div>
+                        </div>
+                        <div className="inline-flex justify-start items-center">
+                            <div className="w-40 justify-start text-text-neutral-body text-base font-normal font-['Roboto'] leading-6">Đơn hàng đang giao: </div>
+                            <div data-l-icon="false" data-r-icon="false" data-type="Infor" className="px-2 py-1 bg-background-support-info rounded-lg flex justify-center items-center gap-1">
+                                <div className="justify-start text-text-support-link text-sm font-medium font-['Inter'] leading-5">23 đơn</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="self-stretch px-3 py-2 inline-flex justify-end items-center gap-52">
+                    <div data-icon-button="No" data-sate="Regular" data-show-icon-left="false" data-show-icon-right="false" data-size="S-32" data-style="Filled" data-type="Primary" className="px-2 py-1.5 bg-primary-primary-500 rounded-lg flex justify-center items-center gap-2 overflow-hidden">
+                        <div className="text-center justify-start text-neutral-white text-sm font-normal font-['Roboto'] leading-5">Đã giao thành công </div>
+                    </div>
+                </div>
             </div>
-
-            {/* Render List of Locations and Delivery Info */}
-            {mng.map((d) => (
-                <div key={d.ID} className="mx-auto max-w-sm px-4">
-                    <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center space-x-2">
-                            {/* Icon and Location */}
-                            <span className="text-blue-500">📦</span>
-                            <div className="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
-                                <h2 className="text-xl font-bold text-blue-600">{getNhaGiat(d.NhaGiat)}</h2>
-                                <p className="text-sm text-gray-500">Địa điểm</p>
-                            </div>
-                            <span className="text-blue-500">.........</span>
-                            <span className="text-blue-500">📦</span>
-                            <div className="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
-                                <h2 className="text-xl font-bold text-blue-600">{getDiaDiem(d.ID_DiaDiem)}</h2>
-                                <p className="text-sm text-gray-500">Địa chỉ</p>
-                            </div>
+            <div className="w-80 bg-primary-primary-50 rounded-xl outline outline-1 outline-offset-[-1px] flex flex-col justify-start items-start overflow-hidden">
+                <div className="self-stretch bg-background-base-on-surface1 rounded-xl flex flex-col justify-start items-start overflow-hidden">
+                    <div className="self-stretch px-3 py-2 inline-flex justify-between items-center">
+                        <div className="justify-start text-neutral-base-element-primary text-sm font-medium font-['Roboto'] leading-5">Vận chuyển</div>
+                        <div data-l-icon="false" data-r-icon="false" data-type="Infor" className="px-2 py-1 bg-background-support-info rounded-lg flex justify-center items-center gap-1">
+                            <div className="justify-start text-text-support-link text-sm font-medium font-['Inter'] leading-5">23 đơn</div>
                         </div>
                     </div>
-
-                    <div className="mt-2">
-                        <div className="flex justify-between text-sm text-gray-600">
-                            <span>Đơn hàng chờ giao</span>
-                            <span>{getResult("CHO_LAY", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
-                        </div>
-                        <div className="flex justify-between text-sm text-gray-600">
-                            <span>Đơn hàng đang giao</span>
-                            <span>{getResult("VAN_CHUYEN", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
-                        </div>
+                    <div data-space="0" data-style="Horizontal" data-type="Light" className="self-stretch flex flex-col justify-start items-start">
+                        <div className="self-stretch h-px bg-neutral-base-stroke-bold" />
                     </div>
-                </div>
-            ))}
-
-            {mngdd.map((d) => (
-                <div key={d.ID} className="mx-auto max-w-sm px-4">
-                    <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center space-x-2">
-                            {/* Icon and Location */}
-                            <span className="text-blue-500">📦</span>
-                            <div className="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
-                                <h2 className="text-xl font-bold text-blue-600">{getNhaGiat(d.NhaGiat)}</h2>
-                                <p className="text-sm text-gray-500">Địa điểm</p>
+                    <div className="self-stretch p-3 flex flex-col justify-start items-start gap-2">
+                        <div className="self-stretch flex flex-col justify-start items-start">
+                            <div className="self-stretch inline-flex justify-start items-center gap-1">
+                                <div className="w-5 self-stretch inline-flex flex-col justify-start items-center">
+                                    <div className="w-5 h-5 p-1.5 inline-flex justify-start items-center gap-2.5">
+                                        <div className="w-2 h-2 bg-primary-primary-500 rounded-full" />
+                                    </div>
+                                    <div className="w-8 flex-1 origin-top-left rotate-90 outline outline-[0.50px] outline-offset-[-0.25px] outline-neutral-base-stroke-bold"></div>
+                                </div>
+                                <div className="w-72 pb-2 inline-flex flex-col justify-start items-start gap-0.5">
+                                    <div className="self-stretch justify-start text-neutral-base-element-primary text-base font-medium font-['Roboto'] leading-6">Box Quận 1</div>
+                                    <div className="self-stretch justify-start text-neutral-base-element-tertiary text-sm font-normal font-['Roboto'] leading-5 line-clamp-1">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                                </div>
                             </div>
-                            <span className="text-blue-500">.........</span>
-                            <span className="text-blue-500">📦</span>
-                            <div className="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
-                                <h2 className="text-xl font-bold text-blue-600">{getDiaDiem(d.ID_DiaDiem)}</h2>
-                                <p className="text-sm text-gray-500">Địa chỉ</p>
+                            <div className="self-stretch h-16 inline-flex justify-start items-center gap-1">
+                                <div className="w-5 self-stretch flex justify-center items-start gap-2.5">
+                                    <div className="p-1 flex justify-start items-center gap-2.5">
+                                        <div className="w-2 h-2 bg-primary-primary-500 rounded-full" />
+                                    </div>
+                                </div>
+                                <div className="w-72 inline-flex flex-col justify-start items-start gap-0.5">
+                                    <div className="self-stretch justify-start text-neutral-base-element-primary text-base font-medium font-['Roboto'] leading-6">Box Quận 1</div>
+                                    <div className="self-stretch justify-start text-neutral-base-element-tertiary text-sm font-normal font-['Roboto'] leading-5 line-clamp-1">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div className="mt-2">
-                        <div className="flex justify-between text-sm text-gray-600">
-                            <span>Đơn hàng chờ giao</span>
-                            <span>{getResult("CHO_LAY", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
+                        <div className="self-stretch h-0 outline outline-1 outline-offset-[-0.50px] outline-neutral-base-stroke-light"></div>
+                        <div className="inline-flex justify-start items-center">
+                            <div className="w-40 justify-start text-text-neutral-body text-base font-normal font-['Roboto'] leading-6">Đơn hàng đã giao: </div>
+                            <div data-l-icon="false" data-r-icon="false" data-type="Infor" className="px-2 py-1 bg-background-support-info rounded-lg flex justify-center items-center gap-1">
+                                <div className="justify-start text-text-support-link text-sm font-medium font-['Inter'] leading-5">23 đơn</div>
+                            </div>
                         </div>
-                        <div className="flex justify-between text-sm text-gray-600">
-                            <span>Đơn hàng đang giao</span>
-                            <span>{getResult("VAN_CHUYEN", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
+                        <div className="inline-flex justify-start items-center">
+                            <div className="w-40 justify-start text-text-neutral-body text-base font-normal font-['Roboto'] leading-6">Đơn hàng đang giao: </div>
+                            <div data-l-icon="false" data-r-icon="false" data-type="Infor" className="px-2 py-1 bg-background-support-info rounded-lg flex justify-center items-center gap-1">
+                                <div className="justify-start text-text-support-link text-sm font-medium font-['Inter'] leading-5">23 đơn</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            ))}
+                <div className="self-stretch px-3 py-2 inline-flex justify-end items-center gap-52">
+                    <div data-icon-button="No" data-sate="Regular" data-show-icon-left="false" data-show-icon-right="false" data-size="S-32" data-style="Filled" data-type="Primary" className="px-2 py-1.5 bg-primary-primary-500 rounded-lg flex justify-center items-center gap-2 overflow-hidden">
+                        <div className="text-center justify-start text-neutral-white text-sm font-normal font-['Roboto'] leading-5">Đã giao thành công </div>
+                    </div>
+                </div>
+            </div>
+            <div className="w-80 bg-primary-primary-50 rounded-xl outline outline-1 outline-offset-[-1px] flex flex-col justify-start items-start overflow-hidden">
+                <div className="self-stretch bg-background-base-on-surface1 rounded-xl flex flex-col justify-start items-start overflow-hidden">
+                    <div className="self-stretch px-3 py-2 inline-flex justify-between items-center">
+                        <div className="justify-start text-neutral-base-element-primary text-sm font-medium font-['Roboto'] leading-5">Vận chuyển</div>
+                        <div data-l-icon="false" data-r-icon="false" data-type="Infor" className="px-2 py-1 bg-background-support-info rounded-lg flex justify-center items-center gap-1">
+                            <div className="justify-start text-text-support-link text-sm font-medium font-['Inter'] leading-5">23 đơn</div>
+                        </div>
+                    </div>
+                    <div data-space="0" data-style="Horizontal" data-type="Light" className="self-stretch flex flex-col justify-start items-start">
+                        <div className="self-stretch h-px bg-neutral-base-stroke-bold" />
+                    </div>
+                    <div className="self-stretch p-3 flex flex-col justify-start items-start gap-2">
+                        <div className="self-stretch flex flex-col justify-start items-start">
+                            <div className="self-stretch inline-flex justify-start items-center gap-1">
+                                <div className="w-5 self-stretch inline-flex flex-col justify-start items-center">
+                                    <div className="w-5 h-5 p-1.5 inline-flex justify-start items-center gap-2.5">
+                                        <div className="w-2 h-2 bg-primary-primary-500 rounded-full" />
+                                    </div>
+                                    <div className="w-14 flex-1 origin-top-left rotate-90 outline outline-[0.50px] outline-offset-[-0.25px] outline-neutral-base-stroke-bold"></div>
+                                </div>
+                                <div className="w-72 pb-2 inline-flex flex-col justify-start items-start gap-0.5">
+                                    <div className="self-stretch justify-start text-neutral-base-element-primary text-base font-medium font-['Roboto'] leading-6">Box Quận 1</div>
+                                    <div className="self-stretch justify-start text-neutral-base-element-tertiary text-sm font-normal font-['Roboto'] leading-5">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                                </div>
+                            </div>
+                            <div className="self-stretch h-16 inline-flex justify-start items-center gap-1">
+                                <div className="w-5 self-stretch flex justify-center items-start gap-2.5">
+                                    <div className="p-1 flex justify-start items-center gap-2.5">
+                                        <div className="w-2 h-2 bg-primary-primary-500 rounded-full" />
+                                    </div>
+                                </div>
+                                <div className="w-72 inline-flex flex-col justify-start items-start gap-0.5">
+                                    <div className="self-stretch justify-start text-neutral-base-element-primary text-base font-medium font-['Roboto'] leading-6">Box Quận 1</div>
+                                    <div className="self-stretch justify-start text-neutral-base-element-tertiary text-sm font-normal font-['Roboto'] leading-5">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="self-stretch h-0 outline outline-1 outline-offset-[-0.50px] outline-neutral-base-stroke-light"></div>
+                        <div className="inline-flex justify-start items-center">
+                            <div className="w-40 justify-start text-text-neutral-body text-base font-normal font-['Roboto'] leading-6">Đơn hàng đã giao: </div>
+                            <div data-l-icon="false" data-r-icon="false" data-type="Infor" className="px-2 py-1 bg-background-support-info rounded-lg flex justify-center items-center gap-1">
+                                <div className="justify-start text-text-support-link text-sm font-medium font-['Inter'] leading-5">23 đơn</div>
+                            </div>
+                        </div>
+                        <div className="inline-flex justify-start items-center">
+                            <div className="w-40 justify-start text-text-neutral-body text-base font-normal font-['Roboto'] leading-6">Đơn hàng đang giao: </div>
+                            <div data-l-icon="false" data-r-icon="false" data-type="Infor" className="px-2 py-1 bg-background-support-info rounded-lg flex justify-center items-center gap-1">
+                                <div className="justify-start text-text-support-link text-sm font-medium font-['Inter'] leading-5">23 đơn</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="self-stretch px-3 py-2 inline-flex justify-end items-center gap-52">
+                    <div data-icon-button="No" data-sate="Regular" data-show-icon-left="false" data-show-icon-right="false" data-size="S-32" data-style="Filled" data-type="Primary" className="px-2 py-1.5 bg-primary-primary-500 rounded-lg flex justify-center items-center gap-2 overflow-hidden">
+                        <div className="text-center justify-start text-neutral-white text-sm font-normal font-['Roboto'] leading-5">Đã giao thành công </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div className="w-96 left-0 top-[44px] absolute inline-flex flex-col justify-end items-start">
+        <div className="self-stretch flex flex-col justify-end items-start">
+            <div className="self-stretch px-1 py-2 inline-flex justify-start items-center">
+                <div className="flex-1 px-3 flex justify-start items-center">
+                    <img className="w-20 h-10" src="https://placehold.co/83x40" />
+                </div>
+                <div className="w-12 h-12 p-3 rounded-lg flex justify-center items-center">
+                    <div className="w-5 h-5 relative overflow-hidden">
+                        <div className="w-2.5 h-[1.25px] left-[10.83px] top-[8.13px] absolute bg-neutral-base-element-secondary" />
+                        <div className="w-1 h-2 left-[15.62px] top-[5px] absolute bg-neutral-base-element-secondary" />
+                        <div className="w-2 h-5 left-0 top-0 absolute bg-neutral-base-element-secondary" />
+                        <div className="w-3 h-1.5 left-[1.04px] top-0 absolute bg-neutral-base-element-secondary" />
+                        <div className="w-1.5 h-1.5 left-[7.08px] top-[10.83px] absolute bg-neutral-base-element-secondary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-bg="false" data-device="iphone" data-mode="on Light" data-type="Portrait" className="w-96 px-28 pt-5 pb-2 left-0 top-[778px] absolute inline-flex flex-col justify-end items-center gap-1 overflow-hidden">
+        <div className="w-32 h-[5px] bg-black rounded-sm" />
+    </div>
+    <div data-bg="false" data-camera-cutout="true" data-devices="iPhoneX" data-mode="on Light" className="w-96 h-11 left-0 top-0 absolute overflow-hidden">
+        <div className="w-5 h-3 left-[335.33px] top-[18.33px] absolute opacity-30 bg-black rounded-sm border border-black" />
+        <div className="w-[1.33px] h-1 left-[358.33px] top-[22px] absolute opacity-40 bg-black" />
+        <div className="w-4 h-2 left-[337.33px] top-[20.33px] absolute bg-black rounded-sm" />
+        <div className="w-14 left-[16px] top-[14px] absolute text-center justify-start text-black text-base font-semibold font-['SF_Pro_Text']">9:41</div>
+    </div>
+</div>
         </main>
 
     );
