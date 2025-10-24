@@ -6,9 +6,9 @@ import { directusFetch } from "@/lib/directusFetch";
 import Image from "next/image";
 
 // Kiểu dữ liệu gọn gàng
-type DiaDiem = { ID: number; TenDiaDiem: string;DiaChi: string };
+type DiaDiem = { ID: number; TenDiaDiem: string; DiaChi: string };
 type Mapping_NhaGiat = { ID: number; NhaGiat: string; ID_DiaDiem: number; Type: number; };
-type NhaGiat = { id: string; first_name: string; last_name: string; title: string;description: string };
+type NhaGiat = { id: string; first_name: string; last_name: string; title: string; description: string };
 type CountRow = {
     ID_DiaDiem: number | null;
     count: { "*": number } | number; // tuỳ phiên bản Directus
@@ -244,13 +244,13 @@ export default async function PageDiaDiem() {
     function getNhaGiat(id: string) {
         return ng.find(b => b.id === id)?.first_name;
     };
-     function getDiaChiNhaGiat(id: string) {
+    function getDiaChiNhaGiat(id: string) {
         return ng.find(b => b.id === id)?.description;
     };
     function getDiaDiem(id: number) {
         return diaDiems.find(b => b.ID === id)?.TenDiaDiem;
     };
-     function getDiaChi(id: number) {
+    function getDiaChi(id: number) {
         return diaDiems.find(b => b.ID === id)?.DiaChi;
     };
     {
@@ -346,46 +346,40 @@ export default async function PageDiaDiem() {
                                         <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px", gap: "8px", fontSize: "16px", color: "#7a7c80", }}>
                                             <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414", }}>
                                                 <div style={{ alignSelf: "stretch", display: "flex", alignItems: "center", gap: "4px", }}>
-                                                  {/* KHỐI 2 DÒNG */}
-                                                <div className="grid grid-cols-[12px_1fr] gap-x-2">
-                                                    {/* Hàng 1: Box Thảo Điền + dot + vạch dọc tới divider */}
-                                                    <div className="flex flex-col items-center">
-                                                        <span className="h-2.5 w-2.5 rounded-full bg-sky-600 mt-1" />
-                                                        {/* vạch dọc đến đúng divider */}
-                                                        <span className="block w-px flex-1 bg-gray-300/70 my-1" />
-                                                    </div>
-                                                    <div>
-                                                        <div className="font-semibold text-[15px] leading-5">{getNhaGiat(d.NhaGiat)}</div>
-                                                        <div className="text-sm text-slate-600 leading-5">
-                                                              {getDiaChiNhaGiat(d.NhaGiat)}
-                                                         
+                                                    {/* KHỐI 2 DÒNG */}
+                                                    <div className="grid grid-cols-[12px_1fr] gap-x-2">
+                                                        {/* Hàng 1: Box Thảo Điền + dot + vạch dọc tới divider */}
+                                                        <div className="flex flex-col items-center">
+                                                            <span className="h-2.5 w-2.5 rounded-full bg-sky-600 mt-1" />
+                                                            {/* vạch dọc đến đúng divider */}
+                                                            <span className="block w-px flex-1 bg-gray-300/70 my-1" />
                                                         </div>
-                                                        {/* divider giữa 2 dòng */}
-                                                        <div className="my-2 border-t border-dotted border-slate-300/80" />
-                                                    </div>
+                                                        <div>
+                                                            <div className="font-semibold text-[15px] leading-5">{getNhaGiat(d.NhaGiat)}</div>
+                                                            <div className="text-sm text-slate-600 leading-5">
+                                                                {getDiaChiNhaGiat(d.NhaGiat)}
 
-                                                    {/* Hàng 2: Giặt giày vải + dot riêng (không dùng vạch, hoặc dùng vạch ngắn nếu cần) */}
-                                                    <div className="flex flex-col items-center">
-                                                        <span className="h-2.5 w-2.5 rounded-full bg-sky-600 mt-1" />
-                                                        {/* Nếu muốn kẻ xuống tiếp bên dưới, thêm vạch ngắn:
+                                                            </div>
+                                                            {/* divider giữa 2 dòng */}
+                                                            <div className="my-2 border-t border-dotted border-slate-300/80" />
+                                                        </div>
+
+                                                        {/* Hàng 2: Giặt giày vải + dot riêng (không dùng vạch, hoặc dùng vạch ngắn nếu cần) */}
+                                                        <div className="flex flex-col items-center">
+                                                            <span className="h-2.5 w-2.5 rounded-full bg-sky-600 mt-1" />
+                                                            {/* Nếu muốn kẻ xuống tiếp bên dưới, thêm vạch ngắn:
     <span className="block w-px flex-1 bg-gray-300/70 my-1" />
     */}
-                                                    </div>
-                                                    <div>
-                                                        <div className="font-semibold text-[15px] leading-5">{getDiaDiem(d.ID_DiaDiem)}</div>
-                                                        <div className="text-sm text-slate-600 leading-5">
-                                                               {getDiaChi(d.ID_DiaDiem)}
+                                                        </div>
+                                                        <div>
+                                                            <div className="font-semibold text-[15px] leading-5">{getDiaDiem(d.ID_DiaDiem)}</div>
+                                                            <div className="text-sm text-slate-600 leading-5">
+                                                                {getDiaChi(d.ID_DiaDiem)}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                </div>
-                                                <div style={{ alignSelf: "stretch", height: "62px", display: "flex", alignItems: "center", gap: "4px", }}>
-                                                    <Image src="/Ellipse 2.svg" style={{ alignSelf: "stretch", width: "10px", maxHeight: "100%", }} width={10} height={62} sizes="100vw" alt="" />
-                                                    <div style={{ width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px", }}>
-                                                        <div style={{ alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500", }}>{getDiaDiem(d.ID_DiaDiem)}</div>
-                                                        <div style={{ alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", }}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                             <div style={{ alignSelf: "stretch", height: "1px", position: "relative", borderTop: "1px dashed #c4c6cc", boxSizing: "border-box", }} />
                                             <div style={{ display: "flex", alignItems: "center", }}>
