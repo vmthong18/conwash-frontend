@@ -256,7 +256,7 @@ export default async function PageDiaDiem() {
                 <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
                     <div className="mx-auto max-w-sm px-4 py-3 flex items-center gap-3">
                  
-                        <h1 className="text-[20px] font-semibold">Danh sách đơn hàng</h1>
+                        <h1 className="text-[20px] font-semibold">Danh sách vận chuyển</h1>
 
                         <LogoutBtn />
                     </div>
@@ -268,10 +268,7 @@ export default async function PageDiaDiem() {
                         <li key={d.ID} className="rounded-2xl bg-white border border-gray-200 shadow-sm">
                             <div style={{ width: "100%", position: "relative", borderRadius: "12px", backgroundColor: "#e7eefc", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start", textAlign: "left", fontSize: "14px", color: "#141414", fontFamily: "Roboto", }}>
                                 <div style={{ alignSelf: "stretch", borderRadius: "12px", backgroundColor: "#fff", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start", }}>
-                                    <div style={{ alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 12px", gap: "20px", }}>
-                                        <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>Vận chuyển</div>
-
-                                    </div>
+                                    
                                     <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", }}>
                                         <Image src="/Ellipse 2.svg" style={{ alignSelf: "stretch", height: "1px", position: "relative", maxWidth: "100%", overflow: "hidden", flexShrink: "0", width: "100%", }} width={343} height={1} sizes="100vw" alt="" />
                                     </div>
