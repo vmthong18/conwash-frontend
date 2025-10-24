@@ -312,11 +312,11 @@ export default async function PageDiaDiem() {
                     <div className="mt-2">
                         <div className="flex justify-between text-sm text-gray-600">
                             <span>Đơn hàng chờ giao</span>
-                            <span>{getResult("CHO_LAY", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
+                            <span>{getResult("CHO_VAN_CHUYEN_LAI", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
                         </div>
                         <div className="flex justify-between text-sm text-gray-600">
                             <span>Đơn hàng đang giao</span>
-                            <span>{getResult("VAN_CHUYEN", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
+                            <span>{getResult("VAN_CHUYEN_LAI", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
                         </div>
                     </div>
                 </div>
