@@ -255,113 +255,155 @@ export default async function PageDiaDiem() {
             <main className="p-6">
                 <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
                     <div className="mx-auto max-w-sm px-4 py-3 flex items-center gap-3">
-                 
+
                         <h1 className="text-[20px] font-semibold">Danh sách vận chuyển</h1>
 
                         <LogoutBtn />
                     </div>
                 </div>
-                 <ul className="mx-auto max-w-sm p-4 space-y-3">
-                {mng.map((d) => {
+                <ul className="mx-auto max-w-sm p-4 space-y-3">
+                    {mng.map((d) => {
 
-                    return (
-                        <li key={d.ID} className="rounded-2xl bg-white border border-gray-200 shadow-sm">
-                            <div style={{ width: "100%", position: "relative", borderRadius: "12px", backgroundColor: "#e7eefc", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start", textAlign: "left", fontSize: "14px", color: "#141414", fontFamily: "Roboto", }}>
-                                <div style={{ alignSelf: "stretch", borderRadius: "12px", backgroundColor: "#fff", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start", }}>
-                                    
-                                    <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", }}>
-                                        <Image src="/Ellipse 2.svg" style={{ alignSelf: "stretch", height: "1px", position: "relative", maxWidth: "100%", overflow: "hidden", flexShrink: "0", width: "100%", }} width={343} height={1} sizes="100vw" alt="" />
+                        return (
+                            <li key={d.ID} className="rounded-2xl bg-white border border-gray-200 shadow-sm">
+                                <div style={{ width: "100%", position: "relative", borderRadius: "12px", backgroundColor: "#e7eefc", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start", textAlign: "left", fontSize: "14px", color: "#141414", fontFamily: "Roboto", }}>
+                                    <div style={{ alignSelf: "stretch", borderRadius: "12px", backgroundColor: "#fff", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start", }}>
+
+                                        <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", }}>
+                                            <Image src="/Ellipse 2.svg" style={{ alignSelf: "stretch", height: "1px", position: "relative", maxWidth: "100%", overflow: "hidden", flexShrink: "0", width: "100%", }} width={343} height={1} sizes="100vw" alt="" />
+                                        </div>
+                                        <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px", gap: "8px", fontSize: "16px", color: "#7a7c80", }}>
+                                            <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414", }}>
+                                                <div style={{ alignSelf: "stretch", display: "flex", alignItems: "center", gap: "4px", }}>
+                                                    <div style={{
+                                                        width: "20px",
+                                                        display: "flex",
+                                                        flexDirection: "column",
+                                                        alignItems: "center",
+                                                        justifyContent: "flex-start", // hoặc 'center' nếu muốn giữa dòng
+                                                    }}>
+                                                        <Image
+                                                            src="/Ellipse 2.svg"
+                                                            style={{ width: "10px", height: "10px", marginTop: "2px" }}
+                                                            width={10}
+                                                            height={10}
+                                                            alt=""
+                                                        />
+                                                        <div
+                                                            style={{
+                                                                width: "0.5px",
+                                                                flex: 1,
+                                                                borderRight: "0.5px solid #d3d5db",
+                                                                boxSizing: "border-box",
+                                                                marginTop: "2px", // tùy chỉnh nhỏ để căn line
+                                                            }}
+                                                        />
+                                                    </div>
+
+                                                    <div style={{ width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "0px 0px 8px", boxSizing: "border-box", gap: "2px", }}>
+                                                        <div style={{ alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500", }}>{getDiaDiem(d.ID_DiaDiem)}</div>
+                                                        <div style={{ alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", }}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                                                    </div>
+                                                </div>
+                                                <div style={{ alignSelf: "stretch", height: "62px", display: "flex", alignItems: "center", gap: "4px", }}>
+                                                    <Image src="/Ellipse 2.svg" style={{ alignSelf: "stretch", width: "10px", maxHeight: "100%", }} width={10} height={62} sizes="100vw" alt="" />
+                                                    <div style={{ width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px", }}>
+                                                        <div style={{ alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500", }}>{getNhaGiat(d.NhaGiat)}</div>
+                                                        <div style={{ alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", }}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style={{ alignSelf: "stretch", height: "1px", position: "relative", borderTop: "1px dashed #c4c6cc", boxSizing: "border-box", }} />
+                                            <div style={{ display: "flex", alignItems: "center", }}>
+                                                <div style={{ width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0", }}>{`Đơn hàng chờ giao: `}</div>
+                                                <div style={{ borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter", }}>
+                                                    <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>{getResult("CHO_LAY", d.ID_DiaDiem, d.NhaGiat)} đơn</div>
+                                                </div>
+                                            </div>
+                                            <div style={{ display: "flex", alignItems: "center", }}>
+                                                <div style={{ width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0", }}>{`Đơn hàng đang giao: `}</div>
+                                                <div style={{ borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter", }}>
+                                                    <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>{getResult("VAN_CHUYEN", d.ID_DiaDiem, d.NhaGiat)} đơn</div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px", gap: "8px", fontSize: "16px", color: "#7a7c80", }}>
-                                        <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414", }}>
-                                            <div style={{ alignSelf: "stretch", display: "flex", alignItems: "center", gap: "4px", }}>
-                                                <div style={{ alignSelf: "stretch", width: "20px", display: "flex", flexDirection: "column", alignItems: "center", }}>
-                                                    <Image src="/Ellipse 2.svg" style={{ width: "10px", height: "10px", }} width={10} height={10} sizes="100vw" alt="" />
-                                                    <div style={{ width: "0.5px", flex: "1", position: "relative", borderRight: "0.5px solid #d3d5db", boxSizing: "border-box", }} />
-                                                </div>
-                                                <div style={{ width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "0px 0px 8px", boxSizing: "border-box", gap: "2px", }}>
-                                                    <div style={{ alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500", }}>{getDiaDiem(d.ID_DiaDiem)}</div>
-                                                    <div style={{ alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", }}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                                                </div>
-                                            </div>
-                                            <div style={{ alignSelf: "stretch", height: "62px", display: "flex", alignItems: "center", gap: "4px", }}>
-                                                <Image src="/Ellipse 2.svg" style={{ alignSelf: "stretch", width: "10px", maxHeight: "100%", }} width={10} height={62} sizes="100vw" alt="" />
-                                                <div style={{ width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px", }}>
-                                                    <div style={{ alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500", }}>{getNhaGiat(d.NhaGiat)}</div>
-                                                    <div style={{ alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", }}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div style={{ alignSelf: "stretch", height: "1px", position: "relative", borderTop: "1px dashed #c4c6cc", boxSizing: "border-box", }} />
-                                        <div style={{ display: "flex", alignItems: "center", }}>
-                                            <div style={{ width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0", }}>{`Đơn hàng chờ giao: `}</div>
-                                            <div style={{ borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter", }}>
-                                                <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>{getResult("CHO_LAY", d.ID_DiaDiem, d.NhaGiat)} đơn</div>
-                                            </div>
-                                        </div>
-                                        <div style={{ display: "flex", alignItems: "center", }}>
-                                            <div style={{ width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0", }}>{`Đơn hàng đang giao: `}</div>
-                                            <div style={{ borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter", }}>
-                                                <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>{getResult("VAN_CHUYEN", d.ID_DiaDiem, d.NhaGiat)} đơn</div>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </div>
+                            </li>
+                        );
+                    })}
+                    {mngdd.map((d) => {
 
-                            </div>
-                        </li>
-                    );
-                })}
-                  {mngdd.map((d) => {
+                        return (
+                            <li key={d.ID} className="rounded-2xl bg-white border border-gray-200 shadow-sm">
+                                <div style={{ width: "100%", position: "relative", borderRadius: "12px", backgroundColor: "#e7eefc", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start", textAlign: "left", fontSize: "14px", color: "#141414", fontFamily: "Roboto", }}>
+                                    <div style={{ alignSelf: "stretch", borderRadius: "12px", backgroundColor: "#fff", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start", }}>
 
-                    return (
-                        <li key={d.ID} className="rounded-2xl bg-white border border-gray-200 shadow-sm">
-                            <div style={{ width: "100%", position: "relative", borderRadius: "12px", backgroundColor: "#e7eefc", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start", textAlign: "left", fontSize: "14px", color: "#141414", fontFamily: "Roboto", }}>
-                                <div style={{ alignSelf: "stretch", borderRadius: "12px", backgroundColor: "#fff", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start", }}>
-                                    
-                                    <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", }}>
-                                        <Image src="/Ellipse 2.svg" style={{ alignSelf: "stretch", height: "1px", position: "relative", maxWidth: "100%", overflow: "hidden", flexShrink: "0", width: "100%", }} width={343} height={1} sizes="100vw" alt="" />
+                                        <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", }}>
+                                            <Image src="/Ellipse 2.svg" style={{ alignSelf: "stretch", height: "1px", position: "relative", maxWidth: "100%", overflow: "hidden", flexShrink: "0", width: "100%", }} width={343} height={1} sizes="100vw" alt="" />
+                                        </div>
+                                        <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px", gap: "8px", fontSize: "16px", color: "#7a7c80", }}>
+                                            <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414", }}>
+                                                <div style={{ alignSelf: "stretch", display: "flex", alignItems: "center", gap: "4px", }}>
+                                                    <div style={{
+                                                        width: "20px",
+                                                        display: "flex",
+                                                        flexDirection: "column",
+                                                        alignItems: "center",
+                                                        justifyContent: "flex-start", // hoặc 'center' nếu muốn giữa dòng
+                                                    }}>
+                                                        <Image
+                                                            src="/Ellipse 2.svg"
+                                                            style={{ width: "10px", height: "10px", marginTop: "2px" }}
+                                                            width={10}
+                                                            height={10}
+                                                            alt=""
+                                                        />
+                                                        <div
+                                                            style={{
+                                                                width: "0.5px",
+                                                                flex: 1,
+                                                                borderRight: "0.5px solid #d3d5db",
+                                                                boxSizing: "border-box",
+                                                                marginTop: "2px", // tùy chỉnh nhỏ để căn line
+                                                            }}
+                                                        />
+                                                    </div>
+
+                                                    <div style={{ width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "0px 0px 8px", boxSizing: "border-box", gap: "2px", }}>
+                                                        <div style={{ alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500", }}>{getDiaDiem(d.ID_DiaDiem)}</div>
+                                                        <div style={{ alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", }}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                                                    </div>
+                                                </div>
+                                                <div style={{ alignSelf: "stretch", height: "62px", display: "flex", alignItems: "center", gap: "4px", }}>
+                                                    <Image src="/Ellipse 2.svg" style={{ alignSelf: "stretch", width: "10px", maxHeight: "100%", }} width={10} height={62} sizes="100vw" alt="" />
+                                                    <div style={{ width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px", }}>
+                                                        <div style={{ alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500", }}>{getNhaGiat(d.NhaGiat)}</div>
+                                                        <div style={{ alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", }}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style={{ alignSelf: "stretch", height: "1px", position: "relative", borderTop: "1px dashed #c4c6cc", boxSizing: "border-box", }} />
+                                            <div style={{ display: "flex", alignItems: "center", }}>
+                                                <div style={{ width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0", }}>{`Đơn hàng chờ giao: `}</div>
+                                                <div style={{ borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter", }}>
+                                                    <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>{getResult("CHO_LAY", d.ID_DiaDiem, d.NhaGiat)} đơn</div>
+                                                </div>
+                                            </div>
+                                            <div style={{ display: "flex", alignItems: "center", }}>
+                                                <div style={{ width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0", }}>{`Đơn hàng đang giao: `}</div>
+                                                <div style={{ borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter", }}>
+                                                    <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>{getResult("VAN_CHUYEN", d.ID_DiaDiem, d.NhaGiat)} đơn</div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px", gap: "8px", fontSize: "16px", color: "#7a7c80", }}>
-                                        <div style={{ alignSelf: "stretch", display: "flex", flexDirection: "column", alignItems: "flex-start", color: "#141414", }}>
-                                            <div style={{ alignSelf: "stretch", display: "flex", alignItems: "center", gap: "4px", }}>
-                                                <div style={{ alignSelf: "stretch", width: "20px", display: "flex", flexDirection: "column", alignItems: "center", }}>
-                                                    <Image src="/Ellipse 2.svg" style={{ width: "10px", height: "10px", }} width={10} height={10} sizes="100vw" alt="" />
-                                                    <div style={{ width: "0.5px", flex: "1", position: "relative", borderRight: "0.5px solid #d3d5db", boxSizing: "border-box", }} />
-                                                </div>
-                                                <div style={{ width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "0px 0px 8px", boxSizing: "border-box", gap: "2px", }}>
-                                                    <div style={{ alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500", }}>{getDiaDiem(d.ID_DiaDiem)}</div>
-                                                    <div style={{ alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", }}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                                                </div>
-                                            </div>
-                                            <div style={{ alignSelf: "stretch", height: "62px", display: "flex", alignItems: "center", gap: "4px", }}>
-                                                <Image src="/Ellipse 2.svg" style={{ alignSelf: "stretch", width: "10px", maxHeight: "100%", }} width={10} height={62} sizes="100vw" alt="" />
-                                                <div style={{ width: "292px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px", }}>
-                                                    <div style={{ alignSelf: "stretch", position: "relative", lineHeight: "24px", fontWeight: "500", }}>{getNhaGiat(d.NhaGiat)}</div>
-                                                    <div style={{ alignSelf: "stretch", position: "relative", fontSize: "14px", lineHeight: "20px", color: "#7a7c80", }}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div style={{ alignSelf: "stretch", height: "1px", position: "relative", borderTop: "1px dashed #c4c6cc", boxSizing: "border-box", }} />
-                                        <div style={{ display: "flex", alignItems: "center", }}>
-                                            <div style={{ width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0", }}>{`Đơn hàng chờ giao: `}</div>
-                                            <div style={{ borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter", }}>
-                                                <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>{getResult("CHO_LAY", d.ID_DiaDiem, d.NhaGiat)} đơn</div>
-                                            </div>
-                                        </div>
-                                        <div style={{ display: "flex", alignItems: "center", }}>
-                                            <div style={{ width: "156px", position: "relative", lineHeight: "24px", display: "inline-block", flexShrink: "0", }}>{`Đơn hàng đang giao: `}</div>
-                                            <div style={{ borderRadius: "8px", backgroundColor: "#e7eefc", display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 8px", fontSize: "14px", color: "#1059e0", fontFamily: "Inter", }}>
-                                                <div style={{ position: "relative", lineHeight: "20px", fontWeight: "500", }}>{getResult("VAN_CHUYEN", d.ID_DiaDiem, d.NhaGiat)} đơn</div>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </div>
-
-                            </div>
-                        </li>
-                    );
-                })}
+                            </li>
+                        );
+                    })}
                 </ul>
             </main>
         );
