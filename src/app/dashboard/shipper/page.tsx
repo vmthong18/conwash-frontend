@@ -251,26 +251,25 @@ export default async function PageDiaDiem() {
     };
     return (
 
-            <main className="p-6">
-            {/* Header */}
+        <main className="p-6">
             <div className="flex items-center justify-between mb-6">
                 <h1 className="text-2xl font-bold">Vận chuyển</h1>
                 <span className="text-blue-500">100 đơn</span>
             </div>
 
-            {/* List of Locations */}
+            {/* Render List of Locations and Delivery Info */}
             {mng.map((d) => (
                 <div key={d.ID} className="mb-4 p-4 border border-gray-300 rounded-lg shadow-md">
                     <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center space-x-2">
                             {/* Icon and Location */}
                             <span className="text-blue-500">📦</span>
-                            <div>
+                            <div className="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
                                 <h2 className="text-xl font-bold text-blue-600">{getNhaGiat(d.NhaGiat)}</h2>
                                 <p className="text-sm text-gray-500">địa chỉ</p>
                             </div>
                             <span className="text-blue-500">📦</span>
-                            <div>
+                            <div className="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
                                 <h2 className="text-xl font-bold text-blue-600">{getDiaDiem(d.ID_DiaDiem)}</h2>
                                 <p className="text-sm text-gray-500">địa chỉ</p>
                             </div>
@@ -288,7 +287,6 @@ export default async function PageDiaDiem() {
                             <span>{getResult("VAN_CHUYEN", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
                         </div>
                     </div>
-                   
                 </div>
             ))}
 
@@ -298,12 +296,12 @@ export default async function PageDiaDiem() {
                         <div className="flex items-center space-x-2">
                             {/* Icon and Location */}
                             <span className="text-blue-500">📦</span>
-                            <div>
+                            <div className="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
                                 <h2 className="text-xl font-bold text-blue-600">{getNhaGiat(d.NhaGiat)}</h2>
                                 <p className="text-sm text-gray-500">địa chỉ</p>
                             </div>
                             <span className="text-blue-500">📦</span>
-                            <div>
+                            <div className="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
                                 <h2 className="text-xl font-bold text-blue-600">{getDiaDiem(d.ID_DiaDiem)}</h2>
                                 <p className="text-sm text-gray-500">địa chỉ</p>
                             </div>
@@ -321,7 +319,6 @@ export default async function PageDiaDiem() {
                             <span>{getResult("VAN_CHUYEN", d.ID_DiaDiem, d.NhaGiat)} đơn</span>
                         </div>
                     </div>
-                   
                 </div>
             ))}
         </main>
