@@ -3,6 +3,9 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import LogoutBtn from "../LogoutBtn";
 import { directusFetch } from "@/lib/directusFetch";
+import type { NextPage } from 'next';
+import Image  from "next/image";
+import styles from './index.module.css';
 
 // Kiểu dữ liệu gọn gàng
 type DiaDiem = { ID: number; TenDiaDiem: string };
@@ -249,186 +252,169 @@ export default async function PageDiaDiem() {
     function getDiaDiem(id: number) {
         return diaDiems.find(b => b.ID === id)?.TenDiaDiem;
     };
-    return (
+    {
+  	return (
+    		<div className={styles.main}>
+      			<div className={styles.instanceParent}>
+        				<div className={styles.frameParent}>
+          					<div className={styles.rowHeaderParent}>
+            						<div className={styles.rowHeader}>
+              							<div className={styles.vnChuyn}>Vận chuyển</div>
+              							<div className={styles.statusTag}>
+                								<div className={styles.vnChuyn}>23 đơn</div>
+              							</div>
+            						</div>
+            						<div className={styles.divider}>
+              							<div className={styles.line1Stroke}  />
+            						</div>
+            						<div className={styles.frameGroup}>
+              							<div className={styles.frameContainer}>
+                								<div className={styles.frameDiv}>
+                  									<div className={styles.mainFrameParent}>
+                    										<div className={styles.frameChild}  />
+                    										<div className={styles.frameItem} />
+                  									</div>
+                  									<div className={styles.boxQun1Parent}>
+                    										<div className={styles.boxQun1}>Box Quận 1</div>
+                    										<div className={styles.trnVnSc}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                  									</div>
+                								</div>
+                								<div className={styles.frameParent2}>
+                  									<div className={styles.frameInner} />
+                  									<div className={styles.boxQun1Group}>
+                    										<div className={styles.boxQun1}>Box Quận 1</div>
+                    										<div className={styles.trnVnSc}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                  									</div>
+                								</div>
+              							</div>
+              							<div className={styles.lineDiv} />
+              							<div className={styles.nHngGiaoParent}>
+                								<div className={styles.nHng}>{`Đơn hàng chờ giao: `}</div>
+                								<div className={styles.mainStatusTag}>
+                  									<div className={styles.vnChuyn}>23 đơn</div>
+                								</div>
+              							</div>
+              							<div className={styles.nHngGiaoParent}>
+                								<div className={styles.nHng}>{`Đơn hàng đang giao: `}</div>
+                								<div className={styles.mainStatusTag}>
+                  									<div className={styles.vnChuyn}>23 đơn</div>
+                								</div>
+              							</div>
+            						</div>
+          					</div>
+          					<div className={styles.mainRowHeader}>
+            						<div className={styles.button}>
+              							<div className={styles.textButton}>{`Đã giao thành công `}</div>
+            						</div>
+          					</div>
+        				</div>
+        				<div className={styles.frameParent}>
+          					<div className={styles.rowHeaderParent}>
+            						<div className={styles.rowHeader}>
+              							<div className={styles.vnChuyn}>Vận chuyển</div>
+              							<div className={styles.statusTag}>
+                								<div className={styles.vnChuyn}>23 đơn</div>
+              							</div>
+            						</div>
+            						<div className={styles.divider}>
+              							<div className={styles.line1Stroke}/>
+            						</div>
+            						<div className={styles.frameGroup}>
+              							<div className={styles.frameContainer}>
+                								<div className={styles.frameDiv}>
+                  									<div className={styles.mainFrameParent}>
+                    										<div className={styles.frameChild} />
+                    										<div className={styles.frameItem} />
+                  									</div>
+                  									<div className={styles.boxQun1Parent}>
+                    										<div className={styles.boxQun1}>Box Quận 1</div>
+                    										<div className={styles.trnVnSc2}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                  									</div>
+                								</div>
+                								<div className={styles.frameParent2}>
+                  									<div className={styles.frameInner} />
+                  									<div className={styles.boxQun1Group}>
+                    										<div className={styles.boxQun1}>Box Quận 1</div>
+                    										<div className={styles.trnVnSc2}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                  									</div>
+                								</div>
+              							</div>
+              							<div className={styles.lineDiv} />
+              							<div className={styles.nHngGiaoParent}>
+                								<div className={styles.nHng}>{`Đơn hàng đã giao: `}</div>
+                								<div className={styles.mainStatusTag}>
+                  									<div className={styles.vnChuyn}>23 đơn</div>
+                								</div>
+              							</div>
+              							<div className={styles.nHngGiaoParent}>
+                								<div className={styles.nHng}>{`Đơn hàng đang giao: `}</div>
+                								<div className={styles.mainStatusTag}>
+                  									<div className={styles.vnChuyn}>23 đơn</div>
+                								</div>
+              							</div>
+            						</div>
+          					</div>
+          					<div className={styles.mainRowHeader}>
+            						<div className={styles.button}>
+              							<div className={styles.textButton}>{`Đã giao thành công `}</div>
+            						</div>
+          					</div>
+        				</div>
+        				<div className={styles.frameParent}>
+          					<div className={styles.rowHeaderParent}>
+            						<div className={styles.rowHeader}>
+              							<div className={styles.vnChuyn}>Vận chuyển</div>
+              							<div className={styles.statusTag}>
+                								<div className={styles.vnChuyn}>23 đơn</div>
+              							</div>
+            						</div>
+            						<div className={styles.divider}>
+              							<div className={styles.line1Stroke} />
+            						</div>
+            						<div className={styles.frameGroup}>
+              							<div className={styles.frameContainer}>
+                								<div className={styles.frameDiv}>
+                  									<div className={styles.mainFrameParent}>
+                    										<div className={styles.frameChild} />
+                    										<div className={styles.frameItem} />
+                  									</div>
+                  									<div className={styles.boxQun1Parent}>
+                    										<div className={styles.boxQun1}>Box Quận 1</div>
+                    										<div className={styles.trnVnSc}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                  									</div>
+                								</div>
+                								<div className={styles.frameParent2}>
+                  									<div className={styles.frameInner}  />
+                  									<div className={styles.boxQun1Group}>
+                    										<div className={styles.boxQun1}>Box Quận 1</div>
+                    										<div className={styles.trnVnSc}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                  									</div>
+                								</div>
+              							</div>
+              							<div className={styles.lineDiv} />
+              							<div className={styles.nHngGiaoParent}>
+                								<div className={styles.nHng}>{`Đơn hàng đã giao: `}</div>
+                								<div className={styles.mainStatusTag}>
+                  									<div className={styles.vnChuyn}>23 đơn</div>
+                								</div>
+              							</div>
+              							<div className={styles.nHngGiaoParent}>
+                								<div className={styles.nHng}>{`Đơn hàng đang giao: `}</div>
+                								<div className={styles.mainStatusTag}>
+                  									<div className={styles.vnChuyn}>23 đơn</div>
+                								</div>
+              							</div>
+            						</div>
+          					</div>
+          					<div className={styles.mainRowHeader}>
+            						<div className={styles.button}>
+              							<div className={styles.textButton}>{`Đã giao thành công `}</div>
+            						</div>
+          					</div>
+        				</div>
+      			</div>
+    		</div>);
+};
 
-      <div className="w-96 h-[670px] p-4 inline-flex flex-col justify-start items-center gap-6">
-    <div className="self-stretch flex flex-col justify-start items-start gap-4">
-        <div className="w-80 bg-primary-primary-50 rounded-xl outline outline-1 outline-offset-[-1px] flex flex-col justify-start items-start overflow-hidden">
-            <div className="self-stretch bg-background-base-on-surface1 rounded-xl flex flex-col justify-start items-start overflow-hidden">
-                <div className="self-stretch px-3 py-2 inline-flex justify-between items-center">
-                    <div className="justify-start text-neutral-base-element-primary text-sm font-medium font-['Roboto'] leading-5">Vận chuyển</div>
-                    <div data-l-icon="false" data-r-icon="false" data-type="Infor" className="px-2 py-1 bg-background-support-info rounded-lg flex justify-center items-center gap-1">
-                        <div className="justify-start text-text-support-link text-sm font-medium font-['Inter'] leading-5">23 đơn</div>
-                    </div>
-                </div>
-                <div data-space="0" data-style="Horizontal" data-type="Light" className="self-stretch flex flex-col justify-start items-start">
-                    <div className="self-stretch h-px bg-neutral-base-stroke-bold" />
-                </div>
-                <div className="self-stretch p-3 flex flex-col justify-start items-start gap-2">
-                    <div className="self-stretch flex flex-col justify-start items-start">
-                        <div className="self-stretch inline-flex justify-start items-center gap-1">
-                            <div className="w-5 self-stretch inline-flex flex-col justify-start items-center">
-                                <div className="w-5 h-5 p-1.5 inline-flex justify-start items-center gap-2.5">
-                                    <div className="w-2 h-2 bg-primary-primary-500 rounded-full" />
-                                </div>
-                                <div className="w-14 flex-1 origin-top-left rotate-90 outline outline-[0.50px] outline-offset-[-0.25px] outline-neutral-base-stroke-bold"></div>
-                            </div>
-                            <div className="w-72 pb-2 inline-flex flex-col justify-start items-start gap-0.5">
-                                <div className="self-stretch justify-start text-neutral-base-element-primary text-base font-medium font-['Roboto'] leading-6">Box Quận 1</div>
-                                <div className="self-stretch justify-start text-neutral-base-element-tertiary text-sm font-normal font-['Roboto'] leading-5">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                            </div>
-                        </div>
-                        <div className="self-stretch h-16 inline-flex justify-start items-center gap-1">
-                            <div className="w-5 self-stretch flex justify-center items-start gap-2.5">
-                                <div className="p-1 flex justify-start items-center gap-2.5">
-                                    <div className="w-2 h-2 bg-primary-primary-500 rounded-full" />
-                                </div>
-                            </div>
-                            <div className="w-72 inline-flex flex-col justify-start items-start gap-0.5">
-                                <div className="self-stretch justify-start text-neutral-base-element-primary text-base font-medium font-['Roboto'] leading-6">Box Quận 1</div>
-                                <div className="self-stretch justify-start text-neutral-base-element-tertiary text-sm font-normal font-['Roboto'] leading-5">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="self-stretch h-0 outline outline-1 outline-offset-[-0.50px] outline-neutral-base-stroke-light"></div>
-                    <div className="inline-flex justify-start items-center">
-                        <div className="w-40 justify-start text-text-neutral-body text-base font-normal font-['Roboto'] leading-6">Đơn hàng chờ giao: </div>
-                        <div data-l-icon="false" data-r-icon="false" data-type="Infor" className="px-2 py-1 bg-background-support-info rounded-lg flex justify-center items-center gap-1">
-                            <div className="justify-start text-text-support-link text-sm font-medium font-['Inter'] leading-5">23 đơn</div>
-                        </div>
-                    </div>
-                    <div className="inline-flex justify-start items-center">
-                        <div className="w-40 justify-start text-text-neutral-body text-base font-normal font-['Roboto'] leading-6">Đơn hàng đang giao: </div>
-                        <div data-l-icon="false" data-r-icon="false" data-type="Infor" className="px-2 py-1 bg-background-support-info rounded-lg flex justify-center items-center gap-1">
-                            <div className="justify-start text-text-support-link text-sm font-medium font-['Inter'] leading-5">23 đơn</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="self-stretch px-3 py-2 inline-flex justify-end items-center gap-52">
-                <div data-icon-button="No" data-sate="Regular" data-show-icon-left="false" data-show-icon-right="false" data-size="S-32" data-style="Filled" data-type="Primary" className="px-2 py-1.5 bg-primary-primary-500 rounded-lg flex justify-center items-center gap-2 overflow-hidden">
-                    <div className="text-center justify-start text-neutral-white text-sm font-normal font-['Roboto'] leading-5">Đã giao thành công </div>
-                </div>
-            </div>
-        </div>
-        <div className="w-80 bg-primary-primary-50 rounded-xl outline outline-1 outline-offset-[-1px] flex flex-col justify-start items-start overflow-hidden">
-            <div className="self-stretch bg-background-base-on-surface1 rounded-xl flex flex-col justify-start items-start overflow-hidden">
-                <div className="self-stretch px-3 py-2 inline-flex justify-between items-center">
-                    <div className="justify-start text-neutral-base-element-primary text-sm font-medium font-['Roboto'] leading-5">Vận chuyển</div>
-                    <div data-l-icon="false" data-r-icon="false" data-type="Infor" className="px-2 py-1 bg-background-support-info rounded-lg flex justify-center items-center gap-1">
-                        <div className="justify-start text-text-support-link text-sm font-medium font-['Inter'] leading-5">23 đơn</div>
-                    </div>
-                </div>
-                <div data-space="0" data-style="Horizontal" data-type="Light" className="self-stretch flex flex-col justify-start items-start">
-                    <div className="self-stretch h-px bg-neutral-base-stroke-bold" />
-                </div>
-                <div className="self-stretch p-3 flex flex-col justify-start items-start gap-2">
-                    <div className="self-stretch flex flex-col justify-start items-start">
-                        <div className="self-stretch inline-flex justify-start items-center gap-1">
-                            <div className="w-5 self-stretch inline-flex flex-col justify-start items-center">
-                                <div className="w-5 h-5 p-1.5 inline-flex justify-start items-center gap-2.5">
-                                    <div className="w-2 h-2 bg-primary-primary-500 rounded-full" />
-                                </div>
-                                <div className="w-8 flex-1 origin-top-left rotate-90 outline outline-[0.50px] outline-offset-[-0.25px] outline-neutral-base-stroke-bold"></div>
-                            </div>
-                            <div className="w-72 pb-2 inline-flex flex-col justify-start items-start gap-0.5">
-                                <div className="self-stretch justify-start text-neutral-base-element-primary text-base font-medium font-['Roboto'] leading-6">Box Quận 1</div>
-                                <div className="self-stretch justify-start text-neutral-base-element-tertiary text-sm font-normal font-['Roboto'] leading-5 line-clamp-1">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                            </div>
-                        </div>
-                        <div className="self-stretch h-16 inline-flex justify-start items-center gap-1">
-                            <div className="w-5 self-stretch flex justify-center items-start gap-2.5">
-                                <div className="p-1 flex justify-start items-center gap-2.5">
-                                    <div className="w-2 h-2 bg-primary-primary-500 rounded-full" />
-                                </div>
-                            </div>
-                            <div className="w-72 inline-flex flex-col justify-start items-start gap-0.5">
-                                <div className="self-stretch justify-start text-neutral-base-element-primary text-base font-medium font-['Roboto'] leading-6">Box Quận 1</div>
-                                <div className="self-stretch justify-start text-neutral-base-element-tertiary text-sm font-normal font-['Roboto'] leading-5 line-clamp-1">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="self-stretch h-0 outline outline-1 outline-offset-[-0.50px] outline-neutral-base-stroke-light"></div>
-                    <div className="inline-flex justify-start items-center">
-                        <div className="w-40 justify-start text-text-neutral-body text-base font-normal font-['Roboto'] leading-6">Đơn hàng đã giao: </div>
-                        <div data-l-icon="false" data-r-icon="false" data-type="Infor" className="px-2 py-1 bg-background-support-info rounded-lg flex justify-center items-center gap-1">
-                            <div className="justify-start text-text-support-link text-sm font-medium font-['Inter'] leading-5">23 đơn</div>
-                        </div>
-                    </div>
-                    <div className="inline-flex justify-start items-center">
-                        <div className="w-40 justify-start text-text-neutral-body text-base font-normal font-['Roboto'] leading-6">Đơn hàng đang giao: </div>
-                        <div data-l-icon="false" data-r-icon="false" data-type="Infor" className="px-2 py-1 bg-background-support-info rounded-lg flex justify-center items-center gap-1">
-                            <div className="justify-start text-text-support-link text-sm font-medium font-['Inter'] leading-5">23 đơn</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="self-stretch px-3 py-2 inline-flex justify-end items-center gap-52">
-                <div data-icon-button="No" data-sate="Regular" data-show-icon-left="false" data-show-icon-right="false" data-size="S-32" data-style="Filled" data-type="Primary" className="px-2 py-1.5 bg-primary-primary-500 rounded-lg flex justify-center items-center gap-2 overflow-hidden">
-                    <div className="text-center justify-start text-neutral-white text-sm font-normal font-['Roboto'] leading-5">Đã giao thành công </div>
-                </div>
-            </div>
-        </div>
-        <div className="w-80 bg-primary-primary-50 rounded-xl outline outline-1 outline-offset-[-1px] flex flex-col justify-start items-start overflow-hidden">
-            <div className="self-stretch bg-background-base-on-surface1 rounded-xl flex flex-col justify-start items-start overflow-hidden">
-                <div className="self-stretch px-3 py-2 inline-flex justify-between items-center">
-                    <div className="justify-start text-neutral-base-element-primary text-sm font-medium font-['Roboto'] leading-5">Vận chuyển</div>
-                    <div data-l-icon="false" data-r-icon="false" data-type="Infor" className="px-2 py-1 bg-background-support-info rounded-lg flex justify-center items-center gap-1">
-                        <div className="justify-start text-text-support-link text-sm font-medium font-['Inter'] leading-5">23 đơn</div>
-                    </div>
-                </div>
-                <div data-space="0" data-style="Horizontal" data-type="Light" className="self-stretch flex flex-col justify-start items-start">
-                    <div className="self-stretch h-px bg-neutral-base-stroke-bold" />
-                </div>
-                <div className="self-stretch p-3 flex flex-col justify-start items-start gap-2">
-                    <div className="self-stretch flex flex-col justify-start items-start">
-                        <div className="self-stretch inline-flex justify-start items-center gap-1">
-                            <div className="w-5 self-stretch inline-flex flex-col justify-start items-center">
-                                <div className="w-5 h-5 p-1.5 inline-flex justify-start items-center gap-2.5">
-                                    <div className="w-2 h-2 bg-primary-primary-500 rounded-full" />
-                                </div>
-                                <div className="w-14 flex-1 origin-top-left rotate-90 outline outline-[0.50px] outline-offset-[-0.25px] outline-neutral-base-stroke-bold"></div>
-                            </div>
-                            <div className="w-72 pb-2 inline-flex flex-col justify-start items-start gap-0.5">
-                                <div className="self-stretch justify-start text-neutral-base-element-primary text-base font-medium font-['Roboto'] leading-6">Box Quận 1</div>
-                                <div className="self-stretch justify-start text-neutral-base-element-tertiary text-sm font-normal font-['Roboto'] leading-5">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                            </div>
-                        </div>
-                        <div className="self-stretch h-16 inline-flex justify-start items-center gap-1">
-                            <div className="w-5 self-stretch flex justify-center items-start gap-2.5">
-                                <div className="p-1 flex justify-start items-center gap-2.5">
-                                    <div className="w-2 h-2 bg-primary-primary-500 rounded-full" />
-                                </div>
-                            </div>
-                            <div className="w-72 inline-flex flex-col justify-start items-start gap-0.5">
-                                <div className="self-stretch justify-start text-neutral-base-element-primary text-base font-medium font-['Roboto'] leading-6">Box Quận 1</div>
-                                <div className="self-stretch justify-start text-neutral-base-element-tertiary text-sm font-normal font-['Roboto'] leading-5">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="self-stretch h-0 outline outline-1 outline-offset-[-0.50px] outline-neutral-base-stroke-light"></div>
-                    <div className="inline-flex justify-start items-center">
-                        <div className="w-40 justify-start text-text-neutral-body text-base font-normal font-['Roboto'] leading-6">Đơn hàng đã giao: </div>
-                        <div data-l-icon="false" data-r-icon="false" data-type="Infor" className="px-2 py-1 bg-background-support-info rounded-lg flex justify-center items-center gap-1">
-                            <div className="justify-start text-text-support-link text-sm font-medium font-['Inter'] leading-5">23 đơn</div>
-                        </div>
-                    </div>
-                    <div className="inline-flex justify-start items-center">
-                        <div className="w-40 justify-start text-text-neutral-body text-base font-normal font-['Roboto'] leading-6">Đơn hàng đang giao: </div>
-                        <div data-l-icon="false" data-r-icon="false" data-type="Infor" className="px-2 py-1 bg-background-support-info rounded-lg flex justify-center items-center gap-1">
-                            <div className="justify-start text-text-support-link text-sm font-medium font-['Inter'] leading-5">23 đơn</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="self-stretch px-3 py-2 inline-flex justify-end items-center gap-52">
-                <div data-icon-button="No" data-sate="Regular" data-show-icon-left="false" data-show-icon-right="false" data-size="S-32" data-style="Filled" data-type="Primary" className="px-2 py-1.5 bg-primary-primary-500 rounded-lg flex justify-center items-center gap-2 overflow-hidden">
-                    <div className="text-center justify-start text-neutral-white text-sm font-normal font-['Roboto'] leading-5">Đã giao thành công </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-    );
 }

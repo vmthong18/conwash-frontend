@@ -1,0 +1,195 @@
+.frameParent {
+  	width: 100%;
+  	position: relative;
+  	border-radius: 12px;
+  	background-color: #e7eefc;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	text-align: left;
+  	font-size: 14px;
+  	color: #141414;
+  	font-family: Roboto;
+}
+.rowHeaderParent {
+  	align-self: stretch;
+  	border-radius: 12px;
+  	background-color: #fff;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+}
+.rowHeader {
+  	align-self: stretch;
+  	display: flex;
+  	align-items: center;
+  	justify-content: space-between;
+  	padding: 8px 12px;
+  	gap: 20px;
+}
+.vnChuyn {
+  	position: relative;
+  	line-height: 20px;
+  	font-weight: 500;
+}
+.statusTag {
+  	border-radius: 8px;
+  	background-color: #e7eefc;
+  	display: flex;
+  	align-items: center;
+  	justify-content: center;
+  	padding: 4px 8px;
+  	color: #1059e0;
+  	font-family: Inter;
+}
+.divider {
+  	align-self: stretch;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+}
+.line1Stroke {
+  	align-self: stretch;
+  	height: 1px;
+  	position: relative;
+  	max-width: 100%;
+  	overflow: hidden;
+  	flex-shrink: 0;
+  	width: 100%;
+}
+.frameGroup {
+  	align-self: stretch;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	padding: 12px;
+  	gap: 8px;
+  	font-size: 16px;
+  	color: #7a7c80;
+}
+.frameContainer {
+  	align-self: stretch;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	color: #141414;
+}
+.frameDiv {
+  	align-self: stretch;
+  	display: flex;
+  	align-items: center;
+  	gap: 4px;
+}
+.frameParent2 {
+  	align-self: stretch;
+  	width: 20px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: center;
+}
+.frameChild {
+  	width: 20px;
+  	height: 20px;
+}
+.frameItem {
+  	width: 0.5px;
+  	flex: 1;
+  	position: relative;
+  	border-right: 0.5px solid #d3d5db;
+  	box-sizing: border-box;
+}
+.boxQun1Parent {
+  	width: 292px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	padding: 0px 0px 8px;
+  	box-sizing: border-box;
+  	gap: 2px;
+}
+.boxQun1 {
+  	align-self: stretch;
+  	position: relative;
+  	line-height: 24px;
+  	font-weight: 500;
+}
+.trnVnSc {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 14px;
+  	line-height: 20px;
+  	color: #7a7c80;
+}
+.frameParent3 {
+  	align-self: stretch;
+  	height: 62px;
+  	display: flex;
+  	align-items: center;
+  	gap: 4px;
+}
+.frameInner {
+  	align-self: stretch;
+  	width: 20px;
+  	max-height: 100%;
+}
+.boxQun1Group {
+  	width: 292px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	gap: 2px;
+}
+.lineDiv {
+  	align-self: stretch;
+  	height: 1px;
+  	position: relative;
+  	border-top: 1px dashed #c4c6cc;
+  	box-sizing: border-box;
+}
+.nHngGiaoParent {
+  	display: flex;
+  	align-items: center;
+}
+.nHng {
+  	width: 156px;
+  	position: relative;
+  	line-height: 24px;
+  	display: inline-block;
+  	flex-shrink: 0;
+}
+.statusTag2 {
+  	border-radius: 8px;
+  	background-color: #e7eefc;
+  	display: flex;
+  	align-items: center;
+  	justify-content: center;
+  	padding: 4px 8px;
+  	font-size: 14px;
+  	color: #1059e0;
+  	font-family: Inter;
+}
+.rowHeader2 {
+  	align-self: stretch;
+  	display: flex;
+  	align-items: center;
+  	justify-content: flex-end;
+  	padding: 8px 12px;
+  	text-align: center;
+  	color: #fff;
+}
+.button {
+  	border-radius: 8px;
+  	background-color: #1059e0;
+  	overflow: hidden;
+  	display: flex;
+  	align-items: center;
+  	justify-content: center;
+  	padding: 6px 8px;
+}
+.textButton {
+  	position: relative;
+  	line-height: 20px;
+}
+
