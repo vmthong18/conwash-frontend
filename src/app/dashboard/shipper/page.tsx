@@ -3,9 +3,7 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import LogoutBtn from "../LogoutBtn";
 import { directusFetch } from "@/lib/directusFetch";
-import type { NextPage } from 'next';
-import Image  from "next/image";
-import styles from './index.module.css';
+import Image from "next/image";
 
 // Kiểu dữ liệu gọn gàng
 type DiaDiem = { ID: number; TenDiaDiem: string };
@@ -254,164 +252,232 @@ export default async function PageDiaDiem() {
     };
     {
   	return (
-    		<div className={styles.main}>
-      			<div className={styles.instanceParent}>
-        				<div className={styles.frameParent}>
-          					<div className={styles.rowHeaderParent}>
-            						<div className={styles.rowHeader}>
-              							<div className={styles.vnChuyn}>Vận chuyển</div>
-              							<div className={styles.statusTag}>
-                								<div className={styles.vnChuyn}>23 đơn</div>
+    		<div className="w-full h-[812px] relative bg-whitesmoke overflow-hidden text-left text-num-14 text-gray-200 font-roboto">
+      			<div className="absolute h-[calc(100%_-_142px)] w-full top-[108px] right-[0px] bottom-[34px] left-[0px] flex flex-col items-center p-4 box-border">
+        				<div className="self-stretch flex flex-col items-start gap-4">
+          					<div className="w-[343px] rounded-num-12 bg-lavender overflow-hidden flex flex-col items-start">
+            						<div className="self-stretch rounded-num-12 bg-white overflow-hidden flex flex-col items-start">
+              							<div className="self-stretch flex items-center justify-between py-2 px-3 gap-5">
+                								<div className="relative leading-num-20 font-medium">Vận chuyển</div>
+                								<div className="rounded-num-8 bg-lavender flex items-center justify-center py-num-4 px-2 text-royalblue font-inter">
+                  									<div className="relative leading-num-20 font-medium">23 đơn</div>
+                								</div>
+              							</div>
+              							<div className="self-stretch flex flex-col items-start">
+                								
+              							</div>
+              							<div className="self-stretch flex flex-col items-start p-3 gap-2 text-num-16 text-gray-100">
+                								<div className="self-stretch flex flex-col items-start text-gray-200">
+                  									<div className="self-stretch flex items-center gap-1">
+                    										<div className="self-stretch w-5 flex flex-col items-center">
+                      										
+                      											<div className="w-[0.5px] flex-1 relative border-lightgray border-solid border-r-[0.5px] box-border" />
+                    										</div>
+                    										<div className="w-num-292 flex flex-col items-start pt-num-0 px-num-0 pb-2 box-border gap-0.5">
+                      											<div className="self-stretch relative leading-num-24 font-medium">Box Quận 1</div>
+                      											<div className="self-stretch relative text-num-14 leading-num-20 text-gray-100">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                    										</div>
+                  									</div>
+                  									<div className="self-stretch h-[62px] flex items-center gap-1">
+                    									
+                    										<div className="w-num-292 flex flex-col items-start gap-0.5">
+                      											<div className="self-stretch relative leading-num-24 font-medium">Box Quận 1</div>
+                      											<div className="self-stretch relative text-num-14 leading-num-20 text-gray-100">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                    										</div>
+                  									</div>
+                								</div>
+                								<div className="self-stretch h-px relative border-silver border-dashed border-t-[1px] box-border" />
+                								<div className="flex items-center">
+                  									<div className="w-num-156 relative leading-num-24 inline-block shrink-0">{`Đơn hàng chờ giao: `}</div>
+                  									<div className="rounded-num-8 bg-lavender flex items-center justify-center py-num-4 px-2 text-num-14 text-royalblue font-inter">
+                    										<div className="relative leading-num-20 font-medium">23 đơn</div>
+                  									</div>
+                								</div>
+                								<div className="flex items-center">
+                  									<div className="w-num-156 relative leading-num-24 inline-block shrink-0">{`Đơn hàng đang giao: `}</div>
+                  									<div className="rounded-num-8 bg-lavender flex items-center justify-center py-num-4 px-2 text-num-14 text-royalblue font-inter">
+                    										<div className="relative leading-num-20 font-medium">23 đơn</div>
+                  									</div>
+                								</div>
               							</div>
             						</div>
-            						<div className={styles.divider}>
-              							<div className={styles.line1Stroke}  />
-            						</div>
-            						<div className={styles.frameGroup}>
-              							<div className={styles.frameContainer}>
-                								<div className={styles.frameDiv}>
-                  									<div className={styles.mainFrameParent}>
-                    										<div className={styles.frameChild}  />
-                    										<div className={styles.frameItem} />
-                  									</div>
-                  									<div className={styles.boxQun1Parent}>
-                    										<div className={styles.boxQun1}>Box Quận 1</div>
-                    										<div className={styles.trnVnSc}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                  									</div>
-                								</div>
-                								<div className={styles.frameParent2}>
-                  									<div className={styles.frameInner} />
-                  									<div className={styles.boxQun1Group}>
-                    										<div className={styles.boxQun1}>Box Quận 1</div>
-                    										<div className={styles.trnVnSc}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                  									</div>
-                								</div>
-              							</div>
-              							<div className={styles.lineDiv} />
-              							<div className={styles.nHngGiaoParent}>
-                								<div className={styles.nHng}>{`Đơn hàng chờ giao: `}</div>
-                								<div className={styles.mainStatusTag}>
-                  									<div className={styles.vnChuyn}>23 đơn</div>
-                								</div>
-              							</div>
-              							<div className={styles.nHngGiaoParent}>
-                								<div className={styles.nHng}>{`Đơn hàng đang giao: `}</div>
-                								<div className={styles.mainStatusTag}>
-                  									<div className={styles.vnChuyn}>23 đơn</div>
-                								</div>
+            						<div className="self-stretch flex items-center justify-end py-2 px-3 text-center text-white">
+              							<div className="rounded-num-8 bg-royalblue overflow-hidden flex items-center justify-center py-1.5 px-2">
+                								<div className="relative leading-num-20">{`Đã giao thành công `}</div>
               							</div>
             						</div>
           					</div>
-          					<div className={styles.mainRowHeader}>
-            						<div className={styles.button}>
-              							<div className={styles.textButton}>{`Đã giao thành công `}</div>
+          					<div className="w-[343px] rounded-num-12 bg-lavender overflow-hidden flex flex-col items-start">
+            						<div className="self-stretch rounded-num-12 bg-white overflow-hidden flex flex-col items-start">
+              							<div className="self-stretch flex items-center justify-between py-2 px-3 gap-5">
+                								<div className="relative leading-num-20 font-medium">Vận chuyển</div>
+                								<div className="rounded-num-8 bg-lavender flex items-center justify-center py-num-4 px-2 text-royalblue font-inter">
+                  									<div className="relative leading-num-20 font-medium">23 đơn</div>
+                								</div>
+              							</div>
+              							<div className="self-stretch flex flex-col items-start">
+                								
+              							</div>
+              							<div className="self-stretch flex flex-col items-start p-3 gap-2 text-num-16 text-gray-100">
+                								<div className="self-stretch flex flex-col items-start text-gray-200">
+                  									<div className="self-stretch flex items-center gap-1">
+                    										<div className="self-stretch w-5 flex flex-col items-center">
+                      											
+                      											<div className="w-[0.5px] flex-1 relative border-lightgray border-solid border-r-[0.5px] box-border" />
+                    										</div>
+                    										<div className="w-num-292 flex flex-col items-start pt-num-0 px-num-0 pb-2 box-border gap-0.5">
+                      											<div className="self-stretch relative leading-num-24 font-medium">Box Quận 1</div>
+                      											<div className="self-stretch relative text-num-14 leading-num-20 text-gray-100 overflow-hidden text-ellipsis whitespace-nowrap">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                    										</div>
+                  									</div>
+                  									<div className="self-stretch h-[62px] flex items-center gap-1">
+                    									
+                    										<div className="w-num-292 flex flex-col items-start gap-0.5">
+                      											<div className="self-stretch relative leading-num-24 font-medium">Box Quận 1</div>
+                      											<div className="self-stretch relative text-num-14 leading-num-20 text-gray-100 overflow-hidden text-ellipsis whitespace-nowrap">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                    										</div>
+                  									</div>
+                								</div>
+                								<div className="self-stretch h-px relative border-silver border-dashed border-t-[1px] box-border" />
+                								<div className="flex items-center">
+                  									<div className="w-num-156 relative leading-num-24 inline-block shrink-0">{`Đơn hàng đã giao: `}</div>
+                  									<div className="rounded-num-8 bg-lavender flex items-center justify-center py-num-4 px-2 text-num-14 text-royalblue font-inter">
+                    										<div className="relative leading-num-20 font-medium">23 đơn</div>
+                  									</div>
+                								</div>
+                								<div className="flex items-center">
+                  									<div className="w-num-156 relative leading-num-24 inline-block shrink-0">{`Đơn hàng đang giao: `}</div>
+                  									<div className="rounded-num-8 bg-lavender flex items-center justify-center py-num-4 px-2 text-num-14 text-royalblue font-inter">
+                    										<div className="relative leading-num-20 font-medium">23 đơn</div>
+                  									</div>
+                								</div>
+              							</div>
+            						</div>
+            						<div className="self-stretch flex items-center justify-end py-2 px-3 text-center text-white">
+              							<div className="rounded-num-8 bg-royalblue overflow-hidden flex items-center justify-center py-1.5 px-2">
+                								<div className="relative leading-num-20">{`Đã giao thành công `}</div>
+              							</div>
+            						</div>
+          					</div>
+          					<div className="w-[343px] rounded-num-12 bg-lavender overflow-hidden flex flex-col items-start">
+            						<div className="self-stretch rounded-num-12 bg-white overflow-hidden flex flex-col items-start">
+              							<div className="self-stretch flex items-center justify-between py-2 px-3 gap-5">
+                								<div className="relative leading-num-20 font-medium">Vận chuyển</div>
+                								<div className="rounded-num-8 bg-lavender flex items-center justify-center py-num-4 px-2 text-royalblue font-inter">
+                  									<div className="relative leading-num-20 font-medium">23 đơn</div>
+                								</div>
+              							</div>
+              							<div className="self-stretch flex flex-col items-start">
+                							
+              							</div>
+              							<div className="self-stretch flex flex-col items-start p-3 gap-2 text-num-16 text-gray-100">
+                								<div className="self-stretch flex flex-col items-start text-gray-200">
+                  									<div className="self-stretch flex items-center gap-1">
+                    										<div className="self-stretch w-5 flex flex-col items-center">
+                      										
+                      											<div className="w-[0.5px] flex-1 relative border-lightgray border-solid border-r-[0.5px] box-border" />
+                    										</div>
+                    										<div className="w-num-292 flex flex-col items-start pt-num-0 px-num-0 pb-2 box-border gap-0.5">
+                      											<div className="self-stretch relative leading-num-24 font-medium">Box Quận 1</div>
+                      											<div className="self-stretch relative text-num-14 leading-num-20 text-gray-100">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                    										</div>
+                  									</div>
+                  									<div className="self-stretch h-[62px] flex items-center gap-1">
+                    										
+                    										<div className="w-num-292 flex flex-col items-start gap-0.5">
+                      											<div className="self-stretch relative leading-num-24 font-medium">Box Quận 1</div>
+                      											<div className="self-stretch relative text-num-14 leading-num-20 text-gray-100">10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
+                    										</div>
+                  									</div>
+                								</div>
+                								<div className="self-stretch h-px relative border-silver border-dashed border-t-[1px] box-border" />
+                								<div className="flex items-center">
+                  									<div className="w-num-156 relative leading-num-24 inline-block shrink-0">{`Đơn hàng đã giao: `}</div>
+                  									<div className="rounded-num-8 bg-lavender flex items-center justify-center py-num-4 px-2 text-num-14 text-royalblue font-inter">
+                    										<div className="relative leading-num-20 font-medium">23 đơn</div>
+                  									</div>
+                								</div>
+                								<div className="flex items-center">
+                  									<div className="w-num-156 relative leading-num-24 inline-block shrink-0">{`Đơn hàng đang giao: `}</div>
+                  									<div className="rounded-num-8 bg-lavender flex items-center justify-center py-num-4 px-2 text-num-14 text-royalblue font-inter">
+                    										<div className="relative leading-num-20 font-medium">23 đơn</div>
+                  									</div>
+                								</div>
+              							</div>
+            						</div>
+            						<div className="self-stretch flex items-center justify-end py-2 px-3 text-center text-white">
+              							<div className="rounded-num-8 bg-royalblue overflow-hidden flex items-center justify-center py-1.5 px-2">
+                								<div className="relative leading-num-20">{`Đã giao thành công `}</div>
+              							</div>
             						</div>
           					</div>
         				</div>
-        				<div className={styles.frameParent}>
-          					<div className={styles.rowHeaderParent}>
-            						<div className={styles.rowHeader}>
-              							<div className={styles.vnChuyn}>Vận chuyển</div>
-              							<div className={styles.statusTag}>
-                								<div className={styles.vnChuyn}>23 đơn</div>
+      			</div>
+      			<div className="absolute top-[44px] left-[0px] w-[375px] flex flex-col items-start justify-end text-num-16 text-darkslategray">
+        				<div className="self-stretch flex flex-col items-start justify-end z-[2]">
+          					<div className="self-stretch flex items-center py-2 px-num-4 text-[20px]">
+            						<div className="flex-1 flex items-center py-num-0 px-3">
+              							
+              							<div className="w-[193px] hidden items-center py-[11px] px-num-0 box-border gap-0.5 shrink-0">
+                								<div className="flex-1 relative leading-7 overflow-hidden text-ellipsis whitespace-nowrap">Chi tiết mặt hàng</div>
+                								<div className="h-4 w-4 relative overflow-hidden shrink-0 hidden" />
               							</div>
             						</div>
-            						<div className={styles.divider}>
-              							<div className={styles.line1Stroke}/>
-            						</div>
-            						<div className={styles.frameGroup}>
-              							<div className={styles.frameContainer}>
-                								<div className={styles.frameDiv}>
-                  									<div className={styles.mainFrameParent}>
-                    										<div className={styles.frameChild} />
-                    										<div className={styles.frameItem} />
+            						
+          					</div>
+          					<div className="w-[375px] hidden flex-col items-start pt-num-0 px-4 pb-4 box-border text-darkgray">
+            						<div className="self-stretch [filter:drop-shadow(0px_2px_8px_rgba(0,_0,_0,_0.1))_drop-shadow(0px_0px_2px_rgba(0,_0,_0,_0.04))] flex flex-col items-start">
+              							<div className="self-stretch rounded-num-8 flex flex-col items-start">
+                								<div className="self-stretch rounded-num-8 bg-white border-gray-300 border-solid border-[1px] overflow-hidden flex items-center z-[0]">
+                  									<div className="flex-1 flex items-center py-2 pl-3 pr-2 gap-2 z-[0]">
+                    										<div className="h-5 w-5 relative overflow-hidden shrink-0">
+                      											<div className="relative bg-dimgray w-[15px] h-[15px]">
+                        												
+                      											</div>
+                    										</div>
+                    										<div className="flex-1 flex items-center py-num-0 pl-num-0 pr-num-4">
+                      											<div className="flex-1 overflow-hidden flex items-center">
+                        												<div className="flex-1 relative tracking-[0.5px] leading-num-24 overflow-hidden text-ellipsis whitespace-nowrap z-[0]">Nhập nội dung tìm kiếm tin tức</div>
+                      											</div>
+                    										</div>
                   									</div>
-                  									<div className={styles.boxQun1Parent}>
-                    										<div className={styles.boxQun1}>Box Quận 1</div>
-                    										<div className={styles.trnVnSc2}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                  									</div>
-                								</div>
-                								<div className={styles.frameParent2}>
-                  									<div className={styles.frameInner} />
-                  									<div className={styles.boxQun1Group}>
-                    										<div className={styles.boxQun1}>Box Quận 1</div>
-                    										<div className={styles.trnVnSc2}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                  									</div>
-                								</div>
-              							</div>
-              							<div className={styles.lineDiv} />
-              							<div className={styles.nHngGiaoParent}>
-                								<div className={styles.nHng}>{`Đơn hàng đã giao: `}</div>
-                								<div className={styles.mainStatusTag}>
-                  									<div className={styles.vnChuyn}>23 đơn</div>
-                								</div>
-              							</div>
-              							<div className={styles.nHngGiaoParent}>
-                								<div className={styles.nHng}>{`Đơn hàng đang giao: `}</div>
-                								<div className={styles.mainStatusTag}>
-                  									<div className={styles.vnChuyn}>23 đơn</div>
                 								</div>
               							</div>
             						</div>
           					</div>
-          					<div className={styles.mainRowHeader}>
-            						<div className={styles.button}>
-              							<div className={styles.textButton}>{`Đã giao thành công `}</div>
+          					<div className="w-[147px] hidden items-start pt-2 px-4 pb-6 box-border">
+            						<div className="flex items-center gap-3">
+              							<div className="h-4 w-4 flex items-center justify-center p-2 box-border">
+                								<div className="rounded flex items-center justify-center p-num-4 z-[0]">
+                  									<div className="h-5 w-5 relative overflow-hidden shrink-0 z-[0]">
+                    									
+                  									</div>
+                								</div>
+              							</div>
+              							<div className="relative tracking-[0.5px] leading-num-24">Chọn tất cả</div>
             						</div>
           					</div>
         				</div>
-        				<div className={styles.frameParent}>
-          					<div className={styles.rowHeaderParent}>
-            						<div className={styles.rowHeader}>
-              							<div className={styles.vnChuyn}>Vận chuyển</div>
-              							<div className={styles.statusTag}>
-                								<div className={styles.vnChuyn}>23 đơn</div>
-              							</div>
-            						</div>
-            						<div className={styles.divider}>
-              							<div className={styles.line1Stroke} />
-            						</div>
-            						<div className={styles.frameGroup}>
-              							<div className={styles.frameContainer}>
-                								<div className={styles.frameDiv}>
-                  									<div className={styles.mainFrameParent}>
-                    										<div className={styles.frameChild} />
-                    										<div className={styles.frameItem} />
-                  									</div>
-                  									<div className={styles.boxQun1Parent}>
-                    										<div className={styles.boxQun1}>Box Quận 1</div>
-                    										<div className={styles.trnVnSc}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                  									</div>
-                								</div>
-                								<div className={styles.frameParent2}>
-                  									<div className={styles.frameInner}  />
-                  									<div className={styles.boxQun1Group}>
-                    										<div className={styles.boxQun1}>Box Quận 1</div>
-                    										<div className={styles.trnVnSc}>10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh, Việt Nam</div>
-                  									</div>
-                								</div>
-              							</div>
-              							<div className={styles.lineDiv} />
-              							<div className={styles.nHngGiaoParent}>
-                								<div className={styles.nHng}>{`Đơn hàng đã giao: `}</div>
-                								<div className={styles.mainStatusTag}>
-                  									<div className={styles.vnChuyn}>23 đơn</div>
-                								</div>
-              							</div>
-              							<div className={styles.nHngGiaoParent}>
-                								<div className={styles.nHng}>{`Đơn hàng đang giao: `}</div>
-                								<div className={styles.mainStatusTag}>
-                  									<div className={styles.vnChuyn}>23 đơn</div>
-                								</div>
-              							</div>
-            						</div>
-          					</div>
-          					<div className={styles.mainRowHeader}>
-            						<div className={styles.button}>
-              							<div className={styles.textButton}>{`Đã giao thành công `}</div>
-            						</div>
-          					</div>
+        				<div className="w-[375px] h-px overflow-hidden shrink-0 hidden flex-col items-center justify-end z-[1]" />
+        				<div className="w-full h-full absolute !!m-[0 important] top-[0px] right-[0px] bottom-[0px] left-[0px] hidden z-[0]">
+          					<div className="absolute h-full w-full top-[0px] right-[0px] bottom-[0px] left-[0px] shadow-[0px_4px_12px_-2px_rgba(0,_0,_0,_0.1),_0px_0px_4px_rgba(0,_0,_0,_0.04)] bg-white hidden" />
+          					<div className="absolute h-full w-full top-[0px] right-[0px] bottom-[0px] left-[0px] bg-white hidden" />
         				</div>
+      			</div>
+      			<div className="absolute w-full right-[0px] bottom-[0px] left-[0px] overflow-hidden flex flex-col items-center justify-end pt-[21px] px-[120px] pb-2 box-border">
+        				<div className="w-[135px] h-[5px] relative rounded-[2.5px] bg-black z-[0]" />
+      			</div>
+      			<div className="absolute w-full top-[0px] right-[0px] left-[0px] h-11 overflow-hidden text-center text-[15px] text-black font-sf-pro-text">
+        				<div className="absolute top-[18.33px] right-[15.37px] w-[24.3px] h-[11.3px]">
+          					<div className="absolute top-[0px] right-[2.3px] rounded-[2.67px] bg-black border-black border-solid border-[1px] box-border w-[22px] h-[11.3px] opacity-[0.35] mix-blend-normal" />
+          					
+          					<div className="absolute top-[2px] right-[4.3px] rounded-[1.33px] bg-black w-[18px] h-[7.3px]" />
+        				</div>
+        				<div className="relative bg-black w-[15.3px] h-[11px]">
+          					
+        				</div>
+        				
+        				<div className="absolute top-[14px] left-[16px] font-semibold inline-block w-[54px]">9:41</div>
       			</div>
     		</div>);
 };
