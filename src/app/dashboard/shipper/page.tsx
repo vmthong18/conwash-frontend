@@ -3,6 +3,7 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import LogoutBtn from "../LogoutBtn";
 import { directusFetch } from "@/lib/directusFetch";
+import RedirectBtn from "@/app/dashboard/RedirectBtn";
 import Image from "next/image";
 
 // Kiểu dữ liệu gọn gàng
@@ -258,7 +259,7 @@ export default async function PageDiaDiem() {
             <main className="p-6">
                 <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
                     <div className="mx-auto max-w-sm px-4 py-3 flex items-center gap-3">
-
+                        <RedirectBtn page="/dashboard" />
                         <h1 className="text-[20px] font-semibold">Danh sách vận chuyển</h1>
 
                         <LogoutBtn />
