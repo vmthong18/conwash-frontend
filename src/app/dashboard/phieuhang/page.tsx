@@ -86,11 +86,10 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
       if (khRes.ok) kh = await khRes.json().then(j => j.data || kh);
     }
 
-    let dd = { TenDiaDiem: "Không xác định" };
+    let dd = { TenDiaDiem: "Không xác định", DiaChi:"12A Lý Nam Đế" };
     if (p.ID_DiaDiem) {
       const ddRes = await directusFetch(
-        `${API}/items/diadiem/${p.ID_DiaDiem}?fields=TenDiaDiem`,
-        { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" }
+        `${API}/items/diadiem/${p.ID_DiaDiem}?fields=TenDiaDiem,DiaChi`
       );
       if (ddRes.ok) dd = await ddRes.json().then(k => k.data || dd);
     }
@@ -183,6 +182,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
               {rows[0]?.dd?.TenDiaDiem || "Chưa chọn địa điểm"}
             </div>
             <div className="text-[13px] text-gray-600">
+              {rows[0]?.dd?.DiaChi || "Chưa chọn địa điểm"}
               {/* Nếu có địa chỉ chi tiết thì render ở đây */}
               {/* Ví dụ: 10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh */}
             </div>
