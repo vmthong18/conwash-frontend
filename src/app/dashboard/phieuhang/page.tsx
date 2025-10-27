@@ -6,6 +6,7 @@ import { MapPin, ChevronDown } from "lucide-react";
 import { directusFetch } from "@/lib/directusFetch";
 import LogoutBtn from "@/app/dashboard/LogoutBtn";
 import RedirectBtn from "@/app/dashboard/RedirectBtn";
+import { Search, ChevronRight, ChevronLeft } from "lucide-react";
 
 type Search = { [k: string]: string | string[] | undefined };
 const STATUS_BADGE: Record<string, string> = {
@@ -43,7 +44,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
   const jar = await cookies();
   const token = jar.get(process.env.COOKIE_ACCESS || "be_giay_access")?.value;
   if (!token) return <div className="p-8">Chưa đăng nhập.</div>;
-
+  const pr = (params.q as string) || "";  
   const page = Math.max(1, Number(params.page ?? 1));
   const limit = Number(params.limit ?? 10);
   const offset = (page - 1) * limit;
@@ -57,7 +58,10 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
   q.searchParams.set("offset", String(offset));
   q.searchParams.set("sort", "-id");
   q.searchParams.set("fields", "id,ID_KhachHang,Donhangs,TongTien,TrangThai,ID_DiaDiem,ThanhToan"); // lấy đủ trường cần
-
+  if (pr) {
+      q.searchParams.set("filter[_or][0][ID_KhachHang][TenKhachHang][_contains]", pr);
+      q.searchParams.set("filter[_or][1][ID_KhachHang][DienThoai][_contains]", pr);
+    }
   const res = await directusFetch(q.toString(), {
     headers: { Authorization: `Bearer ${token}` },
     cache: "no-store",
@@ -129,7 +133,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
       <ActionButton id={String(id)} token={token} label="Thanh toán" ids={ids} />
     );
     if (idx == 1) return (
-      <ActionButton id={String(id)} token={token} label="Hoàn thành" ids={ids}/>
+      <ActionButton id={String(id)} token={token} label="Hoàn thành" ids={ids} />
     );
     return "";
 
@@ -146,16 +150,28 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
 
 
       {/* Header nhẹ */}
-    {/* Header */}
-               <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
-                   <div className="mx-auto max-w-sm px-4 py-3 flex items-center gap-3">
-                       <RedirectBtn page="/dashboard" />
-                       <h1 className="text-[20px] font-semibold">Danh sách đơn hàng</h1>
-   
-                       <LogoutBtn />
-                   </div>
-               </div>
+      {/* Header */}
+      <div className="sticky top-0 z-10 bg-gray-50/90 backdrop-blur">
+        <div className="mx-auto max-w-sm px-4 py-3 flex items-center gap-3">
+          <RedirectBtn page="/dashboard" />
+          <h1 className="text-[20px] font-semibold">Danh sách đơn hàng</h1>
 
+          <LogoutBtn />
+        </div>
+      </div>
+      <div className="mx-auto max-w-sm px-4">
+        <form method="get" className="relative">
+          <Search className="absolute left-3 top-3.5" size={18} />
+          <input
+            name="q"
+            className="w-full rounded-2xl border border-gray-300 bg-white pl-10 pr-3 py-2.5 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Tìm kiếm Tên hoặc SĐT khách hàng, ID đơn hàng"
+          />
+     
+
+        </form>
+
+      </div>
       {/* Ô chọn địa điểm */}
       <div className="mx-auto max-w-sm px-4">
         <div className="rounded-2xl border bg-white p-3 shadow-sm flex items-start gap-3">
@@ -231,7 +247,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
                   <span className="font-bold">{r.tong.toLocaleString("vi-VN")} đ</span>
                 </div>
               </div>
-              {getNextStatus(String(r.tt), String(r.id), r.thanhtoan,r.ids)}
+              {getNextStatus(String(r.tt), String(r.id), r.thanhtoan, r.ids)}
             </li>
           );
         })}
