@@ -164,7 +164,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
           <input
             name="q"
             className="w-full rounded-2xl border border-gray-300 bg-white pl-10 pr-3 py-2.5 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Tìm kiếm Tên hoặc SĐT khách hàng, ID đơn hàng"
+            placeholder="Tìm kiếm theo khách hàng, ID đơn hàng"
           />
      
 
