@@ -7,6 +7,7 @@ import { directusFetch } from "@/lib/directusFetch";
 import LogoutBtn from "@/app/dashboard/LogoutBtn";
 import RedirectBtn from "@/app/dashboard/RedirectBtn";
 import { Search, ChevronRight, ChevronLeft } from "lucide-react";
+import DiadiemSelect from './DropDownDiaDiem';
 
 type Search = { [k: string]: string | string[] | undefined };
 const STATUS_BADGE: Record<string, string> = {
@@ -24,6 +25,7 @@ const STATUS_ORDER = [
   "SAN_SANG",
   "HOAN_THANH",
 ];
+
 function parseDonhangs(raw: any): number[] {
   if (Array.isArray(raw)) return raw.map(Number).filter(Boolean);
   if (typeof raw === "string") {
@@ -41,10 +43,11 @@ function parseDonhangs(raw: any): number[] {
 
 export default async function PhieuHangList({ searchParams }: { searchParams: Search }) {
   const params = await searchParams;
+  const ddParam = (params.diadiem as string) || "";
   const jar = await cookies();
   const token = jar.get(process.env.COOKIE_ACCESS || "be_giay_access")?.value;
   if (!token) return <div className="p-8">Chưa đăng nhập.</div>;
-  const pr = (params.q as string) || "";  
+  const pr = (params.q as string) || "";
   const page = Math.max(1, Number(params.page ?? 1));
   const limit = Number(params.limit ?? 10);
   const offset = (page - 1) * limit;
@@ -59,17 +62,26 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
   q.searchParams.set("sort", "-id");
   q.searchParams.set("fields", "id,ID_KhachHang,Donhangs,TongTien,TrangThai,ID_DiaDiem,ThanhToan"); // lấy đủ trường cần
   if (pr) {
-      q.searchParams.set("filter[_or][0][ID_KhachHang][TenKhachHang][_contains]", pr);
-      q.searchParams.set("filter[_or][1][ID_KhachHang][DienThoai][_contains]", pr);
-    }
-  const res = await directusFetch(q.toString(), {
-    headers: { Authorization: `Bearer ${token}` },
-    cache: "no-store",
-  });
+    q.searchParams.set("filter[_or][0][ID_KhachHang][TenKhachHang][_contains]", pr);
+    q.searchParams.set("filter[_or][1][ID_KhachHang][DienThoai][_contains]", pr);
+  }
+  if (ddParam) {
+    q.searchParams.set("filter[ID_DiaDiem][_eq]", ddParam);
+  }
+  const res = await directusFetch(q.toString());
   if (!res.ok) {
     const t = await res.text().catch(() => "");
     return <div className="p-6 text-red-600">Lỗi lấy phiếu: {res.status} {t}</div>;
   }
+  // Lấy danh sách địa điểm (đổ dropdown)
+  const ddListURL = new URL(`${API}/items/diadiem`);
+  ddListURL.searchParams.set("fields", "ID,TenDiaDiem,DiaChi");
+  ddListURL.searchParams.set("limit", "-1");
+  ddListURL.searchParams.set("sort", "TenDiaDiem");
+
+  const ddListRes = await directusFetch(ddListURL.toString());
+  const diadiems: Array<{ ID: number; TenDiaDiem: string; DiaChi?: string }> =
+    ddListRes.ok ? (await ddListRes.json()).data ?? [] : [];
 
   const data = await res.json();
   const phieuRows: any[] = data?.data ?? [];
@@ -80,13 +92,12 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
     let kh = { TenKhachHang: "-", DienThoai: "-" };
     if (p.ID_KhachHang) {
       const khRes = await directusFetch(
-        `${API}/items/khachhang/${p.ID_KhachHang}?fields=TenKhachHang,DienThoai`,
-        { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" }
+        `${API}/items/khachhang/${p.ID_KhachHang}?fields=TenKhachHang,DienThoai`
       );
       if (khRes.ok) kh = await khRes.json().then(j => j.data || kh);
     }
 
-    let dd = { TenDiaDiem: "Không xác định", DiaChi:"12A Lý Nam Đế" };
+    let dd = { TenDiaDiem: "Không xác định", DiaChi: "12A Lý Nam Đế" };
     if (p.ID_DiaDiem) {
       const ddRes = await directusFetch(
         `${API}/items/diadiem/${p.ID_DiaDiem}?fields=TenDiaDiem,DiaChi`
@@ -158,39 +169,28 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
           <LogoutBtn />
         </div>
       </div>
+       
+ <form method="get" className="relative">
+     <DiadiemSelect
+      options={diadiems}
+      value={ddParam}               // giá trị đang chọn
+      keep={{ q: pr, limit }}       // tham số muốn giữ lại
+    />
+ 
       <div className="mx-auto max-w-sm px-4">
-        <form method="get" className="relative">
+      
           <Search className="absolute left-3 top-3.5" size={18} />
           <input
             name="q"
             className="w-full rounded-2xl border border-gray-300 bg-white pl-10 pr-3 py-2.5 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Tìm kiếm theo khách hàng, ID đơn hàng"
           />
-     
 
-        </form>
+
+        
 
       </div>
-      {/* Ô chọn địa điểm */}
-      <div className="mx-auto max-w-sm px-4">
-        <div className="rounded-2xl border bg-white p-3 shadow-sm flex items-start gap-3">
-          <div className="rounded-full bg-blue-50 p-2">
-            <MapPin size={18} className="text-blue-600" />
-          </div>
-          <div className="flex-1">
-            <div className="font-medium">
-              {rows[0]?.dd?.TenDiaDiem || "Chưa chọn địa điểm"}
-            </div>
-            <div className="text-[13px] text-gray-600">
-              {rows[0]?.dd?.DiaChi || "Chưa chọn địa điểm"}
-              {/* Nếu có địa chỉ chi tiết thì render ở đây */}
-              {/* Ví dụ: 10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh */}
-            </div>
-          </div>
-          <ChevronDown size={18} className="text-gray-500" />
-        </div>
-      </div>
-
+</form>
       {/* Danh sách phiếu */}
       <ul className="mx-auto max-w-sm p-4 space-y-3">
         {rows.map((r) => {
