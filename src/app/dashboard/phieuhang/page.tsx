@@ -8,18 +8,12 @@ import LogoutBtn from "@/app/dashboard/LogoutBtn";
 import RedirectBtn from "@/app/dashboard/RedirectBtn";
 import { Search, ChevronRight, ChevronLeft } from "lucide-react";
 import DiadiemSelect from './DropDownDiaDiem';
+import DetailPrice from './DetailPrice';
+import React, { useState } from "react";
 
 type Search = { [k: string]: string | string[] | undefined };
-const STATUS_BADGE: Record<string, string> = {
-  DANG_XU_LY: "bg-green-50 text-green-700",
-  SAN_SANG: "bg-emerald-50 text-emerald-700",
-  HOAN_THANH: "bg-slate-100 text-slate-700",
-};
-const STATUS_LABEL: Record<string, string> = {
-  DANG_XU_LY: "Đang xử lý",
-  SAN_SANG: "Sẵn sàng",
-  HOAN_THANH: "Đã hoàn thành",
-};
+
+
 const STATUS_ORDER = [
   "DANG_XU_LY",
   "SAN_SANG",
@@ -53,7 +47,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
   const offset = (page - 1) * limit;
 
   const API = process.env.DIRECTUS_URL!;
-  const ASSETS = process.env.NEXT_PUBLIC_DIRECTUS_ASSETS ?? process.env.DIRECTUS_URL ?? "";
+
 
   // Lấy danh sách phiếu
   const q = new URL(`${API}/items/phieuhang`);
@@ -108,18 +102,17 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
     // Đơn trong phiếu → lấy ảnh AnhNhan
     let ids = parseDonhangs(p.Donhangs);
     let imgs: string[] = [];
+    let idsgh: number[] = [];
     if (ids.length) {
       const dhURL = new URL(`${API}/items/donhang`);
-      dhURL.searchParams.set("fields", "ID,AnhNhan");
+      dhURL.searchParams.set("fields", "ID,AnhNhan,GoiHangs");
       dhURL.searchParams.set("filter[ID][_in]", ids.join(","));
-      const dhRes = await directusFetch(dhURL.toString(), {
-        headers: { Authorization: `Bearer ${token}` },
-        cache: "no-store",
-      });
+      const dhRes = await directusFetch(dhURL.toString());
       if (dhRes.ok) {
         const dh = await dhRes.json();
         const arr: any[] = dh?.data ?? [];
         imgs = arr.map(r => r?.AnhNhan).filter(Boolean);
+         idsgh = arr.map(r => r?.GoiHangs).filter(Boolean);
       }
     }
 
@@ -128,6 +121,7 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
       kh,
       dd,
       imgs,
+      idsgh,
       ids,                       // danh sách id ảnh
       tong: Number(p.TongTien ?? 0),
       tt: String(p.TrangThai),
@@ -149,7 +143,11 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
 
   }
   const hasNext = phieuRows.length === limit;
-
+  // Danh mục gói hàng
+  const goiRes = await directusFetch(
+    `/items/goihang?fields=ID,TenGoi,GiaTien&limit=-1`
+  );
+  const goiHang = (await goiRes.json()).data ?? [];
   return (
     <main className="p-6">
 
@@ -169,17 +167,17 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
           <LogoutBtn />
         </div>
       </div>
-       
- <form method="get" className="relative">
-     <DiadiemSelect
-      options={diadiems}
-      value={ddParam}               // giá trị đang chọn
-      keep={{ q: pr, limit }}       // tham số muốn giữ lại
-    />
- 
-      <div className="mx-auto max-w-sm px-4">
+
+      <form method="get" className="relative">
+        <DiadiemSelect
+          options={diadiems}
+          value={ddParam}               // giá trị đang chọn
+          keep={{ q: pr, limit }}       // tham số muốn giữ lại
+        />
+
+        <div className="mx-auto max-w-sm px-4">
+
       
-          <Search className="absolute left-3 top-3.5" size={18} />
           <input
             name="q"
             className="w-full rounded-2xl border border-gray-300 bg-white pl-10 pr-3 py-2.5 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -187,66 +185,18 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
           />
 
 
-        
 
-      </div>
-</form>
+
+        </div>
+      </form>
       {/* Danh sách phiếu */}
       <ul className="mx-auto max-w-sm p-4 space-y-3">
         {rows.map((r) => {
-          const badge = STATUS_BADGE[r.tt] || "bg-slate-100 text-slate-700";
+          
           return (
             <li key={r.id} className="rounded-2xl bg-white border border-gray-200 shadow-sm">
-              {/* Header ID + trạng thái */}
-              <div className="flex items-center justify-between px-4 pt-3">
-                <div className="text-[13px] text-gray-600 font-medium">
-                  ID đơn hàng: #{r.id}
-                </div>
-                <span className={`text-[12px] font-medium px-2.5 py-1 rounded-full ${badge}`}>
-                  {STATUS_LABEL[r.tt] ?? r.tt}
-                </span>
-              </div>
+              <DetailPrice r={r} goiHang={goiHang} />
 
-              {/* Thông tin KH + grid ảnh */}
-              <div className="px-4 pt-2 pb-3">
-                <div className="font-semibold">
-                  {r.kh.TenKhachHang || "-"}{" "}
-                  <span className="text-gray-400">•</span>{" "}
-                  {r.kh.DienThoai || "-"}
-                </div>
-
-                {/* Grid ảnh + mã #id mỗi ảnh */}
-                {r.imgs.length ? (
-                  <div className="mt-2 border-dashed border-t pt-2">
-                    <div className="grid grid-cols-4 gap-2">
-                      {r.imgs.slice(0, 4).map((fid, idx) => (
-                        <a
-                          key={idx}
-                          href={`${ASSETS}/assets/${fid}`}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="block"
-                        >
-                          <img
-                            src={`${ASSETS}/assets/${fid}?width=88&height=88&fit=cover`}
-                            className="h-20 w-20 rounded-md border object-cover"
-                            alt={`Ảnh đơn #${r.ids[idx] ?? ""}`}
-                          />
-                          <div className="text-[11px] text-gray-500 mt-1">
-                            #{r.ids[idx] ?? ""}
-                          </div>
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                ) : null}
-
-                {/* Tổng tiền */}
-                <div className="mt-3 flex justify-between border-t pt-2">
-                  <span className="text-[14px] text-gray-500">Tổng tiền</span>
-                  <span className="font-bold">{r.tong.toLocaleString("vi-VN")} đ</span>
-                </div>
-              </div>
               {getNextStatus(String(r.tt), String(r.id), r.thanhtoan, r.ids)}
             </li>
           );
