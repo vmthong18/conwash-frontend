@@ -47,7 +47,20 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
   const offset = (page - 1) * limit;
 
   const API = process.env.DIRECTUS_URL!;
+   const meRes = await directusFetch(
+    `/users/me?fields=role.name,location,id`
+  );
 
+  let roleName = "";
+  let locationid = "";
+  let nameid = "";
+  if (meRes.ok) {
+    const me = await meRes.json();
+    roleName = me?.data?.role?.name ?? "";
+    locationid = me?.data?.location ?? ""
+    nameid = me?.data?.id ?? ""
+
+  }
 
   // Lấy danh sách phiếu
   const q = new URL(`${API}/items/phieuhang`);
@@ -169,11 +182,36 @@ export default async function PhieuHangList({ searchParams }: { searchParams: Se
       </div>
 
       <form method="get" className="relative">
-        <DiadiemSelect
+
+        {["Administrator"].includes(roleName)&&(
+          <DiadiemSelect
           options={diadiems}
           value={ddParam}               // giá trị đang chọn
           keep={{ q: pr, limit }}       // tham số muốn giữ lại
         />
+
+        )}
+         {!["Administrator"].includes(roleName)&&(
+            <div className="mx-auto max-w-sm px-4">
+        <div className="rounded-2xl border bg-white p-3 shadow-sm flex items-start gap-3">
+          <div className="rounded-full bg-blue-50 p-2">
+            <MapPin size={18} className="text-blue-600" />
+          </div>
+          <div className="flex-1">
+            <div className="font-medium">
+              {rows[0]?.dd?.TenDiaDiem || "Chưa chọn địa điểm"}
+            </div>
+            <div className="text-[13px] text-gray-600">
+              {rows[0]?.dd?.DiaChi || "Chưa chọn địa điểm"}
+              {/* Nếu có địa chỉ chi tiết thì render ở đây */}
+              {/* Ví dụ: 10-16 Trần Văn Sắc, Thảo Điền, Thủ Đức, Hồ Chí Minh */}
+            </div>
+          </div>
+          <ChevronDown size={18} className="text-gray-500" />
+        </div>
+      </div>
+
+        )}
 
         <div className="mx-auto max-w-sm px-4">
 

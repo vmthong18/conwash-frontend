@@ -198,6 +198,7 @@ export default function EditForm({
       const newPreviews: string[] = [];
       for (const f of files) {
         const fd = new FormData();
+        fd.append('folder', '5c8abeb5-07c0-4ffb-83b4-788a1e33af0d');
         fd.append("file", f);
         const r = await fetch("/api/upload", { method: "POST", body: fd });
         const data = await r.json();
@@ -234,6 +235,7 @@ export default function EditForm({
       const newPreviews: string[] = [];
       for (const f of files) {
         const fd = new FormData();
+        fd.append('folder', '5c8abeb5-07c0-4ffb-83b4-788a1e33af0d');
         fd.append("file", f);
         const r = await fetch("/api/upload", { method: "POST", body: fd });
         const data = await r.json();
@@ -252,10 +254,13 @@ export default function EditForm({
     setUploading(true);
     try {
       const fd = new FormData();
+      fd.append('folder', '63361a5d-2723-42b6-90dc-5416bc4e8ae5');
       fd.append("file", f);
+      
       const r = await fetch("/api/upload", { method: "POST", body: fd });
       const data = await r.json();
       if (!r.ok || !data.ok) throw new Error(data?.error || "Upload thất bại");
+      
       setAnhId(data.id);
       setAnhPreview(`${process.env.NEXT_PUBLIC_DIRECTUS_ASSETS ?? process.env.DIRECTUS_URL}/assets/${data.id}`);
     } catch (err: any) {
@@ -264,6 +269,7 @@ export default function EditForm({
       setUploading(false);
     }
   }
+  
   function removeImg_after(i: number) {
     setAnhIds_after((arr) => arr.filter((_, idx) => idx !== i));
     setPreviews_after((arr) => arr.filter((_, idx) => idx !== i));

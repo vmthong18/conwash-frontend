@@ -56,7 +56,7 @@ export default function DiadiemSelect({
           className="w-full appearance-none rounded-2xl pl-14 pr-9 py-3 text-[14px] leading-5
                      focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
         >
-          <option value="">Tất cả địa điểm</option>
+    
           {options.map((d) => (
             <option key={d.ID} value={String(d.ID)}>
               {d.TenDiaDiem}

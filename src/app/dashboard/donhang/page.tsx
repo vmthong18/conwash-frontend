@@ -11,8 +11,7 @@ export default async function donhangPage({ searchParams }: { searchParams: Sear
   const access = jar.get(process.env.COOKIE_ACCESS || "be_giay_access")?.value;
   if (!access) return <div className="p-8">Chưa đăng nhập.</div>;
   const meRes = await directusFetch(
-    `${process.env.DIRECTUS_URL}/users/me?fields=role.name,location,id`,
-    { headers: { Authorization: `Bearer ${access}` }, cache: "no-store" }
+    `/users/me?fields=role.name,location,id`
   );
 
   let roleName = "";
